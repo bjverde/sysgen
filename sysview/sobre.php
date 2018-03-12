@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 defined('APLICATIVO') or die();
 
 $login = ( array_key_exists('USER',$_SESSION[APLICATIVO]) ? $_SESSION[APLICATIVO]['USER']['LOGIN']:null );

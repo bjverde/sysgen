@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * SysGen - Gerador de sistemas com Formdin Framework
  * https://github.com/bjverde/sysgen

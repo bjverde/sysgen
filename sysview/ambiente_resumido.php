@@ -1,4 +1,4 @@
-﻿<style type="">
+<style type="">
 .vermelho
 {
 	color:#ff0000;
