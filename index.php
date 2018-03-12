@@ -19,7 +19,6 @@ $app->setVersionSystem(SYSTEM_VERSION);
 $app->setUnit('Show Me the code');
 $app->setLoginInfo('Bem-vindo');
 $app->setMainMenuFile('includes/menu.php');
-$app->setWaterMark('brasao_marca_dagua.png');
 
 /*
 $app->setLoginFile('sysview/login.php');
@@ -29,7 +28,8 @@ if (ArrayHelper::has('USER', $_SESSION[APLICATIVO]) ){
 */
 
 
-$app->setMenuIconsPath('images/');
+//$app->setMenuIconsPath('images/');
+$app->setWaterMark('images/2-code-gen-database-first.png');
 $app->setMainMenuFile('includes/menu.php');
 $app->run();
 ?>

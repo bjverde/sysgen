@@ -6,7 +6,7 @@
 $debug = false;
 
 define('SYSTEM_NAME'   , 'Gerador de Sistemas em FormDin');
-define('SYSTEM_NAME_SUB', 'wirte less, do more'); 
+define('SYSTEM_NAME_SUB', 'wirte less, do more. But "Talk is Cheap. Show me the Code"! '); 
 define('SYSTEM_ACRONYM', 'sysGen');
 define('SYSTEM_VERSION', 'v 0.1.0');
 define('APLICATIVO',SYSTEM_ACRONYM);
