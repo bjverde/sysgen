@@ -7,7 +7,7 @@
  */
 defined('APLICATIVO') or die();
 
-$frm = new TForm('Configurações do PHP',500,700);
+$frm = new TForm('Configurações do PHP',200,450);
 $frm->setFlat(true);
 $frm->setMaximize(true);
 $html = $frm->addHtmlField('conf','');

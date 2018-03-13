@@ -18,6 +18,7 @@ class TestConfigHelper {
 			$result = true;
 		}else{
 			$texto =  $texto.'<span class="failure">'.phpversion().' atualize seu sistema para o PHP 5.4.0 ou seperior </span><br>';
+			$texto =  $texto.'<br><br><span class="alert">O FormDin precisa de uma versão mais atual do PHP</span><br>';
 			$html->add($texto);
 			$result = false;
 		}
