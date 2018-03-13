@@ -31,5 +31,7 @@ if (ArrayHelper::has('USER', $_SESSION[APLICATIVO]) ){
 //$app->setMenuIconsPath('images/');
 $app->setWaterMark('images/2-code-gen-database-first.png');
 $app->setMainMenuFile('includes/menu.php');
+
+$app->setDefaultModule('star_gen.php');
 $app->run();
 ?>
