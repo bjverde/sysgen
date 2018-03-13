@@ -4,8 +4,11 @@
  * https://github.com/bjverde/sysgen
  */
 
+
+// 
 //Constantes e configurações
 require_once('includes/constantes.php');
+require_once('includes/classes/TestConfigHelper.class.php');
 
 include ('../base/classes/webform/TApplication.class.php');
 
@@ -32,6 +35,6 @@ if (ArrayHelper::has('USER', $_SESSION[APLICATIVO]) ){
 $app->setWaterMark('images/2-code-gen-database-first.png');
 $app->setMainMenuFile('includes/menu.php');
 
-$app->setDefaultModule('star_gen.php');
+//$app->setDefaultModule('gen00.php');
 $app->run();
 ?>

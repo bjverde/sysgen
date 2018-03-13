@@ -1,4 +1,8 @@
 <?php
+/**
+ * SysGen - Gerador de sistemas com Formdin Framework
+ * https://github.com/bjverde/sysgen
+ */
 defined('APLICATIVO') or die();
 
 $frm = new TForm('Gerador',500,700);
