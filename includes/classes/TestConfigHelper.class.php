@@ -5,17 +5,6 @@
  */
 class TestConfigHelper {
 	
-	public static function testar($extensao=null,$html){
-		if( extension_loaded($extensao) )	{
-			$html->add('<b>'.$extensao.'</b>: <span class="success">Instalada.</span><br>');
-			$result = true;
-		}else {
-			$html->add('<b>'.$extensao.'</b>: <span class="failure">Não instalada</span><br>');
-			$result = false;
-		}
-		return $result;
-	}
-	
 	public static function phpVersionValid($html){
 		$texto = '<b>Versão do PHP</b>: ';
 		if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
@@ -32,6 +21,81 @@ class TestConfigHelper {
 			$html->add($texto);
 			$result = false;
 		}
+		return $result;
+	}
+	
+	public static function testar($extensao=null,$html){
+		if( extension_loaded($extensao) )	{
+			$html->add('<b>'.$extensao.'</b>: <span class="success">Instalada.</span><br>');
+			$result = true;
+		}else {
+			$html->add('<b>'.$extensao.'</b>: <span class="failure">Não instalada</span><br>');
+			$result = false;
+		}
+		return $result;
+	}
+	
+	public static function validatePDO($DBMS,$html){		
+		$result = false;
+		if( self::testar('PDO',$html) )	{
+			$result = true;
+		}
+		
+		if($result == false){
+			$texto ='<span class="alert">Instale a extensão PDO. DEPOIS tente novamente</span><br>';
+			$texto = $texto.'(PHP Data Objects) é uma extensão que fornece uma interface padronizada para trabalhar com diversos bancos<br>';
+			$html->add($texto);
+		}
+		return $result;
+	}
+	
+	public static function validateDBMS($DBMS,$html){
+		// https://secure.php.net/manual/pt_BR/pdo.drivers.php
+		$result = false;
+		if( $DBMS == DBMS_MYSQL )	{
+			if ( self::testar('PDO_MYSQL',$html)) {
+				$result = true;
+			}
+		}else if( $DBMS == DBMS_SQLITE){
+			if ( self::testar('PDO_SQLITE',$html)) {
+				$result = true;
+			}
+		}else if( $DBMS == DBMS_SQLSERVER){
+			if ( self::testar('PDO_SQLSRV',$html)) {
+				$result = true;
+			}
+		}else if( $DBMS == DBMS_ACCESS){
+			if ( self::testar('PDO_ODBC',$html)) {
+				$result = true;
+			}
+		}else if( $DBMS == DBMS_FIREBIRD){
+			if ( self::testar('PDO_FIREBIRD',$html)) {
+				$result = true;
+			}
+		}else if( $DBMS == DBMS_ORACLE){
+			if ( self::testar('PDO_OCI',$html)) {
+				$result = true;
+			}
+		}else if( $DBMS == DBMS_POSTGRES){
+			if ( self::testar('PDO_PGSQL',$html)) {
+				$result = true;
+			}
+		}
+		
+		if($result == false){
+			$texto ='<br><span class="alert">Instale a extensão PDO para banco de dados: '.$DBMS.'.<br> DEPOIS tente novamente</span><br>';
+			$html->add($texto);
+		}
+		
+		return $result;
+	}
+	
+	public static function validatePDOAndDBMS($DBMS,$html){
+		if( self::validatePDO($DBMS, $html) && self::validateDBMS($DBMS, $html) )	{
+			$result = true;
+		}else{
+			$result = false;
+		}		
 		return $result;
 	}
 }

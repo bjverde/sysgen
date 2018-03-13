@@ -7,28 +7,6 @@
  */
 defined('APLICATIVO') or die();
 
-function testar($extensao=null,$html){
-	if( extension_loaded($extensao) )	{
-		$html->add('<b>'.$extensao.'</b>: <span class="verde">Instalada.</span><br>');
-		return true;
-	}else {
-		$html->add('<b>'.$extensao.'</b>: <span class="failure">Não instalada</span><br>');
-		return false;
-	}
-}
-
-function phpVersionOK(){
-	$texto = '<b>Versão do PHP</b>: ';
-	if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
-		$texto =  $texto.'<span class="verde">'.phpversion().'</span><br>';
-	}else{
-		$texto =  $texto.'<span class="failure">'.phpversion().' atualize seu sistema para o PHP 5.4.0 ou seperior </span><br>';
-	}
-	return $texto;
-}
-
-
-
 $frm = new TForm('Configurações do PHP',500,700);
 $frm->setFlat(true);
 $frm->setMaximize(true);
@@ -55,7 +33,7 @@ if(TestConfigHelper::phpVersionValid($html)){
 	
 	$acao = isset($acao) ? $acao : null;
 	switch( $acao ) {
-		case 'Salvar':
+		case 'Continuar':
 			if ( $frm->validate() ) {
 				$_SESSION[APLICATIVO]['DBMS']=$frm->get('DBMS');
 				$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM']=$frm->get('GEN_SYSTEM_ACRONYM');
