@@ -6,17 +6,17 @@
  */
 defined('APLICATIVO') or die();
 
-$frm = new TForm('Gerador',500,700);
+$frm = new TForm(Message::GEN01_TITLE,500,700);
 $frm->setFlat(true);
 $frm->setMaximize(true);
-$frm->addGroupField('gpx1','Requisito do PHP');
+$frm->addGroupField('gpx1',Message::GEN01_GPX1_TITLE);
 	$html = $frm->addHtmlField('conf','');
 	$html->add('<br><b>Extensões PHP necessárias para o correto funcionamento:</b><br>');
 	$validoPDOAndDBMS = TestConfigHelper::validatePDOAndDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'],$html);
 $frm->closeGroup();
 
 if($validoPDOAndDBMS){
-	$frm->addGroupField('gpx2','Configurações de Banco');
+	$frm->addGroupField('gpx2',Message::GEN01_GPX2_TITLE);
 	$pc = $frm->addPageControl('pc');
 	
 		$showAba = TestConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_MYSQL);

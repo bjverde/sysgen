@@ -5,7 +5,7 @@
  */
 defined('APLICATIVO') or die();
 
-$frm = new TForm('Tabelas do Banco',500,700);
+$frm = new TForm(Message::GEN02_TITLE,500,700);
 $frm->setFlat(true);
 $frm->setMaximize(true);
 
@@ -34,6 +34,9 @@ switch( $acao ) {
 
 
 try {
+	
+	FolderHelper::mkDirRoot();
+	
 	$dbType   = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
 	$user     = $_SESSION[APLICATIVO]['DBMS']['USER'];
 	$password = $_SESSION[APLICATIVO]['DBMS']['PASSWORD'];

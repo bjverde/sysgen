@@ -14,14 +14,11 @@ class FolderHelper {
 		}
 	}
 	
-	public static function mkDirRoot($GEN_SYSTEM_ACRONYM){
-		$path = ROOT_PATH.DS.$GEN_SYSTEM_ACRONYM;
-		
+	public static function mkDirRoot(){
+		$path = ROOT_PATH.DS.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];		
 		if(!is_dir($path)) {
 			mkdir($path, 0744, true);
 		}
 	}
-	
-	
 }
 ?>
