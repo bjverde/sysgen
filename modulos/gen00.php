@@ -35,7 +35,8 @@ if(TestConfigHelper::phpVersionValid($html)){
 	switch( $acao ) {
 		case 'Continuar':
 			if ( $frm->validate() ) {
-				$_SESSION[APLICATIVO]['DBMS']=$frm->get('DBMS');
+				$_SESSION[APLICATIVO]=null;
+				$_SESSION[APLICATIVO]['DBMS']['TYPE']=$frm->get('DBMS');
 				$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM']=$frm->get('GEN_SYSTEM_ACRONYM');
 				$_SESSION[APLICATIVO]['GEN_SYSTEM_NAME']=$frm->get('GEN_SYSTEM_NAME');
 				$frm->redirect('gen01.php','Redirect realizado com sucesso.',true);

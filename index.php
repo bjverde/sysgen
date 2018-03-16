@@ -20,7 +20,7 @@ $app->setSigla(SYSTEM_ACRONYM);
 $app->setVersionSystem(SYSTEM_VERSION);
 
 $app->setUnit('Show Me the code');
-$app->setLoginInfo('Bem-vindo');
+$app->setLoginInfo('Feito é melhor que perfeito !!');
 $app->setMainMenuFile('includes/menu.php');
 
 /*
@@ -34,7 +34,6 @@ if (ArrayHelper::has('USER', $_SESSION[APLICATIVO]) ){
 //$app->setMenuIconsPath('images/');
 $app->setWaterMark('images/2-code-gen-database-first.png');
 $app->setMainMenuFile('includes/menu.php');
-
-//$app->setDefaultModule('gen00.php');
+$app->setDefaultModule('gen00.php');
 $app->run();
 ?>

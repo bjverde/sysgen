@@ -1,5 +1,3 @@
-<link href="css/sysgen_resumo.css" rel="stylesheet" type="text/css" />
-
 <?php
 /**
  * SysGen - Gerador de sistemas com Formdin Framework
@@ -7,24 +5,22 @@
  */
 defined('APLICATIVO') or die();
 
-var_dump($_SESSION[APLICATIVO]);
-
 $frm = new TForm('Gerador',500,700);
 $frm->setFlat(true);
 $frm->setMaximize(true);
 $frm->addGroupField('gpx1','Requisito do PHP');
 	$html = $frm->addHtmlField('conf','');
 	$html->add('<br><b>Extensões PHP necessárias para o correto funcionamento:</b><br>');
-	$validoPDOAndDBMS = TestConfigHelper::validatePDOAndDBMS($_SESSION[APLICATIVO]['DBMS'],$html);
+	$validoPDOAndDBMS = TestConfigHelper::validatePDOAndDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'],$html);
 $frm->closeGroup();
 
 if($validoPDOAndDBMS){
 	$frm->addGroupField('gpx2','Configurações de Banco');
 	$pc = $frm->addPageControl('pc');
 	
-		$showAba = TestConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS'], DBMS_MYSQL);
+		$showAba = TestConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_MYSQL);
 		$pc->addPage(DBMS_MYSQL,$showAba,$showAba,'abamy');
-			$frm->addHiddenField('myDbType','mysql');
+			$frm->addHiddenField('myDbType',DBMS_MYSQL);
 			$frm->addTextField('myHost'	,'Host:',20,true,20,'127.0.0.0.1',true,null,null,true);
 			$frm->addTextField('myDb	','Database:',20,true,20,'test',true,null,null,true);
 			$frm->addTextField('myUser'	,'User:',40,true,20,'root',false,null,null,true);
@@ -33,18 +29,17 @@ if($validoPDOAndDBMS){
 			$frm->addButton('Testar Conexão',null,'btnTestarmy','testarConexao("my")',null,true,false);
 			$frm->addHtmlField('myGride'	,'');
 
-		$showAba = TestConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS'], DBMS_SQLITE);
+		$showAba = TestConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_SQLITE);
 		$pc->addPage(DBMS_SQLITE,$showAba,$showAba,'abaSqlite');
-			$frm->addHiddenField('sqDbType','sqlite');
+			$frm->addHiddenField('sqDbType',DBMS_SQLITE);
 			$frm->addTextField('sqDb	','Database:',80,true,80,'bancos_locais/bdApoio.s3db',false,null,null,true);
 			$frm->addButton('Testar Conexão',null,'btnTestarsq','testarConexao("sq")',null,true,false);
-			$frm->addMemoField('sqSql'	,'Sql:',10000,false,90,5,true,true,true,null,true);
 			$frm->addHtmlField('sqGride'	,'');
 			
 		
-		$showAba = TestConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS'], DBMS_SQLSERVER);
+		$showAba = TestConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_SQLSERVER);
 		$pc->addPage(DBMS_SQLSERVER,$showAba,$showAba,'abass');								
-			$frm->addHiddenField('ssDbType','sqlserver');
+			$frm->addHiddenField('ssDbType',DBMS_SQLSERVER);
 			$frm->addTextField('ssHost'    ,'Host:',50,true,50,'127.0.0.0.1',true,null,null,true);
 			$frm->addTextField('ssDb'      ,'Database:',20,true,20,'Northwind',true,null,null,true);
 			$frm->addTextField('ssUser'    ,'User:',40,true,20,'sa',false,null,null,true);
@@ -54,9 +49,9 @@ if($validoPDOAndDBMS){
 			$frm->addHtmlField('ssGride'	,'');
 			
 			
-		$showAba = TestConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS'], DBMS_POSTGRES);
+		$showAba = TestConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_POSTGRES);
 		$pc->addPage(DBMS_POSTGRES,$showAba,$showAba,'abapg');
-			$frm->addHiddenField('pgDbType','postgres');
+			$frm->addHiddenField('pgDbType',DBMS_POSTGRES);
 			$frm->addTextField('pgHost','Host:',20,true,20,'127.0.0.0.1',true,null,null,true);
 			$frm->addTextField('pgDb	','Database:',20,true,20,'test',true,null,null,true);
 			$frm->addTextField('pgUser','User:',40,true,20,'postgres',false,null,null,true);
@@ -67,9 +62,9 @@ if($validoPDOAndDBMS){
 			$frm->addHtmlField('pgGride','');
 
 
-		$showAba = TestConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS'], DBMS_ORACLE);
+		$showAba = TestConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_ORACLE);
 		$pc->addPage(DBMS_ORACLE,$showAba,$showAba,'abaora');
-			$frm->addHiddenField('oraDbType','oracle');
+			$frm->addHiddenField('oraDbType',DBMS_ORACLE);
 			$frm->addTextField('oraHost'	,'Host:',50,true,50,'127.0.0.0.1',true,null,null,true);
 			$frm->addTextField('oraDb'		,'Database:',20,true,20,'xe',true,null,null,true);
 			$frm->addTextField('oraUser'	,'User:',40,true,20,'root',false,null,null,true);
@@ -77,8 +72,6 @@ if($validoPDOAndDBMS){
 			$frm->addButton('Testar Conexão',null,'btnTestarora','testarConexao("ora")',null,true,false);
 			$frm->addHtmlField('oraGride'	,'');
 	
-	
-
 	$frm->closeGroup(); //Fechando Abas
 	$frm->closeGroup(); //Close Group
 		
@@ -86,25 +79,40 @@ if($validoPDOAndDBMS){
 
 $frm->addButton('Voltar', null, 'Voltar', null, null, true, false);
 $frm->addButton('Limpar', null, 'Limpar', null, null, false, false);
+$frm->addButton('Gerar estrutura', 'Gerar', 'Gerar', null, null, false, false);
 
-$_POST['banco'] = isset($_POST['banco']) ? $_POST['banco'] : '';
-$banco = $_POST['banco'];
-$Schema = isset($_POST[$banco.'Schema']) ? $_POST[$banco.'Schema'] : '';
+
+$banco    = PostHelper::get('banco');
+$dbType   = PostHelper::get('dbType');
+$user     = PostHelper::get($banco.'User');
+$password = PostHelper::get($banco.'Pass');
+$dataBase = PostHelper::get($banco.'Db');
+$host     = PostHelper::get($banco.'Host');
+$port     = PostHelper::get($banco.'Port');
+$schema   = PostHelper::get($banco.'Schema');
+$sql      = PostHelper::get($banco.'Sql');
 
 $acao = isset($acao) ? $acao : null;
 switch( $acao ) {
 	case 'testar_conexao':
 		//prepareReturnAjax(0,null, $banco.print_r($_POST,TRUE) );
 		if( $banco == 'my' || $banco == 'pg' || $banco == 'ora'|| $banco == 'ss'){
-			if( ! $_POST[$banco.'User'] ){
+			if( ! $user ){
 				prepareReturnAjax(0,null,'Informe o Usuário');
 			}
 		}
-		$dao = new TDAO(null,$_POST['dbType'],$_POST[$banco.'User'],$_POST[$banco.'Pass'],$_POST[$banco.'Db'],$_POST[$banco.'Host'],$_POST[$banco.'Port'],$Schema);
-		if( $dao->connect() ) {
-			prepareReturnAjax(2,null,'Conexão OK!');
-		}
-		prepareReturnAjax(0,null, $dao->getError());
+		$dao = new TDAO(null,$dbType,$user,$password,$dataBase,$host,$port,$schema);
+		if( $dao->connect() ) {			
+			$_SESSION[APLICATIVO]['DBMS']['USER'] = $user;
+			$_SESSION[APLICATIVO]['DBMS']['PASSWORD'] = $password;
+			$_SESSION[APLICATIVO]['DBMS']['DATABASE'] = $dataBase;
+			$_SESSION[APLICATIVO]['DBMS']['HOST'] = $host;
+			$_SESSION[APLICATIVO]['DBMS']['PORT'] = $port;
+			$_SESSION[APLICATIVO]['DBMS']['SCHEMA'] = $schema;
+			prepareReturnAjax(2,null,'Conexão OK! Pode clicar em "Gerar"');
+		}else{
+			prepareReturnAjax(0,null, $dao->getError());
+		}		
 	break;
 	//--------------------------------------------------------------------------------
 	case 'Voltar':
@@ -113,6 +121,10 @@ switch( $acao ) {
 	//--------------------------------------------------------------------------------
 	case 'Limpar':
 		$frm->clearFields();
+	break;
+	//--------------------------------------------------------------------------------
+	case 'Gerar':
+		$frm->redirect('gen02.php','Redirect realizado com sucesso.',true);
 	break;
 }
 
