@@ -8,7 +8,9 @@
 // 
 //Constantes e configurações
 require_once('includes/constantes.php');
-require_once('includes/classes/TestConfigHelper.class.php');
+require_once('classes/FolderHelper.class.php');
+require_once('classes/Message.class.php');
+require_once('classes/TestConfigHelper.class.php');
 
 include ('../base/classes/webform/TApplication.class.php');
 

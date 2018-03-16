@@ -11,5 +11,6 @@ define('SYSTEM_ACRONYM', 'sysGen');
 define('SYSTEM_VERSION', 'v 0.1.0');
 define('APLICATIVO',SYSTEM_ACRONYM);
 define('DS'    , DIRECTORY_SEPARATOR);
+define('ROOT_PATH'    , '../');
 
 ?>
