@@ -1,3 +1,4 @@
+<link href="css/sysgen_resumo.css" rel="stylesheet" type="text/css" />
 <?php
 /**
  * SysGen - Gerador de sistemas com Formdin Framework
