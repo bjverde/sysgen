@@ -99,5 +99,15 @@ class TestConfigHelper {
 		}		
 		return $result;
 	}
+	
+	public static function showAbaDBMS($DBMS,$DBMSAba){
+		if( $DBMS == $DBMSAba )	{
+			$result = true;
+		}else{
+			$result = false;
+		}
+		return $result;
+	}
+	
 }
 ?>
