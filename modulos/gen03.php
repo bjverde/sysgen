@@ -26,7 +26,7 @@ $frm->addButton('Gerar estrutura', 'Gerar', 'Gerar', null, null, false, false);
 $acao = isset($acao) ? $acao : null;
 switch( $acao ) {
 	case 'Voltar':
-		$frm->redirect('gen01.php','Redirect realizado com sucesso.',true);
+		$frm->redirect('gen02.php','Redirect realizado com sucesso.',true);
 		break;
 		//--------------------------------------------------------------------------------
 	case 'Limpar':
@@ -40,34 +40,9 @@ switch( $acao ) {
 
 
 try {
-	$dbType   = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
-	$user     = $_SESSION[APLICATIVO]['DBMS']['USER'];
-	$password = $_SESSION[APLICATIVO]['DBMS']['PASSWORD'];
-	$dataBase = $_SESSION[APLICATIVO]['DBMS']['DATABASE'];
-	$host     = $_SESSION[APLICATIVO]['DBMS']['HOST'];
-	$port     = $_SESSION[APLICATIVO]['DBMS']['PORT'];
-	$schema   = $_SESSION[APLICATIVO]['DBMS']['SCHEMA'];
+	TConfigHelper::loadFieldsFromDatabase();
 	
-	$dao = new TDAO(null,$dbType,$user,$password,$dataBase,$host,$port,$schema);
-	$listTables = $dao->loadTablesFromDatabase();
-	if(!is_array($listTables)){
-		throw new InvalidArgumentException('List of Tables Names not is array');
-	}
-	
-	$path = ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
-	FolderHelper::mkDir($path);
-	$html->add(TConfigHelper::showMsg(true, Message::GEN02_MKDIR_SYSTEM.$path));
-	FolderHelper::copySystemSkeletonToNewSystem();
-	$html->add(TConfigHelper::showMsg(true, Message::GEN02_COPY_SYSTEM_SKELETON));
-	FolderHelper::createFileConstants();
-	$html->add(TConfigHelper::showMsg(true, Message::GEN02_CREATED_CONSTANTS));
-	FolderHelper::createFileConfigDataBase();
-	$html->add(TConfigHelper::showMsg(true, Message::GEN02_CREATED_CONFIG_DATABASE));
-	FolderHelper::createFileMenu($listTables);
-	$html->add(TConfigHelper::showMsg(true, Message::GEN02_CREATED_MENU));
-	FolderHelper::createFileIndex();
-	$html->add(TConfigHelper::showMsg(true, Message::GEN02_CREATED_INDEX));
-	
+	$listTables = null;
 	$gride = new TGrid( 'gd'        // id do gride
 			,'Lista de Tabelas'     // titulo do gride
 			,$listTables 	      // array de dados

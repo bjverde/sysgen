@@ -143,5 +143,16 @@ class TConfigHelper {
 		}
 		return $dados;
 	}
+	
+	public static function loadFieldsFromDatabase(){
+		$listTables = self::loadTablesFromDatabase();
+		$listTableNames = $listTables['TABLE_NAME'];
+		foreach ($listTableNames as $key=>$value){
+			$dao = self::getTDAOConect($value);
+			$dados = $dao->loadFieldsFromDatabase();
+			var_dump($dados);
+		}
+		//return $dados;
+	}
 }
 ?>
