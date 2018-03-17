@@ -15,6 +15,8 @@ final class Message {
 	const GEN02_CREATED_CONSTANTS       = 'Criado arquivo de constantes.';
 	const GEN02_CREATED_CONFIG_DATABASE = 'Criado arquivo de configuração de banco.';
 	const GEN02_CREATED_MENU  = 'Criado arquivo de menu.';
-	const GEN02_CREATED_INDEX = 'Criado arquivo index do sistema.';	
+	const GEN02_CREATED_INDEX = 'Criado arquivo index do sistema.';
+	
+	const GEN03_TITLE        = 'Etapa 03 de 03';
 }
 ?>
