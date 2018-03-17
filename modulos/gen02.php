@@ -34,25 +34,13 @@ switch( $acao ) {
 		break;
 		//--------------------------------------------------------------------------------
 	case 'Gerar':
-		$frm->redirect('gen02.php','Redirect realizado com sucesso.',true);
+		$frm->redirect('gen03.php','Redirect realizado com sucesso.',true);
 		break;
 }
 
 
-try {
-	$dbType   = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
-	$user     = $_SESSION[APLICATIVO]['DBMS']['USER'];
-	$password = $_SESSION[APLICATIVO]['DBMS']['PASSWORD'];
-	$dataBase = $_SESSION[APLICATIVO]['DBMS']['DATABASE'];
-	$host     = $_SESSION[APLICATIVO]['DBMS']['HOST'];
-	$port     = $_SESSION[APLICATIVO]['DBMS']['PORT'];
-	$schema   = $_SESSION[APLICATIVO]['DBMS']['SCHEMA'];
-	
-	$dao = new TDAO(null,$dbType,$user,$password,$dataBase,$host,$port,$schema);
-	$dados = $dao->loadTablesFromDatabase();
-	if(!is_array($dados)){
-		throw new InvalidArgumentException('List of Tables Names not is array');
-	}
+try {	
+	$listTables = TConfigHelper::loadTablesFromDatabase();
 	
 	$path = ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
 	FolderHelper::mkDir($path);
@@ -63,15 +51,16 @@ try {
 	$html->add(TConfigHelper::showMsg(true, Message::GEN02_CREATED_CONSTANTS));
 	FolderHelper::createFileConfigDataBase();
 	$html->add(TConfigHelper::showMsg(true, Message::GEN02_CREATED_CONFIG_DATABASE));
-	FolderHelper::createFileMenu($dados);
+	FolderHelper::createFileMenu($listTables);
 	$html->add(TConfigHelper::showMsg(true, Message::GEN02_CREATED_MENU));
 	FolderHelper::createFileIndex();
 	$html->add(TConfigHelper::showMsg(true, Message::GEN02_CREATED_INDEX));
+	$_SESSION[APLICATIVO]['STEP2']=true;
 	
-	$gride = new TGrid( 'gd'        // id do gride
-			,'Lista de Tabelas'     // titulo do gride
-			,$dados 	      // array de dados
-			);
+	$gride = new TGrid('gd'        // id do gride
+			          ,'Lista de Tabelas'     // titulo do gride
+			          ,$listTables 	      // array de dados
+			          );
 	$gride->setCreateDefaultEditButton(false);
 	$gride->setCreateDefaultDeleteButton(false);
 	$frm->addHtmlField('gride',$gride);

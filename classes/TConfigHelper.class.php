@@ -120,6 +120,28 @@ class TConfigHelper {
 			$msg = $msg.'<br>';
 		}
 		return $msg;
-	}	
+	}
+	
+	public static function getTDAOConect($tableName){
+		$dbType   = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
+		$user     = $_SESSION[APLICATIVO]['DBMS']['USER'];
+		$password = $_SESSION[APLICATIVO]['DBMS']['PASSWORD'];
+		$dataBase = $_SESSION[APLICATIVO]['DBMS']['DATABASE'];
+		$host     = $_SESSION[APLICATIVO]['DBMS']['HOST'];
+		$port     = $_SESSION[APLICATIVO]['DBMS']['PORT'];
+		$schema   = $_SESSION[APLICATIVO]['DBMS']['SCHEMA'];
+		
+		$dao = new TDAO($tableName,$dbType,$user,$password,$dataBase,$host,$port,$schema);
+		return $dao;
+	}
+	
+	public static function loadTablesFromDatabase(){
+		$dao = self::getTDAOConect(null);
+		$dados = $dao->loadTablesFromDatabase();
+		if(!is_array($dados)){
+			throw new InvalidArgumentException('List of Tables Names not is array');
+		}
+		return $dados;
+	}
 }
 ?>
