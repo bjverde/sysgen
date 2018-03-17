@@ -14,11 +14,31 @@ class FolderHelper {
 		}
 	}
 	
-	public static function mkDirRoot(){
-		$path = ROOT_PATH.DS.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];		
+	public static function mkDir($path){
 		if(!is_dir($path)) {
 			mkdir($path, 0744, true);
 		}
+	}
+	
+	public static function copySystemSkeletonToNewSystem(){
+		$pathSkeleton = 'system_skeleton';
+		$list = new RecursiveDirectoryIterator($pathSkeleton);
+		$recursivo = new RecursiveIteratorIterator($list);
+		$count =1;
+		foreach ($recursivo as $obj){
+			$count =$count+1;
+			echo '<hr><br>';
+			echo $count.'<br>';
+			echo $obj->getSubPath().'<br>';
+			if($obj->isFile() ){
+				echo $obj->getSubPathName().'<br>';
+			}
+		}
+		ini_set('xdebug.var_display_max_data', -1);
+		//echo('<pre>');
+		//d($list);
+		//d($recursivo);
+		//echo('</pre>');
 	}
 }
 ?>

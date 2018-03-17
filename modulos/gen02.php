@@ -1,3 +1,4 @@
+<link href="css/sysgen_resumo.css" rel="stylesheet" type="text/css" />
 <?php
 /**
  * SysGen - Gerador de sistemas com Formdin Framework
@@ -12,6 +13,10 @@ $frm->setMaximize(true);
 if (!ArrayHelper::has('USER', $_SESSION[APLICATIVO]['DBMS']) ){
 	$frm->redirect('gen01.php','Seu Mané teste as configurações de banco!!',true);
 }
+
+$frm->addGroupField('gpx1',Message::GEN02_GPX1_TITLE);
+	$html = $frm->addHtmlField('conf','');
+$frm->closeGroup();
 
 $frm->addButton('Voltar', null, 'Voltar', null, null, true, false);
 $frm->addButton('Limpar', null, 'Limpar', null, null, false, false);
@@ -34,8 +39,11 @@ switch( $acao ) {
 
 
 try {
+	$path = ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
+	FolderHelper::mkDir($path);
+	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_MKDIR_SYSTEM.$path));
 	
-	FolderHelper::mkDirRoot();
+	FolderHelper::copySystemSkeletonToNewSystem();
 	
 	$dbType   = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
 	$user     = $_SESSION[APLICATIVO]['DBMS']['USER'];

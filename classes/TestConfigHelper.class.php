@@ -109,5 +109,17 @@ class TestConfigHelper {
 		return $result;
 	}
 	
+	public static function showMsg($type,$msg){
+		if( $type == 1 )	{
+			$msg = '<span class="success">'.$msg.'</span><br>';
+		}else if ($type == 0){
+			$msg = '<span class="failure">'.$msg.'</span><br>';
+		}else if($type == -1 ){
+			$msg = '<span class="alert">'.$msg.'</span><br>';
+		}else {
+			$msg = $msg.'<br>';
+		}
+		return $msg;
+	}	
 }
 ?>

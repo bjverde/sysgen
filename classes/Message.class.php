@@ -7,6 +7,8 @@ final class Message {
 	const GEN01_GPX2_TITLE = 'Configurações de Banco';
 	
 	const GEN02_TITLE = 'Etapa 02 de 03';
+	const GEN02_GPX1_TITLE ='Ações executadas';
+	const GEN02_MKDIR_SYSTEM = 'Criado diretorio ';
 	
 	const SYSTEM_ACRONYM_INVALID = 'Sigla do sistema inválida ! Caracteres inválido (os permitidos são a-z, 0-9 _ ) ou até 50 caracteres';
 }
