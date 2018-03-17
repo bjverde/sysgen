@@ -6,7 +6,7 @@
  */
 defined('APLICATIVO') or die();
 
-$frm = new TForm(Message::GEN02_TITLE,500,700);
+$frm = new TForm(Message::GEN02_TITLE,200,700);
 $frm->setFlat(true);
 $frm->setMaximize(true);
 
@@ -38,6 +38,8 @@ switch( $acao ) {
 }
 
 
+
+
 try {
 	$path = ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
 	FolderHelper::mkDir($path);
@@ -67,6 +69,7 @@ try {
 	echo $dao->getError();
 	echo $e->getMessage();
 }
+
 
 $frm->show();
 ?>

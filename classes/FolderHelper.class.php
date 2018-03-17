@@ -21,24 +21,30 @@ class FolderHelper {
 	}
 	
 	public static function copySystemSkeletonToNewSystem(){
+		$pathNewSystem = ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
 		$pathSkeleton = 'system_skeleton';
+	
 		$list = new RecursiveDirectoryIterator($pathSkeleton);
-		$recursivo = new RecursiveIteratorIterator($list);
-		$count =1;
-		foreach ($recursivo as $obj){
+		$it = new RecursiveIteratorIterator($list);
+		
+		$count =0;
+		foreach ($it as $file) {
 			$count =$count+1;
-			echo '<hr><br>';
-			echo $count.'<br>';
-			echo $obj->getSubPath().'<br>';
-			if($obj->isFile() ){
-				echo $obj->getSubPathName().'<br>';
+			//echo 'linha: '.$count;
+			if($it->isDir()){
+				echo $count.' Dir: ';
+				echo ' ,SubPathName: ' . $it->getSubPathName();
+				echo ' ,SubPath:     ' . $it->getSubPath()."<br>";
+				self::mkDir($pathNewSystem.DS.$it->getSubPath());
+			}else{
+				echo $count.' File: ';
+				echo ' ,SubPathName: ' . $it->getSubPathName();
+				echo ' ,SubPath:     ' . $it->getSubPath()."<br>";
+				self::mkDir($pathNewSystem.DS.$it->getSubPath());
+				copy($pathSkeleton.DS.$it->getSubPathName(),$pathNewSystem.DS.$it->getSubPathName()); 
+				
 			}
 		}
-		ini_set('xdebug.var_display_max_data', -1);
-		//echo('<pre>');
-		//d($list);
-		//d($recursivo);
-		//echo('</pre>');
 	}
 }
 ?>
