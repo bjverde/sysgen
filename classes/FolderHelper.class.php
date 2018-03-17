@@ -37,5 +37,10 @@ class FolderHelper {
 			}
 		}
 	}
+	
+	public static function createFileConstants(){
+		$file = new TCreateConstants();
+		$file->saveFile();
+	}
 }
 ?>

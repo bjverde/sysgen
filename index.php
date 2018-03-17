@@ -8,11 +8,8 @@
 // 
 //Constantes e configurações
 require_once('includes/constantes.php');
-require_once('classes/FolderHelper.class.php');
-require_once('classes/Message.class.php');
-require_once('classes/TestConfigHelper.class.php');
-
-include ('../base/classes/webform/TApplication.class.php');
+require_once('../base/classes/webform/TApplication.class.php');
+require_once('classes/autoload_sysgen.php');
 
 
 $app = new TApplication(); // criar uma instancia do objeto aplicacao
