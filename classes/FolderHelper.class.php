@@ -27,19 +27,10 @@ class FolderHelper {
 		$list = new RecursiveDirectoryIterator($pathSkeleton);
 		$it = new RecursiveIteratorIterator($list);
 		
-		$count =0;
 		foreach ($it as $file) {
-			$count =$count+1;
-			//echo 'linha: '.$count;
-			if($it->isDir()){
-				echo $count.' Dir: ';
-				echo ' ,SubPathName: ' . $it->getSubPathName();
-				echo ' ,SubPath:     ' . $it->getSubPath()."<br>";
-				self::mkDir($pathNewSystem.DS.$it->getSubPath());
-			}else{
-				echo $count.' File: ';
-				echo ' ,SubPathName: ' . $it->getSubPathName();
-				echo ' ,SubPath:     ' . $it->getSubPath()."<br>";
+			if($it->isFile()){
+				//echo ' SubPathName: ' . $it->getSubPathName();
+				//echo ' SubPath:     ' . $it->getSubPath()."<br>";
 				self::mkDir($pathNewSystem.DS.$it->getSubPath());
 				copy($pathSkeleton.DS.$it->getSubPathName(),$pathNewSystem.DS.$it->getSubPathName()); 
 				

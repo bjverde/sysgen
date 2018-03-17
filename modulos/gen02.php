@@ -9,6 +9,7 @@ defined('APLICATIVO') or die();
 $frm = new TForm(Message::GEN02_TITLE,200,700);
 $frm->setFlat(true);
 $frm->setMaximize(true);
+$frm->setAutoSize(true);
 
 if (!ArrayHelper::has('USER', $_SESSION[APLICATIVO]['DBMS']) ){
 	$frm->redirect('gen01.php','Seu Mané teste as configurações de banco!!',true);
@@ -44,8 +45,8 @@ try {
 	$path = ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
 	FolderHelper::mkDir($path);
 	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_MKDIR_SYSTEM.$path));
-	
 	FolderHelper::copySystemSkeletonToNewSystem();
+	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_MKDIR_SYSTEM_SKELETON));
 	
 	$dbType   = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
 	$user     = $_SESSION[APLICATIVO]['DBMS']['USER'];
