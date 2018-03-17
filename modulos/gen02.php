@@ -46,8 +46,9 @@ try {
 	FolderHelper::mkDir($path);
 	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_MKDIR_SYSTEM.$path));
 	FolderHelper::copySystemSkeletonToNewSystem();
-	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_MKDIR_SYSTEM_SKELETON));
+	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_COPY_SYSTEM_SKELETON));
 	FolderHelper::createFileConstants();
+	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_CREATED_CONSTANTS));
 	
 	$dbType   = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
 	$user     = $_SESSION[APLICATIVO]['DBMS']['USER'];
