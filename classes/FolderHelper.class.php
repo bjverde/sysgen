@@ -47,5 +47,11 @@ class FolderHelper {
 		$file = new TCreateConfigDataBase();
 		$file->saveFile();
 	}
+	
+	public static function createFileMenu($listTable){
+		$listTableNames = $listTable['TABLE_NAME'];
+		$file = new TCreateMenu($listTableNames);
+		$file->saveFile();
+	}
 }
 ?>

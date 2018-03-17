@@ -20,10 +20,10 @@ class TCreateConstants extends  TCreateFileContent{
         $this->addLine('<?php');
         $this->addSysGenHeaderNote();
         $this->addBlankLine();
-        $this->addLine('define(\'SYSTEM_NAME\'   , \''.$_SESSION[APLICATIVO]['GEN_SYSTEM_NAME'].'\');');
-        $this->addLine('define(\'SYSTEM_ACRONYM\'   , \''.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].'\');');
-        $this->addLine('define(\'SYSTEM_VERSION\'   , \'v 0.1.0\');');
-        $this->addLine('define(\'APLICATIVO\'   , SYSTEM_ACRONYM);');
+        $this->addLine('define(\'SYSTEM_NAME\'    , \''.$_SESSION[APLICATIVO]['GEN_SYSTEM_NAME'].'\');');
+        $this->addLine('define(\'SYSTEM_ACRONYM\' , \''.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].'\');');
+        $this->addLine('define(\'SYSTEM_VERSION\' , \'v 0.1.0\');');
+        $this->addLine('define(\'APLICATIVO\'     , SYSTEM_ACRONYM);');
         $this->addLine('define(\'DS\'   , DIRECTORY_SEPARATOR);');
         $this->addLine('?>');
         if( $print){

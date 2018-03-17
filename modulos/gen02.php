@@ -39,19 +39,7 @@ switch( $acao ) {
 }
 
 
-
-
 try {
-	$path = ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
-	FolderHelper::mkDir($path);
-	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_MKDIR_SYSTEM.$path));
-	FolderHelper::copySystemSkeletonToNewSystem();
-	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_COPY_SYSTEM_SKELETON));
-	FolderHelper::createFileConstants();
-	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_CREATED_CONSTANTS));
-	FolderHelper::createFileConfigDataBase();
-	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_CREATED_CONFIG_DATABASE));
-	
 	$dbType   = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
 	$user     = $_SESSION[APLICATIVO]['DBMS']['USER'];
 	$password = $_SESSION[APLICATIVO]['DBMS']['PASSWORD'];
@@ -62,6 +50,21 @@ try {
 	
 	$dao = new TDAO(null,$dbType,$user,$password,$dataBase,$host,$port,$schema);
 	$dados = $dao->loadTablesFromDatabase();
+	if(!is_array($dados)){
+		throw new InvalidArgumentException('List of Tables Names not is array');
+	}
+	
+	$path = ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
+	FolderHelper::mkDir($path);
+	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_MKDIR_SYSTEM.$path));
+	FolderHelper::copySystemSkeletonToNewSystem();
+	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_COPY_SYSTEM_SKELETON));
+	FolderHelper::createFileConstants();
+	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_CREATED_CONSTANTS));
+	FolderHelper::createFileConfigDataBase();
+	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_CREATED_CONFIG_DATABASE));
+	FolderHelper::createFileMenu($dados);
+	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_CREATED_MENU));
 	
 	$gride = new TGrid( 'gd'        // id do gride
 			,'Lista de Tabelas'     // titulo do gride
