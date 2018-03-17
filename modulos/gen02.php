@@ -56,17 +56,17 @@ try {
 	
 	$path = ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
 	FolderHelper::mkDir($path);
-	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_MKDIR_SYSTEM.$path));
+	$html->add(TConfigHelper::showMsg(true, Message::GEN02_MKDIR_SYSTEM.$path));
 	FolderHelper::copySystemSkeletonToNewSystem();
-	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_COPY_SYSTEM_SKELETON));
+	$html->add(TConfigHelper::showMsg(true, Message::GEN02_COPY_SYSTEM_SKELETON));
 	FolderHelper::createFileConstants();
-	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_CREATED_CONSTANTS));
+	$html->add(TConfigHelper::showMsg(true, Message::GEN02_CREATED_CONSTANTS));
 	FolderHelper::createFileConfigDataBase();
-	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_CREATED_CONFIG_DATABASE));
+	$html->add(TConfigHelper::showMsg(true, Message::GEN02_CREATED_CONFIG_DATABASE));
 	FolderHelper::createFileMenu($dados);
-	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_CREATED_MENU));
+	$html->add(TConfigHelper::showMsg(true, Message::GEN02_CREATED_MENU));
 	FolderHelper::createFileIndex();
-	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_CREATED_INDEX));
+	$html->add(TConfigHelper::showMsg(true, Message::GEN02_CREATED_INDEX));
 	
 	$gride = new TGrid( 'gd'        // id do gride
 			,'Lista de Tabelas'     // titulo do gride

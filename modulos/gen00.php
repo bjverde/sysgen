@@ -13,7 +13,7 @@ $frm->setMaximize(true);
 $html = $frm->addHtmlField('conf','');
 
 
-if(TestConfigHelper::phpVersionValid($html)){
+if(TConfigHelper::phpVersionValid($html)){
 		
 	$dbType = array(DBMS_MYSQL=>'MySQL'
 			       ,DBMS_SQLITE=>'SQLITE'

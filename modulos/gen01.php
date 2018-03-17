@@ -12,14 +12,14 @@ $frm->setMaximize(true);
 $frm->addGroupField('gpx1',Message::GEN01_GPX1_TITLE);
 	$html = $frm->addHtmlField('conf','');
 	$html->add('<br><b>Extensões PHP necessárias para o correto funcionamento:</b><br>');
-	$validoPDOAndDBMS = TestConfigHelper::validatePDOAndDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'],$html);
+	$validoPDOAndDBMS = TConfigHelper::validatePDOAndDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'],$html);
 $frm->closeGroup();
 
 if($validoPDOAndDBMS){
 	$frm->addGroupField('gpx2',Message::GEN01_GPX2_TITLE);
 	$pc = $frm->addPageControl('pc');
 	
-		$showAba = TestConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_MYSQL);
+		$showAba = TConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_MYSQL);
 		$pc->addPage(DBMS_MYSQL,$showAba,$showAba,'abamy');
 			$frm->addHiddenField('myDbType',DBMS_MYSQL);
 			$frm->addTextField('myHost'	,'Host:',20,true,20,'127.0.0.0.1',true,null,null,true);
@@ -30,7 +30,7 @@ if($validoPDOAndDBMS){
 			$frm->addButton('Testar Conexão',null,'btnTestarmy','testarConexao("my")',null,true,false);
 			$frm->addHtmlField('myGride'	,'');
 
-		$showAba = TestConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_SQLITE);
+		$showAba = TConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_SQLITE);
 		$pc->addPage(DBMS_SQLITE,$showAba,$showAba,'abaSqlite');
 			$frm->addHiddenField('sqDbType',DBMS_SQLITE);
 			$frm->addTextField('sqDb	','Database:',80,true,80,'bancos_locais/bdApoio.s3db',false,null,null,true);
@@ -38,7 +38,7 @@ if($validoPDOAndDBMS){
 			$frm->addHtmlField('sqGride'	,'');
 			
 		
-		$showAba = TestConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_SQLSERVER);
+		$showAba = TConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_SQLSERVER);
 		$pc->addPage(DBMS_SQLSERVER,$showAba,$showAba,'abass');								
 			$frm->addHiddenField('ssDbType',DBMS_SQLSERVER);
 			$frm->addTextField('ssHost'    ,'Host:',50,true,50,'127.0.0.0.1',true,null,null,true);
@@ -50,7 +50,7 @@ if($validoPDOAndDBMS){
 			$frm->addHtmlField('ssGride'	,'');
 			
 			
-		$showAba = TestConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_POSTGRES);
+		$showAba = TConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_POSTGRES);
 		$pc->addPage(DBMS_POSTGRES,$showAba,$showAba,'abapg');
 			$frm->addHiddenField('pgDbType',DBMS_POSTGRES);
 			$frm->addTextField('pgHost','Host:',20,true,20,'127.0.0.0.1',true,null,null,true);
@@ -63,7 +63,7 @@ if($validoPDOAndDBMS){
 			$frm->addHtmlField('pgGride','');
 
 
-		$showAba = TestConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_ORACLE);
+		$showAba = TConfigHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_ORACLE);
 		$pc->addPage(DBMS_ORACLE,$showAba,$showAba,'abaora');
 			$frm->addHiddenField('oraDbType',DBMS_ORACLE);
 			$frm->addTextField('oraHost'	,'Host:',50,true,50,'127.0.0.0.1',true,null,null,true);
