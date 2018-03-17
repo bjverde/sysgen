@@ -27,7 +27,7 @@ class TCreateIndex extends  TCreateFileContent{
         $this->addLine('$app->setTitle(SYSTEM_NAME);');
         //$this->addLine('$app->setSUbTitle(SYSTEM_NAME_SUB);');
         $this->addLine('$app->setSigla(SYSTEM_ACRONYM);');
-        //$this->addLine('$app->setVersionSystem(SYSTEM_VERSION);');
+        $this->addLine('$app->setVersionSystem(SYSTEM_VERSION);');
         $this->addBlankLine();
         $this->addLine('$app->setMainMenuFile(\'includes/menu.php\');');
         $this->addLine('$app->run();');
