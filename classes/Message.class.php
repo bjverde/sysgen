@@ -13,6 +13,7 @@ final class Message {
 	const GEN02_MKDIR_SYSTEM = 'Criada pasta base ';
 	const GEN02_COPY_SYSTEM_SKELETON = 'Copiado estrutura básica de pastas.';
 	const GEN02_CREATED_CONSTANTS = 'Criado arquivo de constantes.';
+	const GEN02_CREATED_CONFIG_DATABASE = 'Criado arquivo de configuração de banco.';
 	
 }
 ?>

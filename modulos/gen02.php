@@ -49,6 +49,8 @@ try {
 	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_COPY_SYSTEM_SKELETON));
 	FolderHelper::createFileConstants();
 	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_CREATED_CONSTANTS));
+	FolderHelper::createFileConfigDataBase();
+	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_CREATED_CONFIG_DATABASE));
 	
 	$dbType   = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
 	$user     = $_SESSION[APLICATIVO]['DBMS']['USER'];

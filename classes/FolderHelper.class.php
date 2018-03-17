@@ -42,5 +42,10 @@ class FolderHelper {
 		$file = new TCreateConstants();
 		$file->saveFile();
 	}
+	
+	public static function createFileConfigDataBase(){
+		$file = new TCreateConfigDataBase();
+		$file->saveFile();
+	}
 }
 ?>
