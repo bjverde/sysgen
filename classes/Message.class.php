@@ -11,10 +11,10 @@ final class Message {
 	const GEN02_TITLE        = 'Etapa 02 de 03';
 	const GEN02_GPX1_TITLE   = 'Ações executadas';
 	const GEN02_MKDIR_SYSTEM = 'Criada pasta base ';
-	const GEN02_COPY_SYSTEM_SKELETON = 'Copiado estrutura básica de pastas.';
-	const GEN02_CREATED_CONSTANTS = 'Criado arquivo de constantes.';
+	const GEN02_COPY_SYSTEM_SKELETON    = 'Copiado estrutura básica de pastas.';
+	const GEN02_CREATED_CONSTANTS       = 'Criado arquivo de constantes.';
 	const GEN02_CREATED_CONFIG_DATABASE = 'Criado arquivo de configuração de banco.';
-	const GEN02_CREATED_MENU = 'Criado arquivo de menu.';
-	
+	const GEN02_CREATED_MENU  = 'Criado arquivo de menu.';
+	const GEN02_CREATED_INDEX = 'Criado arquivo index do sistema.';	
 }
 ?>

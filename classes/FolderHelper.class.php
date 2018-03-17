@@ -53,5 +53,10 @@ class FolderHelper {
 		$file = new TCreateMenu($listTableNames);
 		$file->saveFile();
 	}
+	
+	public static function createFileIndex(){
+		$file = new TCreateIndex();
+		$file->saveFile();
+	}
 }
 ?>

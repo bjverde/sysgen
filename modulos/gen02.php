@@ -65,6 +65,8 @@ try {
 	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_CREATED_CONFIG_DATABASE));
 	FolderHelper::createFileMenu($dados);
 	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_CREATED_MENU));
+	FolderHelper::createFileIndex();
+	$html->add(TestConfigHelper::showMsg(true, Message::GEN02_CREATED_INDEX));
 	
 	$gride = new TGrid( 'gd'        // id do gride
 			,'Lista de Tabelas'     // titulo do gride
