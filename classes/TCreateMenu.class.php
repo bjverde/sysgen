@@ -54,11 +54,11 @@ class TCreateMenu extends  TCreateFileContent{
         $this->addLine('$menu = new TMenuDhtmlx();');
         $this->addLine('$menu->add(\'1\', null, \'Menu\', null, null, \'menu-alt-512.png\');');
         $this->addBasicMenuItems();
-        $this->addLine('$menu->add(\'9\', null, \'Sobre\', \'modulos/abaout.php\', null, \'information-circle.jpg\');');
+        $this->addLine('$menu->add(\'9\', null, \'Sobre\', \'modulos/sys_about.php\', null, \'information-circle.jpg\');');
         $this->addBlankLine();        
         $this->addLine('$menu->add(\'10\',null,\'Config Ambiente\',null,null,\'setting-gear-512.png\');');
-        $this->addLine('$menu->add(\'10.1\',\'10\',\'Ambiente Resumido\',\'modulos/ambiente_resumido.php\',null,\'information-circle.jpg\');');
-        $this->addLine('$menu->add(\'10.2\',\'10\',\'Ambiente PHPInfo em IFrame\',\'modulos/ambiente_info.php\',null,\'php_logo.png\');');
+        $this->addLine('$menu->add(\'10.1\',\'10\',\'Ambiente Resumido\',\'modulos/sys_environment_summary.php\',null,\'information-circle.jpg\');');
+        $this->addLine('$menu->add(\'10.2\',\'10\',\'PHPInfo\',\'modulos/sys_environment.php\',null,\'php_logo.png\');');
         $this->addLine('$menu->add(\'10.4\',\'10\',\'Gerador VO/DAO\',\'../base/includes/gerador_vo_dao.php\');');
         $this->addLine('$menu->add(\'10.5\',\'10\',\'Gerador Form VO/DAO\',\'../base/includes/gerador_form_vo_dao.php\',null,\'smiley-1-512.png\');');
         $this->addLine('$menu->getXml();');
