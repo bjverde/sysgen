@@ -3,7 +3,7 @@
  * SysGen - Gerador de sistemas com Formdin Framework
  * https://github.com/bjverde/sysgen
  */
-class TConfigHelper {
+class TGeneratorHelper {
 	
 	public static function phpVersionValid($html){
 		$texto = '<b>Versão do PHP</b>: ';

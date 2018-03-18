@@ -40,21 +40,21 @@ switch( $acao ) {
 
 
 try {	
-	$listTables = TConfigHelper::loadTablesFromDatabase();
+	$listTables = TGeneratorHelper::loadTablesFromDatabase();
 	
 	$path = ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
 	FolderHelper::mkDir($path);
-	$html->add(TConfigHelper::showMsg(true, Message::GEN02_MKDIR_SYSTEM.$path));
+	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_MKDIR_SYSTEM.$path));
 	FolderHelper::copySystemSkeletonToNewSystem();
-	$html->add(TConfigHelper::showMsg(true, Message::GEN02_COPY_SYSTEM_SKELETON));
+	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_COPY_SYSTEM_SKELETON));
 	FolderHelper::createFileConstants();
-	$html->add(TConfigHelper::showMsg(true, Message::GEN02_CREATED_CONSTANTS));
+	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_CONSTANTS));
 	FolderHelper::createFileConfigDataBase();
-	$html->add(TConfigHelper::showMsg(true, Message::GEN02_CREATED_CONFIG_DATABASE));
+	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_CONFIG_DATABASE));
 	FolderHelper::createFileMenu($listTables);
-	$html->add(TConfigHelper::showMsg(true, Message::GEN02_CREATED_MENU));
+	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_MENU));
 	FolderHelper::createFileIndex();
-	$html->add(TConfigHelper::showMsg(true, Message::GEN02_CREATED_INDEX));
+	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_INDEX));
 	$_SESSION[APLICATIVO]['STEP2']=true;
 	
 	$gride = new TGrid('gd'        // id do gride

@@ -40,7 +40,7 @@ switch( $acao ) {
 
 
 try {
-	TConfigHelper::loadFieldsFromDatabase();
+	TGeneratorHelper::loadFieldsFromDatabase();
 	
 	$listTables = null;
 	$gride = new TGrid( 'gd'        // id do gride
