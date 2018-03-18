@@ -10,7 +10,7 @@ if(!defined('DS')){ define('DS',DIRECTORY_SEPARATOR); }
 class TCreateIndex extends  TCreateFileContent{
 	public function __construct(){
 	    $this->setFileName('index.php');
-	    $path = ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].DS;
+	    $path = TGeneratorHelper::getPathNewSystem().DS;
 	    $this->setFilePath($path);
 	}
 	//--------------------------------------------------------------------------------------

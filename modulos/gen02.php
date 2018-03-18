@@ -43,17 +43,17 @@ try {
 	$listTables = TGeneratorHelper::loadTablesFromDatabase();
 	
 	$path = ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
-	FolderHelper::mkDir($path);
+	TGeneratorHelper::mkDir($path);
 	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_MKDIR_SYSTEM.$path));
-	FolderHelper::copySystemSkeletonToNewSystem();
+	TGeneratorHelper::copySystemSkeletonToNewSystem();
 	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_COPY_SYSTEM_SKELETON));
-	FolderHelper::createFileConstants();
+	TGeneratorHelper::createFileConstants();
 	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_CONSTANTS));
-	FolderHelper::createFileConfigDataBase();
+	TGeneratorHelper::createFileConfigDataBase();
 	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_CONFIG_DATABASE));
-	FolderHelper::createFileMenu($listTables);
+	TGeneratorHelper::createFileMenu($listTables);
 	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_MENU));
-	FolderHelper::createFileIndex();
+	TGeneratorHelper::createFileIndex();
 	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_INDEX));
 	$_SESSION[APLICATIVO]['STEP2']=true;
 	

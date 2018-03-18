@@ -11,7 +11,7 @@ class TCreateConstants extends  TCreateFileContent{
 
 	public function __construct(){
 	    $this->setFileName('constantes.php');
-	    $path = ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].DS.'includes'.DS;
+	    $path = TGeneratorHelper::getPathNewSystem().DS.'includes'.DS;
 	    $this->setFilePath($path);
 	}
 	//--------------------------------------------------------------------------------------

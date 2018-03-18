@@ -136,9 +136,12 @@ class TGeneratorHelper {
 			mkdir($path, 0744, true);
 		}
 	}
+	public static function getPathNewSystem(){
+		return ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
+	}
 	
 	public static function copySystemSkeletonToNewSystem(){
-		$pathNewSystem = ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
+		$pathNewSystem = self::getPathNewSystem();
 		$pathSkeleton = 'system_skeleton';
 		
 		$list = new RecursiveDirectoryIterator($pathSkeleton);

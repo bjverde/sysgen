@@ -12,7 +12,7 @@ class TCreateMenu extends  TCreateFileContent{
 
 	public function __construct($listTableNames){
 	    $this->setFileName('menu.php');
-	    $path = ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].DS.'includes'.DS;
+	    $path = TGeneratorHelper::getPathNewSystem().DS.'includes'.DS;
 	    $this->setFilePath($path);
 	    $this->setListTableNames($listTableNames);
 	}

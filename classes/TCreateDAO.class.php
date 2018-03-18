@@ -42,7 +42,7 @@
 if(!defined('EOL')){ define('EOL',"\n"); }
 if(!defined('TAB')){ define('TAB',chr(9)); }
 
-class TDAOCreate {
+class TCreateDAO {
 	private $tableName;
 	private $aColumns;
 	private $lines;

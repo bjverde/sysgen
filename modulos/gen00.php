@@ -37,7 +37,7 @@ if(TGeneratorHelper::phpVersionValid($html)){
 			if ( $frm->validate() ) {
 				try{
 					$GEN_SYSTEM_ACRONYM = strtolower($frm->get('GEN_SYSTEM_ACRONYM'));
-					FolderHelper::validateFolderName($GEN_SYSTEM_ACRONYM);
+					TGeneratorHelper::validateFolderName($GEN_SYSTEM_ACRONYM);
 					$_SESSION[APLICATIVO]=null;
 					$_SESSION[APLICATIVO]['DBMS']['TYPE']=$frm->get('DBMS');
 					$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM']=$GEN_SYSTEM_ACRONYM;
