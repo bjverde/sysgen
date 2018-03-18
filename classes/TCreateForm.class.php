@@ -164,8 +164,10 @@ class TCreateForm {
 			break;
 			case 'TINYINT':
 			case 'INT':
-				$this->addLine('$frm->addNumberField(\''.$FieldName.'\', \''.$FieldName.'\',4,true,0);');
-				break;
+			case 'INTEGER':
+			case 'NUMERIC':
+				$this->addLine('$frm->addNumberField(\''.$FieldName.'\', \''.$FieldName.'\',4,'.$required.',0);');
+			break;
 			default:
 				$this->addLine('$frm->addTextField(\''.$FieldName.'\', \''.$FieldName.'\',50,'.$required.');');
 		}		
