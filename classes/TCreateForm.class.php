@@ -150,6 +150,11 @@ class TCreateForm {
 	}
 	//--------------------------------------------------------------------------------------
 	private function addFieldType($key,$FieldName) {
+		/**
+		 * Esse ajuste do $key acontece em função do setListColunnsName descarta o primeiro
+		 * registro que é assume ser a chave primaria.
+		 */		
+		$key = $key+1;
 		$required = $this->listColumnsProperties['REQUIRED'][$key];
 		$DATA_TYPE = strtoupper($this->listColumnsProperties['DATA_TYPE'][$key]);
 		switch( $DATA_TYPE ) {
@@ -157,6 +162,10 @@ class TCreateForm {
 			case 'DATE':
 				$this->addLine('$frm->addDateField(\''.$FieldName.'\', \''.$FieldName.'\','.$required.');');
 			break;
+			case 'TINYINT':
+			case 'INT':
+				$this->addLine('$frm->addNumberField(\''.$FieldName.'\', \''.$FieldName.'\',4,true,0);');
+				break;
 			default:
 				$this->addLine('$frm->addTextField(\''.$FieldName.'\', \''.$FieldName.'\',50,'.$required.');');
 		}		
