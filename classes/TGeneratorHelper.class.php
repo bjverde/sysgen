@@ -178,7 +178,7 @@ class TGeneratorHelper {
 		$file->saveFile();
 	}
 	
-	private static function getTDAOConect($tableName){
+	public static function getTDAOConect($tableName){
 		$dbType   = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
 		$user     = $_SESSION[APLICATIVO]['DBMS']['USER'];
 		$password = $_SESSION[APLICATIVO]['DBMS']['PASSWORD'];

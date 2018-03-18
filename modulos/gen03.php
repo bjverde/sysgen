@@ -6,7 +6,7 @@
  */
 defined('APLICATIVO') or die();
 
-$frm = new TForm(Message::GEN03_TITLE,200,700);
+$frm = new TForm(Message::GEN03_TITLE,200,900);
 $frm->setFlat(true);
 $frm->setMaximize(true);
 $frm->setAutoSize(true);
@@ -35,19 +35,30 @@ switch( $acao ) {
 
 
 try {
-	TGeneratorHelper::loadFieldsFromDatabase();
-	
 	$html->add(TGeneratorHelper::showMsg(true,Message::GEN03_NEW_SYSTEM_OK));
 	$html->add('<a href="'.TGeneratorHelper::getUrlNewSystem().'" target="_blank">'.TGeneratorHelper::getUrlNewSystem().'</a>');
 	
-	$listTables = null;
-	$gride = new TGrid( 'gd'      // id do gride
-			,'Lista de Tabelas'   // titulo do gride
-			,$listTables 	      // array de dados
-			);
-	$gride->setCreateDefaultEditButton(false);
-	$gride->setCreateDefaultDeleteButton(false);
-	$frm->addHtmlField('gride',$gride);
+
+
+	$listTables = TGeneratorHelper::loadTablesFromDatabase();
+	$listTableNames = $listTables['TABLE_NAME'];
+	foreach ($listTableNames as $key=>$table){
+		$dao = TGeneratorHelper::getTDAOConect($table);
+		$listFieldsTable = $dao->loadFieldsOneTableFromDatabase();
+		TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable['COLUMN_NAME']);
+		TGeneratorHelper::createFilesForms($table, $listFieldsTable['COLUMN_NAME']);
+		$key = $key + 1;
+		$html->add('<br>'.$key.' - Criado Form, DAO e VO da tabela: '.$table);
+		
+		$gride = new TGrid( 'gd'      // id do gride
+				           ,$key.' - Lista de campos da Tabela: '.$table   // titulo do gride
+				           ,$listFieldsTable 	      // array de dados
+				           );
+		$gride->setCreateDefaultEditButton(false);
+		$gride->setCreateDefaultDeleteButton(false);
+		$frm->addHtmlField('gride'.$table,$gride);
+	}
+
 } catch (Exception $e) {
 	echo $dao->getError();
 	echo $e->getMessage();
