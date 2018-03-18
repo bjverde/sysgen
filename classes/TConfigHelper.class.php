@@ -149,10 +149,24 @@ class TConfigHelper {
 		$listTableNames = $listTables['TABLE_NAME'];
 		foreach ($listTableNames as $key=>$value){
 			$dao = self::getTDAOConect($value);
-			$dados = $dao->loadFieldsFromDatabase();
-			var_dump($dados);
+			$dados = $dao->loadFieldsOneTableFromDatabase();
+			d($dados);
 		}
 		//return $dados;
 	}
+	
+	public static function createDaoVoFromTable($tableName, $listColumns){	
+		$gerador = new TDAOCreate($frm->get('tabela'), $coluna_chave, $diretorio);
+		foreach($listColumns as $k=>$v) {
+			$gerador->addColumn($v);
+		}
+		$showSchema = $frm->get('sit_const_schema');
+		$gerador->setShowSchema($showSchema);
+		$gerador->setWithSqlPagination($TPGRID);
+		$gerador->setDatabaseManagementSystem($TPBANCO);
+		$gerador->saveVO();
+		$gerador->saveDAO();
+	}
+	
 }
 ?>
