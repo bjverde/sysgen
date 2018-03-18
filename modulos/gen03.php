@@ -21,7 +21,6 @@ $frm->closeGroup();
 
 $frm->addButton('Voltar', null, 'Voltar', null, null, true, false);
 $frm->addButton('Limpar', null, 'Limpar', null, null, false, false);
-$frm->addButton('Gerar estrutura', 'Gerar', 'Gerar', null, null, false, false);
 
 $acao = isset($acao) ? $acao : null;
 switch( $acao ) {
@@ -32,10 +31,6 @@ switch( $acao ) {
 	case 'Limpar':
 		$frm->clearFields();
 		break;
-		//--------------------------------------------------------------------------------
-	case 'Gerar':
-		$frm->redirect('gen02.php','Redirect realizado com sucesso.',true);
-		break;
 }
 
 
@@ -43,10 +38,11 @@ try {
 	TGeneratorHelper::loadFieldsFromDatabase();
 	
 	$html->add(TGeneratorHelper::showMsg(true,Message::GEN03_NEW_SYSTEM_OK));
+	$html->add('<a href="'.TGeneratorHelper::getUrlNewSystem().'" target="_blank">'.TGeneratorHelper::getUrlNewSystem().'</a>');
 	
 	$listTables = null;
-	$gride = new TGrid( 'gd'        // id do gride
-			,'Lista de Tabelas'     // titulo do gride
+	$gride = new TGrid( 'gd'      // id do gride
+			,'Lista de Tabelas'   // titulo do gride
 			,$listTables 	      // array de dados
 			);
 	$gride->setCreateDefaultEditButton(false);

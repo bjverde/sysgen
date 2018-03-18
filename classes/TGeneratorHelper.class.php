@@ -217,12 +217,11 @@ class TGeneratorHelper {
 			case DBMS_MYSQL:
 				$SCHEMA = false;
 				$TPGRID     = GRID_SQL_PAGINATION;
-				break;
+			break;
 			case DBMS_SQLSERVER:
 				$SCHEMA = true;
 				$TPGRID     = GRID_SQL_PAGINATION;
-				break;
-				//--------------------------------------------------------------------------------
+			break;
 			default:
 				$SCHEMA = false;
 				$TPGRID     = GRID_SCREEN_PAGINATION;
@@ -262,6 +261,16 @@ class TGeneratorHelper {
 		$geradorForm->setListColunnsName( $listColumns );
 		$geradorForm->setGridType( $configDBMS['TPGRID'] );
 		$geradorForm->saveForm();
+	}
+	
+	public static function getUrlNewSystem(){
+		$url = ServerHelper::getCurrentUrl(true);
+		$dir = explode(DS, __DIR__);
+		$dirSysGen = array_pop($dir);
+		$dirSysGen = array_pop($dir);
+		$url = explode($dirSysGen, $url);
+		$result = $url[0].$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
+		return $result;
 	}
 	
 }
