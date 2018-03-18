@@ -42,6 +42,8 @@ switch( $acao ) {
 try {
 	TGeneratorHelper::loadFieldsFromDatabase();
 	
+	$html->add(TGeneratorHelper::showMsg(true,Message::GEN03_NEW_SYSTEM_OK));
+	
 	$listTables = null;
 	$gride = new TGrid( 'gd'        // id do gride
 			,'Lista de Tabelas'     // titulo do gride

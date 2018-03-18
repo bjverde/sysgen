@@ -153,7 +153,6 @@ class TGeneratorHelper {
 				//echo ' SubPath:     ' . $it->getSubPath()."<br>";
 				self::mkDir($pathNewSystem.DS.$it->getSubPath());
 				copy($pathSkeleton.DS.$it->getSubPathName(),$pathNewSystem.DS.$it->getSubPathName());
-				
 			}
 		}
 	}
@@ -179,7 +178,7 @@ class TGeneratorHelper {
 		$file->saveFile();
 	}
 	
-	public static function getTDAOConect($tableName){
+	private static function getTDAOConect($tableName){
 		$dbType   = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
 		$user     = $_SESSION[APLICATIVO]['DBMS']['USER'];
 		$password = $_SESSION[APLICATIVO]['DBMS']['PASSWORD'];
@@ -204,25 +203,66 @@ class TGeneratorHelper {
 	public static function loadFieldsFromDatabase(){
 		$listTables = self::loadTablesFromDatabase();
 		$listTableNames = $listTables['TABLE_NAME'];
-		foreach ($listTableNames as $key=>$value){
-			$dao = self::getTDAOConect($value);
+		foreach ($listTableNames as $key=>$table){
+			$dao = self::getTDAOConect($table);
 			$dados = $dao->loadFieldsOneTableFromDatabase();
 			d($dados);
+			self::createFilesDaoVoFromTable($table, $dados['COLUMN_NAME']);
+			self::createFilesForms($table, $dados['COLUMN_NAME']);
 		}
 		//return $dados;
 	}
 	
-	public static function createDaoVoFromTable($tableName, $listColumns){	
-		$gerador = new TDAOCreate($frm->get('tabela'), $coluna_chave, $diretorio);
-		foreach($listColumns as $k=>$v) {
-			$gerador->addColumn($v);
+	private static function getConfigByDBMS($DBMS){
+		switch( $DBMS ) {
+			case DBMS_MYSQL:
+				$SCHEMA = false;
+				$TPGRID     = GRID_SQL_PAGINATION;
+				break;
+			case DBMS_SQLSERVER:
+				$SCHEMA = true;
+				$TPGRID     = GRID_SQL_PAGINATION;
+				break;
+				//--------------------------------------------------------------------------------
+			default:
+				$SCHEMA = false;
+				$TPGRID     = GRID_SCREEN_PAGINATION;
 		}
-		$showSchema = $frm->get('sit_const_schema');
-		$gerador->setShowSchema($showSchema);
-		$gerador->setWithSqlPagination($TPGRID);
-		$gerador->setDatabaseManagementSystem($TPBANCO);
-		$gerador->saveVO();
-		$gerador->saveDAO();
+		$config['SCHEMA'] = $SCHEMA;
+		$config['TPGRID'] = $TPGRID;
+		return $config;
+	}
+	
+	public static function createFilesDaoVoFromTable($tableName, $listColumns){
+		$DBMS       = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
+		$configDBMS = self::getConfigByDBMS($DBMS);
+		$folder     = self::getPathNewSystem().DS.'dao'.DS;
+		$columnPrimaryKey = $listColumns[0];
+		$generatorDao     = new TCreateDAO($tableName, $columnPrimaryKey, $folder);
+		foreach($listColumns as $k=>$v) {
+			$generatorDao->addColumn($v);
+		}
+		$generatorDao->setDatabaseManagementSystem($DBMS);
+		$generatorDao->setWithSqlPagination($configDBMS['TPGRID']);
+		$generatorDao->setShowSchema($configDBMS['SCHEMA']);
+		$generatorDao->saveVO();
+		$generatorDao->saveDAO();
+	}
+	
+	public static function createFilesForms($tableName, $listColumns){
+		$DBMS       = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
+		$configDBMS = self::getConfigByDBMS($DBMS);
+		$folder     = self::getPathNewSystem().DS.'modulos'.DS;
+		$columnPrimaryKey = $listColumns[0];
+		$geradorForm      = new TCreateForm();
+		$geradorForm->setFormTitle( $tableName );
+		$geradorForm->setFormPath( $folder );
+		$geradorForm->setFormFileName( $tableName );
+		$geradorForm->setPrimaryKeyTable( $columnPrimaryKey );
+		$geradorForm->setTableRef( $tableName );
+		$geradorForm->setListColunnsName( $listColumns );
+		$geradorForm->setGridType( $configDBMS['TPGRID'] );
+		$geradorForm->saveForm();
 	}
 	
 }
