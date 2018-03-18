@@ -168,8 +168,7 @@ class TGeneratorHelper {
 	}
 	
 	public static function createFileMenu($listTable){
-		$listTableNames = $listTable['TABLE_NAME'];
-		$file = new TCreateMenu($listTableNames);
+		$file = new TCreateMenu($listTable);
 		$file->saveFile();
 	}
 	

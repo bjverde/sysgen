@@ -37,8 +37,12 @@ class TCreateMenu extends  TCreateFileContent{
 	//--------------------------------------------------------------------------------------
 	private function addBasicMenuItems() {
 		$this->validateListTableNames(null);
-		foreach($this->listTableNames as $key=>$value){
-			$this->addLine('$menu->add(\'1.'.$key.'\',1,\''.$value.'\',\''.$value.'.php\');');
+		$listTableNames = $this->listTableNames['TABLE_NAME'];
+		foreach($listTableNames as $key=>$table){
+			$tableType = strtoupper($this->listTableNames['TABLE_TYPE'][$key]);
+			if($tableType == 'TABLE'){
+				$this->addLine('$menu->add(\'1.'.$key.'\',1,\''.$table.'\',\''.$table.'.php\');');
+			}
 		}
 	}
 	//--------------------------------------------------------------------------------------

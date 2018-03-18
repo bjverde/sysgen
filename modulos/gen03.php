@@ -45,10 +45,16 @@ try {
 	foreach ($listTableNames as $key=>$table){
 		$dao = TGeneratorHelper::getTDAOConect($table);
 		$listFieldsTable = $dao->loadFieldsOneTableFromDatabase();
-		TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable['COLUMN_NAME']);
-		TGeneratorHelper::createFilesForms($table, $listFieldsTable['COLUMN_NAME']);
+		$tableType = strtoupper($listTables['TABLE_TYPE'][$key]);
 		$key = $key + 1;
-		$html->add('<br>'.$key.' - Criado Form, DAO e VO da tabela: '.$table);
+		if($tableType == 'TABLE'){
+			TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable['COLUMN_NAME']);
+			TGeneratorHelper::createFilesForms($table, $listFieldsTable['COLUMN_NAME']);
+			$html->add('<br>'.$key.' - Criado Form, DAO e VO da tabela: '.$table);
+		}else{
+			TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable['COLUMN_NAME']);
+			$html->add('<br>'.$key.' - Criado DAO e VO da view: '.$table);
+		}
 		
 		$gride = new TGrid( 'gd'      // id do gride
 				           ,$key.' - Lista de campos da Tabela: '.$table   // titulo do gride
