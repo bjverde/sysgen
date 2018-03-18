@@ -246,18 +246,19 @@ class TGeneratorHelper {
 		$generatorDao->saveDAO();
 	}
 	
-	public static function createFilesForms($tableName, $listColumns){
+	public static function createFilesForms($tableName, $listColumnsProperties){
 		$DBMS       = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
 		$configDBMS = self::getConfigByDBMS($DBMS);
 		$folder     = self::getPathNewSystem().DS.'modulos'.DS;
-		$columnPrimaryKey = $listColumns[0];
+		$columnPrimaryKey = $listColumnsProperties['COLUMN_NAME'][0];
 		$geradorForm      = new TCreateForm();
 		$geradorForm->setFormTitle( $tableName );
 		$geradorForm->setFormPath( $folder );
 		$geradorForm->setFormFileName( $tableName );
 		$geradorForm->setPrimaryKeyTable( $columnPrimaryKey );
 		$geradorForm->setTableRef( $tableName );
-		$geradorForm->setListColunnsName( $listColumns );
+		$geradorForm->setListColunnsName( $listColumnsProperties['COLUMN_NAME'] );
+		$geradorForm->setListColumnsProperties($listColumnsProperties);
 		$geradorForm->setGridType( $configDBMS['TPGRID'] );
 		$geradorForm->saveForm();
 	}

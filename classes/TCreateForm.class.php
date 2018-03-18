@@ -53,6 +53,7 @@ class TCreateForm {
 	private $listColumnsName;
     private $lines;
     private $gridType;
+    private $listColumnsProperties;
 
 	public function __construct(){
 	    $this->setFormTitle(null);
@@ -115,10 +116,19 @@ class TCreateForm {
 	public function setGridType($gridType) {
 		$gridType = ( !empty($gridType) ) ?$gridType : GRID_SIMPLE;
 	    $this->gridType = $gridType;
-	}
-	//--------------------------------------------------------------------------------------
+	}	
 	public function getGridType() {
 		return $this->gridType;
+	}
+	//--------------------------------------------------------------------------------------
+	public function setListColumnsProperties($listColumnsProperties) {
+		if(!is_array($listColumnsProperties)){
+			throw new InvalidArgumentException('List of Columns Properties not is array');
+		}
+		$this->listColumnsProperties = $listColumnsProperties;
+	}
+	public function getListColumnsProperties() {
+		return $this->listColumnsProperties;
 	}
 	//------------------------------------------------------------------------------------
 	public function getLinesArray(){
@@ -137,15 +147,29 @@ class TCreateForm {
 	//--------------------------------------------------------------------------------------	
 	private function addBlankLine(){
 		$this->addLine('');
-	}	
+	}
 	//--------------------------------------------------------------------------------------
-	private function addBasicaFields() {
+	private function addFieldType($key,$FieldName) {
+		$required = $this->listColumnsProperties['REQUIRED'][$key];
+		$DATA_TYPE = strtoupper($this->listColumnsProperties['DATA_TYPE'][$key]);
+		switch( $DATA_TYPE ) {
+			case 'DATETIME':
+			case 'DATE':
+				$this->addLine('$frm->addDateField(\''.$FieldName.'\', \''.$FieldName.'\','.$required.');');
+			break;
+			default:
+				$this->addLine('$frm->addTextField(\''.$FieldName.'\', \''.$FieldName.'\',50,'.$required.');');
+		}		
+	}
+	
+	//--------------------------------------------------------------------------------------
+	private function addFields() {
 		$this->addLine('$frm->addHiddenField( $primaryKey );   // coluna chave da tabela');
 		if( $this->validateListColumnsName() ){
 			foreach($this->listColumnsName as $key=>$value){
-				$this->addLine('$frm->addTextField(\''.$value.'\', \''.$value.'\',50,true);');
+				$this->addFieldType($key,$value);
 			}
-		}		
+		}
 	}
 	//--------------------------------------------------------------------------------------
 	private function addBasicaViewController_salvar() {
@@ -398,7 +422,7 @@ class TCreateForm {
 		if($this->gridType != GRID_SIMPLE){
 		    $this->addLine('$frm->addHiddenField( \'BUSCAR\' ); //Campo oculto para buscas');
 		}
-		$this->addBasicaFields();
+		$this->addFields();
 		$this->addBlankLine();
 		$this->addButtons();
 		$this->addBlankLine();

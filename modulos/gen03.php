@@ -49,7 +49,7 @@ try {
 		$key = $key + 1;
 		if($tableType == 'TABLE'){
 			TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable['COLUMN_NAME']);
-			TGeneratorHelper::createFilesForms($table, $listFieldsTable['COLUMN_NAME']);
+			TGeneratorHelper::createFilesForms($table, $listFieldsTable);
 			$html->add('<br>'.$key.' - Criado Form, DAO e VO da tabela: '.$table);
 		}else{
 			TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable['COLUMN_NAME']);
