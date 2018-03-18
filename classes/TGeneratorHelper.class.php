@@ -206,7 +206,6 @@ class TGeneratorHelper {
 		foreach ($listTableNames as $key=>$table){
 			$dao = self::getTDAOConect($table);
 			$dados = $dao->loadFieldsOneTableFromDatabase();
-			d($dados);
 			self::createFilesDaoVoFromTable($table, $dados['COLUMN_NAME']);
 			self::createFilesForms($table, $dados['COLUMN_NAME']);
 		}

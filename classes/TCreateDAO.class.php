@@ -476,13 +476,4 @@ class TCreateDAO {
 		return $txt;
 	}
 }
-/*
-$vo = new TGenerateDAO('usuario','id');
-$vo->addColumn('id');
-$vo->addColumn('cpf');
-$vo->addColumn('nome');
-//$vo->saveVO();
-//$vo->showDAO(true);
-$vo->saveDAO();
-*/
 ?>
