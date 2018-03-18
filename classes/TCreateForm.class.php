@@ -392,6 +392,7 @@ class TCreateForm {
         $this->addLine('$frm = new TForm(\''.$this->formTitle.'\',600);');
 		$this->addLine('$frm->setFlat(true);');
 		$this->addLine('$frm->setMaximize(true);');
+		$this->addLine('$frm->setAutoSize(true);');
 		$this->addBlankLine();
 		$this->addBlankLine();
 		if($this->gridType != GRID_SIMPLE){
