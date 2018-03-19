@@ -49,7 +49,7 @@ class TCreateForm {
 	//--------------------------------------------------------------------------------------
 	public function setFormFileName($formFileName) {
 		$formFileName = ( !empty($formFileName) ) ?$formFileName : "form-".date('Ymd-Gis');
-		$this->formFileName    = $formFileName.'.php';
+		$this->formFileName    = strtolower($formFileName.'.php');
 	}
 	//--------------------------------------------------------------------------------------
 	public function getFormFileName() {
@@ -66,6 +66,7 @@ class TCreateForm {
 	}
 	//--------------------------------------------------------------------------------------
 	public function setTableRef($tableRef) {
+	    $tableRef = strtolower($tableRef);
 		$this->daoTableRef= ucfirst($tableRef).'DAO';
 		$this->voTableRef = ucfirst($tableRef).'VO';
 	}
