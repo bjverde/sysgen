@@ -151,21 +151,41 @@ class TCreateForm {
 	    return $result;
 	}
 	//--------------------------------------------------------------------------------------
+	private function getColumnsPropertieNumLength($key) {
+	    $result = null;
+	    if(ArrayHelper::has('NUM_LENGTH',$this->listColumnsProperties)){
+	        $result = $this->listColumnsProperties['NUM_LENGTH'][$key];
+	    }
+	    $result = empty($result) ? 4 : $result;
+	    return $result;
+	}
+	//--------------------------------------------------------------------------------------
+	private function getColumnsPropertieNumScale($key) {
+	    $result = null;
+	    if(ArrayHelper::has('NUM_SCALE',$this->listColumnsProperties)){
+	        $result = $this->listColumnsProperties['NUM_SCALE'][$key];
+	    }
+	    $result = empty($result) ? 0 : $result;
+	    return $result;
+	}
+	//--------------------------------------------------------------------------------------
 	private function addFieldType($key,$fieldName) {
 		/**
 		 * Esse ajuste do $key acontece em função do setListColunnsName descarta o primeiro
 		 * registro que é assume ser a chave primaria.
 		 */		
 		$key = $key+1;
-		$CHAR_MAX  = self::getColumnsPropertieCharMax($key);
-		$DATA_TYPE = self::getColumnsPropertieDataType($key);
-		$required  = self::getColumnsPropertieRequired($key);
+		$CHAR_MAX    = self::getColumnsPropertieCharMax($key);
+		$DATA_TYPE   = self::getColumnsPropertieDataType($key);
+		$REQUIRED    = self::getColumnsPropertieRequired($key);
+		$NUM_LENGTH  = self::getColumnsPropertieNumLength($key);
+		$NUM_SCALE   = self::getColumnsPropertieNumScale($key);
 		switch( $DATA_TYPE ) {
 			case 'DATETIME':
 			case 'DATE':
 			case 'TIMESTAMP':
 			//case preg_match( '/date|datetime|timestamp/i', $DATA_TYPE ):
-				$this->addLine('$frm->addDateField(\''.$fieldName.'\', \''.$fieldName.'\','.$required.');');
+			    $this->addLine('$frm->addDateField(\''.$fieldName.'\', \''.$fieldName.'\','.$REQUIRED.');');
 				$this->addFieldTypeToolTip($key,$fieldName);
 				break;
 			case 'BIGINT':
@@ -181,14 +201,14 @@ class TCreateForm {
 			case 'SMALLINT':
 			case 'TINYINT':
 			//case preg_match( '/decimal|real|float|numeric|number|int|int64|integer|double|smallint|bigint|tinyint/i', $DATA_TYPE ):
-				$this->addLine('$frm->addNumberField(\''.$fieldName.'\', \''.$fieldName.'\',4,'.$required.',0);');
+			    $this->addLine('$frm->addNumberField(\''.$fieldName.'\', \''.$fieldName.'\','.$NUM_LENGTH.','.$REQUIRED.','.$NUM_SCALE.');');
 				$this->addFieldTypeToolTip($key,$fieldName);
 				break;
 			default:
-			    if($CHAR_MAX <= 150){			    
-			        $this->addLine('$frm->addTextField(\''.$fieldName.'\', \''.$fieldName.'\','.$CHAR_MAX.','.$required.',50);');
+			    if($CHAR_MAX < CHAR_MAX_TEXT_FIELD){			    
+			        $this->addLine('$frm->addTextField(\''.$fieldName.'\', \''.$fieldName.'\','.$CHAR_MAX.','.$REQUIRED.','.$CHAR_MAX.');');
 			    }else{
-			        $this->addLine('$frm->addMemoField(\''.$fieldName.'\', \''.$fieldName.'\','.$CHAR_MAX.','.$required.',80,3);');
+			        $this->addLine('$frm->addMemoField(\''.$fieldName.'\', \''.$fieldName.'\','.$CHAR_MAX.','.$REQUIRED.',80,3);');
 			    }				
 				$this->addFieldTypeToolTip($key,$fieldName);
 		}
