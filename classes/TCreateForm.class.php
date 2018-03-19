@@ -142,12 +142,22 @@ class TCreateForm {
 		}
 	}
 	//--------------------------------------------------------------------------------------
+	private function getColumnsPropertieCharMax($key) {
+	    $result = null;
+	    if(ArrayHelper::has('CHAR_MAX',$this->listColumnsProperties)){
+	        $result = $this->listColumnsProperties['CHAR_MAX'][$key];
+	    }
+	    $result = empty($result) ? 50 : $result;
+	    return $result;
+	}
+	//--------------------------------------------------------------------------------------
 	private function addFieldType($key,$fieldName) {
 		/**
 		 * Esse ajuste do $key acontece em função do setListColunnsName descarta o primeiro
 		 * registro que é assume ser a chave primaria.
 		 */		
 		$key = $key+1;
+		$CHAR_MAX  = self::getColumnsPropertieCharMax($key);
 		$DATA_TYPE = self::getColumnsPropertieDataType($key);
 		$required  = self::getColumnsPropertieRequired($key);
 		switch( $DATA_TYPE ) {
@@ -175,7 +185,11 @@ class TCreateForm {
 				$this->addFieldTypeToolTip($key,$fieldName);
 				break;
 			default:
-				$this->addLine('$frm->addTextField(\''.$fieldName.'\', \''.$fieldName.'\',50,'.$required.');');
+			    if($CHAR_MAX <= 150){			    
+			        $this->addLine('$frm->addTextField(\''.$fieldName.'\', \''.$fieldName.'\','.$CHAR_MAX.','.$required.',50);');
+			    }else{
+			        $this->addLine('$frm->addMemoField(\''.$fieldName.'\', \''.$fieldName.'\','.$CHAR_MAX.','.$required.',80,3);');
+			    }				
 				$this->addFieldTypeToolTip($key,$fieldName);
 		}
 	}
