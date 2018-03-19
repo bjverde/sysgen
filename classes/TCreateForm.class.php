@@ -1,43 +1,9 @@
 <?php
-/*
- * Formdin Framework
- * Copyright (C) 2012 Ministério do Planejamento
- * Criado por Luís Eugênio Barbosa
- * Essa versão é um Fork https://github.com/bjverde/formDin
- *
- * ----------------------------------------------------------------------------
- * This file is part of Formdin Framework.
- *
- * Formdin Framework is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License version 3
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License version 3
- * along with this program; if not,  see <http://www.gnu.org/licenses/>
- * or write to the Free Software Foundation, Inc., 51 Franklin Street,
- * Fifth Floor, Boston, MA  02110-1301, USA.
- * ----------------------------------------------------------------------------
- * Este arquivo é parte do Framework Formdin.
- *
- * O Framework Formdin é um software livre; você pode redistribuí-lo e/ou
- * modificá-lo dentro dos termos da GNU LGPL versão 3 como publicada pela Fundação
- * do Software Livre (FSF).
- *
- * Este programa é distribuído na esperança que possa ser útil, mas SEM NENHUMA
- * GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer MERCADO ou
- * APLICAÇÃO EM PARTICULAR. Veja a Licença Pública Geral GNU/LGPL em português
- * para maiores detalhes.
- *
- * Você deve ter recebido uma cópia da GNU LGPL versão 3, sob o título
- * "LICENCA.txt", junto com esse programa. Se não, acesse <http://www.gnu.org/licenses/>
- * ou escreva para a Fundação do Software Livre (FSF) Inc.,
- * 51 Franklin St, Fifth Floor, Boston, MA 02111-1301, USA.
+/**
+ * SysGen - Gerador de sistemas com Formdin Framework
+ * https://github.com/bjverde/sysgen
  */
+
 
 if(!defined('EOL')){ define('EOL',"\n"); }
 if(!defined('TAB')){ define('TAB',chr(9)); }
@@ -123,7 +89,7 @@ class TCreateForm {
 	//--------------------------------------------------------------------------------------
 	public function setListColumnsProperties($listColumnsProperties) {
 		if(!is_array($listColumnsProperties)){
-			throw new InvalidArgumentException('List of Columns Properties not is array');
+			throw new InvalidArgumentException('List of Columns Properties not is a array');
 		}
 		$this->listColumnsProperties = $listColumnsProperties;
 	}
@@ -149,28 +115,69 @@ class TCreateForm {
 		$this->addLine('');
 	}
 	//--------------------------------------------------------------------------------------
-	private function addFieldType($key,$FieldName) {
+	private function getColumnsPropertieRequired($key) {
+		$result = true;
+		if(ArrayHelper::has('REQUIRED',$this->listColumnsProperties)){
+			$result = $this->listColumnsProperties['REQUIRED'][$key];
+		}
+		return $result;
+	}
+	//--------------------------------------------------------------------------------------
+	private function getColumnsPropertieDataType($key) {
+		$result = null;
+		if(ArrayHelper::has('DATA_TYPE',$this->listColumnsProperties)){
+			//$result = strtolower($this->listColumnsProperties['DATA_TYPE'][$key]);
+			$result = strtoupper($this->listColumnsProperties['DATA_TYPE'][$key]);
+		}
+		return $result;
+	}
+	//--------------------------------------------------------------------------------------
+	private function addFieldTypeToolTip($key,$fieldName) {
+		$COLUMN_COMMENT = null;
+		if(ArrayHelper::has('COLUMN_COMMENT',$this->listColumnsProperties)){
+			$COLUMN_COMMENT = $this->listColumnsProperties['COLUMN_COMMENT'][$key];
+			if(!empty($COLUMN_COMMENT)){
+				$this->addLine('$frm->getLabel(\''.$fieldName.'\')->setToolTip(\''.$COLUMN_COMMENT.'\');');
+			}
+		}
+	}
+	//--------------------------------------------------------------------------------------
+	private function addFieldType($key,$fieldName) {
 		/**
 		 * Esse ajuste do $key acontece em função do setListColunnsName descarta o primeiro
 		 * registro que é assume ser a chave primaria.
 		 */		
 		$key = $key+1;
-		$required = $this->listColumnsProperties['REQUIRED'][$key];
-		$DATA_TYPE = strtoupper($this->listColumnsProperties['DATA_TYPE'][$key]);
+		$DATA_TYPE = self::getColumnsPropertieDataType($key);
+		$required  = self::getColumnsPropertieRequired($key);
 		switch( $DATA_TYPE ) {
 			case 'DATETIME':
 			case 'DATE':
-				$this->addLine('$frm->addDateField(\''.$FieldName.'\', \''.$FieldName.'\','.$required.');');
-			break;
-			case 'TINYINT':
+			case 'TIMESTAMP':
+			//case preg_match( '/date|datetime|timestamp/i', $DATA_TYPE ):
+				$this->addLine('$frm->addDateField(\''.$fieldName.'\', \''.$fieldName.'\','.$required.');');
+				$this->addFieldTypeToolTip($key,$fieldName);
+				break;
+			case 'BIGINT':
+			case 'DECIMAL':
+			case 'DOUBLE':
+			case 'FLOAT':
 			case 'INT':
+			case 'INT64':
 			case 'INTEGER':
 			case 'NUMERIC':
-				$this->addLine('$frm->addNumberField(\''.$FieldName.'\', \''.$FieldName.'\',4,'.$required.',0);');
-			break;
+			case 'NUMBER':
+			case 'REAL':
+			case 'SMALLINT':
+			case 'TINYINT':
+			//case preg_match( '/decimal|real|float|numeric|number|int|int64|integer|double|smallint|bigint|tinyint/i', $DATA_TYPE ):
+				$this->addLine('$frm->addNumberField(\''.$fieldName.'\', \''.$fieldName.'\',4,'.$required.',0);');
+				$this->addFieldTypeToolTip($key,$fieldName);
+				break;
 			default:
-				$this->addLine('$frm->addTextField(\''.$FieldName.'\', \''.$FieldName.'\',50,'.$required.');');
-		}		
+				$this->addLine('$frm->addTextField(\''.$fieldName.'\', \''.$fieldName.'\',50,'.$required.');');
+				$this->addFieldTypeToolTip($key,$fieldName);
+		}
 	}
 	
 	//--------------------------------------------------------------------------------------
