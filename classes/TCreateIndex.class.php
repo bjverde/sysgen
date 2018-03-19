@@ -21,6 +21,8 @@ class TCreateIndex extends  TCreateFileContent{
         $this->addBlankLine();
         $this->addLine('require_once(\'includes/constantes.php\');');
         $this->addLine('require_once(\'includes/config_conexao.php\');');
+        $this->addBlankLine();
+        $this->addLine('//FormDin version: '.FORMDIN_VERSION);
         $this->addLine('require_once(\'../base/classes/webform/TApplication.class.php\');');
         $this->addBlankLine();
         $this->addBlankLine();
