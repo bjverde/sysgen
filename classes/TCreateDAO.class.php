@@ -56,7 +56,7 @@ class TCreateDAO {
 
 	public function __construct($strTableName=null,$strkeyColumnName=null,$strPath=null,$databaseManagementSystem=null) {
 		$this->aColumns=array();
-		$this->setTableName($strTableName);
+		$this->setTableName(strtolower($strTableName));
 		$this->keyColumnName = $strkeyColumnName;
 		$this->path = $strPath;
 		$this->databaseManagementSystem = strtoupper($databaseManagementSystem);
