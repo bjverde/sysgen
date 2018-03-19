@@ -15,7 +15,7 @@ class TCreateConfigDataBase extends  TCreateFileContent{
 	    $this->setFilePath($path);
 	}
 	//--------------------------------------------------------------------------------------
-	public function showForm($print=false) {
+	public function show($print=false) {
 		$this->lines=null;
         $this->addLine('<?php');
         $this->addSysGenHeaderNote();

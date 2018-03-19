@@ -77,7 +77,7 @@ class TCreateFileContent {
 			if( file_exists($fullPathfile)){
 				unlink($fullPathfile);
             }
-            $payload = $this->showForm(false);
+            $payload = $this->show(false);
 			file_put_contents($fullPathfile,$payload);
 		}
 	}
