@@ -1,4 +1,3 @@
-<link href="css/sysgen_resumo.css" rel="stylesheet" type="text/css" />
 <?php
 /**
  * SysGen - Gerador de sistemas com Formdin Framework
@@ -9,6 +8,9 @@ defined('APLICATIVO') or die();
 $frm = new TForm(Message::GEN01_TITLE,500,700);
 $frm->setFlat(true);
 $frm->setMaximize(true);
+$frm->setAutoSize(true);
+$frm->addCssFile('css/sysgen.css');
+
 $frm->addGroupField('gpx1',Message::GEN01_GPX1_TITLE);
 	$html = $frm->addHtmlField('conf','');
 	$html->add('<br><b>Extensões PHP necessárias para o correto funcionamento:</b><br>');

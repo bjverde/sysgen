@@ -1,4 +1,3 @@
-<link href="css/sysgen_resumo.css" rel="stylesheet" type="text/css" />
 <?php
 /**
  * SysGen - Gerador de sistemas com Formdin Framework
@@ -10,6 +9,7 @@ $frm = new TForm(Message::GEN03_TITLE,200,900);
 $frm->setFlat(true);
 $frm->setMaximize(true);
 $frm->setAutoSize(true);
+$frm->addCssFile('css/sysgen.css');
 
 if (!ArrayHelper::has('STEP2', $_SESSION[APLICATIVO]) ){
 	$frm->redirect('gen02.php','Seu Mané teste as configurações de banco!!',true);

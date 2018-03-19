@@ -1,5 +1,3 @@
-<link href="css/sysgen_resumo.css" rel="stylesheet" type="text/css" />
-
 <?php
 /**
  * SysGen - Gerador de sistemas com Formdin Framework
@@ -11,6 +9,8 @@ $frm = new TForm(Message::GEN00_TITLE,200,450);
 $frm->setFlat(true);
 $frm->setMaximize(true);
 $frm->setAutoSize(true);
+$frm->addCssFile('css/sysgen.css');
+
 
 $html = $frm->addHtmlField('conf','');
 $frm->addHtmlField('info', null, 'ajuda/info_gen00_pt-br.php')->setClass('htmlInfo',true);
