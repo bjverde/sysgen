@@ -41,7 +41,7 @@ class TCreateMenu extends  TCreateFileContent{
 		foreach($listTableNames as $key=>$table){
 			$tableType = strtoupper($this->listTableNames['TABLE_TYPE'][$key]);
 			if($tableType == 'TABLE'){
-				$this->addLine('$menu->add(\'1.'.$key.'\',1,\''.$table.'\',\''.$table.'.php\');');
+			    $this->addLine('$menu->add(\'1.'.$key.'\',1,\''.strtolower($table).'\',\'modulos/'.strtolower($table).'.php\');');
 			}
 		}
 	}
