@@ -5,7 +5,7 @@
  */
 defined('APLICATIVO') or die();
 
-$frm = new TForm(Message::GEN00_TITLE,200,450);
+$frm = new TForm(Message::GEN00_TITLE,200,600);
 $frm->setFlat(true);
 $frm->setMaximize(true);
 $frm->setAutoSize(true);
