@@ -48,11 +48,11 @@ try {
 		$tableType = strtoupper($listTables['TABLE_TYPE'][$key]);
 		$key = $key + 1;
 		if($tableType == 'TABLE'){
-			TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable['COLUMN_NAME']);
+		    TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable);
 			TGeneratorHelper::createFilesForms($table, $listFieldsTable);
 			$html->add('<br>'.$key.' - Criado Form, DAO e VO da tabela: '.$table);
 		}else{
-			TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable['COLUMN_NAME']);
+		    TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable);
 			$html->add('<br>'.$key.' - Criado DAO e VO da view: '.$table);
 		}
 		

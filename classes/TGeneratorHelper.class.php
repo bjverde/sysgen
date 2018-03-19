@@ -230,10 +230,11 @@ class TGeneratorHelper {
 		return $config;
 	}
 	
-	public static function createFilesDaoVoFromTable($tableName, $listColumns){
-		$DBMS       = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
-		$configDBMS = self::getConfigByDBMS($DBMS);
-		$folder     = self::getPathNewSystem().DS.'dao'.DS;
+	public static function createFilesDaoVoFromTable($tableName, $listColumnsProperties){
+		$DBMS        = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
+		$configDBMS  = self::getConfigByDBMS($DBMS);
+		$folder      = self::getPathNewSystem().DS.'dao'.DS;
+		$listColumns = $listColumnsProperties['COLUMN_NAME'];
 		$columnPrimaryKey = $listColumns[0];
 		$generatorDao     = new TCreateDAO($tableName, $columnPrimaryKey, $folder);
 		foreach($listColumns as $k=>$v) {
@@ -242,6 +243,7 @@ class TGeneratorHelper {
 		$generatorDao->setDatabaseManagementSystem($DBMS);
 		$generatorDao->setWithSqlPagination($configDBMS['TPGRID']);
 		$generatorDao->setShowSchema($configDBMS['SCHEMA']);
+		$generatorDao->setListColumnsProperties($listColumnsProperties);
 		$generatorDao->saveVO();
 		$generatorDao->saveDAO();
 	}

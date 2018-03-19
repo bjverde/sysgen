@@ -52,6 +52,7 @@ class TCreateDAO {
 	private $showSchema;
 	private $withSqlPagination;
 	private $charParam = '?';
+	private $listColumnsProperties;
 
 	public function __construct($strTableName=null,$strkeyColumnName=null,$strPath=null,$databaseManagementSystem=null) {
 		$this->aColumns=array();
@@ -132,6 +133,16 @@ class TCreateDAO {
 	public function getColumns()
 	{
 		return $this->aColumns;
+	}
+	//--------------------------------------------------------------------------------------
+	public function setListColumnsProperties($listColumnsProperties) {
+	    if(!is_array($listColumnsProperties)){
+	        throw new InvalidArgumentException('List of Columns Properties not is a array');
+	    }
+	    $this->listColumnsProperties = $listColumnsProperties;
+	}
+	public function getListColumnsProperties() {
+	    return $this->listColumnsProperties;
 	}
 	//--------------------------------------------------------------------------------------
 	public function addLine($strNewValue=null,$boolNewLine=true){
