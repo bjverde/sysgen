@@ -12,6 +12,6 @@ define('SYSTEM_VERSION', 'v 0.4.0-alpha');
 define('APLICATIVO',SYSTEM_ACRONYM);
 define('DS'    , DIRECTORY_SEPARATOR);
 define('ROOT_PATH'    , '../');
-define('CHAR_MAX_TEXT_FIELD'    , 100);
+define('CHAR_MAX_TEXT_FIELD'    , 101);
 
 ?>
