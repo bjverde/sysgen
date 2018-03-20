@@ -65,10 +65,15 @@ class TCreateForm {
 		return $this->primaryKeyTable;
 	}
 	//--------------------------------------------------------------------------------------
-	public function setTableRef($tableRef) {
+	public function getTableRefCC($tableRef) {
 	    $tableRef = strtolower($tableRef);
-		$this->daoTableRef= ucfirst($tableRef).'DAO';
-		$this->voTableRef = ucfirst($tableRef).'VO';
+	    return ucfirst($tableRef);
+	}
+	//--------------------------------------------------------------------------------------
+	public function setTableRef($tableRef) {
+	    $this->tableRef   = strtolower($tableRef);
+		$this->daoTableRef= $this->getTableRefCC($tableRef).'DAO';
+		$this->voTableRef = $this->getTableRefCC($tableRef).'VO';
 	}
 	//--------------------------------------------------------------------------------------
 	public function setListColunnsName($listColumnsName) {
@@ -170,6 +175,41 @@ class TCreateForm {
 	    return $result;
 	}
 	//--------------------------------------------------------------------------------------
+	private function getColumnsPropertieKeyType($key) {
+	    $result = null;
+	    if(ArrayHelper::has('KEY_TYPE',$this->listColumnsProperties)){
+	        $result = $this->listColumnsProperties['KEY_TYPE'][$key];
+	    }
+	    $result = empty($result) ? FALSE : $result;
+	    return $result;
+	}
+	//--------------------------------------------------------------------------------------
+	private function getColumnsPropertieReferencedTable($key) {
+	    $result = null;
+	    if(ArrayHelper::has('REFERENCED_TABLE_NAME',$this->listColumnsProperties)){
+	        $result = $this->listColumnsProperties['REFERENCED_TABLE_NAME'][$key];
+	    }
+	    $result = empty($result) ? FALSE : $result;
+	    return $result;
+	}
+	//--------------------------------------------------------------------------------------
+	private function addFieldNumberOrForenKey($key,$fieldName,$REQUIRED) {
+	    $NUM_LENGTH = self::getColumnsPropertieNumLength($key);
+	    $NUM_SCALE  = self::getColumnsPropertieNumScale($key);
+	    $KEY_TYPE   = self::getColumnsPropertieKeyType($key);
+	    $REFERENCED_TABLE_NAME = self::getColumnsPropertieReferencedTable($key);
+	    
+	    if($KEY_TYPE == 'FOREIGN KEY'){
+	        $REFERENCED_TABLE_NAME = $this->getTableRefCC($REFERENCED_TABLE_NAME);
+	        $this->addLine('$list'.$REFERENCED_TABLE_NAME.' = '.$REFERENCED_TABLE_NAME.'DAO::selectAll();');
+	        $this->addLine('$frm->addSelectField(\''.$fieldName.'\', \''.$fieldName.'\','.$REQUIRED.',$list'.$REFERENCED_TABLE_NAME.',null,null,null,null,null,null,\' \',0);');
+	        $this->addFieldTypeToolTip($key,$fieldName);
+	    }else{	        
+	        $this->addLine('$frm->addNumberField(\''.$fieldName.'\', \''.$fieldName.'\','.$NUM_LENGTH.','.$REQUIRED.','.$NUM_SCALE.');');
+	        $this->addFieldTypeToolTip($key,$fieldName);
+	    }
+	}
+	//--------------------------------------------------------------------------------------
 	private function addFieldType($key,$fieldName) {
 		/**
 		 * Esse ajuste do $key acontece em função do setListColunnsName descarta o primeiro
@@ -178,9 +218,8 @@ class TCreateForm {
 		$key = $key+1;
 		$CHAR_MAX    = self::getColumnsPropertieCharMax($key);
 		$DATA_TYPE   = self::getColumnsPropertieDataType($key);
-		$REQUIRED    = self::getColumnsPropertieRequired($key);
-		$NUM_LENGTH  = self::getColumnsPropertieNumLength($key);
-		$NUM_SCALE   = self::getColumnsPropertieNumScale($key);
+		$REQUIRED   = self::getColumnsPropertieRequired($key);
+
 		switch( $DATA_TYPE ) {
 			case 'DATETIME':
 			case 'DATE':
@@ -202,8 +241,7 @@ class TCreateForm {
 			case 'SMALLINT':
 			case 'TINYINT':
 			//case preg_match( '/decimal|real|float|numeric|number|int|int64|integer|double|smallint|bigint|tinyint/i', $DATA_TYPE ):
-			    $this->addLine('$frm->addNumberField(\''.$fieldName.'\', \''.$fieldName.'\','.$NUM_LENGTH.','.$REQUIRED.','.$NUM_SCALE.');');
-				$this->addFieldTypeToolTip($key,$fieldName);
+			    self::addFieldNumberOrForenKey($key,$fieldName,$REQUIRED);
 				break;
 			default:
 			    if($CHAR_MAX < CHAR_MAX_TEXT_FIELD){			    
