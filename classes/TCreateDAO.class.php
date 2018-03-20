@@ -65,9 +65,9 @@ class TCreateDAO {
 		}
 	}
 	//-----------------------------------------------------------------------------------
-	public function setTableName($strNewValue) {
-		$strNewValue = strtolower($strTableName);
-		$this->tableName=$strNewValue;
+	public function setTableName($strTableName) {
+		$strTableName = strtolower($strTableName);
+		$this->tableName=$strTableName;
 	}
 	//------------------------------------------------------------------------------------
 	public function getTableName() {
