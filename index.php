@@ -17,7 +17,7 @@ $app->setSigla(SYSTEM_ACRONYM);
 $app->setVersionSystem(SYSTEM_VERSION);
 
 $app->setUnit('Show Me the code');
-$app->setLoginInfo('Feito é melhor que perfeito !!<br>'.SYSTEM_VERSION);
+$app->setLoginInfo('Feito é melhor que perfeito !!<br>v'.SYSTEM_VERSION);
 $app->setMainMenuFile('includes/menu.php');
 
 $app->setWaterMark('images/2-code-gen-database-first.png');
