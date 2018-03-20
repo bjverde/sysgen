@@ -49,8 +49,9 @@ try {
 		$key = $key + 1;
 		if($tableType == 'TABLE'){
 		    TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable);
+		    TGeneratorHelper::createFilesClasses($table, $listFieldsTable);
 			TGeneratorHelper::createFilesForms($table, $listFieldsTable);
-			$html->add('<br>'.$key.' - Criado Form, DAO e VO da tabela: '.$table);
+			$html->add('<br>'.$key.' - Criado Form, Class, DAO e VO da tabela: '.$table);
 		}else{
 		    TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable);
 			$html->add('<br>'.$key.' - Criado DAO e VO da view: '.$table);

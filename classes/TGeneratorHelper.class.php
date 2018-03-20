@@ -142,10 +142,10 @@ class TGeneratorHelper {
 	
 	public static function copySystemSkeletonToNewSystem(){
 		$pathNewSystem = self::getPathNewSystem();
-		$pathSkeleton = 'system_skeleton';
+		$pathSkeleton  = 'system_skeleton';
 		
 		$list = new RecursiveDirectoryIterator($pathSkeleton);
-		$it = new RecursiveIteratorIterator($list);
+		$it   = new RecursiveIteratorIterator($list);
 		
 		foreach ($it as $file) {
 			if($it->isFile()){
@@ -164,6 +164,11 @@ class TGeneratorHelper {
 	
 	public static function createFileConfigDataBase(){
 		$file = new TCreateConfigDataBase();
+		$file->saveFile();
+	}
+	
+	public static function createFileAutoload(){
+		$file = new TCreateAutoload();
 		$file->saveFile();
 	}
 	
@@ -203,7 +208,7 @@ class TGeneratorHelper {
 		$listTables = self::loadTablesFromDatabase();
 		$listTableNames = $listTables['TABLE_NAME'];
 		foreach ($listTableNames as $key=>$table){
-			$dao = self::getTDAOConect($table);
+			$dao   = self::getTDAOConect($table);
 			$dados = $dao->loadFieldsOneTableFromDatabase();
 			self::createFilesDaoVoFromTable($table, $dados['COLUMN_NAME']);
 			self::createFilesForms($table, $dados['COLUMN_NAME']);
@@ -215,19 +220,29 @@ class TGeneratorHelper {
 		switch( $DBMS ) {
 			case DBMS_MYSQL:
 				$SCHEMA = false;
-				$TPGRID     = GRID_SQL_PAGINATION;
+				$TPGRID = GRID_SQL_PAGINATION;
 			break;
 			case DBMS_SQLSERVER:
 				$SCHEMA = true;
-				$TPGRID     = GRID_SQL_PAGINATION;
+				$TPGRID = GRID_SQL_PAGINATION;
 			break;
 			default:
 				$SCHEMA = false;
-				$TPGRID     = GRID_SCREEN_PAGINATION;
+				$TPGRID = GRID_SCREEN_PAGINATION;
 		}
 		$config['SCHEMA'] = $SCHEMA;
 		$config['TPGRID'] = $TPGRID;
 		return $config;
+	}
+	
+	public static function createFilesClasses($tableName, $listColumnsProperties){
+		$DBMS       = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
+		$configDBMS = self::getConfigByDBMS( $DBMS );
+		$generator  = new TCreateClass( $tableName );
+		$generator->setListColumnsProperties( $listColumnsProperties );
+		$generator->setListColunnsName( $listColumnsProperties['COLUMN_NAME'] );
+		$generator->setWithSqlPagination( $configDBMS['TPGRID'] );
+		$generator->saveFile();
 	}
 	
 	public static function createFilesDaoVoFromTable($tableName, $listColumnsProperties){
@@ -270,7 +285,7 @@ class TGeneratorHelper {
 		$dir = explode(DS, __DIR__);
 		$dirSysGen = array_pop($dir);
 		$dirSysGen = array_pop($dir);
-		$url = explode($dirSysGen, $url);
+		$url    = explode($dirSysGen, $url);
 		$result = $url[0].$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
 		return $result;
 	}

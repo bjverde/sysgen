@@ -34,7 +34,7 @@ switch( $acao ) {
 		break;
 		//--------------------------------------------------------------------------------
 	case 'Gerar':
-		$frm->redirect('gen03.php','Redirect realizado com sucesso.',true);
+		$frm->redirect('gen03.php',Message::GEN02_REDIRECT_STEP03,true);
 		break;
 }
 
@@ -51,6 +51,8 @@ try {
 	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_CONSTANTS));
 	TGeneratorHelper::createFileConfigDataBase();
 	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_CONFIG_DATABASE));
+	TGeneratorHelper::createFileAutoload();
+	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_AUTOLOAD));
 	TGeneratorHelper::createFileMenu($listTables);
 	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_MENU));
 	TGeneratorHelper::createFileIndex();
