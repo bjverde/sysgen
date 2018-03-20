@@ -11,6 +11,7 @@ class TCreateClass extends  TCreateFileContent{
     private $tableRef;
     private $tableRefDAO;
     private $tableRefVO;
+    private $withSqlPagination;
     private $listColumnsName;
     private $listColumnsProperties;
     
@@ -22,6 +23,13 @@ class TCreateClass extends  TCreateFileContent{
     	$this->setFileName($tableRef);
 		$path = TGeneratorHelper::getPathNewSystem().DS.'classes'.DS;
 		$this->setFilePath($path);
+	}
+	//------------------------------------------------------------------------------------
+	public function setWithSqlPagination($withSqlPagination) {
+		return $this->withSqlPagination = $withSqlPagination;
+	}
+	public function getWithSqlPagination() {
+		return $this->withSqlPagination;
 	}
 	//--------------------------------------------------------------------------------------
 	public function setListColunnsName($listColumnsName) {
@@ -63,6 +71,13 @@ class TCreateClass extends  TCreateFileContent{
 		$this->addLine(TAB.'}');
 	}
 	//--------------------------------------------------------------------------------------
+	private function addSelectAll() {
+		$this->addLine(TAB.'public static function selectAll( $orderBy=null, $where=null ){');
+		$this->addLine(TAB.TAB.'$result = '.$this->tableRefDAO.'::selectAll( $orderBy=null, $where=null );');
+		$this->addLine(TAB.TAB.'return $result;');
+		$this->addLine(TAB.'}');
+	}
+	//--------------------------------------------------------------------------------------
 	private function addSave() {
 		$columunPK = ucfirst(strtolower($this->listColumnsName[0]));
 		$this->addLine(TAB.'public static function save( '.$this->tableRefVO.' $objVo ){');
@@ -97,6 +112,14 @@ class TCreateClass extends  TCreateFileContent{
 
         $this->addLine();
         $this->addSelectCount();
+        
+        if( $this->getWithSqlPagination() == GRID_SQL_PAGINATION ){
+        	$this->addLine();
+        	$this->addSqlSelectAllPagination();
+        }
+        
+        $this->addLine();
+        $this->addSelectAll();
         
         $this->addLine();
         $this->addSave();
