@@ -14,8 +14,9 @@ class TCreateForm {
 	private $formFileName;
 	private $primaryKeyTable;
 	private $tableRef;
-    private $daoTableRef;
-	private $voTableRef;
+	private $tableRefClass;
+    private $tableRefDAO;
+	private $tableRefVO;
 	private $listColumnsName;
     private $lines;
     private $gridType;
@@ -71,9 +72,10 @@ class TCreateForm {
 	}
 	//--------------------------------------------------------------------------------------
 	public function setTableRef($tableRef) {
-	    $this->tableRef   = strtolower($tableRef);
-		$this->daoTableRef= $this->getTableRefCC($tableRef).'DAO';
-		$this->voTableRef = $this->getTableRefCC($tableRef).'VO';
+	    $this->tableRef      = strtolower($tableRef);
+	    $this->tableRefClass = $this->getTableRefCC($tableRef);
+		$this->tableRefDAO   = $this->getTableRefCC($tableRef).'DAO';
+		$this->tableRefVO    = $this->getTableRefCC($tableRef).'VO';
 	}
 	//--------------------------------------------------------------------------------------
 	public function setListColunnsName($listColumnsName) {
@@ -201,7 +203,7 @@ class TCreateForm {
 	    
 	    if($KEY_TYPE == 'FOREIGN KEY'){
 	        $REFERENCED_TABLE_NAME = $this->getTableRefCC($REFERENCED_TABLE_NAME);
-	        $this->addLine('$list'.$REFERENCED_TABLE_NAME.' = '.$REFERENCED_TABLE_NAME.'DAO::selectAll();');
+	        $this->addLine('$list'.$REFERENCED_TABLE_NAME.' = '.$REFERENCED_TABLE_NAME.'::selectAll();');
 	        $this->addLine('$frm->addSelectField(\''.$fieldName.'\', \''.$fieldName.'\','.$REQUIRED.',$list'.$REFERENCED_TABLE_NAME.',null,null,null,null,null,null,\' \',0);');
 	        $this->addFieldTypeToolTip($key,$fieldName);
 	    }else{	        
@@ -266,9 +268,9 @@ class TCreateForm {
 	private function addBasicaViewController_salvar() {
 	    $this->addLine(TAB.'case \'Salvar\':');
 	    $this->addLine(TAB.TAB.'if ( $frm->validate() ) {');
-	    $this->addLine(TAB.TAB.TAB.'$vo = new '.$this->voTableRef.'();');
+	    $this->addLine(TAB.TAB.TAB.'$vo = new '.$this->tableRefVO.'();');
 	    $this->addLine(TAB.TAB.TAB.'$frm->setVo( $vo );');
-	    $this->addLine(TAB.TAB.TAB.'$resultado = '.$this->daoTableRef.'::insert( $vo );');
+	    $this->addLine(TAB.TAB.TAB.'$resultado = '.$this->tableRefClass.'::save( $vo );');
 	    $this->addLine(TAB.TAB.TAB.'if($resultado==1) {');
 	    $this->addLine(TAB.TAB.TAB.TAB.'$frm->setMessage(\'Registro gravado com sucesso!!!\');');
 	    $this->addLine(TAB.TAB.TAB.TAB.'$frm->clearFields();');
@@ -298,7 +300,7 @@ class TCreateForm {
 	    $this->addLine();
 	    $this->addLine(TAB.'case \'gd_excluir\':');
 	    $this->addLine(TAB.TAB.'$id = $frm->get( $primaryKey ) ;');
-	    $this->addLine(TAB.TAB.'$resultado = '.$this->daoTableRef.'::delete( $id );;');
+	    $this->addLine(TAB.TAB.'$resultado = '.$this->tableRefClass.'::delete( $id );;');
 	    $this->addLine(TAB.TAB.'if($resultado==1) {');
 	    $this->addLine(TAB.TAB.TAB.'$frm->setMessage(\'Registro excluido com sucesso!!!\');');
 	    $this->addLine(TAB.TAB.TAB.'$frm->clearFields();');
@@ -379,7 +381,7 @@ class TCreateForm {
 	//--------------------------------------------------------------------------------------
 	private function addBasicaGrid() {
 		$this->addBlankLine();
-		$this->addLine('$dados = '.$this->daoTableRef.'::selectAll($primaryKey,$whereGrid);');
+		$this->addLine('$dados = '.$this->tableRefClass.'::selectAll($primaryKey,$whereGrid);');
 		$this->addLine($this->getMixUpdateFields());
 		$this->addLine('$gride = new TGrid( \'gd\'        // id do gride');
 		$this->addLine('				   ,\'Gride\'     // titulo do gride');
@@ -452,10 +454,10 @@ class TCreateForm {
 	    	$this->addLine(TAB.'$whereGrid = getWhereGridParameters($frm);');
 	    	if($this->gridType == GRID_SQL_PAGINATION){	    	    
 	    		$this->addLine(TAB.'$page = PostHelper::get(\'page\');');
-	    		$this->addLine(TAB.'$dados = '.$this->daoTableRef.'::selectAllPagination( $primaryKey, $whereGrid, $page,  $maxRows);');
-	    		$this->addLine(TAB.'$realTotalRowsSqlPaginator = '.$this->daoTableRef.'::selectCount( $whereGrid );');
+	    		$this->addLine(TAB.'$dados = '.$this->tableRefClass.'::selectAllPagination( $primaryKey, $whereGrid, $page,  $maxRows);');
+	    		$this->addLine(TAB.'$realTotalRowsSqlPaginator = '.$this->tableRefClass.'::selectCount( $whereGrid );');
 	    	}else if($this->gridType == GRID_SCREEN_PAGINATION){
-	    		$this->addLine(TAB.'$dados = '.$this->daoTableRef.'::selectAll( $primaryKey, $whereGrid );');
+	    		$this->addLine(TAB.'$dados = '.$this->tableRefClass.'::selectAll( $primaryKey, $whereGrid );');
 	    	}
 	    	$this->addLine(TAB.$this->getMixUpdateFields());
 	    	$this->addLine(TAB.'$gride = new TGrid( \'gd\'                        // id do gride');
