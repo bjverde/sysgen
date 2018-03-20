@@ -20,7 +20,7 @@ class TCreateClass extends  TCreateFileContent{
     	$this->tableRef   = $tableRef;
     	$this->tableRefDAO= $tableRef.'DAO';
     	$this->tableRefVO = $tableRef.'VO';
-    	$this->setFileName($tableRef.'.php');
+    	$this->setFileName($tableRef.'.class.php');
 		$path = TGeneratorHelper::getPathNewSystem().DS.'classes'.DS;
 		$this->setFilePath($path);
 	}
