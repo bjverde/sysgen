@@ -24,6 +24,7 @@ class TCreateIndex extends  TCreateFileContent{
         $this->addBlankLine();
         $this->addLine('//FormDin version: '.FORMDIN_VERSION);
         $this->addLine('require_once(\'../base/classes/webform/TApplication.class.php\');');
+        $this->addLine('require_once(\'classes/autoload_'.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].'.php\');');
         $this->addBlankLine();
         $this->addBlankLine();
         $this->addLine('$app = new TApplication(); // criar uma instancia do objeto aplicacao');
