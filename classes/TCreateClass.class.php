@@ -93,6 +93,12 @@ class TCreateClass extends  TCreateFileContent{
         $this->addConstruct();
         
         $this->addLine();
+        $this->addSelectById();
+
+        $this->addLine();
+        $this->addSelectCount();
+        
+        $this->addLine();
         $this->addSave();
         
         $this->addLine();
