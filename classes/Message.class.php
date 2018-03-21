@@ -13,6 +13,7 @@ final class Message {
 	const GEN01_GPX2_TITLE = 'Configurações de Banco';
 	
 	const GEN02_TITLE        = 'Etapa 02 de 03';
+	const GEN02_NOT_READY    = 'Seu Mané teste as configurações de banco!!';
 	const GEN02_GPX1_TITLE   = 'Ações executadas';
 	const GEN02_MKDIR_SYSTEM = 'Criada pasta base ';
 	const GEN02_COPY_SYSTEM_SKELETON    = 'Copiado estrutura básica de pastas.';
@@ -24,6 +25,7 @@ final class Message {
 	const GEN02_REDIRECT_STEP03 = 'Você está na etapa 03 de 03. Essa parte pode demorar. Quanto maior o número de tabelas maior a demora.';
 	
 	const GEN03_TITLE         = 'Etapa 03 de 03';
+	const GEN03_NOT_READY     = 'Seu Mané, selecione as tabelas para gerar!';
 	const GEN03_NEW_SYSTEM_OK = 'Sistema Criado com Sucesso';
 }
 ?>
