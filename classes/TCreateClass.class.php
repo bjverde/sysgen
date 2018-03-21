@@ -71,9 +71,9 @@ class TCreateClass extends  TCreateFileContent{
 		$this->addLine(TAB.'}');
 	}
 	//--------------------------------------------------------------------------------------
-	private function addSelectAllSqlPagination() {
-		$this->addLine(TAB.'public static function selectAllSqlPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null){');
-		$this->addLine(TAB.TAB.'$result = '.$this->tableRefDAO.'::selectAllSqlPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null );');
+	private function addSelectAllPagination() {
+		$this->addLine(TAB.'public static function selectAllPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null){');
+		$this->addLine(TAB.TAB.'$result = '.$this->tableRefDAO.'::selectAllPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null );');
 		$this->addLine(TAB.TAB.'return $result;');
 		$this->addLine(TAB.'}');
 	}
@@ -122,7 +122,7 @@ class TCreateClass extends  TCreateFileContent{
         
         if( $this->getWithSqlPagination() == GRID_SQL_PAGINATION ){
         	$this->addLine();
-        	$this->addSelectAllSqlPagination();
+        	$this->addSelectAllPagination();
         }
         
         $this->addLine();
