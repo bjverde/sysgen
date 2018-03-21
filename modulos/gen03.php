@@ -35,18 +35,24 @@ switch( $acao ) {
 
 
 try {
+    $listTableNames = $_SESSION[APLICATIVO]['idTableNameSelected'];
+    $listTablesAll  = TGeneratorHelper::loadTablesFromDatabase();
+    foreach ($listTableNames as $key=>$table){
+        $keyTable = array_search($table, $listTablesAll['TABLE_NAME']);
+        $listTables['TABLE_NAME'][] = $listTablesAll['TABLE_NAME'][$keyTable];
+        $listTables['TABLE_TYPE'][] = $listTablesAll['TABLE_TYPE'][$keyTable];
+    }
+    
+    TGeneratorHelper::createFileMenu($listTables);
+    $html->add(TGeneratorHelper::showMsg(true, Message::CREATED_MENU));
+    
 	$html->add(TGeneratorHelper::showMsg(true,Message::GEN03_NEW_SYSTEM_OK));
 	$html->add('<a href="'.TGeneratorHelper::getUrlNewSystem().'" target="_blank">'.TGeneratorHelper::getUrlNewSystem().'</a>');
-	
 
-
-	$listTables = TGeneratorHelper::loadTablesFromDatabase();
-	$listTableNames =  $_SESSION[APLICATIVO]['idTableNameSelected'];
 	foreach ($listTableNames as $key=>$table){
 		$dao = TGeneratorHelper::getTDAOConect($table);
 		$listFieldsTable = $dao->loadFieldsOneTableFromDatabase();
-		$keyTableType = array_search($table, $listTables['TABLE_NAME']);
-		$tableType = strtoupper($listTables['TABLE_TYPE'][$keyTableType]);
+		$tableType = strtoupper($listTables['TABLE_TYPE'][$key]);
 		$key = $key + 1;
 		if($tableType == 'TABLE'){
 		    TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable);

@@ -58,8 +58,6 @@ try {
 	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_CONFIG_DATABASE));
 	TGeneratorHelper::createFileAutoload();
 	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_AUTOLOAD));
-	TGeneratorHelper::createFileMenu($listTables);
-	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_MENU));
 	TGeneratorHelper::createFileIndex();
 	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_INDEX));
 	$_SESSION[APLICATIVO]['STEP2']=true;
