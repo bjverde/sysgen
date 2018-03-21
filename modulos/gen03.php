@@ -41,11 +41,12 @@ try {
 
 
 	$listTables = TGeneratorHelper::loadTablesFromDatabase();
-	$listTableNames = $listTables['TABLE_NAME'];
+	$listTableNames =  $_SESSION[APLICATIVO]['idTableNameSelected'];
 	foreach ($listTableNames as $key=>$table){
 		$dao = TGeneratorHelper::getTDAOConect($table);
 		$listFieldsTable = $dao->loadFieldsOneTableFromDatabase();
-		$tableType = strtoupper($listTables['TABLE_TYPE'][$key]);
+		$keyTableType = array_search($table, $listTables['TABLE_NAME']);
+		$tableType = strtoupper($listTables['TABLE_TYPE'][$keyTableType]);
 		$key = $key + 1;
 		if($tableType == 'TABLE'){
 		    TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable);
