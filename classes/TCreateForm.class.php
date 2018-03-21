@@ -220,7 +220,7 @@ class TCreateForm {
 		$key = $key+1;
 		$CHAR_MAX    = self::getColumnsPropertieCharMax($key);
 		$DATA_TYPE   = self::getColumnsPropertieDataType($key);
-		$REQUIRED   = self::getColumnsPropertieRequired($key);
+		$REQUIRED    = self::getColumnsPropertieRequired($key);
 
 		switch( $DATA_TYPE ) {
 			case 'DATETIME':

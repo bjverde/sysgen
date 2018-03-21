@@ -1,6 +1,6 @@
 <?php
 /**
- * SysGen - Gerador de sistemas com Formdin Framework
+ * SysGen - System Generator with Formdin Framework
  * https://github.com/bjverde/sysgen
  */
 class TGeneratorHelper {
