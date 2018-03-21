@@ -38,7 +38,7 @@ switch( $acao ) {
 	       $_SESSION[APLICATIVO]['idTableNameSelected'] = $_POST['idTableNameSelected'];
 	       $frm->redirect('gen03.php',Message::GEN02_REDIRECT_STEP03,true);
 	    }else{
-	        $frm->setMessage(Message::GEN03_NOT_READY);
+	        $frm->setMessage(Message::WARNING_NO_TABLE);
 	    }
 		break;
 }

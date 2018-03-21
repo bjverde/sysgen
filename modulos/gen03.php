@@ -58,14 +58,14 @@ try {
 		    TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable);
 		    TGeneratorHelper::createFilesClasses($table, $listFieldsTable);
 			TGeneratorHelper::createFilesForms($table, $listFieldsTable);
-			$html->add('<br>'.$key.' - Criado Form, Class, DAO e VO da tabela: '.$table);
+			$html->add('<br>'.$key.Message::CREATED_TABLE_ITEN.$table);
 		}else{
 		    TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable);
-			$html->add('<br>'.$key.' - Criado DAO e VO da view: '.$table);
+		    $html->add('<br>'.$key.Message::CREATED_VIEW_ITEN.$table);
 		}
 		
 		$gride = new TGrid( 'gd'      // id do gride
-				           ,$key.' - Lista de campos da Tabela: '.$table   // titulo do gride
+		                   ,$key.Message::FIELDS_TABLE_VIEW.$table   // titulo do gride
 				           ,$listFieldsTable 	      // array de dados
 				           );
 		$gride->setCreateDefaultEditButton(false);
