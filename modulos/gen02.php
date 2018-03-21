@@ -12,7 +12,7 @@ $frm->setAutoSize(true);
 $frm->addCssFile('css/sysgen.css');
 
 if (!ArrayHelper::has('USER', $_SESSION[APLICATIVO]['DBMS']) ){
-	$frm->redirect('gen01.php','Seu Mané teste as configurações de banco!!',true);
+    $frm->redirect('gen01.php',Message::GEN02_NOT_READY,true);
 }
 
 $frm->addGroupField('gpx1',Message::GEN02_GPX1_TITLE);
@@ -34,7 +34,12 @@ switch( $acao ) {
 		break;
 		//--------------------------------------------------------------------------------
 	case 'Gerar':
-		$frm->redirect('gen03.php',Message::GEN02_REDIRECT_STEP03,true);
+	    if(ArrayHelper::has('idTableNameSelected', $_POST)){
+	       $_SESSION[APLICATIVO]['idTableNameSelected'] = $_POST['idTableNameSelected'];
+	       $frm->redirect('gen03.php',Message::GEN02_REDIRECT_STEP03,true);
+	    }else{
+	        $frm->setMessage(Message::GEN03_NOT_READY);
+	    }
 		break;
 }
 
@@ -65,6 +70,12 @@ try {
 			          );
 	$gride->setCreateDefaultEditButton(false);
 	$gride->setCreateDefaultDeleteButton(false);
+	
+	$gride->addColumn('TABLE_SCHEMA','TABLE_SCHEMA');
+	$gride->addCheckColumn('idTableNameSelected','TABLE_NAME','TABLE_NAME','TABLE_NAME',true,true);
+	$gride->addColumn('COLUMN_QTD','COLUMN_QTD');
+	$gride->addColumn('TABLE_TYPE','TABLE_TYPE');
+	
 	$frm->addHtmlField('gride',$gride);
 } catch (Exception $e) {
 	echo $e->getMessage();
