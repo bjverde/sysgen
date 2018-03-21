@@ -215,42 +215,28 @@ class TCreateForm {
 	private function addFieldType($key,$fieldName) {
 		/**
 		 * Esse ajuste do $key acontece em função do setListColunnsName descarta o primeiro
-		 * registro que é assume ser a chave primaria.
+		 * registro que assume ser a chave primaria.
 		 */		
 		$key = $key+1;
 		$CHAR_MAX    = self::getColumnsPropertieCharMax($key);
-		$DATA_TYPE   = self::getColumnsPropertieDataType($key);
 		$REQUIRED    = self::getColumnsPropertieRequired($key);
+		$DATA_TYPE   = self::getColumnsPropertieDataType($key);
+		$formDinType = TCreateDAO::convertDataType2FormDinType($DATA_TYPE);		
 
-		switch( $DATA_TYPE ) {
-			case 'DATETIME':
+		switch( $formDinType ) {
 			case 'DATE':
-			case 'TIMESTAMP':
-			//case preg_match( '/date|datetime|timestamp/i', $DATA_TYPE ):
 			    $this->addLine('$frm->addDateField(\''.$fieldName.'\', \''.$fieldName.'\','.$REQUIRED.');');
 				$this->addFieldTypeToolTip($key,$fieldName);
 				break;
-			case 'BIGINT':
-			case 'DECIMAL':
-			case 'DOUBLE':
-			case 'FLOAT':
-			case 'INT':
-			case 'INT64':
-			case 'INTEGER':
-			case 'NUMERIC':
 			case 'NUMBER':
-			case 'REAL':
-			case 'SMALLINT':
-			case 'TINYINT':
-			//case preg_match( '/decimal|real|float|numeric|number|int|int64|integer|double|smallint|bigint|tinyint/i', $DATA_TYPE ):
-			    self::addFieldNumberOrForenKey($key,$fieldName,$REQUIRED);
+				$this->addFieldNumberOrForenKey($key,$fieldName,$REQUIRED);
 				break;
 			default:
-			    if($CHAR_MAX < CHAR_MAX_TEXT_FIELD){			    
+			    if($CHAR_MAX < CHAR_MAX_TEXT_FIELD){
 			        $this->addLine('$frm->addTextField(\''.$fieldName.'\', \''.$fieldName.'\','.$CHAR_MAX.','.$REQUIRED.','.$CHAR_MAX.');');
 			    }else{
 			        $this->addLine('$frm->addMemoField(\''.$fieldName.'\', \''.$fieldName.'\','.$CHAR_MAX.','.$REQUIRED.',80,3);');
-			    }				
+			    }
 				$this->addFieldTypeToolTip($key,$fieldName);
 		}
 	}
