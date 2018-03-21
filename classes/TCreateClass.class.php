@@ -73,14 +73,14 @@ class TCreateClass extends  TCreateFileContent{
 	//--------------------------------------------------------------------------------------
 	private function addSelectAllPagination() {
 		$this->addLine(TAB.'public static function selectAllPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null){');
-		$this->addLine(TAB.TAB.'$result = '.$this->tableRefDAO.'::selectAllPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null );');
+		$this->addLine(TAB.TAB.'$result = '.$this->tableRefDAO.'::selectAllPagination( $orderBy, $where, $page,  $rowsPerPage );');
 		$this->addLine(TAB.TAB.'return $result;');
 		$this->addLine(TAB.'}');
 	}
 	//--------------------------------------------------------------------------------------
 	private function addSelectAll() {
 		$this->addLine(TAB.'public static function selectAll( $orderBy=null, $where=null ){');
-		$this->addLine(TAB.TAB.'$result = '.$this->tableRefDAO.'::selectAll( $orderBy=null, $where=null );');
+		$this->addLine(TAB.TAB.'$result = '.$this->tableRefDAO.'::selectAll( $orderBy, $where );');
 		$this->addLine(TAB.TAB.'return $result;');
 		$this->addLine(TAB.'}');
 	}
