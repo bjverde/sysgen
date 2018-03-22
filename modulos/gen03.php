@@ -42,6 +42,7 @@ try {
     
 	$html->add(TGeneratorHelper::showMsg(true,Message::GEN03_NEW_SYSTEM_OK));
 	$html->add('<a href="'.TGeneratorHelper::getUrlNewSystem().'" target="_blank">'.TGeneratorHelper::getUrlNewSystem().'</a>');
+	$html->add('<br>');
 
 	foreach ($listTables['TABLE_NAME'] as $key=>$table){
 	    $schema = $listTables['TABLE_SCHEMA'][$key];
