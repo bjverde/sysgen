@@ -187,6 +187,7 @@ class TCreateDAO {
 		$result = 'TEXT';
 		switch( $dataType ) {
 			case 'DATETIME':
+			case 'DATETIME2':
 			case 'DATE':
 			case 'TIMESTAMP':
 				//case preg_match( '/date|datetime|timestamp/i', $DATA_TYPE ):
