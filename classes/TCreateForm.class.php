@@ -323,10 +323,12 @@ class TCreateForm {
 	}
 	//--------------------------------------------------------------------------------------
 	public function addColumnsGrid($qtdTab) {
-		$this->addLine($qtdTab.'$gride->addColumn($primaryKey,\'id\',50,\'center\');');
+		//$this->addLine($qtdTab.'$gride->addColumn($primaryKey,\'id\',50,\'center\');');
+	    $this->addLine($qtdTab.'$gride->addColumn($primaryKey,\'id\');');
 		if( $this->validateListColumnsName() ){
 			foreach($this->listColumnsName as $key=>$value){
-				$this->addLine($qtdTab.'$gride->addColumn(\''.$value.'\',\''.$value.'\',50,\'center\');');
+				//$this->addLine($qtdTab.'$gride->addColumn(\''.$value.'\',\''.$value.'\',50,\'center\');');
+			    $this->addLine($qtdTab.'$gride->addColumn(\''.$value.'\',\''.$value.'\');');
 			}
 		}
 	}
