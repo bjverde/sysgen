@@ -236,7 +236,7 @@ class TGeneratorHelper {
 		$generator->saveFile();
 	}
 	
-	public static function createFilesDaoVoFromTable($tableName, $listColumnsProperties){
+	public static function createFilesDaoVoFromTable($tableName, $listColumnsProperties,$tableSchema){
 		$DBMS        = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
 		$configDBMS  = self::getConfigByDBMS($DBMS);
 		$folder      = self::getPathNewSystem().DS.'dao'.DS;
@@ -248,7 +248,7 @@ class TGeneratorHelper {
 		}
 		$generatorDao->setDatabaseManagementSystem($DBMS);
 		$generatorDao->setWithSqlPagination($configDBMS['TPGRID']);
-		$generatorDao->setShowSchema($configDBMS['SCHEMA']);
+		$generatorDao->setTableSchema($tableSchema);
 		$generatorDao->setListColumnsProperties($listColumnsProperties);
 		$generatorDao->saveVO();
 		$generatorDao->saveDAO();

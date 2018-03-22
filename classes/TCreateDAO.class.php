@@ -14,7 +14,7 @@ class TCreateDAO {
 	private $keyColumnName;
 	private $path;
 	private $databaseManagementSystem;
-	private $showSchema;
+	private $tableSchema;
 	private $withSqlPagination;
 	private $charParam = '?';
 	private $listColumnsProperties;
@@ -51,18 +51,16 @@ class TCreateDAO {
 	    return $this->databaseManagementSystem;
 	}
 	//------------------------------------------------------------------------------------
-	public function setShowSchema($showSchema){
-	    return $this->showSchema = $showSchema;
+	public function setTableSchema($tableSchema){
+		return $this->tableSchema = $tableSchema;
 	}
-	//------------------------------------------------------------------------------------
-	public function getShowSchema(){
-	    return $this->showSchema;
+	public function getTableSchema(){
+	    return $this->tableSchema;
 	}
-	//------------------------------------------------------------------------------------
 	public function hasSchema(){
 	    $result = '';
-	    if($this->getShowSchema() == true){
-	        $result = '\'.SCHEMA.\'';
+	    if( !empty( $this->getTableSchema() ) ){
+	    	$result = $this->getTableSchema().'.';
 	    }	    
 	    return $result;
 	}

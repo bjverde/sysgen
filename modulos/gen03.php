@@ -11,10 +11,6 @@ $frm->setMaximize(true);
 $frm->setAutoSize(true);
 $frm->addCssFile('css/sysgen.css');
 
-if (!ArrayHelper::has('STEP2', $_SESSION[APLICATIVO]) ){
-	$frm->redirect('gen02.php','Seu Mané teste as configurações de banco!!',true);
-}
-
 $frm->addGroupField('gpx1',Message::GEN02_GPX1_TITLE);
 	$html = $frm->addHtmlField('conf','');
 $frm->closeGroup();
@@ -47,18 +43,18 @@ try {
 	$html->add('<br>');
 
 	foreach ($listTables['TABLE_NAME'] as $key=>$table){
-	    $schema = $listTables['TABLE_SCHEMA'][$key];
-	    $dao = TGeneratorHelper::getTDAOConect($table,$schema);
+	    $tableSchema = $listTables['TABLE_SCHEMA'][$key];
+	    $dao = TGeneratorHelper::getTDAOConect($table,$tableSchema);
 		$listFieldsTable = $dao->loadFieldsOneTableFromDatabase();
 		$tableType = strtoupper($listTables['TABLE_TYPE'][$key]);
 		$key = $key + 1;
 		if($tableType == 'TABLE'){
-		    TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable);
+			TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable,$tableSchema);
 		    TGeneratorHelper::createFilesClasses($table, $listFieldsTable);
 			TGeneratorHelper::createFilesForms($table, $listFieldsTable);
 			$html->add('<br>'.$key.Message::CREATED_TABLE_ITEN.$table);
 		}else{
-		    TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable);
+			TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable,$tableSchema);
 		    $html->add('<br>'.$key.Message::CREATED_VIEW_ITEN.$table);
 		}
 		
