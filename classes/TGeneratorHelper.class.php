@@ -197,11 +197,14 @@ class TGeneratorHelper {
 	
 	public static function loadTablesFromDatabase(){
 		$dao = self::getTDAOConect(null,null);
-		$dados = $dao->loadTablesFromDatabase();
-		if(!is_array($dados)){
+		$listAllTables = $dao->loadTablesFromDatabase();
+		if(!is_array($listAllTables)){
 			throw new InvalidArgumentException('List of Tables Names not is array');
 		}
-		return $dados;
+		foreach ($listAllTables['TABLE_NAME'] as $key=>$value){
+			$listAllTables['idSelected'][] = $listAllTables['TABLE_SCHEMA'][$key].$listAllTables['TABLE_NAME'][$key].$listAllTables['COLUMN_QTD'][$key].$listAllTables['TABLE_TYPE'][$key];
+		}
+		return $listAllTables;
 	}
 	
 	private static function getConfigByDBMS($DBMS){
@@ -277,6 +280,19 @@ class TGeneratorHelper {
 		$result = $url[0].$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
 		return $result;
 	}
+	
+	public static function loadTablesSelected(){
+		$listTablesAll   = TGeneratorHelper::loadTablesFromDatabase();
+		$idTableSelected = $_SESSION[APLICATIVO]['idTableSelected'];
+		foreach ($idTableSelected as $key=>$id){
+			$keyTable = array_search($id, $listTablesAll['idSelected']);
+			$listTablesSelected['TABLE_SCHEMA'][] = $listTablesAll['TABLE_SCHEMA'][$keyTable];
+			$listTablesSelected['TABLE_NAME'][]   = $listTablesAll['TABLE_NAME'][$keyTable];
+			$listTablesSelected['TABLE_TYPE'][]   = $listTablesAll['TABLE_TYPE'][$keyTable];
+		}
+		return $listTablesSelected;
+	}
+	
 	
 }
 ?>

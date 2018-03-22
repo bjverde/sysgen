@@ -35,18 +35,7 @@ switch( $acao ) {
 
 
 try {
-    $idSelected = $_SESSION[APLICATIVO]['idTableNameSelected'];
-    $listTablesAll  = TGeneratorHelper::loadTablesFromDatabase();
-    foreach ($listTablesAll['TABLE_NAME'] as $key=>$value){
-        $listTablesAll['idSelected'][] = $listTablesAll['TABLE_SCHEMA'][$key].$listTablesAll['TABLE_NAME'][$key].$listTablesAll['COLUMN_QTD'][$key].$listTablesAll['TABLE_TYPE'][$key];
-    }
-    foreach ($idSelected as $key=>$id){
-        $keyTable = array_search($id, $listTablesAll['idSelected']);
-        $listTables['TABLE_SCHEMA'][] = $listTablesAll['TABLE_SCHEMA'][$keyTable];
-        $listTables['TABLE_NAME'][] = $listTablesAll['TABLE_NAME'][$keyTable];
-        $listTables['TABLE_TYPE'][] = $listTablesAll['TABLE_TYPE'][$keyTable];
-    }
-    d($listTables);
+    $listTables = TGeneratorHelper::loadTablesSelected();
     
     TGeneratorHelper::createFileMenu($listTables);
     $html->add(TGeneratorHelper::showMsg(true, Message::CREATED_MENU));

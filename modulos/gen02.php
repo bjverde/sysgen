@@ -34,8 +34,8 @@ switch( $acao ) {
 		break;
 		//--------------------------------------------------------------------------------
 	case 'Gerar':
-	    if(ArrayHelper::has('idTableNameSelected', $_POST)){
-	       $_SESSION[APLICATIVO]['idTableNameSelected'] = $_POST['idTableNameSelected'];
+	    if(ArrayHelper::has('idTableSelected', $_POST)){
+	       $_SESSION[APLICATIVO]['idTableSelected'] = $_POST['idTableSelected'];
 	       $frm->redirect('gen03.php',Message::GEN02_REDIRECT_STEP03,true);
 	    }else{
 	        $frm->setMessage(Message::WARNING_NO_TABLE);
@@ -45,10 +45,7 @@ switch( $acao ) {
 
 
 try {	
-    $listTablesAll = TGeneratorHelper::loadTablesFromDatabase();
-    foreach ($listTablesAll['TABLE_NAME'] as $key=>$value){
-	    $listTablesAll['idSelected'][] = $listTablesAll['TABLE_SCHEMA'][$key].$listTablesAll['TABLE_NAME'][$key].$listTablesAll['COLUMN_QTD'][$key].$listTablesAll['TABLE_TYPE'][$key];
-	}
+	$listTablesAll = TGeneratorHelper::loadTablesFromDatabase();
 	
 	$path = ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
 	TGeneratorHelper::mkDir($path);
@@ -73,7 +70,7 @@ try {
 	$gride->setCreateDefaultDeleteButton(false);
 	
 	$gride->addColumn('TABLE_SCHEMA','TABLE_SCHEMA');
-	$gride->addCheckColumn('idTableNameSelected','TABLE_NAME','idSelected','TABLE_NAME',true,true);
+	$gride->addCheckColumn('idTableSelected','TABLE_NAME','idSelected','TABLE_NAME',true,true);
 	$gride->addColumn('COLUMN_QTD','COLUMN_QTD');
 	$gride->addColumn('TABLE_TYPE','TABLE_TYPE');
 	
