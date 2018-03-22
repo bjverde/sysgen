@@ -35,13 +35,18 @@ switch( $acao ) {
 
 
 try {
-    $listTableNames = $_SESSION[APLICATIVO]['idTableNameSelected'];
+    $idSelected = $_SESSION[APLICATIVO]['idTableNameSelected'];
     $listTablesAll  = TGeneratorHelper::loadTablesFromDatabase();
-    foreach ($listTableNames as $key=>$table){
-        $keyTable = array_search($table, $listTablesAll['TABLE_NAME']);
+    foreach ($listTablesAll['TABLE_NAME'] as $key=>$value){
+        $listTablesAll['idSelected'][] = $listTablesAll['TABLE_SCHEMA'][$key].$listTablesAll['TABLE_NAME'][$key].$listTablesAll['COLUMN_QTD'][$key].$listTablesAll['TABLE_TYPE'][$key];
+    }
+    foreach ($idSelected as $key=>$id){
+        $keyTable = array_search($id, $listTablesAll['idSelected']);
+        $listTables['TABLE_SCHEMA'][] = $listTablesAll['TABLE_SCHEMA'][$keyTable];
         $listTables['TABLE_NAME'][] = $listTablesAll['TABLE_NAME'][$keyTable];
         $listTables['TABLE_TYPE'][] = $listTablesAll['TABLE_TYPE'][$keyTable];
     }
+    d($listTables);
     
     TGeneratorHelper::createFileMenu($listTables);
     $html->add(TGeneratorHelper::showMsg(true, Message::CREATED_MENU));
@@ -49,8 +54,9 @@ try {
 	$html->add(TGeneratorHelper::showMsg(true,Message::GEN03_NEW_SYSTEM_OK));
 	$html->add('<a href="'.TGeneratorHelper::getUrlNewSystem().'" target="_blank">'.TGeneratorHelper::getUrlNewSystem().'</a>');
 
-	foreach ($listTableNames as $key=>$table){
-		$dao = TGeneratorHelper::getTDAOConect($table);
+	foreach ($listTables['TABLE_NAME'] as $key=>$table){
+	    $schema = $listTables['TABLE_SCHEMA'][$key];
+	    $dao = TGeneratorHelper::getTDAOConect($table,$schema);
 		$listFieldsTable = $dao->loadFieldsOneTableFromDatabase();
 		$tableType = strtoupper($listTables['TABLE_TYPE'][$key]);
 		$key = $key + 1;

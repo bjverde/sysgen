@@ -182,38 +182,26 @@ class TGeneratorHelper {
 		$file->saveFile();
 	}
 	
-	public static function getTDAOConect($tableName){
+	public static function getTDAOConect($tableName,$schema){
 		$dbType   = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
 		$user     = $_SESSION[APLICATIVO]['DBMS']['USER'];
 		$password = $_SESSION[APLICATIVO]['DBMS']['PASSWORD'];
 		$dataBase = $_SESSION[APLICATIVO]['DBMS']['DATABASE'];
 		$host     = $_SESSION[APLICATIVO]['DBMS']['HOST'];
 		$port     = $_SESSION[APLICATIVO]['DBMS']['PORT'];
-		$schema   = $_SESSION[APLICATIVO]['DBMS']['SCHEMA'];
+		$schema   = is_null($schema)?$_SESSION[APLICATIVO]['DBMS']['SCHEMA']:$schema;
 		
 		$dao = new TDAO($tableName,$dbType,$user,$password,$dataBase,$host,$port,$schema);
 		return $dao;
 	}
 	
 	public static function loadTablesFromDatabase(){
-		$dao = self::getTDAOConect(null);
+		$dao = self::getTDAOConect(null,null);
 		$dados = $dao->loadTablesFromDatabase();
 		if(!is_array($dados)){
 			throw new InvalidArgumentException('List of Tables Names not is array');
 		}
 		return $dados;
-	}
-	
-	public static function loadFieldsFromDatabase(){
-		$listTables = self::loadTablesFromDatabase();
-		$listTableNames = $listTables['TABLE_NAME'];
-		foreach ($listTableNames as $key=>$table){
-			$dao   = self::getTDAOConect($table);
-			$dados = $dao->loadFieldsOneTableFromDatabase();
-			self::createFilesDaoVoFromTable($table, $dados['COLUMN_NAME']);
-			self::createFilesForms($table, $dados['COLUMN_NAME']);
-		}
-		//return $dados;
 	}
 	
 	private static function getConfigByDBMS($DBMS){

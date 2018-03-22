@@ -45,7 +45,10 @@ switch( $acao ) {
 
 
 try {	
-	$listTables = TGeneratorHelper::loadTablesFromDatabase();
+    $listTablesAll = TGeneratorHelper::loadTablesFromDatabase();
+    foreach ($listTablesAll['TABLE_NAME'] as $key=>$value){
+	    $listTablesAll['idSelected'][] = $listTablesAll['TABLE_SCHEMA'][$key].$listTablesAll['TABLE_NAME'][$key].$listTablesAll['COLUMN_QTD'][$key].$listTablesAll['TABLE_TYPE'][$key];
+	}
 	
 	$path = ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
 	TGeneratorHelper::mkDir($path);
@@ -64,13 +67,13 @@ try {
 	
 	$gride = new TGrid('gd'        // id do gride
 			          ,'Lista de Tabelas'     // titulo do gride
-			          ,$listTables 	      // array de dados
+	                  ,$listTablesAll 	      // array de dados
 			          );
 	$gride->setCreateDefaultEditButton(false);
 	$gride->setCreateDefaultDeleteButton(false);
 	
 	$gride->addColumn('TABLE_SCHEMA','TABLE_SCHEMA');
-	$gride->addCheckColumn('idTableNameSelected','TABLE_NAME','TABLE_NAME','TABLE_NAME',true,true);
+	$gride->addCheckColumn('idTableNameSelected','TABLE_NAME','idSelected','TABLE_NAME',true,true);
 	$gride->addColumn('COLUMN_QTD','COLUMN_QTD');
 	$gride->addColumn('TABLE_TYPE','TABLE_TYPE');
 	
