@@ -19,17 +19,17 @@ $frm->addGroupField('gpx1',Message::GEN02_GPX1_TITLE);
 	$html = $frm->addHtmlField('conf','');
 $frm->closeGroup();
 
-$frm->addButton('Voltar', null, 'Voltar', null, null, true, false);
-$frm->addButton('Limpar', null, 'Limpar', null, null, false, false);
-$frm->addButton('Gerar estrutura', 'Gerar', 'Gerar', null, null, false, false);
+$frm->addButton(Message::BUTTON_LABEL_BACK , 'back' , null, null, null, true, false);
+$frm->addButton(Message::BUTTON_LABEL_CLEAN, 'clean', null, null, null, false, false);
+$frm->addButton(Message::BUTTON_GEN_FORM, 'Gerar', 'Gerar', null, null, false, false);
 
 $acao = isset($acao) ? $acao : null;
 switch( $acao ) {
-	case 'Voltar':
+	case 'back':
 		$frm->redirect('gen01.php','Redirect realizado com sucesso.',true);
 		break;
 		//--------------------------------------------------------------------------------
-	case 'Limpar':
+	case 'clean':
 		$frm->clearFields();
 		break;
 		//--------------------------------------------------------------------------------
@@ -60,7 +60,9 @@ try {
 	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_AUTOLOAD));
 	TGeneratorHelper::createFileIndex();
 	$html->add(TGeneratorHelper::showMsg(true, Message::GEN02_CREATED_INDEX));
-	$_SESSION[APLICATIVO]['STEP2']=true;
+	$html->add('<br>');
+	$html->add('<br>');
+	$html->add(Message::SEL_TABLES_GENERATE);
 	
 	$gride = new TGrid('gd'        // id do gride
 			          ,'Lista de Tabelas'     // titulo do gride

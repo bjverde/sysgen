@@ -19,16 +19,18 @@ $frm->addGroupField('gpx1',Message::GEN02_GPX1_TITLE);
 	$html = $frm->addHtmlField('conf','');
 $frm->closeGroup();
 
-$frm->addButton('Voltar', null, 'Voltar', null, null, true, false);
-$frm->addButton('Limpar', null, 'Limpar', null, null, false, false);
+$frm->addButton(Message::BUTTON_LABEL_BACK , 'back' , null, null, null, true, false);
+$frm->addButton(Message::BUTTON_LABEL_CLEAN, 'clean', null, null, null, false, false);
+
+d($_POST);
 
 $acao = isset($acao) ? $acao : null;
 switch( $acao ) {
-	case 'Voltar':
+	case 'back':
 		$frm->redirect('gen02.php','Redirect realizado com sucesso.',true);
 		break;
 		//--------------------------------------------------------------------------------
-	case 'Limpar':
+	case 'clean':
 		$frm->clearFields();
 		break;
 }
@@ -40,7 +42,7 @@ try {
     TGeneratorHelper::createFileMenu($listTables);
     $html->add(TGeneratorHelper::showMsg(true, Message::CREATED_MENU));
     
-	$html->add(TGeneratorHelper::showMsg(true,Message::GEN03_NEW_SYSTEM_OK));
+	$html->add(TGeneratorHelper::showMsg(true,Message::NEW_SYSTEM_OK));
 	$html->add('<a href="'.TGeneratorHelper::getUrlNewSystem().'" target="_blank">'.TGeneratorHelper::getUrlNewSystem().'</a>');
 	$html->add('<br>');
 

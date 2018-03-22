@@ -21,15 +21,21 @@ final class Message {
 	const GEN02_CREATED_AUTOLOAD        = 'Criado arquivo de autoload do sistema.';
 	const GEN02_CREATED_CONFIG_DATABASE = 'Criado arquivo de configuração de banco.';	
 	const GEN02_CREATED_INDEX = 'Criado arquivo index do sistema.';
-	const GEN02_REDIRECT_STEP03 = 'Você está na etapa 03 de 03. Essa parte pode demorar. Quanto maior o número de tabelas maior a demora.';
+	const GEN02_REDIRECT_STEP03 = 'Você está na etapa 03 de 03. Essa parte pode demorar. Quanto maior o número de tabelas maior será demora.';
+	
+	const SEL_TABLES_GENERATE = 'Selecione as tabelas que deseja gerar, depois clique em: '.self::BUTTON_GEN_FORM;
 	
 	const GEN03_TITLE         = 'Etapa 03 de 03';
-	const WARNING_NO_TABLE    = 'Seu Mané, selecione as tabelas para gerar!';
-	const GEN03_NEW_SYSTEM_OK = 'Sistema Criado com Sucesso';
 	
-	const CREATED_MENU  = 'Criado arquivo de menu.';
+	const WARNING_NO_TABLE    = 'Seu Mané, selecione as tabelas para gerar!';
+	const NEW_SYSTEM_OK       = 'Sistema Criado com Sucesso';	
+	const CREATED_MENU        = 'Criado arquivo de menu.';
 	const CREATED_TABLE_ITEN  = ' - Criado Form, Class, DAO e VO da tabela: ';
 	const CREATED_VIEW_ITEN   = ' - Criado DAO e VO da view: ';
 	const FIELDS_TABLE_VIEW   = ' - Lista de campos da Tabela/View: ';
+	
+	const BUTTON_LABEL_BACK  = 'Voltar';
+	const BUTTON_LABEL_CLEAN = 'Limpar';
+	const BUTTON_GEN_FORM    = 'Gerar telas';
 }
 ?>
