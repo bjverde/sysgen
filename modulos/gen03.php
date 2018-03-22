@@ -18,8 +18,6 @@ $frm->closeGroup();
 $frm->addButton(Message::BUTTON_LABEL_BACK , 'back' , null, null, null, true, false);
 $frm->addButton(Message::BUTTON_LABEL_CLEAN, 'clean', null, null, null, false, false);
 
-d($_POST);
-
 $acao = isset($acao) ? $acao : null;
 switch( $acao ) {
 	case 'back':
@@ -30,7 +28,6 @@ switch( $acao ) {
 		$frm->clearFields();
 		break;
 }
-
 
 try {
     $listTables = TGeneratorHelper::loadTablesSelected();
@@ -70,6 +67,7 @@ try {
 } catch (Exception $e) {
 	echo $dao->getError();
 	echo $e->getMessage();
+	$frm->setMessage( $e->getMessage() );
 }
 
 
