@@ -245,7 +245,7 @@ class TCreateDAO {
 		$this->addLine( TAB.TAB.'if ( is_array($whereGrid) ){');
 		$this->addLine( TAB.TAB.TAB.'$where = \' 1=1 \';');
 		foreach($this->getColumns() as $k=>$v) {
-		    $this->addLine( TAB.TAB.TAB.'$where = $where.( paginationSQLHelper::attributeIssetOrNotZero($whereGrid[\''.strtoupper($v).'\'],\' AND '.strtoupper($v).' like \\\'%\'.$whereGrid[\''.strtoupper($v).'\'].\'%\\\' \',null) );' );
+		    $this->addLine( TAB.TAB.TAB.'$where = $where.( paginationSQLHelper::attributeIssetOrNotZero($whereGrid,\''.strtoupper($v).'\',\' AND '.strtoupper($v).' like \\\'%\'.$whereGrid[\''.strtoupper($v).'\'].\'%\\\' \',null) );' );
 		}
 		$this->addLine( TAB.TAB.TAB.'$result = $where;');
 		$this->addLine( TAB.TAB.'}');
