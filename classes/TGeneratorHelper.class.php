@@ -174,7 +174,7 @@ class TGeneratorHelper {
 	
 	public static function createFileMenu($listTable){
 		$file = new TCreateMenu();
-		$file->setListTableNames($listTableNames);
+		$file->setListTableNames($listTable);
 		$file->saveFile();
 	}
 	
