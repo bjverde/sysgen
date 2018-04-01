@@ -253,17 +253,21 @@ class TCreateForm {
 	//--------------------------------------------------------------------------------------
 	private function addBasicaViewController_salvar() {
 	    $this->addLine(TAB.'case \'Salvar\':');
-	    $this->addLine(TAB.TAB.'if ( $frm->validate() ) {');
-	    $this->addLine(TAB.TAB.TAB.'$vo = new '.$this->tableRefVO.'();');
-	    $this->addLine(TAB.TAB.TAB.'$frm->setVo( $vo );');
-	    $this->addLine(TAB.TAB.TAB.'$resultado = '.$this->tableRefClass.'::save( $vo );');
-	    $this->addLine(TAB.TAB.TAB.'if($resultado==1) {');
-	    $this->addLine(TAB.TAB.TAB.TAB.'$frm->setMessage(\'Registro gravado com sucesso!!!\');');
-	    $this->addLine(TAB.TAB.TAB.TAB.'$frm->clearFields();');
-	    $this->addLine(TAB.TAB.TAB.'}else{');
-	    $this->addLine(TAB.TAB.TAB.TAB.'$frm->setMessage($resultado);');
+	    $this->addLine(TAB.TAB.'try{');
+	    $this->addLine(TAB.TAB.TAB.'if ( $frm->validate() ) {');
+	    $this->addLine(TAB.TAB.TAB.TAB.'$vo = new '.$this->tableRefVO.'();');
+	    $this->addLine(TAB.TAB.TAB.TAB.'$frm->setVo( $vo );');
+	    $this->addLine(TAB.TAB.TAB.TAB.'$resultado = '.$this->tableRefClass.'::save( $vo );');
+	    $this->addLine(TAB.TAB.TAB.TAB.'if($resultado==1) {');
+	    $this->addLine(TAB.TAB.TAB.TAB.TAB.'$frm->setMessage(\'Registro gravado com sucesso!!!\');');
+	    $this->addLine(TAB.TAB.TAB.TAB.TAB.'$frm->clearFields();');
+	    $this->addLine(TAB.TAB.TAB.TAB.'}else{');
+	    $this->addLine(TAB.TAB.TAB.TAB.TAB.'$frm->setMessage($resultado);');
+	    $this->addLine(TAB.TAB.TAB.TAB.'}');
 	    $this->addLine(TAB.TAB.TAB.'}');
-	    $this->addLine(TAB.TAB.'}');
+	    $this->addLine(TAB.TAB.'} catch (Exception $e) {');
+	    $this->addLine(TAB.TAB.TAB.'$frm->setMessage( $e->getMessage() );');
+	    $this->addLine(TAB.TAB.'}');	    
 	    $this->addLine(TAB.'break;');
 	}
 	//--------------------------------------------------------------------------------------
@@ -285,15 +289,20 @@ class TCreateForm {
 	private function addBasicaViewController_gdExcluir() {
 	    $this->addLine();
 	    $this->addLine(TAB.'case \'gd_excluir\':');
-	    $this->addLine(TAB.TAB.'$id = $frm->get( $primaryKey ) ;');
-	    $this->addLine(TAB.TAB.'$resultado = '.$this->tableRefClass.'::delete( $id );;');
-	    $this->addLine(TAB.TAB.'if($resultado==1) {');
-	    $this->addLine(TAB.TAB.TAB.'$frm->setMessage(\'Registro excluido com sucesso!!!\');');
-	    $this->addLine(TAB.TAB.TAB.'$frm->clearFields();');
-	    $this->addLine(TAB.TAB.'}else{');
-	    $this->addLine(TAB.TAB.TAB.'$frm->clearFields();');
-	    $this->addLine(TAB.TAB.TAB.'$frm->setMessage($resultado);');
+	    $this->addLine(TAB.TAB.'try{');
+	    $this->addLine(TAB.TAB.TAB.'$id = $frm->get( $primaryKey ) ;');
+	    $this->addLine(TAB.TAB.TAB.'$resultado = '.$this->tableRefClass.'::delete( $id );;');
+	    $this->addLine(TAB.TAB.TAB.'if($resultado==1) {');
+	    $this->addLine(TAB.TAB.TAB.TAB.'$frm->setMessage(\'Registro excluido com sucesso!!!\');');
+	    $this->addLine(TAB.TAB.TAB.TAB.'$frm->clearFields();');
+	    $this->addLine(TAB.TAB.TAB.'}else{');
+	    $this->addLine(TAB.TAB.TAB.TAB.'$frm->clearFields();');
+	    $this->addLine(TAB.TAB.TAB.TAB.'$frm->setMessage($resultado);');
+	    $this->addLine(TAB.TAB.TAB.'}');
+	    $this->addLine(TAB.TAB.'} catch (Exception $e) {');
+	    $this->addLine(TAB.TAB.TAB.'$frm->setMessage( $e->getMessage() );');
 	    $this->addLine(TAB.TAB.'}');
+	    
 	    $this->addLine(TAB.'break;');
 	}
 	//--------------------------------------------------------------------------------------
