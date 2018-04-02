@@ -294,6 +294,36 @@ class TGeneratorHelper {
 		return $listTablesSelected;
 	}
 	
+	public static function loadFieldsTablesSelected(){
+		$_SESSION[APLICATIVO]['FieldsTableSelected'] = null;
+		$FieldsTableSelected = null;
+		$listTables = TGeneratorHelper::loadTablesSelected();		
+		foreach ($listTables['TABLE_NAME'] as $key=>$table){
+			$tableSchema = $listTables['TABLE_SCHEMA'][$key];
+			$dao = TGeneratorHelper::getTDAOConect($table,$tableSchema);
+			$listFieldsTable = $dao->loadFieldsOneTableFromDatabase();
+			$_SESSION[APLICATIVO]['FieldsTableSelected'][] = $listFieldsTable;
+		}
+		$FieldsTableSelected = $_SESSION[APLICATIVO]['FieldsTableSelected'];
+		return $FieldsTableSelected;
+	}
 	
+	public static function getFKFieldsTablesSelected(){
+		$FkFieldsTableSelected = null;
+		$FieldsTableSelected   = self::loadFieldsTablesSelected();
+		foreach ($FieldsTableSelected as $key=>$table){
+			$KEY_TYPE = $FieldsTableSelected[$key]['KEY_TYPE'];
+			$KEY_FK = array_keys($KEY_TYPE,'FOREIGN KEY');
+			foreach ($KEY_FK as $k=>$keyFieldFkTable){
+				$FkFieldsTableSelected['TABLE_SCHEMA'][]= $FieldsTableSelected[$key]['TABLE_SCHEMA'][$keyFieldFkTable];
+				$FkFieldsTableSelected['TABLE_NAME'][]  = $FieldsTableSelected[$key]['TABLE_NAME'][$keyFieldFkTable];
+				$FkFieldsTableSelected['COLUMN_NAME'][] = $FieldsTableSelected[$key]['COLUMN_NAME'][$keyFieldFkTable];
+				$FkFieldsTableSelected['DATA_TYPE'][]   = $FieldsTableSelected[$key]['DATA_TYPE'][$keyFieldFkTable];
+				$FkFieldsTableSelected['REFERENCED_TABLE_NAME'][]  = $FieldsTableSelected[$key]['REFERENCED_TABLE_NAME'][$keyFieldFkTable];
+				$FkFieldsTableSelected['REFERENCED_COLUMN_NAME'][] = $FieldsTableSelected[$key]['REFERENCED_COLUMN_NAME'][$keyFieldFkTable];
+			}			
+		}
+		return $FkFieldsTableSelected;
+	}	
 }
 ?>

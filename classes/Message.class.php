@@ -36,6 +36,10 @@ final class Message {
 	const CREATED_VIEW_ITEN   = ' - Criado DAO e VO da view: ';
 	const FIELDS_TABLE_VIEW   = ' - Lista de campos da Tabela/View: ';
 	
+	const GRID_LIST_FK        = 'Lista de FK e como elas devem aparecer';
+	const GPX_TYPE_CONFIG     = 'Opções de Avançada';
+	const FIELD_LOG           = 'Tipo de Log';
+	
 	const GEN04_TITLE        = 'Etapa 04 de '.self::LAST_STEP;
 	
 	const BUTTON_LABEL_BACK  = 'Voltar';
