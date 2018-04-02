@@ -21,7 +21,7 @@ $frm->closeGroup();
 
 $frm->addButton(Message::BUTTON_LABEL_BACK , 'back' , null, null, null, true, false);
 $frm->addButton(Message::BUTTON_LABEL_CLEAN, 'clean', null, null, null, false, false);
-$frm->addButton(Message::BUTTON_GEN_FORM, 'Gerar', 'Gerar', null, null, false, false);
+$frm->addButton(Message::BUTTON_LABEL_CONF, 'Gerar', 'Gerar', null, null, false, false);
 
 $acao = isset($acao) ? $acao : null;
 switch( $acao ) {
