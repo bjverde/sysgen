@@ -21,7 +21,7 @@ $frm->addButton(Message::BUTTON_LABEL_CLEAN, 'clean', null, null, null, false, f
 $acao = isset($acao) ? $acao : null;
 switch( $acao ) {
 	case 'back':
-		$frm->redirect('gen02.php','Redirect realizado com sucesso.',true);
+		$frm->redirect('gen03.php','Redirect realizado com sucesso.',true);
 		break;
 		//--------------------------------------------------------------------------------
 	case 'clean':
