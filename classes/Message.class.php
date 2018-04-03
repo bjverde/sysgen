@@ -38,7 +38,10 @@ final class Message {
 	
 	const GRID_LIST_FK        = 'Lista de FK e como elas devem aparecer';
 	const GPX_TYPE_CONFIG     = 'Opções de Avançada';
-	const FIELD_LOG           = 'Tipo de Log';
+	const FIELD_LOGFILE_LABEL = 'Qual tipo de Log em arquivo (php_error.log) quer para o sistema?';
+	const FIELD_LOGFILE_OPT00  = 'Nada será gravado no Log !!';
+	const FIELD_LOGFILE_OPT01  = 'Quero tudo mesmo! até DomainException !';
+	const FIELD_LOGFILE_OPT02  = 'Calma ! Quero log, SEM o DomainException!';
 	
 	const GEN04_TITLE        = 'Etapa 04 de '.self::LAST_STEP;
 	

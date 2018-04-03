@@ -251,6 +251,21 @@ class TCreateForm {
 		}
 	}
 	//--------------------------------------------------------------------------------------
+	private function addBasicViewController_logCatch($qtdTab) {
+		$logType = ArrayHelper::getDefaultValeu($_SESSION[APLICATIVO], 'logType', 2);
+		if($logType == 2){
+			$this->addLine($qtdTab.'catch (DomainException $e) {');
+			$this->addLine($qtdTab.TAB.'$frm->setMessage( $e->getMessage() );');
+			$this->addLine($qtdTab.'}');
+		}
+		$this->addLine($qtdTab.'catch (Exception $e) {');
+		if( ($logType == 1) || ($logType == 2) ){
+			$this->addLine($qtdTab.TAB.'Mensagem::reportarLog($e);');
+		}
+		$this->addLine($qtdTab.TAB.'$frm->setMessage( $e->getMessage() );');
+		$this->addLine($qtdTab.'}');
+	}
+	//--------------------------------------------------------------------------------------
 	private function addBasicaViewController_salvar() {
 	    $this->addLine(TAB.'case \'Salvar\':');
 	    $this->addLine(TAB.TAB.'try{');
@@ -265,9 +280,8 @@ class TCreateForm {
 	    $this->addLine(TAB.TAB.TAB.TAB.TAB.'$frm->setMessage($resultado);');
 	    $this->addLine(TAB.TAB.TAB.TAB.'}');
 	    $this->addLine(TAB.TAB.TAB.'}');
-	    $this->addLine(TAB.TAB.'} catch (Exception $e) {');
-	    $this->addLine(TAB.TAB.TAB.'$frm->setMessage( $e->getMessage() );');
-	    $this->addLine(TAB.TAB.'}');	    
+	    $this->addLine(TAB.TAB.'}');
+	    $this->addBasicViewController_logCatch(TAB.TAB);
 	    $this->addLine(TAB.'break;');
 	}
 	//--------------------------------------------------------------------------------------
@@ -299,8 +313,8 @@ class TCreateForm {
 	    $this->addLine(TAB.TAB.TAB.TAB.'$frm->clearFields();');
 	    $this->addLine(TAB.TAB.TAB.TAB.'$frm->setMessage($resultado);');
 	    $this->addLine(TAB.TAB.TAB.'}');
-	    $this->addLine(TAB.TAB.'} catch (Exception $e) {');
-	    $this->addLine(TAB.TAB.TAB.'$frm->setMessage( $e->getMessage() );');
+	    $this->addLine(TAB.TAB.'}');
+	    $this->addBasicViewController_logCatch(TAB.TAB);
 	    $this->addLine(TAB.TAB.'}');
 	    
 	    $this->addLine(TAB.'break;');
