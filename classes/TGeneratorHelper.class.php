@@ -297,7 +297,7 @@ class TGeneratorHelper {
 	public static function loadFieldsTablesSelected(){
 		$_SESSION[APLICATIVO]['FieldsTableSelected'] = null;
 		$FieldsTableSelected = null;
-		$listTables = TGeneratorHelper::loadTablesSelected();		
+		$listTables = TGeneratorHelper::loadTablesSelected();
 		foreach ($listTables['TABLE_NAME'] as $key=>$table){
 			$tableSchema = $listTables['TABLE_SCHEMA'][$key];
 			$dao = TGeneratorHelper::getTDAOConect($table,$tableSchema);
@@ -308,6 +308,14 @@ class TGeneratorHelper {
 		return $FieldsTableSelected;
 	}
 	
+	public static function getFKTypeScreenReferenced($refTable,$refColumn){
+		$array[] = 'Select Field';
+		$array[] = 'Autocomplet';
+		$array[] = 'Search On-line';
+		$array[] = 'Select Field + Crud';
+		return $array;
+	}
+	
 	public static function getFKFieldsTablesSelected(){
 		$FkFieldsTableSelected = null;
 		$FieldsTableSelected   = self::loadFieldsTablesSelected();
@@ -315,12 +323,17 @@ class TGeneratorHelper {
 			$KEY_TYPE = $FieldsTableSelected[$key]['KEY_TYPE'];
 			$KEY_FK = array_keys($KEY_TYPE,'FOREIGN KEY');
 			foreach ($KEY_FK as $k=>$keyFieldFkTable){
+				$refTable  = $FieldsTableSelected[$key]['REFERENCED_TABLE_NAME'][$keyFieldFkTable];
+				$refColumn = $FieldsTableSelected[$key]['REFERENCED_COLUMN_NAME'][$keyFieldFkTable];
+				
 				$FkFieldsTableSelected['TABLE_SCHEMA'][]= $FieldsTableSelected[$key]['TABLE_SCHEMA'][$keyFieldFkTable];
 				$FkFieldsTableSelected['TABLE_NAME'][]  = $FieldsTableSelected[$key]['TABLE_NAME'][$keyFieldFkTable];
 				$FkFieldsTableSelected['COLUMN_NAME'][] = $FieldsTableSelected[$key]['COLUMN_NAME'][$keyFieldFkTable];
 				$FkFieldsTableSelected['DATA_TYPE'][]   = $FieldsTableSelected[$key]['DATA_TYPE'][$keyFieldFkTable];
-				$FkFieldsTableSelected['REFERENCED_TABLE_NAME'][]  = $FieldsTableSelected[$key]['REFERENCED_TABLE_NAME'][$keyFieldFkTable];
-				$FkFieldsTableSelected['REFERENCED_COLUMN_NAME'][] = $FieldsTableSelected[$key]['REFERENCED_COLUMN_NAME'][$keyFieldFkTable];
+				$FkFieldsTableSelected['REFERENCED_TABLE_NAME'][]  = $refTable;
+				$FkFieldsTableSelected['REFERENCED_COLUMN_NAME'][] = $refColumn;
+				//$FkFieldsTableSelected['FK_TYPE_SCREEN_REFERENCED'][] = self::getFKTypeScreenReferenced($refTable,$refColumn);
+				$FkFieldsTableSelected['FK_TYPE_SCREEN_REFERENCED'][] = null;
 			}			
 		}
 		return $FkFieldsTableSelected;

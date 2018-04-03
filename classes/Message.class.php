@@ -36,7 +36,7 @@ final class Message {
 	const CREATED_VIEW_ITEN   = ' - Criado DAO e VO da view: ';
 	const FIELDS_TABLE_VIEW   = ' - Lista de campos da Tabela/View: ';
 	
-	const GRID_LIST_FK        = 'Lista de FK e como elas devem aparecer';
+	const GRID_LIST_FK_TITLE  = 'Lista de FK e como elas devem aparecer';
 	const GPX_TYPE_CONFIG     = 'Opções de Avançada';
 	const FIELD_LOGFILE_LABEL = 'Qual tipo de Log em arquivo (php_error.log) quer para o sistema?';
 	const FIELD_LOGFILE_OPT00  = 'Nada será gravado no Log !!';
