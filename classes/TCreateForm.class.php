@@ -260,7 +260,7 @@ class TCreateForm {
 		}
 		$this->addLine($qtdTab.'catch (Exception $e) {');
 		if( ($logType == 1) || ($logType == 2) ){
-			$this->addLine($qtdTab.TAB.'MessageHelper::reportarLog($e);');
+			$this->addLine($qtdTab.TAB.'MessageHelper::logRecord($e);');
 		}
 		$this->addLine($qtdTab.TAB.'$frm->setMessage( $e->getMessage() );');
 		$this->addLine($qtdTab.'}');
