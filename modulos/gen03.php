@@ -41,6 +41,7 @@ switch( $acao ) {
 		if ( $frm->validate() ) {
 			try{
 				$_SESSION[APLICATIVO]['logType'] = PostHelper::get('logType');
+				$frm->redirect('gen04.php','Redirect realizado com sucesso.',true);
 			} catch (Exception $e) {
 				$frm->setMessage( $e->getMessage() );
 			}

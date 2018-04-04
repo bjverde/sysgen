@@ -260,7 +260,7 @@ class TCreateForm {
 		}
 		$this->addLine($qtdTab.'catch (Exception $e) {');
 		if( ($logType == 1) || ($logType == 2) ){
-			$this->addLine($qtdTab.TAB.'Mensagem::reportarLog($e);');
+			$this->addLine($qtdTab.TAB.'MessageHelper::logRecord($e);');
 		}
 		$this->addLine($qtdTab.TAB.'$frm->setMessage( $e->getMessage() );');
 		$this->addLine($qtdTab.'}');
@@ -315,8 +315,6 @@ class TCreateForm {
 	    $this->addLine(TAB.TAB.TAB.'}');
 	    $this->addLine(TAB.TAB.'}');
 	    $this->addBasicViewController_logCatch(TAB.TAB);
-	    $this->addLine(TAB.TAB.'}');
-	    
 	    $this->addLine(TAB.'break;');
 	}
 	//--------------------------------------------------------------------------------------
@@ -517,10 +515,10 @@ class TCreateForm {
         	$this->addLine('$whereGrid = \' 1=1 \';');
         }
         $this->addLine('$primaryKey = \''.$this->getPrimaryKeyTable().'\';');
-        $this->addLine('$frm = new TForm(\''.$this->formTitle.'\',600);');
+        $this->addLine('$frm = new TForm(\''.$this->formTitle.'\',800,950);');
 		$this->addLine('$frm->setFlat(true);');
 		$this->addLine('$frm->setMaximize(true);');
-		$this->addLine('$frm->setAutoSize(true);');
+		//$this->addLine('$frm->setAutoSize(true);');  // https://github.com/bjverde/formDin/issues/48 problema com o Chrome
 		$this->addBlankLine();
 		$this->addBlankLine();
 		if($this->gridType != GRID_SIMPLE){
