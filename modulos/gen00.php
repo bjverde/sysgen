@@ -28,6 +28,7 @@ if(TGeneratorHelper::phpVersionValid($html)){
 			       );
 	$frm->addSelectField('DBMS','Escolha o tipo de Banco de Dados:',true,$dbType,null,null,null,null,null,null,' ',0);	
 	$frm->addTextField('GEN_SYSTEM_ACRONYM', 'Sigla do Sistema',50,true);
+	$frm->addTextField('GEN_SYSTEM_VERSION', 'Versão do sistema',10,true,10,'0.0.0');
 	$frm->addTextField('GEN_SYSTEM_NAME', 'Nome do sistem',50,true);
 	
 	
@@ -44,6 +45,7 @@ if(TGeneratorHelper::phpVersionValid($html)){
 					$_SESSION[APLICATIVO]=null;
 					$_SESSION[APLICATIVO]['DBMS']['TYPE']=$frm->get('DBMS');
 					$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM']=$GEN_SYSTEM_ACRONYM;
+					$_SESSION[APLICATIVO]['GEN_SYSTEM_VERSION']=$frm->get('GEN_SYSTEM_VERSION');
 					$_SESSION[APLICATIVO]['GEN_SYSTEM_NAME']=$frm->get('GEN_SYSTEM_NAME');
 					$frm->redirect('gen01.php','Redirect realizado com sucesso.',true);
 				} catch (Exception $e) {
