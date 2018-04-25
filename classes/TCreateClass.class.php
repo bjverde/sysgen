@@ -91,8 +91,9 @@ class TCreateClass extends  TCreateFileContent{
 		$this->addLine(TAB.TAB.'$result = null;');
 		$this->addLine(TAB.TAB.'if( $objVo->get'.$columunPK.'() ) {');
 		$this->addLine(TAB.TAB.TAB.'$result = '.$this->tableRefDAO.'::update( $objVo );');
+		$this->addLine(TAB.TAB.'} else {');
+		$this->addLine(TAB.TAB.TAB.'$result = '.$this->tableRefDAO.'::insert( $objVo );');
 		$this->addLine(TAB.TAB.'}');
-		$this->addLine(TAB.TAB.'$result = '.$this->tableRefDAO.'::insert( $objVo );');
 		$this->addLine(TAB.TAB.'return $result;');
 		$this->addLine(TAB.'}');
 	}
