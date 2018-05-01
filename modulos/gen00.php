@@ -21,10 +21,10 @@ if(TGeneratorHelper::phpVersionValid($html)){
 	$dbType = array(DBMS_MYSQL=>'MySQL'
 			       ,DBMS_SQLITE=>'SQLITE'
 			       ,DBMS_SQLSERVER=>'MS SQL SERVER'
+	               ,DBMS_POSTGRES =>'POSTGRES'
 			       ,DBMS_ACCESS =>'ACCESS'
 			       ,DBMS_FIREBIRD => 'FIREBIRD'
-			       ,DBMS_ORACLE =>'ORACLE'
-			       ,DBMS_POSTGRES =>'POSTGRES'
+			       ,DBMS_ORACLE =>'ORACLE'			       
 			       );
 	$frm->addSelectField('DBMS','Escolha o tipo de Banco de Dados:',true,$dbType,null,null,null,null,null,null,' ',0);	
 	$frm->addTextField('GEN_SYSTEM_ACRONYM', 'Sigla do Sistema',50,true);
