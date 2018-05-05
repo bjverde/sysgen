@@ -75,7 +75,6 @@ try {
     $frm->addHtmlField('gride',$gride);
     
 } catch (Exception $e) {
-	echo $dao->getError();
 	echo $e->getMessage();
 	$frm->setMessage( $e->getMessage() );
 }
