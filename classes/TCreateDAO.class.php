@@ -18,6 +18,7 @@ class TCreateDAO {
 	private $withSqlPagination;
 	private $charParam = '?';
 	private $listColumnsProperties;
+	private $tableType = null;
 
 	public function __construct($strTableName=null,$strkeyColumnName=null,$strPath=null,$databaseManagementSystem=null) {
 		$this->aColumns=array();
@@ -34,7 +35,6 @@ class TCreateDAO {
 		$strTableName = strtolower($strTableName);
 		$this->tableName=$strTableName;
 	}
-	//------------------------------------------------------------------------------------
 	public function getTableName() {
 		return $this->tableName;
 	}
@@ -46,7 +46,6 @@ class TCreateDAO {
 	public function setDatabaseManagementSystem($databaseManagementSystem) {
 	    return $this->databaseManagementSystem = strtoupper($databaseManagementSystem);
 	}
-	//------------------------------------------------------------------------------------
 	public function getDatabaseManagementSystem() {
 	    return $this->databaseManagementSystem;
 	}
@@ -65,10 +64,16 @@ class TCreateDAO {
 	    return $result;
 	}
 	//------------------------------------------------------------------------------------
+	public function setTableType($tableType) {
+		$this->tableType = $tableType;
+	}
+	public function getTableType() {
+		return $this->tableType;
+	}
+	//------------------------------------------------------------------------------------
 	public function setWithSqlPagination($withSqlPagination) {
 	    return $this->withSqlPagination = $withSqlPagination;
 	}
-	//------------------------------------------------------------------------------------
 	public function getWithSqlPagination() {
 	    return $this->withSqlPagination;
 	}
@@ -136,23 +141,17 @@ class TCreateDAO {
 	    foreach($this->getColumns() as $k=>$v) {
 			$this->addLine(TAB.'function set'.ucfirst($v).'( $strNewValue = null )');
 			$this->addLine(TAB."{");
-			if( preg_match('/cpf|cnpj/i',$v) > 0 )
-			{
-				$this->addLine(TAB.TAB.'$this->'.$v.' = preg_replace(\'/[^0-9]/\',\'\',$strNewValue);');
-			}
-			else
-			{
-				$this->addLine(TAB.TAB.'$this->'.$v.' = $strNewValue;');
+			if (preg_match ( '/cpf|cnpj/i', $v ) > 0) {
+				$this->addLine(TAB.TAB.'$this->'.$v.' = preg_replace(\'/[^0-9]/\',\'\',$strNewValue);' );
+			} else {
+				$this->addLine(TAB.TAB.'$this->'.$v.' = $strNewValue;' );
 			}
 			$this->addLine(TAB."}");
 			$this->addLine(TAB.'function get'.ucfirst($v).'()');
 			$this->addLine(TAB."{");
-			if(preg_match('/^data?_/i',$v) == 1 )
-			{
+			if(preg_match('/^data?_/i',$v) == 1 ){
 				$this->addLine(TAB.TAB."return is_null( \$this->{$v} ) ? date( 'Y-m-d h:i:s' ) : \$this->{$v};");
-			}
-			else
-			{
+			}else{
 				$this->addLine(TAB.TAB.'return $this->'.$v.';');
 			}
 			$this->addLine(TAB."}");
@@ -410,21 +409,17 @@ class TCreateDAO {
 		$this->addSqlSelectAll();
 		// fim select
 		
-		// insert
-		$this->addLine();
-		$this->addSqlInsert();
-		//FIM INSERT
-		
-		// update
-		$this->addLine();
-		$this->addSqlUpdate();
-		//FIM UPDATE
-		
-		// EXCLUIR
-		$this->addLine();
-		$this->addSqlDelete();
-		//FIM excluir
-		
+		if( $this->getTableType() != TABLE_TYPE_VIEW ){		
+			// insert
+			$this->addLine();
+			$this->addSqlInsert();
+			// update
+			$this->addLine();
+			$this->addSqlUpdate();
+			// EXCLUIR
+			$this->addLine();
+			$this->addSqlDelete();
+	    }
 		
 		//-------- FIM
 		$this->addLine("}");

@@ -237,13 +237,14 @@ class TGeneratorHelper {
 		$generator->saveFile();
 	}
 	
-	public static function createFilesDaoVoFromTable($tableName, $listColumnsProperties,$tableSchema){
+	public static function createFilesDaoVoFromTable($tableName, $listColumnsProperties,$tableSchema,$tableType){
 		$DBMS        = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
 		$configDBMS  = self::getConfigByDBMS($DBMS);
 		$folder      = self::getPathNewSystem().DS.'dao'.DS;
 		$listColumns = $listColumnsProperties['COLUMN_NAME'];
 		$columnPrimaryKey = $listColumns[0];
-		$generatorDao     = new TCreateDAO($tableName, $columnPrimaryKey, $folder);
+		$generatorDao     = new TCreateDAO($tableName, $columnPrimaryKey, $folder );
+		$generatorDao->setTableType($tableType);
 		foreach($listColumns as $k=>$v) {
 			$generatorDao->addColumn($v);
 		}
