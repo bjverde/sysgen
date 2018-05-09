@@ -309,9 +309,6 @@ class TCreateDAO {
 	 **/
 	public function addSqlInsert() {
 	    $this->addLine(TAB.'public static function insert( '.ucfirst($this->tableName).'VO $objVo ) {');
-	    $this->addLine(TAB.TAB.'if( $objVo->get'.ucFirst($this->keyColumnName).'() ) {');
-	    $this->addLine(TAB.TAB.'	return self::update($objVo);');
-	    $this->addLine(TAB.TAB.'}');
 	    $this->addLine(TAB.TAB.'$values = array(',false);
 	    $cnt=0;
 	    foreach($this->getColumns() as $k=>$v) {
