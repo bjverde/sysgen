@@ -26,3 +26,4 @@ O gerador de sistemas le um banco de dados e gera uma tela crud para cada uma da
 * https://www.keycdn.com/blog/php-code-generator/
 * https://phpgrid.com/php-crud/
 * https://github.com/nette/php-generator
+* http://phreeze.com/
