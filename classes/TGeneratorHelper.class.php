@@ -309,6 +309,17 @@ class TGeneratorHelper {
 		return $FieldsTableSelected;
 	}
 	
+	public static function loadFieldsTablesSelectedWithFormDin($table,$tableSchema){
+		$dao = self::getTDAOConect($table,$tableSchema);
+		$listFieldsTable = $dao->loadFieldsOneTableFromDatabase();		
+		foreach ($listFieldsTable['DATA_TYPE'] as $key=>$dataType){
+			//$formDinType = self::convertDataType2FormDinType($dataType);
+			$formDinType = TCreateForm::convertDataType2FormDinType($dataType);
+			$listFieldsTable[TCreateForm::FORMDIN_TYPE_COLUMN_NAME][$key] = $formDinType;
+		}		
+		return $listFieldsTable;
+	}
+	
 	public static function getFKTypeScreenReferenced($refTable,$refColumn){
 		$array[] = 'Select Field';
 		$array[] = 'Autocomplet';

@@ -177,42 +177,6 @@ class TCreateDAO {
 			file_put_contents($fileName,$this->showVO(false));
 		}
 	}
-	
-	//--------------------------------------------------------------------------------------
-	/***
-	 * Create variable with string sql basica
-	 **/
-	public static function convertDataType2FormDinType($dataType) {
-		$result = 'TEXT';
-		switch( $dataType ) {
-			case 'DATETIME':
-			case 'DATETIME2':
-			case 'DATE':
-			case 'TIMESTAMP':
-				//case preg_match( '/date|datetime|timestamp/i', $DATA_TYPE ):
-				$result = 'DATE';
-				break;
-			case 'BIGINT':
-			case 'DECIMAL':
-			case 'DOUBLE':
-			case 'FLOAT':
-			case 'INT':
-			case 'INT64':
-			case 'INTEGER':
-			case 'NUMERIC':
-			case 'NUMBER':
-			case 'REAL':
-			case 'SMALLINT':
-			case 'TINYINT':
-				//case preg_match( '/decimal|real|float|numeric|number|int|int64|integer|double|smallint|bigint|tinyint/i', $DATA_TYPE ):
-				$result = 'NUMBER';
-				break;
-			default:
-				$result = 'TEXT';
-		}		
-		return $result;
-	}
-	
 	//--------------------------------------------------------------------------------------
 	/***
 	 * Create variable with string sql basica

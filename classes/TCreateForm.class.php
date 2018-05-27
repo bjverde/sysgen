@@ -21,6 +21,11 @@ class TCreateForm {
     private $lines;
     private $gridType;
     private $listColumnsProperties;
+    
+    const FORMDIN_TYPE_DATE = 'DATE';
+    const FORMDIN_TYPE_TEXT = 'TEXT';
+    const FORMDIN_TYPE_NUMBER = 'NUMBER';
+    const FORMDIN_TYPE_COLUMN_NAME = 'FORMDIN_TYPE';
 
 	public function __construct(){
 	    $this->setFormTitle(null);
@@ -122,6 +127,41 @@ class TCreateForm {
 	private function addBlankLine(){
 		$this->addLine('');
 	}
+	
+	/***
+	 * Create variable with string sql basica
+	 **/
+	public static function convertDataType2FormDinType($dataType) {
+		$dataType = strtoupper($dataType);
+		$result = 'TEXT';
+		switch( $dataType ) {
+			case 'DATETIME':
+			case 'DATETIME2':
+			case 'DATE':
+			case 'TIMESTAMP':
+				//case preg_match( '/date|datetime|timestamp/i', $DATA_TYPE ):
+				$result = self::FORMDIN_TYPE_DATE;
+				break;
+			case 'BIGINT':
+			case 'DECIMAL':
+			case 'DOUBLE':
+			case 'FLOAT':
+			case 'INT':
+			case 'INT64':
+			case 'INTEGER':
+			case 'NUMERIC':
+			case 'NUMBER':
+			case 'REAL':
+			case 'SMALLINT':
+			case 'TINYINT':
+				//case preg_match( '/decimal|real|float|numeric|number|int|int64|integer|double|smallint|bigint|tinyint/i', $DATA_TYPE ):
+				$result = self::FORMDIN_TYPE_NUMBER;
+				break;
+			default:
+				$result = self::FORMDIN_TYPE_TEXT;
+		}
+		return $result;
+	}	
 	//--------------------------------------------------------------------------------------
 	private function getColumnsPropertieRequired($key) {
 		$result = true;
@@ -136,6 +176,15 @@ class TCreateForm {
 		if(ArrayHelper::has('DATA_TYPE',$this->listColumnsProperties)){
 			//$result = strtolower($this->listColumnsProperties['DATA_TYPE'][$key]);
 			$result = strtoupper($this->listColumnsProperties['DATA_TYPE'][$key]);
+		}
+		return $result;
+	}
+	//--------------------------------------------------------------------------------------
+	private function getColumnsPropertieFormDinType($key) {
+		$result = null;
+		if(ArrayHelper::has(self::FORMDIN_TYPE_COLUMN_NAME,$this->listColumnsProperties)){
+			//$result = strtolower($this->listColumnsProperties['DATA_TYPE'][$key]);
+			$result = strtoupper($this->listColumnsProperties[self::FORMDIN_TYPE_COLUMN_NAME][$key]);
 		}
 		return $result;
 	}
@@ -221,14 +270,14 @@ class TCreateForm {
 		$CHAR_MAX    = self::getColumnsPropertieCharMax($key);
 		$REQUIRED    = self::getColumnsPropertieRequired($key);
 		$DATA_TYPE   = self::getColumnsPropertieDataType($key);
-		$formDinType = TCreateDAO::convertDataType2FormDinType($DATA_TYPE);		
+		$formDinType = self::getColumnsPropertieFormDinType($key);
 
 		switch( $formDinType ) {
-			case 'DATE':
+			case self::FORMDIN_TYPE_DATE:
 			    $this->addLine('$frm->addDateField(\''.$fieldName.'\', \''.$fieldName.'\','.$REQUIRED.');');
 				$this->addFieldTypeToolTip($key,$fieldName);
 				break;
-			case 'NUMBER':
+			case self::FORMDIN_TYPE_NUMBER:
 				$this->addFieldNumberOrForenKey($key,$fieldName,$REQUIRED);
 				break;
 			default:

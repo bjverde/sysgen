@@ -41,8 +41,7 @@ try {
 
 	foreach ($listTables['TABLE_NAME'] as $key=>$table){
 	    $tableSchema = $listTables['TABLE_SCHEMA'][$key];
-	    $dao = TGeneratorHelper::getTDAOConect($table,$tableSchema);
-		$listFieldsTable = $dao->loadFieldsOneTableFromDatabase();
+		$listFieldsTable = TGeneratorHelper::loadFieldsTablesSelectedWithFormDin($table,$tableSchema);
 		$tableType = strtoupper($listTables['TABLE_TYPE'][$key]);
 		$key = $key + 1;
 		if($tableType == TABLE_TYPE_TABLE){
@@ -65,7 +64,6 @@ try {
 	}
 
 } catch (Exception $e) {
-	echo $dao->getError();
 	echo $e->getMessage();
 	$frm->setMessage( $e->getMessage() );
 }
