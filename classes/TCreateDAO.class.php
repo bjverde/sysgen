@@ -202,13 +202,26 @@ class TCreateDAO {
 	    $this->addLine( TAB.'}');
 	}
 	//--------------------------------------------------------------------------------------
+	private function getColumnsPropertieFormDinType($key) {
+		$result = null;
+		if(ArrayHelper::has(TCreateForm::FORMDIN_TYPE_COLUMN_NAME,$this->listColumnsProperties)){
+			$result = strtoupper($this->listColumnsProperties[TCreateForm::FORMDIN_TYPE_COLUMN_NAME][$key]);
+		}
+		return $result;
+	}
+	//--------------------------------------------------------------------------------------
 	public function addProcessWhereGridParameters() {
 		$this->addLine( TAB.'private static function processWhereGridParameters( $whereGrid ) {');
 		$this->addLine( TAB.TAB.'$result = $whereGrid;');
 		$this->addLine( TAB.TAB.'if ( is_array($whereGrid) ){');
 		$this->addLine( TAB.TAB.TAB.'$where = \' 1=1 \';');
-		foreach($this->getColumns() as $k=>$v) {
-		    $this->addLine( TAB.TAB.TAB.'$where = $where.( paginationSQLHelper::attributeIssetOrNotZero($whereGrid,\''.strtoupper($v).'\',\' AND '.strtoupper($v).' like \\\'%\'.$whereGrid[\''.strtoupper($v).'\'].\'%\\\' \',null) );' );
+		foreach($this->getColumns() as $key=>$v) {
+			$formDinType = self::getColumnsPropertieFormDinType($key);
+			if( $formDinType == TCreateForm::FORMDIN_TYPE_NUMBER ){
+				$this->addLine( TAB.TAB.TAB.'$where = $where.( paginationSQLHelper::attributeIssetOrNotZero($whereGrid,\''.strtoupper($v).'\',\' AND '.strtoupper($v).' = \'.$whereGrid[\''.strtoupper($v).'\'].\'  \',null) );' );
+			} else {
+				$this->addLine( TAB.TAB.TAB.'$where = $where.( paginationSQLHelper::attributeIssetOrNotZero($whereGrid,\''.strtoupper($v).'\',\' AND '.strtoupper($v).' like \\\'%\'.$whereGrid[\''.strtoupper($v).'\'].\'%\\\' \',null) );' );
+			}
 		}
 		$this->addLine( TAB.TAB.TAB.'$result = $where;');
 		$this->addLine( TAB.TAB.'}');

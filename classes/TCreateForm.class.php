@@ -183,7 +183,6 @@ class TCreateForm {
 	private function getColumnsPropertieFormDinType($key) {
 		$result = null;
 		if(ArrayHelper::has(self::FORMDIN_TYPE_COLUMN_NAME,$this->listColumnsProperties)){
-			//$result = strtolower($this->listColumnsProperties['DATA_TYPE'][$key]);
 			$result = strtoupper($this->listColumnsProperties[self::FORMDIN_TYPE_COLUMN_NAME][$key]);
 		}
 		return $result;
