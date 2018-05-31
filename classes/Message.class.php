@@ -1,7 +1,13 @@
 <?php
 /**
  * SysGen - System Generator with Formdin Framework
- * https://github.com/bjverde/sysgen
+ * Download Formdin Framework: https://github.com/bjverde/formDin
+ * 
+ * @author  Bjverde <bjverde@yahoo.com.br>
+ * @license https://github.com/bjverde/sysgen/blob/master/LICENSE GPL-3.0
+ * @link    https://github.com/bjverde/sysgen
+ *
+ * PHP Version 5.6
  */
 final class Message {
 	const SYSTEM_ACRONYM_INVALID = 'Sigla do sistema inválida ! Caracteres inválido (os permitidos são a-z, 0-9 _ ) ou até 50 caracteres';

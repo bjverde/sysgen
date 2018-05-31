@@ -1,6 +1,7 @@
 <?php
 /**
- * SysGen - Gerador de sistemas com Formdin Framework
+ * SysGen - System Generator with Formdin Framework
+ * Download Formdin Framework: https://github.com/bjverde/formDin
  *
  * @author  Bjverde <bjverde@yahoo.com.br>
  * @license https://github.com/bjverde/sysgen/blob/master/LICENSE GPL-3.0
