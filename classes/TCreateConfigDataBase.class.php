@@ -13,16 +13,19 @@
 if(!defined('EOL')){ define('EOL',"\n"); }
 if(!defined('TAB')){ define('TAB',chr(9)); }
 if(!defined('DS')){ define('DS',DIRECTORY_SEPARATOR); }
-class TCreateConfigDataBase extends  TCreateFileContent{
+class TCreateConfigDataBase extends  TCreateFileContent
+{
 
-	public function __construct(){
-	    $this->setFileName('config_conexao.php');
-	    $path = TGeneratorHelper::getPathNewSystem().DS.'includes'.DS;
-	    $this->setFilePath($path);
-	}
-	//--------------------------------------------------------------------------------------
-	public function show($print=false) {
-		$this->lines=null;
+    public function __construct()
+    {
+        $this->setFileName('config_conexao.php');
+        $path = TGeneratorHelper::getPathNewSystem().DS.'includes'.DS;
+        $this->setFilePath($path);
+    }
+    //--------------------------------------------------------------------------------------
+    public function show($print=false) 
+    {
+        $this->lines=null;
         $this->addLine('<?php');
         $this->addSysGenHeaderNote();
         $this->addBlankLine();
@@ -34,12 +37,12 @@ class TCreateConfigDataBase extends  TCreateFileContent{
         $this->addLine('define(\'USUARIO\' , \''.$_SESSION[APLICATIVO]['DBMS']['USER'].'\');');
         $this->addLine('define(\'SENHA\'   , \''.$_SESSION[APLICATIVO]['DBMS']['PASSWORD'].'\');');
         $this->addLine('define(\'UTF8_DECODE\'   , 0);');
-        $this->addLine('?>');        
-        if( $print){
-        	echo $this->getLinesString();
-		}else{
-			return $this->getLinesString();
-		}
-	}
+        $this->addLine('?>');
+        if($print) {
+            echo $this->getLinesString();
+        }else{
+            return $this->getLinesString();
+        }
+    }
 }
 ?>
