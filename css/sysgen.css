@@ -4,26 +4,26 @@
 /* ============================================================================= */
 
 #conf {
-	font-size: 14px;
+    font-size: 14px;
 }
 
 .failure {
-	color:#ff0000;
-	font-weight:bold;
+    color:#ff0000;
+    font-weight:bold;
 }
 .alert {
-	color:#ff8000;
-	font-weight:bold;
+    color:#ff8000;
+    font-weight:bold;
 }
 .success {
-	color:#008000;
-	font-weight:bold;
+    color:#008000;
+    font-weight:bold;
 }
 .versao {
-	color:#0000FF;
-	font-weight:bold;
-	font-size:16px;
+    color:#0000FF;
+    font-weight:bold;
+    font-size:16px;
 }
 .htmlInfo {
-	border:'1px solid blue';
+    border:'1px solid blue';
 }

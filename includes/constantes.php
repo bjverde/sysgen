@@ -1,20 +1,23 @@
 <?php
 /**
  * SysGen - Gerador de sistemas com Formdin Framework
- * https://github.com/bjverde/sysgen
+ *
+ * @author  Bjverde <bjverde@yahoo.com.br>
+ * @license https://github.com/bjverde/sysgen/blob/master/LICENSE GPL-3.0
+ * @link    https://github.com/bjverde/sysgen
+ *
+ * PHP Version 5.6
  */
 $debug = false;
 
-define('SYSTEM_NAME'   , 'Gerador de Sistemas em FormDin');
-define('SYSTEM_NAME_SUB','write less, do more. But "Talk is Cheap. Show me the Code"! '); 
+define('SYSTEM_NAME', 'Gerador de Sistemas em FormDin');
+define('SYSTEM_NAME_SUB', 'write less, do more. But "Talk is Cheap. Show me the Code"! ');
 define('SYSTEM_ACRONYM', 'sysGen');
 define('SYSTEM_VERSION', '0.6.1-alpha');
-define('APLICATIVO',SYSTEM_ACRONYM);
-define('DS'    , DIRECTORY_SEPARATOR);
-define('ROOT_PATH'    , '../');
-define('CHAR_MAX_TEXT_FIELD'    , 101);
+define('APLICATIVO', SYSTEM_ACRONYM);
+define('DS', DIRECTORY_SEPARATOR);
+define('ROOT_PATH', '../');
+define('CHAR_MAX_TEXT_FIELD', 101);
 
 define('TABLE_TYPE_TABLE', 'TABLE');
-define('TABLE_TYPE_VIEW' , 'VIEW');
-
-?>
+define('TABLE_TYPE_VIEW', 'VIEW');
