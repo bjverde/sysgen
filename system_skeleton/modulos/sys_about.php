@@ -1,7 +1,7 @@
 <?php
 defined('APLICATIVO') or die();
 
-require_once('includes/config_conexao.php');
+require_once 'includes/config_conexao.php';
 
 $login = (array_key_exists('USER', $_SESSION[APLICATIVO]) ? $_SESSION[APLICATIVO]['USER']['LOGIN']:null);
 $grupo = null;

@@ -1,13 +1,18 @@
 <?php
 /**
  * SysGen - Gerador de sistemas com Formdin Framework
- * https://github.com/bjverde/sysgen
+ *
+ * @author  Bjverde <bjverde@yahoo.com.br>
+ * @license https://github.com/bjverde/sysgen/blob/master/LICENSE GPL-3.0
+ * @link    https://github.com/bjverde/sysgen
+ *
+ * PHP Version 5.6
  */
 
 //Constantes e configurações
-require_once('includes/constantes.php');
-require_once('../base/classes/webform/TApplication.class.php');
-require_once('classes/autoload_sysgen.php');
+require_once 'includes/constantes.php';
+require_once '../base/classes/webform/TApplication.class.php';
+require_once 'classes/autoload_sysgen.php';
 
 
 $app = new TApplication(); // criar uma instancia do objeto aplicacao
