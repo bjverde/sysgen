@@ -13,46 +13,54 @@
 if(!defined('EOL')){ define('EOL',"\n"); }
 if(!defined('TAB')){ define('TAB',chr(9)); }
 if(!defined('DS')){ define('DS',DIRECTORY_SEPARATOR); }
-class TCreateMenu extends  TCreateFileContent{
-	private $listTableNames;
 
-	public function __construct(){
-	    $this->setFileName('menu.php');
-	    $path = TGeneratorHelper::getPathNewSystem().DS.'includes'.DS;
-	    $this->setFilePath($path);
-	}
-	//--------------------------------------------------------------------------------------
-	public function setListTableNames($listTableNames) {
-		$this->validateListTableNames($listTableNames);
-		$this->listTableNames = $listTableNames;
-	}
-	public function getListTableNames() {
-		return $this->listTableNames;
-	}
-	//--------------------------------------------------------------------------------------
-	private function validateListTableNames($listTableNames) {
-		$listTableNames = empty($listTableNames)?$this->getListTableNames():$listTableNames;
-		if(empty($listTableNames)){
-			throw new InvalidArgumentException('List of Tables Names is empty');
-		}
-		if(!is_array($listTableNames)){
-			throw new InvalidArgumentException('List of Tables Names not is array');
-		}
-	}
-	//--------------------------------------------------------------------------------------
-	public function addBasicMenuItems() {
-		$this->validateListTableNames(null);
-		$listTableNames = $this->listTableNames['TABLE_NAME'];
-		foreach($listTableNames as $key=>$table){
-			$tableType = strtoupper($this->listTableNames['TABLE_TYPE'][$key]);
-			if($tableType == 'TABLE'){
-			    $this->addLine('$menu->add(\'1.'.$key.'\',1,\''.strtolower($table).'\',\'modulos/'.strtolower($table).'.php\');');
-			}
-		}
-	}
-	//--------------------------------------------------------------------------------------
-	public function show($print=false) {
-		$this->lines=null;
+class TCreateMenu extends  TCreateFileContent
+{
+    private $listTableNames;
+
+    public function __construct()
+    {
+        $this->setFileName('menu.php');
+        $path = TGeneratorHelper::getPathNewSystem().DS.'includes'.DS;
+        $this->setFilePath($path);
+    }
+    //--------------------------------------------------------------------------------------
+    public function setListTableNames($listTableNames) 
+    {
+        $this->validateListTableNames($listTableNames);
+        $this->listTableNames = $listTableNames;
+    }
+    public function getListTableNames() 
+    {
+        return $this->listTableNames;
+    }
+    //--------------------------------------------------------------------------------------
+    private function validateListTableNames($listTableNames) 
+    {
+        $listTableNames = empty($listTableNames)?$this->getListTableNames():$listTableNames;
+        if(empty($listTableNames)) {
+            throw new InvalidArgumentException('List of Tables Names is empty');
+        }
+        if(!is_array($listTableNames)) {
+            throw new InvalidArgumentException('List of Tables Names not is array');
+        }
+    }
+    //--------------------------------------------------------------------------------------
+    public function addBasicMenuItems() 
+    {
+        $this->validateListTableNames(null);
+        $listTableNames = $this->listTableNames['TABLE_NAME'];
+        foreach($listTableNames as $key=>$table){
+            $tableType = strtoupper($this->listTableNames['TABLE_TYPE'][$key]);
+            if($tableType == 'TABLE') {
+                $this->addLine('$menu->add(\'1.'.$key.'\',1,\''.strtolower($table).'\',\'modulos/'.strtolower($table).'.php\');');
+            }
+        }
+    }
+    //--------------------------------------------------------------------------------------
+    public function show($print=false) 
+    {
+        $this->lines=null;
         $this->addLine('<?php');
         $this->addSysGenHeaderNote();
         $this->addBlankLine();
@@ -68,11 +76,11 @@ class TCreateMenu extends  TCreateFileContent{
         $this->addLine('$menu->add(\'10.5\',\'10\',\'Gerador Form VO/DAO\',\'../base/includes/gerador_form_vo_dao.php\',null,\'smiley-1-512.png\');');
         $this->addLine('$menu->getXml();');
         $this->addLine('?>');
-        if( $print){
-        	echo $this->getLinesString();
-		}else{
-			return $this->getLinesString();
-		}
-	}
+        if($print) {
+            echo $this->getLinesString();
+        }else{
+            return $this->getLinesString();
+        }
+    }
 }
 ?>

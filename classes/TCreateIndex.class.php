@@ -13,15 +13,19 @@
 if(!defined('EOL')){ define('EOL',"\n"); }
 if(!defined('TAB')){ define('TAB',chr(9)); }
 if(!defined('DS')){ define('DS',DIRECTORY_SEPARATOR); }
-class TCreateIndex extends  TCreateFileContent{
-	public function __construct(){
-	    $this->setFileName('index.php');
-	    $path = TGeneratorHelper::getPathNewSystem().DS;
-	    $this->setFilePath($path);
-	}
-	//--------------------------------------------------------------------------------------
-	public function show($print=false) {
-		$this->lines=null;
+
+class TCreateIndex extends  TCreateFileContent
+{
+    public function __construct()
+    {
+        $this->setFileName('index.php');
+        $path = TGeneratorHelper::getPathNewSystem().DS;
+        $this->setFilePath($path);
+    }
+    //--------------------------------------------------------------------------------------
+    public function show($print=false) 
+    {
+        $this->lines=null;
         $this->addLine('<?php');
         $this->addSysGenHeaderNote();
         $this->addBlankLine();
@@ -41,12 +45,12 @@ class TCreateIndex extends  TCreateFileContent{
         $this->addBlankLine();
         $this->addLine('$app->setMainMenuFile(\'includes/menu.php\');');
         $this->addLine('$app->run();');
-        $this->addLine('?>');        
-        if( $print){
-        	echo $this->getLinesString();
-		}else{
-			return $this->getLinesString();
-		}
-	}
+        $this->addLine('?>');
+        if($print) {
+            echo $this->getLinesString();
+        }else{
+            return $this->getLinesString();
+        }
+    }
 }
 ?>
