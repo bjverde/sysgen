@@ -25,35 +25,35 @@ class TCreateMenuTest extends PHPUnit_Framework_TestCase
     private $createMenu;
     
     
-    protected function includeTable($tableSelected,$tableSchema, $tableName, $tableType)
+    protected function includeTable($tableSelected, $tableSchema, $tableName, $tableType)
     {
         $tableSelected['TABLE_SCHEMA'][] = $tableSchema;
         $tableSelected['TABLE_NAME'][]   = $tableName;
-        $tableSelected['TABLE_TYPE'][]   = $tableType;        
+        $tableSelected['TABLE_TYPE'][]   = $tableType;
         return $tableSelected;
     }
     
     protected function generateTablesSelected3t5v()
     {
         $tableSelected = isset($tableSelected) ? $tableSelected : null;
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'menu',  'TABLE');
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'menu', 'TABLE');
         $tableSelected = $this->includeTable($tableSelected, 'dbo', 'acess', 'TABLE');
         $tableSelected = $this->includeTable($tableSelected, 'dbo', 'vitem', 'VIEW');
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'list',  'TABLE');
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'list', 'TABLE');
         $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v2', 'VIEW');
         $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v3', 'VIEW');
         $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v4', 'VIEW');
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v5', 'VIEW');        
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v5', 'VIEW');
         return $tableSelected;
     }
     
     protected function generateTablesSelected1t7v()
     {
         $tableSelected = isset($tableSelected) ? $tableSelected : null;
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'menu',  'VIEW');
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'menu', 'VIEW');
         $tableSelected = $this->includeTable($tableSelected, 'dbo', 'acess', 'VIEW');
         $tableSelected = $this->includeTable($tableSelected, 'dbo', 'vitem', 'VIEW');
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'list',  'TABLE');
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'list', 'TABLE');
         $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v2', 'VIEW');
         $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v3', 'VIEW');
         $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v4', 'VIEW');
@@ -65,11 +65,15 @@ class TCreateMenuTest extends PHPUnit_Framework_TestCase
     /**
      * Prepares the environment before running a test.
      */
-    protected function setUp() 
+    protected function setUp()
     {
         parent::setUp();
-        if(!defined('ROOT_PATH')){ define('ROOT_PATH',"pasta"); }
-        if(!defined('APLICATIVO')){ define('APLICATIVO','PHPUnit'); }
+        if (!defined('ROOT_PATH')) {
+            define('ROOT_PATH', "pasta");
+        }
+        if (!defined('APLICATIVO')) {
+            define('APLICATIVO', 'PHPUnit');
+        }
         $_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM']='test';
         
         //$listTableNames   = $this->generateTablesSelected();
@@ -79,13 +83,13 @@ class TCreateMenuTest extends PHPUnit_Framework_TestCase
     /**
      * Cleans up the environment after running a test.
      */
-    protected function tearDown() 
+    protected function tearDown()
     {
         $this->createMenu = null;
         parent::tearDown();
     }
     
-    public function testQtdItensMenuOnlyTableNotViews3t() 
+    public function testQtdItensMenuOnlyTableNotViews3t()
     {
         $listTableNames   = $this->generateTablesSelected3t5v();
         $this->createMenu->setListTableNames($listTableNames);
@@ -95,7 +99,7 @@ class TCreateMenuTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(3, $size);
     }
     
-    public function testQtdItensMenuOnlyTableNotViews() 
+    public function testQtdItensMenuOnlyTableNotViews()
     {
         $listTableNames   = $this->generateTablesSelected1t7v();
         $this->createMenu->setListTableNames($listTableNames);
@@ -104,5 +108,4 @@ class TCreateMenuTest extends PHPUnit_Framework_TestCase
         $size = count($resultArray);
         $this->assertEquals(1, $size);
     }
-    
 }

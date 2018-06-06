@@ -10,16 +10,20 @@
  * PHP Version 5.6
  */
 
-if(!defined('EOL')){ define('EOL',"\n"); }
-if(!defined('TAB')){ define('TAB',chr(9)); }
+if (!defined('EOL')) {
+    define('EOL', "\n");
+}
+if (!defined('TAB')) {
+    define('TAB', chr(9));
+}
 
 /**
  *  AINDA NÃO ESTÁ PRONTO
  *
- * @todo   terminar TCreateVO e remover VO da TCreateDAO 
+ * @todo   terminar TCreateVO e remover VO da TCreateDAO
  * @author bjverte
  */
-class TCreateVO extends  TCreateFileContent
+class TCreateVO extends TCreateFileContent
 {
     private $tableName;
     private $aColumns;
@@ -32,7 +36,7 @@ class TCreateVO extends  TCreateFileContent
     private $charParam = '?';
     private $listColumnsProperties;
 
-    public function __construct($strTableName=null,$strkeyColumnName=null,$strPath=null,$databaseManagementSystem=null) 
+    public function __construct($strTableName = null, $strkeyColumnName = null, $strPath = null, $databaseManagementSystem = null)
     {
         $tableRef = strtolower($tableRef);
         $this->setTableName($strTableName);
@@ -45,33 +49,33 @@ class TCreateVO extends  TCreateFileContent
         $this->keyColumnName = $strkeyColumnName;
         $this->path = $strPath;
         $this->databaseManagementSystem = strtoupper($databaseManagementSystem);
-        if($databaseManagementSystem == DBMS_POSTGRES ) {
+        if ($databaseManagementSystem == DBMS_POSTGRES) {
             $this->charParam = '$1';
         }
     }
     //-----------------------------------------------------------------------------------
-    public function setTableName($strTableName) 
+    public function setTableName($strTableName)
     {
         $strTableName = strtolower($strTableName);
         $this->tableName=$strTableName;
     }
     //------------------------------------------------------------------------------------
-    public function getTableName() 
+    public function getTableName()
     {
         return $this->tableName;
     }
     //------------------------------------------------------------------------------------
-    public function getKeyColumnName() 
+    public function getKeyColumnName()
     {
         return $this->keyColumnName;
     }
     //------------------------------------------------------------------------------------
-    public function setDatabaseManagementSystem($databaseManagementSystem) 
+    public function setDatabaseManagementSystem($databaseManagementSystem)
     {
         return $this->databaseManagementSystem = strtoupper($databaseManagementSystem);
     }
     //------------------------------------------------------------------------------------
-    public function getDatabaseManagementSystem() 
+    public function getDatabaseManagementSystem()
     {
         return $this->databaseManagementSystem;
     }
@@ -89,23 +93,23 @@ class TCreateVO extends  TCreateFileContent
     public function hasSchema()
     {
         $result = '';
-        if($this->getShowSchema() == true) {
+        if ($this->getShowSchema() == true) {
             $result = '\'.SCHEMA.\'';
-        }        
+        }
         return $result;
     }
     //------------------------------------------------------------------------------------
-    public function setWithSqlPagination($withSqlPagination) 
+    public function setWithSqlPagination($withSqlPagination)
     {
         return $this->withSqlPagination = $withSqlPagination;
     }
     //------------------------------------------------------------------------------------
-    public function getWithSqlPagination() 
+    public function getWithSqlPagination()
     {
         return $this->withSqlPagination;
     }
     //------------------------------------------------------------------------------------
-    public function getCharParam() 
+    public function getCharParam()
     {
         return $this->charParam;
     }
@@ -133,25 +137,25 @@ class TCreateVO extends  TCreateFileContent
         return $this->aColumns;
     }
     //--------------------------------------------------------------------------------------
-    public function setListColumnsProperties($listColumnsProperties) 
+    public function setListColumnsProperties($listColumnsProperties)
     {
-        if(!is_array($listColumnsProperties)) {
+        if (!is_array($listColumnsProperties)) {
             throw new InvalidArgumentException('List of Columns Properties not is a array');
         }
         $this->listColumnsProperties = $listColumnsProperties;
     }
-    public function getListColumnsProperties() 
+    public function getListColumnsProperties()
     {
         return $this->listColumnsProperties;
     }
     //--------------------------------------------------------------------------------------
-    public function show($print=false)
+    public function show($print = false)
     {
         $this->addLine('<?php');
         $this->addLine("class ".ucfirst($this->getTableName())."VO {");
         $cols='';
         $sets='';
-        foreach($this->getColumns() as $k => $v ){
+        foreach ($this->getColumns() as $k => $v) {
             $this->addLine(TAB.'private $'.$v.' = null;');
             $cols .= $cols == '' ? '' : ', ';
             $cols .='$'.$v.'=null';
@@ -161,24 +165,20 @@ class TCreateVO extends  TCreateFileContent
         $this->addLine($sets);
         $this->addLine(TAB.'}');
         $this->addLine();
-        foreach($this->getColumns() as $k=>$v) {
+        foreach ($this->getColumns() as $k => $v) {
             $this->addLine(TAB.'public function set'.ucfirst($v).'( $strNewValue = null )');
             $this->addLine(TAB."{");
-            if(preg_match('/cpf|cnpj/i', $v) > 0 ) {
+            if (preg_match('/cpf|cnpj/i', $v) > 0) {
                 $this->addLine(TAB.TAB.'$this->'.$v.' = preg_replace(\'/[^0-9]/\',\'\',$strNewValue);');
-            }
-            else
-            {
+            } else {
                 $this->addLine(TAB.TAB.'$this->'.$v.' = $strNewValue;');
             }
             $this->addLine(TAB."}");
             $this->addLine(TAB.'public function get'.ucfirst($v).'()');
             $this->addLine(TAB."{");
-            if(preg_match('/^data?_/i', $v) == 1 ) {
+            if (preg_match('/^data?_/i', $v) == 1) {
                 $this->addLine(TAB.TAB."return is_null( \$this->{$v} ) ? date( 'Y-m-d h:i:s' ) : \$this->{$v};");
-            }
-            else
-            {
+            } else {
                 $this->addLine(TAB.TAB.'return $this->'.$v.';');
             }
             $this->addLine(TAB."}");
@@ -186,11 +186,10 @@ class TCreateVO extends  TCreateFileContent
         }
         $this->addLine("}");
         $this->addLine('?>');
-        if($print) {
+        if ($print) {
             echo trim(implode($this->lines));
-        }else {
+        } else {
             return trim(implode($this->lines));
         }
     }
 }
-?>

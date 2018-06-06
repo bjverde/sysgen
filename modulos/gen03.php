@@ -37,11 +37,11 @@ $acao = isset($acao) ? $acao : null;
 switch ($acao) {
     case 'back':
         $frm->redirect('gen02.php', 'Redirect realizado com sucesso.', true);
-    break;
+        break;
     //--------------------------------------------------------------------------------
     case 'clean':
         $frm->clearFields();
-    break;
+        break;
     //--------------------------------------------------------------------------------
     case 'generate':
         if ($frm->validate()) {
@@ -63,10 +63,10 @@ try {
     
     $listFkFieldsTableSelected = TGeneratorHelper::getFKFieldsTablesSelected();
 
-    $gride = new TGrid( 'gd'                         // id do gride
-    		, Message::GRID_LIST_FK_TITLE  // titulo do gride
-    		, $listFkFieldsTableSelected 	 // array de dados
-    		);
+    $gride = new TGrid('gd'                         // id do gride
+, Message::GRID_LIST_FK_TITLE  // titulo do gride
+, $listFkFieldsTableSelected);     // array de dados
+
     $gride->setCreateDefaultEditButton(false);
     $gride->setCreateDefaultDeleteButton(false);
     $gride->addRowNumColumn();

@@ -2,7 +2,7 @@
 /**
  * SysGen - System Generator with Formdin Framework
  * Download Formdin Framework: https://github.com/bjverde/formDin
- * 
+ *
  * @author  Bjverde <bjverde@yahoo.com.br>
  * @license https://github.com/bjverde/sysgen/blob/master/LICENSE GPL-3.0
  * @link    https://github.com/bjverde/sysgen
@@ -17,7 +17,7 @@ final class Message
     
     const LAST_STEP = '04';
     
-    const GEN01_TITLE      = 'Etapa 01 de '.self::LAST_STEP;    
+    const GEN01_TITLE      = 'Etapa 01 de '.self::LAST_STEP;
     const GEN01_GPX1_TITLE = 'Requisito do PHP';
     const GEN01_GPX2_TITLE = 'Configurações de Banco';
     
@@ -57,4 +57,3 @@ final class Message
     const BUTTON_GEN_FORM    = 'Gerar Telas';
     const BUTTON_LABEL_CONF  = 'Gerar Config';
 }
-?>

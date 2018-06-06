@@ -1,7 +1,7 @@
 <?php
 /**
  * SysGen - System Generator with Formdin Framework
- * Download Formdin Framework: https://github.com/bjverde/formDin 
+ * Download Formdin Framework: https://github.com/bjverde/formDin
  *
  * @author  Bjverde <bjverde@yahoo.com.br>
  * @license https://github.com/bjverde/sysgen/blob/master/LICENSE GPL-3.0
@@ -71,9 +71,9 @@ try {
     $html->add(Message::SEL_TABLES_GENERATE);
     
     $gride = new TGrid('gd'        // id do gride
-    		,'Lista de Tabelas'     // titulo do gride
-    		,$listTablesAll 	      // array de dados
-    		);
+, 'Lista de Tabelas'     // titulo do gride
+, $listTablesAll);           // array de dados
+
     $gride->setCreateDefaultEditButton(false);
     $gride->setCreateDefaultDeleteButton(false);
     

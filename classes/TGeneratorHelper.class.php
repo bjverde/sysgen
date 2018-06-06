@@ -19,12 +19,12 @@ class TGeneratorHelper
             $texto =  $texto.'<span class="success">'.phpversion().'</span><br>';
             $html->add($texto);
             $result = true;
-        }else if(version_compare(PHP_VERSION, '5.4.0') >= 0) {
+        } elseif (version_compare(PHP_VERSION, '5.4.0') >= 0) {
             $texto =  $texto.'<span class="failure">'.phpversion().' </span><br>';
             $texto =  $texto.'<span class="alert">Para um melhor desempenho atualize seu servidor para PHP 7.0.0 ou seperior </span><br>';
             $html->add($texto);
             $result = true;
-        }else{
+        } else {
             $texto =  $texto.'<span class="failure">'.phpversion().' atualize seu sistema para o PHP 5.4.0 ou seperior </span><br>';
             $texto =  $texto.'<br><br><span class="alert">O FormDin precisa de uma versão mais atual do PHP</span><br>';
             $html->add($texto);
@@ -33,26 +33,26 @@ class TGeneratorHelper
         return $result;
     }
     
-    public static function testar($extensao=null,$html)
+    public static function testar($extensao = null, $html)
     {
-        if(extension_loaded($extensao) ) {
+        if (extension_loaded($extensao)) {
             $html->add('<b>'.$extensao.'</b>: <span class="success">Instalada.</span><br>');
             $result = true;
-        }else {
+        } else {
             $html->add('<b>'.$extensao.'</b>: <span class="failure">Não instalada</span><br>');
             $result = false;
         }
         return $result;
     }
     
-    public static function validatePDO($DBMS,$html)
+    public static function validatePDO($DBMS, $html)
     {
         $result = false;
-        if(self::testar('PDO', $html) ) {
+        if (self::testar('PDO', $html)) {
             $result = true;
         }
         
-        if($result == false) {
+        if ($result == false) {
             $texto ='<span class="alert">Instale a extensão PDO. DEPOIS tente novamente</span><br>';
             $texto = $texto.'(PHP Data Objects) é uma extensão que fornece uma interface padronizada para trabalhar com diversos bancos<br>';
             $html->add($texto);
@@ -60,41 +60,41 @@ class TGeneratorHelper
         return $result;
     }
     
-    public static function validateDBMS($DBMS,$html)
+    public static function validateDBMS($DBMS, $html)
     {
         // https://secure.php.net/manual/pt_BR/pdo.drivers.php
         $result = false;
-        if($DBMS == DBMS_MYSQL ) {
+        if ($DBMS == DBMS_MYSQL) {
             if (self::testar('PDO_MYSQL', $html)) {
                 $result = true;
             }
-        }else if($DBMS == DBMS_SQLITE) {
+        } elseif ($DBMS == DBMS_SQLITE) {
             if (self::testar('PDO_SQLITE', $html)) {
                 $result = true;
             }
-        }else if($DBMS == DBMS_SQLSERVER) {
+        } elseif ($DBMS == DBMS_SQLSERVER) {
             if (self::testar('PDO_SQLSRV', $html)) {
                 $result = true;
             }
-        }else if($DBMS == DBMS_ACCESS) {
+        } elseif ($DBMS == DBMS_ACCESS) {
             if (self::testar('PDO_ODBC', $html)) {
                 $result = true;
             }
-        }else if($DBMS == DBMS_FIREBIRD) {
+        } elseif ($DBMS == DBMS_FIREBIRD) {
             if (self::testar('PDO_FIREBIRD', $html)) {
                 $result = true;
             }
-        }else if($DBMS == DBMS_ORACLE) {
+        } elseif ($DBMS == DBMS_ORACLE) {
             if (self::testar('PDO_OCI', $html)) {
                 $result = true;
             }
-        }else if($DBMS == DBMS_POSTGRES) {
+        } elseif ($DBMS == DBMS_POSTGRES) {
             if (self::testar('PDO_PGSQL', $html)) {
                 $result = true;
             }
         }
         
-        if($result == false) {
+        if ($result == false) {
             $texto ='<br><span class="alert">Instale a extensão PDO para banco de dados: '.$DBMS.'.<br> DEPOIS tente novamente</span><br>';
             $html->add($texto);
         }
@@ -102,53 +102,53 @@ class TGeneratorHelper
         return $result;
     }
     
-    public static function validatePDOAndDBMS($DBMS,$html)
+    public static function validatePDOAndDBMS($DBMS, $html)
     {
-        if(self::validatePDO($DBMS, $html) && self::validateDBMS($DBMS, $html) ) {
+        if (self::validatePDO($DBMS, $html) && self::validateDBMS($DBMS, $html)) {
             $result = true;
-        }else{
+        } else {
             $result = false;
         }
         return $result;
     }
     
-    public static function showAbaDBMS($DBMS,$DBMSAba)
+    public static function showAbaDBMS($DBMS, $DBMSAba)
     {
-        if($DBMS == $DBMSAba ) {
+        if ($DBMS == $DBMSAba) {
             $result = true;
-        }else{
+        } else {
             $result = false;
         }
         return $result;
     }
     
-    public static function showMsg($type,$msg)
+    public static function showMsg($type, $msg)
     {
-        if($type == 1 ) {
+        if ($type == 1) {
             $msg = '<span class="success">'.$msg.'</span><br>';
-        }else if ($type == 0) {
+        } elseif ($type == 0) {
             $msg = '<span class="failure">'.$msg.'</span><br>';
-        }else if($type == -1 ) {
+        } elseif ($type == -1) {
             $msg = '<span class="alert">'.$msg.'</span><br>';
-        }else {
+        } else {
             $msg = $msg.'<br>';
         }
         return $msg;
     }
     
-    public static function validateFolderName($nome) 
+    public static function validateFolderName($nome)
     {
         $is_string = is_string($nome);
         $strlen    = strlen($nome) > 50;
         $preg      = preg_match('/^(([a-z]|[0-9]|_)+|)$/', $nome, $matches);
-        if(!$is_string || $strlen || !$preg) {
+        if (!$is_string || $strlen || !$preg) {
             throw new DomainException(Message::SYSTEM_ACRONYM_INVALID);
         }
     }
     
     public static function mkDir($path)
     {
-        if(!is_dir($path)) {
+        if (!is_dir($path)) {
             mkdir($path, 0744, true);
         }
     }
@@ -166,7 +166,7 @@ class TGeneratorHelper
         $it   = new RecursiveIteratorIterator($list);
         
         foreach ($it as $file) {
-            if($it->isFile()) {
+            if ($it->isFile()) {
                 //echo ' SubPathName: ' . $it->getSubPathName();
                 //echo ' SubPath:     ' . $it->getSubPath()."<br>";
                 self::mkDir($pathNewSystem.DS.$it->getSubPath());
@@ -206,7 +206,7 @@ class TGeneratorHelper
         $file->saveFile();
     }
     
-    public static function getTDAOConect($tableName,$schema)
+    public static function getTDAOConect($tableName, $schema)
     {
         $dbType   = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
         $user     = $_SESSION[APLICATIVO]['DBMS']['USER'];
@@ -224,10 +224,10 @@ class TGeneratorHelper
     {
         $dao = self::getTDAOConect(null, null);
         $listAllTables = $dao->loadTablesFromDatabase();
-        if(!is_array($listAllTables)) {
+        if (!is_array($listAllTables)) {
             throw new InvalidArgumentException('List of Tables Names not is array');
         }
-        foreach ($listAllTables['TABLE_NAME'] as $key=>$value){
+        foreach ($listAllTables['TABLE_NAME'] as $key => $value) {
             $listAllTables['idSelected'][] = $listAllTables['TABLE_SCHEMA'][$key].$listAllTables['TABLE_NAME'][$key].$listAllTables['COLUMN_QTD'][$key].$listAllTables['TABLE_TYPE'][$key];
         }
         return $listAllTables;
@@ -235,18 +235,18 @@ class TGeneratorHelper
     
     private static function getConfigByDBMS($DBMS)
     {
-        switch( $DBMS ) {
-        case DBMS_MYSQL:
-            $SCHEMA = false;
-            $TPGRID = GRID_SQL_PAGINATION;
-            break;
-        case DBMS_SQLSERVER:
-            $SCHEMA = true;
-            $TPGRID = GRID_SQL_PAGINATION;
-            break;
-        default:
-            $SCHEMA = false;
-            $TPGRID = GRID_SCREEN_PAGINATION;
+        switch ($DBMS) {
+            case DBMS_MYSQL:
+                $SCHEMA = false;
+                $TPGRID = GRID_SQL_PAGINATION;
+                break;
+            case DBMS_SQLSERVER:
+                $SCHEMA = true;
+                $TPGRID = GRID_SQL_PAGINATION;
+                break;
+            default:
+                $SCHEMA = false;
+                $TPGRID = GRID_SCREEN_PAGINATION;
         }
         $config['SCHEMA'] = $SCHEMA;
         $config['TPGRID'] = $TPGRID;
@@ -264,7 +264,7 @@ class TGeneratorHelper
         $generator->saveFile();
     }
     
-    public static function createFilesDaoVoFromTable($tableName, $listColumnsProperties,$tableSchema,$tableType)
+    public static function createFilesDaoVoFromTable($tableName, $listColumnsProperties, $tableSchema, $tableType)
     {
         $DBMS        = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
         $configDBMS  = self::getConfigByDBMS($DBMS);
@@ -273,7 +273,7 @@ class TGeneratorHelper
         $columnPrimaryKey = $listColumns[0];
         $generatorDao     = new TCreateDAO($tableName, $columnPrimaryKey, $folder);
         $generatorDao->setTableType($tableType);
-        foreach($listColumns as $k=>$v) {
+        foreach ($listColumns as $k => $v) {
             $generatorDao->addColumn($v);
         }
         $generatorDao->setDatabaseManagementSystem($DBMS);
@@ -317,7 +317,7 @@ class TGeneratorHelper
     {
         $listTablesAll   = TGeneratorHelper::loadTablesFromDatabase();
         $idTableSelected = $_SESSION[APLICATIVO]['idTableSelected'];
-        foreach ($idTableSelected as $key=>$id){
+        foreach ($idTableSelected as $key => $id) {
             $keyTable = array_search($id, $listTablesAll['idSelected']);
             $listTablesSelected['TABLE_SCHEMA'][] = $listTablesAll['TABLE_SCHEMA'][$keyTable];
             $listTablesSelected['TABLE_NAME'][]   = $listTablesAll['TABLE_NAME'][$keyTable];
@@ -331,7 +331,7 @@ class TGeneratorHelper
         $_SESSION[APLICATIVO]['FieldsTableSelected'] = null;
         $FieldsTableSelected = null;
         $listTables = TGeneratorHelper::loadTablesSelected();
-        foreach ($listTables['TABLE_NAME'] as $key=>$table){
+        foreach ($listTables['TABLE_NAME'] as $key => $table) {
             $tableSchema = $listTables['TABLE_SCHEMA'][$key];
             $dao = TGeneratorHelper::getTDAOConect($table, $tableSchema);
             $listFieldsTable = $dao->loadFieldsOneTableFromDatabase();
@@ -341,19 +341,19 @@ class TGeneratorHelper
         return $FieldsTableSelected;
     }
     
-    public static function loadFieldsTablesSelectedWithFormDin($table,$tableSchema)
+    public static function loadFieldsTablesSelectedWithFormDin($table, $tableSchema)
     {
         $dao = self::getTDAOConect($table, $tableSchema);
         $listFieldsTable = $dao->loadFieldsOneTableFromDatabase();
-        foreach ($listFieldsTable['DATA_TYPE'] as $key=>$dataType){
+        foreach ($listFieldsTable['DATA_TYPE'] as $key => $dataType) {
             //$formDinType = self::convertDataType2FormDinType($dataType);
             $formDinType = TCreateForm::convertDataType2FormDinType($dataType);
             $listFieldsTable[TCreateForm::FORMDIN_TYPE_COLUMN_NAME][$key] = $formDinType;
-        }        
+        }
         return $listFieldsTable;
     }
     
-    public static function getFKTypeScreenReferenced($refTable,$refColumn)
+    public static function getFKTypeScreenReferenced($refTable, $refColumn)
     {
         $array[] = 'Select Field';
         $array[] = 'Autocomplet';
@@ -366,10 +366,10 @@ class TGeneratorHelper
     {
         $FkFieldsTableSelected = null;
         $FieldsTableSelected   = self::loadFieldsTablesSelected();
-        foreach ($FieldsTableSelected as $key=>$table){
+        foreach ($FieldsTableSelected as $key => $table) {
             $KEY_TYPE = $FieldsTableSelected[$key]['KEY_TYPE'];
             $KEY_FK = array_keys($KEY_TYPE, 'FOREIGN KEY');
-            foreach ($KEY_FK as $k=>$keyFieldFkTable){
+            foreach ($KEY_FK as $k => $keyFieldFkTable) {
                 $refTable  = $FieldsTableSelected[$key]['REFERENCED_TABLE_NAME'][$keyFieldFkTable];
                 $refColumn = $FieldsTableSelected[$key]['REFERENCED_COLUMN_NAME'][$keyFieldFkTable];
                 
@@ -386,4 +386,3 @@ class TGeneratorHelper
         return $FkFieldsTableSelected;
     }
 }
-?>

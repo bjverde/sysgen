@@ -10,9 +10,15 @@
  * PHP Version 5.6
  */
 
-if(!defined('EOL')){ define('EOL',"\n"); }
-if(!defined('TAB')){ define('TAB',chr(9)); }
-if(!defined('DS')){ define('DS',DIRECTORY_SEPARATOR); }
+if (!defined('EOL')) {
+    define('EOL', "\n");
+}
+if (!defined('TAB')) {
+    define('TAB', chr(9));
+}
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
 class TCreateFileContent
 {
     private $lines;
@@ -26,26 +32,26 @@ class TCreateFileContent
     {
     }
     //--------------------------------------------------------------------------------------
-    public function setFilePath($filePath) 
+    public function setFilePath($filePath)
     {
-        if(empty($filePath)) {
+        if (empty($filePath)) {
             throw new InvalidArgumentException('FilePath is empty');
         }
         $this->filePath    = $filePath;
     }
-    public function getFilePath() 
+    public function getFilePath()
     {
         return $this->filePath;
     }
     //--------------------------------------------------------------------------------------
-    public function setFileName($formFileName) 
+    public function setFileName($formFileName)
     {
-        if(empty($formFileName)) {
+        if (empty($formFileName)) {
             throw new InvalidArgumentException('FileName is empty');
         }
         $this->fileName    = $formFileName;
     }
-    public function getFileName() 
+    public function getFileName()
     {
         return $this->fileName;
     }
@@ -60,13 +66,13 @@ class TCreateFileContent
         $string = implode($this->lines);
         return trim($string);
     }
-    //--------------------------------------------------------------------------------------    
-    public function addLine($strNewValue=null,$boolNewLine=true)
+    //--------------------------------------------------------------------------------------
+    public function addLine($strNewValue = null, $boolNewLine = true)
     {
         $strNewValue = is_null($strNewValue) ? TAB.'//' . str_repeat('-', 80) : $strNewValue;
         $this->lines[] = $strNewValue.( $boolNewLine ? EOL : '');
     }
-    //--------------------------------------------------------------------------------------    
+    //--------------------------------------------------------------------------------------
     public function addBlankLine()
     {
         $this->addLine('');
@@ -93,8 +99,8 @@ class TCreateFileContent
     public function saveFile()
     {
         $fullPathfile = $this->filePath.DS.$this->fileName;
-        if($fullPathfile) {
-            if(file_exists($fullPathfile)) {
+        if ($fullPathfile) {
+            if (file_exists($fullPathfile)) {
                 unlink($fullPathfile);
             }
             $payload = $this->show(false);
@@ -102,4 +108,3 @@ class TCreateFileContent
         }
     }
 }
-?>

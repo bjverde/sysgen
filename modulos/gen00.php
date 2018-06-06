@@ -1,7 +1,7 @@
 <?php
 /**
  * SysGen - System Generator with Formdin Framework
- * Download Formdin Framework: https://github.com/bjverde/formDin 
+ * Download Formdin Framework: https://github.com/bjverde/formDin
  *
  * @author  Bjverde <bjverde@yahoo.com.br>
  * @license https://github.com/bjverde/sysgen/blob/master/LICENSE GPL-3.0
@@ -22,17 +22,16 @@ $html = $frm->addHtmlField('conf', '');
 $frm->addHtmlField('info', null, 'ajuda/info_gen00_pt-br.php')->setClass('htmlInfo', true);
 
 
-if(TGeneratorHelper::phpVersionValid($html)) {
-        
+if (TGeneratorHelper::phpVersionValid($html)) {
     $dbType = array(DBMS_MYSQL=>'MySQL'
                    ,DBMS_SQLITE=>'SQLITE'
                    ,DBMS_SQLSERVER=>'MS SQL SERVER'
                    ,DBMS_POSTGRES =>'POSTGRES'
                    ,DBMS_ACCESS =>'ACCESS'
                    ,DBMS_FIREBIRD => 'FIREBIRD'
-                   ,DBMS_ORACLE =>'ORACLE'                   
+                   ,DBMS_ORACLE =>'ORACLE'
                    );
-    $frm->addSelectField('DBMS', 'Escolha o tipo de Banco de Dados:', true, $dbType, null, null, null, null, null, null, ' ', 0);    
+    $frm->addSelectField('DBMS', 'Escolha o tipo de Banco de Dados:', true, $dbType, null, null, null, null, null, null, ' ', 0);
     $frm->addTextField('GEN_SYSTEM_ACRONYM', 'Sigla do Sistema', 50, true);
     $frm->addTextField('GEN_SYSTEM_VERSION', 'Versão do sistema', 10, true, 10, '0.0.0');
     $frm->addTextField('GEN_SYSTEM_NAME', 'Nome do sistem', 50, true);
@@ -42,29 +41,28 @@ if(TGeneratorHelper::phpVersionValid($html)) {
     $frm->addButton('Limpar', null, 'Limpar', null, null, false, false);
     
     $acao = isset($acao) ? $acao : null;
-    switch( $acao ) {
-    case 'Continuar':
-        if ($frm->validate() ) {
-            try{
-                $GEN_SYSTEM_ACRONYM = strtolower($frm->get('GEN_SYSTEM_ACRONYM'));
-                TGeneratorHelper::validateFolderName($GEN_SYSTEM_ACRONYM);
-                $_SESSION[APLICATIVO]=null;
-                $_SESSION[APLICATIVO]['DBMS']['TYPE']=$frm->get('DBMS');
-                $_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM']=$GEN_SYSTEM_ACRONYM;
-                $_SESSION[APLICATIVO]['GEN_SYSTEM_VERSION']=$frm->get('GEN_SYSTEM_VERSION');
-                $_SESSION[APLICATIVO]['GEN_SYSTEM_NAME']=$frm->get('GEN_SYSTEM_NAME');
-                $frm->redirect('gen01.php', 'Redirect realizado com sucesso.', true);
-            } catch (Exception $e) {
-                $frm->setMessage($e->getMessage());
+    switch ($acao) {
+        case 'Continuar':
+            if ($frm->validate()) {
+                try {
+                    $GEN_SYSTEM_ACRONYM = strtolower($frm->get('GEN_SYSTEM_ACRONYM'));
+                    TGeneratorHelper::validateFolderName($GEN_SYSTEM_ACRONYM);
+                    $_SESSION[APLICATIVO]=null;
+                    $_SESSION[APLICATIVO]['DBMS']['TYPE']=$frm->get('DBMS');
+                    $_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM']=$GEN_SYSTEM_ACRONYM;
+                    $_SESSION[APLICATIVO]['GEN_SYSTEM_VERSION']=$frm->get('GEN_SYSTEM_VERSION');
+                    $_SESSION[APLICATIVO]['GEN_SYSTEM_NAME']=$frm->get('GEN_SYSTEM_NAME');
+                    $frm->redirect('gen01.php', 'Redirect realizado com sucesso.', true);
+                } catch (Exception $e) {
+                    $frm->setMessage($e->getMessage());
+                }
             }
-        }
-        break;
+            break;
       //--------------------------------------------------------------------------------
-    case 'Limpar':
-        $frm->clearFields();
-        break;
+        case 'Limpar':
+            $frm->clearFields();
+            break;
     }
 }
 
 $frm->show();
-?>

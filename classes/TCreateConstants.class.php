@@ -10,10 +10,16 @@
  * PHP Version 5.6
  */
 
-if(!defined('EOL')){ define('EOL',"\n"); }
-if(!defined('TAB')){ define('TAB',chr(9)); }
-if(!defined('DS')){ define('DS',DIRECTORY_SEPARATOR); }
-class TCreateConstants extends  TCreateFileContent
+if (!defined('EOL')) {
+    define('EOL', "\n");
+}
+if (!defined('TAB')) {
+    define('TAB', chr(9));
+}
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
+class TCreateConstants extends TCreateFileContent
 {
 
     public function __construct()
@@ -23,7 +29,7 @@ class TCreateConstants extends  TCreateFileContent
         $this->setFilePath($path);
     }
     //--------------------------------------------------------------------------------------
-    public function show($print=false) 
+    public function show($print = false)
     {
         $this->lines=null;
         $this->addLine('<?php');
@@ -35,11 +41,10 @@ class TCreateConstants extends  TCreateFileContent
         $this->addLine('define(\'APLICATIVO\'     , SYSTEM_ACRONYM);');
         $this->addLine('define(\'DS\'   , DIRECTORY_SEPARATOR);');
         $this->addLine('?>');
-        if($print) {
+        if ($print) {
             echo $this->getLinesString();
-        }else{
+        } else {
             return $this->getLinesString();
         }
     }
 }
-?>

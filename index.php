@@ -29,4 +29,3 @@ $app->setWaterMark('images/2-code-gen-database-first.png');
 $app->setMainMenuFile('includes/menu.php');
 $app->setDefaultModule('gen00.php');
 $app->run();
-?>

@@ -10,11 +10,17 @@
  * PHP Version 5.6
  */
 
-if(!defined('EOL')){ define('EOL',"\n"); }
-if(!defined('TAB')){ define('TAB',chr(9)); }
-if(!defined('DS')){ define('DS',DIRECTORY_SEPARATOR); }
+if (!defined('EOL')) {
+    define('EOL', "\n");
+}
+if (!defined('TAB')) {
+    define('TAB', chr(9));
+}
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
 
-class TCreateIndex extends  TCreateFileContent
+class TCreateIndex extends TCreateFileContent
 {
     public function __construct()
     {
@@ -23,7 +29,7 @@ class TCreateIndex extends  TCreateFileContent
         $this->setFilePath($path);
     }
     //--------------------------------------------------------------------------------------
-    public function show($print=false) 
+    public function show($print = false)
     {
         $this->lines=null;
         $this->addLine('<?php');
@@ -46,11 +52,10 @@ class TCreateIndex extends  TCreateFileContent
         $this->addLine('$app->setMainMenuFile(\'includes/menu.php\');');
         $this->addLine('$app->run();');
         $this->addLine('?>');
-        if($print) {
+        if ($print) {
             echo $this->getLinesString();
-        }else{
+        } else {
             return $this->getLinesString();
         }
     }
 }
-?>

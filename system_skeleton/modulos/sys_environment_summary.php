@@ -21,18 +21,15 @@
 
 defined('APLICATIVO') or die();
 
-function testar($extensao=null, $html)
+function testar($extensao = null, $html)
 {
     if (!extension_loaded($extensao)) {
         $html->add('<b>'.$extensao.'</b>: <span class="vermelho">Não instalada</span><br>');
         return true;
-    
     } else {
         $html->add('<b>'.$extensao.'</b>: <span class="verde">Instalada.</span><br>');
         return false;
-    
     }
-
 }
 
 function phpVersionOK()
@@ -40,13 +37,10 @@ function phpVersionOK()
     $texto = '<b>Versão do PHP</b>: ';
     if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
         $texto =  $texto.'<span class="verde">'.phpversion().'</span><br>';
-    
     } else {
         $texto =  $texto.'<span class="vermelho">'.phpversion().' atualize seu sistema para o PHP 5.4.0 ou seperior </span><br>';
-    
     }
     return $texto;
-
 }
 
 

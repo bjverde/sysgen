@@ -10,10 +10,16 @@
  * PHP Version 5.6
  */
 
-if(!defined('EOL')){ define('EOL',"\n"); }
-if(!defined('TAB')){ define('TAB',chr(9)); }
-if(!defined('DS')){ define('DS',DIRECTORY_SEPARATOR); }
-class TCreateConfigDataBase extends  TCreateFileContent
+if (!defined('EOL')) {
+    define('EOL', "\n");
+}
+if (!defined('TAB')) {
+    define('TAB', chr(9));
+}
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
+class TCreateConfigDataBase extends TCreateFileContent
 {
 
     public function __construct()
@@ -23,7 +29,7 @@ class TCreateConfigDataBase extends  TCreateFileContent
         $this->setFilePath($path);
     }
     //--------------------------------------------------------------------------------------
-    public function show($print=false) 
+    public function show($print = false)
     {
         $this->lines=null;
         $this->addLine('<?php');
@@ -38,11 +44,10 @@ class TCreateConfigDataBase extends  TCreateFileContent
         $this->addLine('define(\'SENHA\'   , \''.$_SESSION[APLICATIVO]['DBMS']['PASSWORD'].'\');');
         $this->addLine('define(\'UTF8_DECODE\'   , 0);');
         $this->addLine('?>');
-        if($print) {
+        if ($print) {
             echo $this->getLinesString();
-        }else{
+        } else {
             return $this->getLinesString();
         }
     }
 }
-?>

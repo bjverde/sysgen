@@ -1,7 +1,7 @@
 <?php
 /**
  * SysGen - System Generator with Formdin Framework
- * Download Formdin Framework: https://github.com/bjverde/formDin 
+ * Download Formdin Framework: https://github.com/bjverde/formDin
  *
  * @author  Bjverde <bjverde@yahoo.com.br>
  * @license https://github.com/bjverde/sysgen/blob/master/LICENSE GPL-3.0
@@ -23,7 +23,7 @@ $frm->addGroupField('gpx1', Message::GEN01_GPX1_TITLE);
     $validoPDOAndDBMS = TGeneratorHelper::validatePDOAndDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], $html);
 $frm->closeGroup();
 
-if($validoPDOAndDBMS) {
+if ($validoPDOAndDBMS) {
     $frm->addGroupField('gpx2', Message::GEN01_GPX2_TITLE);
     $pc = $frm->addPageControl('pc');
     
@@ -31,7 +31,7 @@ if($validoPDOAndDBMS) {
     $pc->addPage(DBMS_MYSQL, $showAba, $showAba, 'abamy');
     $frm->addHiddenField('myDbType', DBMS_MYSQL);
     $frm->addTextField('myHost', 'Host:', 20, true, 20, '127.0.0.0.1', true, null, null, true);
-    $frm->addTextField('myDb'  , 'Database:', 20, true, 20, 'test', true, null, null, true);
+    $frm->addTextField('myDb', 'Database:', 20, true, 20, 'test', true, null, null, true);
     $frm->addTextField('myUser', 'User:', 40, true, 20, 'root', false, null, null, true);
     $frm->addTextField('myPass', 'Password:', 40, true, 20, '', false, null, null, true);
     $frm->addTextField('myPort', 'Porta:', 6, false, 6, '3306', false, null, null, true, false);
@@ -47,10 +47,10 @@ if($validoPDOAndDBMS) {
             
         
     $showAba = TGeneratorHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_SQLSERVER);
-    $pc->addPage(DBMS_SQLSERVER, $showAba, $showAba, 'abass');                                
+    $pc->addPage(DBMS_SQLSERVER, $showAba, $showAba, 'abass');
     $frm->addHiddenField('ssDbType', DBMS_SQLSERVER);
     $frm->addTextField('ssHost', 'Host:', 50, true, 50, '127.0.0.0.1', true, null, null, true);
-    $frm->addTextField('ssDb'  , 'Database:', 20, true, 20, 'Northwind', true, null, null, true);
+    $frm->addTextField('ssDb', 'Database:', 20, true, 20, 'Northwind', true, null, null, true);
     $frm->addTextField('ssUser', 'User:', 40, true, 20, 'sa', false, null, null, true);
     $frm->addTextField('ssPass', 'Password:', 40, true, 20, '123456', false, null, null, true);
     $frm->addTextField('ssPort', 'Porta:', 6, false, 6, '1433', false, null, null, true, false);
@@ -62,12 +62,12 @@ if($validoPDOAndDBMS) {
     $pc->addPage(DBMS_POSTGRES, $showAba, $showAba, 'abapg');
     $frm->addHiddenField('pgDbType', DBMS_POSTGRES);
     $frm->addTextField('pgHost', 'Host:', 20, true, 20, '127.0.0.0.1', true, null, null, true);
-    $frm->addTextField('pgDb'  , 'Database:', 20, true, 20, 'test', true, null, null, true);
+    $frm->addTextField('pgDb', 'Database:', 20, true, 20, 'test', true, null, null, true);
     $frm->addTextField('pgUser', 'User:', 40, true, 20, 'postgres', false, null, null, true);
     $frm->addTextField('pgPass', 'Password:', 40, true, 20, '123456', false, null, null, true);
     $frm->addTextField('pgSchema', 'Esquema:', 20, true, 20, 'public', false, null, null, true);
     $frm->addTextField('pgPort', 'Porta:', 6, false, 6, '5432', false, null, null, true, false);
-    $frm->addButton('Testar Conexão', null, 'btnTestarPg', 'testarConexao("pg")', null, true, false);    
+    $frm->addButton('Testar Conexão', null, 'btnTestarPg', 'testarConexao("pg")', null, true, false);
     $frm->addHtmlField('pgGride', '');
 
 
@@ -83,7 +83,6 @@ if($validoPDOAndDBMS) {
     
     $frm->closeGroup(); //Fechando Abas
     $frm->closeGroup(); //Close Group
-        
 }
 
 $frm->addButton('Voltar', null, 'Voltar', null, null, true, false);
@@ -102,39 +101,39 @@ $schema   = PostHelper::get($banco.'Schema');
 $sql      = PostHelper::get($banco.'Sql');
 
 $acao = isset($acao) ? $acao : null;
-switch( $acao ) {
-case 'testar_conexao':
-    //prepareReturnAjax(0,null, $banco.print_r($_POST,TRUE) );
-    if($banco == 'my' || $banco == 'pg' || $banco == 'ora'|| $banco == 'ss') {
-        if(! $user ) {
-            prepareReturnAjax(0, null, 'Informe o Usuário');
+switch ($acao) {
+    case 'testar_conexao':
+        //prepareReturnAjax(0,null, $banco.print_r($_POST,TRUE) );
+        if ($banco == 'my' || $banco == 'pg' || $banco == 'ora'|| $banco == 'ss') {
+            if (! $user) {
+                prepareReturnAjax(0, null, 'Informe o Usuário');
+            }
         }
-    }
-    $dao = new TDAO(null, $dbType, $user, $password, $dataBase, $host, $port, $schema);
-    if($dao->connect() ) {
-        $_SESSION[APLICATIVO]['DBMS']['USER'] = $user;
-        $_SESSION[APLICATIVO]['DBMS']['PASSWORD'] = $password;
-        $_SESSION[APLICATIVO]['DBMS']['DATABASE'] = $dataBase;
-        $_SESSION[APLICATIVO]['DBMS']['HOST'] = $host;
-        $_SESSION[APLICATIVO]['DBMS']['PORT'] = $port;
-        $_SESSION[APLICATIVO]['DBMS']['SCHEMA'] = $schema;
-        prepareReturnAjax(2, null, 'Conexão OK! Pode clicar em "Gerar"');
-    }else{
-        prepareReturnAjax(0, null, $dao->getError());
-    }
-    break;
+        $dao = new TDAO(null, $dbType, $user, $password, $dataBase, $host, $port, $schema);
+        if ($dao->connect()) {
+            $_SESSION[APLICATIVO]['DBMS']['USER'] = $user;
+            $_SESSION[APLICATIVO]['DBMS']['PASSWORD'] = $password;
+            $_SESSION[APLICATIVO]['DBMS']['DATABASE'] = $dataBase;
+            $_SESSION[APLICATIVO]['DBMS']['HOST'] = $host;
+            $_SESSION[APLICATIVO]['DBMS']['PORT'] = $port;
+            $_SESSION[APLICATIVO]['DBMS']['SCHEMA'] = $schema;
+            prepareReturnAjax(2, null, 'Conexão OK! Pode clicar em "Gerar"');
+        } else {
+            prepareReturnAjax(0, null, $dao->getError());
+        }
+        break;
     //--------------------------------------------------------------------------------
-case 'Voltar':
-    $frm->redirect('gen00.php', 'Redirect realizado com sucesso.', true);
-    break;
+    case 'Voltar':
+        $frm->redirect('gen00.php', 'Redirect realizado com sucesso.', true);
+        break;
     //--------------------------------------------------------------------------------
-case 'Limpar':
-    $frm->clearFields();
-    break;
+    case 'Limpar':
+        $frm->clearFields();
+        break;
     //--------------------------------------------------------------------------------
-case 'Gerar':
-    $frm->redirect('gen02.php', 'Redirect realizado com sucesso.', true);
-    break;
+    case 'Gerar':
+        $frm->redirect('gen02.php', 'Redirect realizado com sucesso.', true);
+        break;
 }
 
 $frm->show();
