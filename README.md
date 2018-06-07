@@ -23,6 +23,10 @@ O gerador de sistemas le um banco de dados e gera uma tela crud para cada uma da
 * chaves estrangeiras já taz como select field
 * todos os campos podem ser utilizados como parametro de busca
 
+Veja o tutorial [Do Zero até Rodar](https://github.com/bjverde/sysgen/wiki/Do-Zero-at%C3%A9-Rodar) que irá te ajudar com o sysGen
+
+![Esquema do SysGen](https://raw.githubusercontent.com/bjverde/sysgen/master/images/2-code-gen-database-first.png)
+
 
 ## Ferramentas semelhantes
 * http://www.hkvstore.com/phpmaker/
