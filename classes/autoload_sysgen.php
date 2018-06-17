@@ -12,7 +12,11 @@
 if (!function_exists('sysgen_autoload')) {
     function sysgen_autoload($class_name)
     {
-        require_once $class_name . '.class.php';
+    	if ($class_name =='TDAO') {
+    		return false;
+    	}else{
+    		require_once $class_name . '.class.php';
+    	}
     }
     spl_autoload_register('sysgen_autoload');
 }
