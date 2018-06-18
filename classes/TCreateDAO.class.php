@@ -38,9 +38,6 @@ class TCreateDAO
         $this->keyColumnName = $strkeyColumnName;
         $this->path = $strPath;
         $this->databaseManagementSystem = strtoupper($databaseManagementSystem);
-        if ($databaseManagementSystem == DBMS_POSTGRES) {
-            $this->charParam = '$1';
-        }
     }
     //-----------------------------------------------------------------------------------
     public function setTableName($strTableName)
@@ -364,12 +361,12 @@ class TCreateDAO
         $count=0;
         foreach ($this->getColumns() as $k => $v) {
             if (strtolower($v) != strtolower($this->keyColumnName)) {
-                $param = $this->databaseManagementSystem == DBMS_POSTGRES ? '$'.($count+1) : '?';
+            	$param = $this->charParam;
                 $this->addLine(TAB.TAB.TAB.TAB.TAB.TAB.TAB.TAB.( $count==0 ? ' ' : ',').$v.' = '.$param);
                 $count++;
             }
         }
-        $param = $this->databaseManagementSystem == DBMS_POSTGRES ? '$'.($count+1) : '?';
+        $param = $this->charParam;
         $this->addLine(TAB.TAB.TAB.TAB.TAB.TAB.TAB.TAB.'where '.$this->keyColumnName.' = '.$param.'\',$values);');
         $this->addLine(TAB.'}');
     }
@@ -478,11 +475,7 @@ class TCreateDAO
         for ($i = 1; $i <= $qtd; $i++) {
             if ($cols[$i-1] != strtolower($this->keyColumnName)) {
                 $result .= ($result=='') ? '' : ',';
-                if ($this->databaseManagementSystem == DBMS_POSTGRES) {
-                    $result .= '$'.$i;
-                } else {
-                    $result.='?';
-                }
+                $result.='?';
             }
         }
         return $result;
