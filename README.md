@@ -9,6 +9,13 @@ The system generator reads a database and generates a crud screen for each of th
 * foreign keys already taz as select field
 * all fields can be used as search parameters
 
+![Esquema do SysGen](https://raw.githubusercontent.com/bjverde/sysgen/master/images/2-code-gen-database-first.png)
+
+## Works Database
+* SQLlite
+* MySQL
+* SQL Server
+* PostGres
 
 # sysGen pt-bt
 
@@ -27,6 +34,11 @@ Veja o tutorial [Do Zero até Rodar](https://github.com/bjverde/sysgen/wiki/Do-Z
 
 ![Esquema do SysGen](https://raw.githubusercontent.com/bjverde/sysgen/master/images/2-code-gen-database-first.png)
 
+## Funciona com o bancos
+* SQLlite
+* MySQL
+* SQL Server
+* PostGres
 
 ## Ferramentas semelhantes
 * http://www.hkvstore.com/phpmaker/
