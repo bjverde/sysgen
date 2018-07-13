@@ -27,8 +27,8 @@ O gerador de sistemas le um banco de dados e gera uma tela crud para cada uma da
 
 * Reconhece o tipo de campo do banco é cria o campo equivalente no formDin
 * obrigatoriedade ou não
-* chaves estrangeiras já taz como select field
-* todos os campos podem ser utilizados como parametro de busca
+* chaves estrangeiras já traz como select field
+* todos os campos podem ser utilizados como parâmetro de busca
 
 Veja o tutorial [Do Zero até Rodar](https://github.com/bjverde/sysgen/wiki/Do-Zero-at%C3%A9-Rodar) que irá te ajudar com o sysGen
 
@@ -46,3 +46,4 @@ Veja o tutorial [Do Zero até Rodar](https://github.com/bjverde/sysgen/wiki/Do-Z
 * https://phpgrid.com/php-crud/
 * https://github.com/nette/php-generator
 * http://phreeze.com/
+* https://www.grocerycrud.com/
