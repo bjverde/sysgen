@@ -3,10 +3,10 @@ defined('APLICATIVO') or die();
 
 require_once 'includes/config_conexao.php';
 
-$login = (array_key_exists('USER', $_SESSION[APLICATIVO]) ? $_SESSION[APLICATIVO]['USER']['LOGIN']:null);
+$login = (ArrayHelper::has('USER', $_SESSION[APLICATIVO]) ? $_SESSION[APLICATIVO]['USER']['LOGIN']:null);
 $grupo = null;
-if (array_key_exists('USER', $_SESSION[APLICATIVO])) {
-    $grupo = (array_key_exists('GRUPO_NOME', $_SESSION[APLICATIVO]['USER']) ? $_SESSION[APLICATIVO]['USER']['GRUPO_NOME']:null);
+if (ArrayHelper::has('USER', $_SESSION[APLICATIVO])) {
+    $grupo = (ArrayHelper::has('GRUPO_NOME', $_SESSION[APLICATIVO]['USER']) ? $_SESSION[APLICATIVO]['USER']['GRUPO_NOME']:null);
 }
 
 $frm = new TForm('Sobre', 400, 500);
