@@ -233,6 +233,7 @@ class TCreateForm
         if (ArrayHelper::has('COLUMN_COMMENT', $this->listColumnsProperties)) {
             $COLUMN_COMMENT = $this->listColumnsProperties['COLUMN_COMMENT'][$key];
             if (!empty($COLUMN_COMMENT)) {
+                $COLUMN_COMMENT = str_replace("'","",$COLUMN_COMMENT);
                 $this->addLine('$frm->getLabel(\''.$fieldName.'\')->setToolTip(\''.$COLUMN_COMMENT.'\');');
             }
         }
