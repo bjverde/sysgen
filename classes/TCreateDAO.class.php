@@ -251,9 +251,9 @@ class TCreateDAO
         foreach ($this->getColumns() as $key => $v) {
             $formDinType = self::getColumnsPropertieFormDinType($key);
             if ($formDinType == TCreateForm::FORMDIN_TYPE_NUMBER) {
-                $this->addLine(TAB.TAB.TAB.'$where = $where.( paginationSQLHelper::attributeIssetOrNotZero($whereGrid,\''.strtoupper($v).'\',\' AND '.strtoupper($v).' = \'.$whereGrid[\''.strtoupper($v).'\'].\'  \',null) );');
+                $this->addLine(TAB.TAB.TAB.'$where = SqlHelper::getAtributeWhereGridParameters($where, $whereGrid, \''.strtoupper($v).'\', SqlHelper::SQL_TYPE_NUMERIC);');
             } else {
-                $this->addLine(TAB.TAB.TAB.'$where = $where.( paginationSQLHelper::attributeIssetOrNotZero($whereGrid,\''.strtoupper($v).'\',\' AND '.strtoupper($v).' like \\\'%\'.$whereGrid[\''.strtoupper($v).'\'].\'%\\\' \',null) );');
+                $this->addLine(TAB.TAB.TAB.'$where = SqlHelper::getAtributeWhereGridParameters($where, $whereGrid, \''.strtoupper($v).'\', SqlHelper::SQL_TYPE_TEXT_LIKE);');
             }
         }
         $this->addLine(TAB.TAB.TAB.'$result = $where;');
