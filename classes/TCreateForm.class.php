@@ -439,9 +439,9 @@ class TCreateForm
         if ($this->validateListColumnsName()) {
             $this->addLine($qtdTab.'$mixUpdateFields = $primaryKey.\'|\'.$primaryKey');
             foreach ($this->listColumnsName as $value) {
-                $this->addLine($qtdTab.TAB.TAB.TAB.'.\','.$value.'|'.$value.'\'');
+                $this->addLine($qtdTab.TAB.TAB.TAB.TAB.'.\','.$value.'|'.$value.'\'');
             }
-            $this->addLine($qtdTab.TAB.TAB.TAB.';');
+            $this->addLine($qtdTab.TAB.TAB.TAB.TAB.';');
         }
     }
     //--------------------------------------------------------------------------------------
