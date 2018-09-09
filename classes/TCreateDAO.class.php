@@ -246,9 +246,13 @@ class TCreateDAO
         $PKeyName = $this->getKeyColumnName();
         $listColuns = $this->getColumns();
         $key  = ArrayHelper::array_keys2($listColuns,$PKeyName);
-        $formDinType = self::getColumnsPropertieFormDinType($key[0]);
+        $formDinType = null;
+        if( is_array($key) && !empty($key) ){
+            $formDinType = self::getColumnsPropertieFormDinType($key[0]);
+        }
         return $formDinType;
-    }    
+    }
+    
     private function getColumnsPropertieFormDinType($key)
     {
         $result = null;
