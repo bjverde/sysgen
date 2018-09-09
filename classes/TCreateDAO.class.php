@@ -226,6 +226,14 @@ class TCreateDAO
     public function addSqlSelectById()
     {
         $this->addLine(TAB.'public static function selectById( $id ) {');
+        
+        $formDinType = self::getColumnPKeyPropertieFormDinType();
+        if ($formDinType == TCreateForm::FORMDIN_TYPE_NUMBER) {
+            $this->addLine(TAB.TAB.'if( empty($id) || !is_numeric($id) ){');
+            $this->addLine(TAB.TAB.TAB.'throw new InvalidArgumentException();');
+            $this->addLine(TAB.TAB.'}');
+        }
+        
         $this->addLine(TAB.TAB.'$values = array($id);');
         $this->addLine(TAB.TAB.'$sql = self::$sqlBasicSelect.\' where '.$this->getKeyColumnName().' = '.$this->charParam.'\';');
         $this->addLine(TAB.TAB.'$result = self::executeSql($sql, $values );');
@@ -233,6 +241,14 @@ class TCreateDAO
         $this->addLine(TAB.'}');
     }
     //--------------------------------------------------------------------------------------
+    private function getColumnPKeyPropertieFormDinType()
+    {
+        $PKeyName = $this->getKeyColumnName();
+        $listColuns = $this->getColumns();
+        $key  = ArrayHelper::array_keys2($listColuns,$PKeyName);
+        $formDinType = self::getColumnsPropertieFormDinType($key[0]);
+        return $formDinType;
+    }    
     private function getColumnsPropertieFormDinType($key)
     {
         $result = null;
