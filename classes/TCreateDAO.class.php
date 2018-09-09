@@ -167,7 +167,7 @@ class TCreateDAO
         $this->addLine(TAB.'}');
         $this->addLine();
         foreach ($this->getColumns() as $k => $v) {
-            $this->addLine(TAB.'function set'.ucfirst($v).'( $strNewValue = null )');
+            $this->addLine(TAB.'public function set'.ucfirst($v).'( $strNewValue = null )');
             $this->addLine(TAB."{");
             if (preg_match('/cpf|cnpj/i', $v) > 0) {
                 $this->addLine(TAB.TAB.'$this->'.$v.' = preg_replace(\'/[^0-9]/\',\'\',$strNewValue);');
@@ -175,7 +175,7 @@ class TCreateDAO
                 $this->addLine(TAB.TAB.'$this->'.$v.' = $strNewValue;');
             }
             $this->addLine(TAB."}");
-            $this->addLine(TAB.'function get'.ucfirst($v).'()');
+            $this->addLine(TAB.'public function get'.ucfirst($v).'()');
             $this->addLine(TAB."{");
             if (preg_match('/^data?_/i', $v) == 1) {
                 $this->addLine(TAB.TAB."return is_null( \$this->{$v} ) ? date( 'Y-m-d h:i:s' ) : \$this->{$v};");
