@@ -248,6 +248,7 @@ class TGeneratorHelper
                 $SCHEMA = false;
                 $TPGRID = GRID_SCREEN_PAGINATION;
         }
+        $config = array();
         $config['SCHEMA'] = $SCHEMA;
         $config['TPGRID'] = $TPGRID;
         return $config;
@@ -355,6 +356,7 @@ class TGeneratorHelper
     
     public static function getFKTypeScreenReferenced($refTable, $refColumn)
     {
+        $array = array();
         $array[] = 'Select Field';
         $array[] = 'Autocomplet';
         $array[] = 'Search On-line';
@@ -367,9 +369,9 @@ class TGeneratorHelper
         $FkFieldsTableSelected = null;
         $FieldsTableSelected   = self::loadFieldsTablesSelected();
         foreach ($FieldsTableSelected as $key => $table) {
-            $KEY_TYPE = $FieldsTableSelected[$key]['KEY_TYPE'];
-            $KEY_FK = array_keys($KEY_TYPE, 'FOREIGN KEY');
-            foreach ($KEY_FK as $k => $keyFieldFkTable) {
+            $KEY_TYPE = ArrayHelper::get($FieldsTableSelected[$key], 'KEY_TYPE');
+            $KEY_FK = ArrayHelper::array_keys2($KEY_TYPE, 'FOREIGN KEY');
+            foreach ($KEY_FK as $keyFieldFkTable) {
                 $refTable  = $FieldsTableSelected[$key]['REFERENCED_TABLE_NAME'][$keyFieldFkTable];
                 $refColumn = $FieldsTableSelected[$key]['REFERENCED_COLUMN_NAME'][$keyFieldFkTable];
                 
