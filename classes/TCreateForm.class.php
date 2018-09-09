@@ -434,17 +434,15 @@ class TCreateForm
         $this->addLine('}');
     }
     //--------------------------------------------------------------------------------------
-    public function getMixUpdateFields()
+    public function getMixUpdateFields($qtdTab)
     {
         if ($this->validateListColumnsName()) {
-            $mixUpdateFields = '$primaryKey.\'|\'.$primaryKey.\'';
-            foreach ($this->listColumnsName as $key => $value) {
-                $mixUpdateFields = $mixUpdateFields.','.$value.'|'.$value;
+            $this->addLine($qtdTab.'$mixUpdateFields = $primaryKey.\'|\'.$primaryKey');
+            foreach ($this->listColumnsName as $value) {
+                $this->addLine($qtdTab.TAB.TAB.TAB.'.\','.$value.'|'.$value.'\'');
             }
-            $mixUpdateFields = $mixUpdateFields.'\';';
-            $mixUpdateFields = '$mixUpdateFields = '.$mixUpdateFields;
+            $this->addLine($qtdTab.TAB.TAB.TAB.';');
         }
-        return $mixUpdateFields;
     }
     //--------------------------------------------------------------------------------------
     public function addColumnsGrid($qtdTab)
@@ -501,7 +499,7 @@ class TCreateForm
     {
         $this->addBlankLine();
         $this->addLine('$dados = '.$this->tableRefClass.'::selectAll($primaryKey,$whereGrid);');
-        $this->addLine($this->getMixUpdateFields());
+        $this->getMixUpdateFields(null);
         $this->addLine('$gride = new TGrid( \'gd\'        // id do gride');
         $this->addLine('				   ,\'Gride\'     // titulo do gride');
         $this->addLine('				   ,$dados 	      // array de dados');
@@ -584,7 +582,7 @@ class TCreateForm
             } elseif ($this->gridType == GRID_SCREEN_PAGINATION) {
                 $this->addLine(TAB.'$dados = '.$this->tableRefClass.'::selectAll( $primaryKey, $whereGrid );');
             }
-            $this->addLine(TAB.$this->getMixUpdateFields());
+            $this->getMixUpdateFields(TAB);
             $this->addLine(TAB.'$gride = new TGrid( \'gd\'                        // id do gride');
             $this->addLine(TAB.'				   ,\'Gride with SQL Pagination\' // titulo do gride');
             $this->addLine(TAB.'				   );');
