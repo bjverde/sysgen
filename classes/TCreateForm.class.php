@@ -450,7 +450,7 @@ class TCreateForm
         //$this->addLine($qtdTab.'$gride->addColumn($primaryKey,\'id\',50,\'center\');');
         $this->addLine($qtdTab.'$gride->addColumn($primaryKey,\'id\');');
         if ($this->validateListColumnsName()) {
-            foreach ($this->listColumnsName as $key => $value) {
+            foreach ($this->listColumnsName as $value) {
                 //$this->addLine($qtdTab.'$gride->addColumn(\''.$value.'\',\''.$value.'\',50,\'center\');');
                 $this->addLine($qtdTab.'$gride->addColumn(\''.$value.'\',\''.$value.'\');');
             }
@@ -468,7 +468,7 @@ class TCreateForm
     //--------------------------------------------------------------------------------------
     public function addGetWhereGridParametersFields($qtdTabs)
     {
-        foreach ($this->listColumnsName as $key => $value) {
+        foreach ($this->listColumnsName as $value) {
             $this->addGetWhereGridParameters_fied(false, $value, $qtdTabs);
         }
     }
@@ -512,13 +512,13 @@ class TCreateForm
         $this->addLine('$frm->addHtmlField(\'gride\',$gride);');
     }
     //--------------------------------------------------------------------------------------
-    public function addGridPagination_jsScript_init_parameter($frist, $parameter)
+    public function addGridPagination_jsScript_init_parameter($frist, $parameter,$qtdTab)
     {
         $result = null;
         if ($frist == true) {
-            $result = '"'.$parameter.'":""';
+            $this->addLine($qtdTab.'"'.$parameter.'":""');
         } else {
-            $result = ',"'.$parameter.'":""';
+            $this->addLine($qtdTab.',"'.$parameter.'":""');
         }
         return $result;
     }
@@ -526,14 +526,12 @@ class TCreateForm
     public function addGridPagination_jsScript_init_allparameters($qtdTab)
     {
         if ($this->validateListColumnsName()) {
-            $line = null;
-            $line = $line.$this->addGridPagination_jsScript_init_parameter(true, 'BUSCAR');
-            $line = $line.$this->addGridPagination_jsScript_init_parameter(false, $this->getPrimaryKeyTable());
-            foreach ($this->listColumnsName as $key => $value) {
-                $line = $line.$this->addGridPagination_jsScript_init_parameter(false, $value);
+            $this->addLine($qtdTab.'var Parameters = {"BUSCAR":""');
+            $this->addGridPagination_jsScript_init_parameter(false, $this->getPrimaryKeyTable(),$qtdTab.TAB.TAB.TAB.TAB);
+            foreach ($this->listColumnsName as $value) {
+                $this->addGridPagination_jsScript_init_parameter(false, $value,$qtdTab.TAB.TAB.TAB.TAB);
             }
-            $line = $qtdTab.'var Parameters = {'.$line.'};';
-            $this->addLine($line);
+            $this->addLine($qtdTab.TAB.TAB.TAB.TAB.'};');
         }
     }
     //--------------------------------------------------------------------------------------
