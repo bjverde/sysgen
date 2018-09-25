@@ -11,6 +11,13 @@
  */
 class TGeneratorHelper
 {
+
+    
+    const FKTYPE_SELECT = 'SELECT';
+    const FKTYPE_AUTOCOMPLETE = 'AUTOCOMPLETE';
+    const FKTYPE_ONSEARCH = 'ONSEARCH';
+    const FKTYPE_AUTOSEARCH = 'AUTOSEARCH';
+    const FKTYPE_SELECTCRUD = 'SELECTCRUD';
     
     public static function phpVersionValid($html)
     {
@@ -357,10 +364,10 @@ class TGeneratorHelper
     public static function getFKTypeScreenReferenced($refTable, $refColumn)
     {
         $array = array();
-        $array[] = 'Select Field';
-        $array[] = 'Autocomplet';
-        $array[] = 'Search On-line';
-        $array[] = 'Select Field + Crud';
+        $array[self::FKTYPE_SELECT] = 'Select Field';
+        $array[self::FKTYPE_AUTOCOMPLETE] = 'Autocomplet';
+        //$array[] = 'Search On-line';
+        //$array[] = 'Select Field + Crud';
         return $array;
     }
     

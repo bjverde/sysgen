@@ -64,9 +64,9 @@ try {
     $listFkFieldsTableSelected = TGeneratorHelper::getFKFieldsTablesSelected();
 
     $gride = new TGrid('gd'                         // id do gride
-, Message::GRID_LIST_FK_TITLE  // titulo do gride
-, $listFkFieldsTableSelected);     // array de dados
-
+                      , Message::GRID_LIST_FK_TITLE  // titulo do gride
+                      , $listFkFieldsTableSelected);     // array de dados
+    
     $gride->setCreateDefaultEditButton(false);
     $gride->setCreateDefaultDeleteButton(false);
     $gride->addRowNumColumn();
@@ -76,8 +76,9 @@ try {
     $gride->addColumn('DATA_TYPE', 'DATA_TYPE');
     $gride->addColumn('REFERENCED_TABLE_NAME', 'REFERENCED_TABLE_NAME');
     $gride->addColumn('REFERENCED_COLUMN_NAME', 'REFERENCED_COLUMN_NAME');
-    $options = TGeneratorHelper::getFKTypeScreenReferenced(null, null);
-    $gride->addSelectColumn('FK_TYPE_SCREEN_REFERENCED', 'Type Referenced', 'FK_TYPE_SCREEN_REFERENCED', $options);
+    $listFkType = TGeneratorHelper::getFKTypeScreenReferenced(null, null);
+    $listFkType = array(1=>'Amarelo',2=>'Verde');
+    $gride->addSelectColumn('fk_type_screen_referenced', 'Type Referenced', 'FK_TYPE_SCREEN_REFERENCED', $listFkType);
     $frm->addHtmlField('gride', $gride);
 } catch (Exception $e) {
     echo $e->getMessage();
