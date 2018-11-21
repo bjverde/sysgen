@@ -11,13 +11,13 @@
  */
 defined('APLICATIVO') or die();
 
-$frm = new TForm(Message::GEN03_TITLE, 200, 900);
+$frm = new TForm(Message::GEN03_TITLE, 200, 980);
 $frm->setFlat(true);
 $frm->setMaximize(true);
 $frm->setAutoSize(true);
 $frm->addCssFile('css/sysgen.css');
 
-d($_REQUEST);
+//d($_REQUEST);
 
 $frm->addGroupField('gpx1', Message::GEN02_GPX1_TITLE);
     $html = $frm->addHtmlField('conf', '');
@@ -31,7 +31,7 @@ $frm->closeGroup();
 $frm->addButton(Message::BUTTON_LABEL_BACK, 'back', null, null, null, true, false);
 $frm->addButton(Message::BUTTON_LABEL_CLEAN, 'clean', null, null, null, false, false);
 $frm->addButton(Message::BUTTON_GEN_FORM, 'generate', 'Gerar', null, null, false, false);
-$frm->addButton('Post Test', 'Post Test', 'Post Test', null, null, false, false);
+//$frm->addButton('Post Test', 'Post Test', 'Post Test', null, null, false, false);
 
 $acao = isset($acao) ? $acao : null;
 switch ($acao) {
@@ -77,8 +77,8 @@ try {
     $gride->addColumn('REFERENCED_TABLE_NAME', 'REFERENCED_TABLE_NAME');
     $gride->addColumn('REFERENCED_COLUMN_NAME', 'REFERENCED_COLUMN_NAME');
     $listFkType = TGeneratorHelper::getFKTypeScreenReferenced(null, null);
-    $listFkType = array(1=>'Amarelo',2=>'Verde');
-    $gride->addSelectColumn('fk_type_screen_referenced', 'Type Referenced', 'FK_TYPE_SCREEN_REFERENCED', $listFkType);
+    //$listFkType = array(1=>'Amarelo',2=>'Verde');
+    //$gride->addSelectColumn('FK_TYPE_SCREEN_REFERENCED', 'Type Referenced', 'FK_TYPE_SCREEN_REFERENCED', $listFkType,null,false,null,null,'a','a',TGeneratorHelper::FKTYPE_SELECT);
     $frm->addHtmlField('gride', $gride);
 } catch (Exception $e) {
     echo $e->getMessage();
