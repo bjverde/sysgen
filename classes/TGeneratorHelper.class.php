@@ -325,6 +325,7 @@ class TGeneratorHelper
     {
         $listTablesAll   = TGeneratorHelper::loadTablesFromDatabase();
         $idTableSelected = $_SESSION[APLICATIVO]['idTableSelected'];
+        $listTablesSelected = array();
         foreach ($idTableSelected as $key => $id) {
             $keyTable = array_search($id, $listTablesAll['idSelected']);
             $listTablesSelected['TABLE_SCHEMA'][] = $listTablesAll['TABLE_SCHEMA'][$keyTable];
@@ -375,6 +376,7 @@ class TGeneratorHelper
     {
         $FkFieldsTableSelected = null;
         $FieldsTableSelected   = self::loadFieldsTablesSelected();
+        $ID_LINE = 1;
         foreach ($FieldsTableSelected as $key => $table) {
             $KEY_TYPE = ArrayHelper::get($FieldsTableSelected[$key], 'KEY_TYPE');
             $KEY_FK = ArrayHelper::array_keys2($KEY_TYPE, 'FOREIGN KEY');
@@ -382,6 +384,8 @@ class TGeneratorHelper
                 $refTable  = $FieldsTableSelected[$key]['REFERENCED_TABLE_NAME'][$keyFieldFkTable];
                 $refColumn = $FieldsTableSelected[$key]['REFERENCED_COLUMN_NAME'][$keyFieldFkTable];
                 
+                $FkFieldsTableSelected['ID_LINE'][]= $ID_LINE;
+                $ID_LINE = $ID_LINE + 1;
                 $FkFieldsTableSelected['TABLE_SCHEMA'][]= $FieldsTableSelected[$key]['TABLE_SCHEMA'][$keyFieldFkTable];
                 $FkFieldsTableSelected['TABLE_NAME'][]  = $FieldsTableSelected[$key]['TABLE_NAME'][$keyFieldFkTable];
                 $FkFieldsTableSelected['COLUMN_NAME'][] = $FieldsTableSelected[$key]['COLUMN_NAME'][$keyFieldFkTable];

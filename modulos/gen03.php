@@ -47,6 +47,7 @@ switch ($acao) {
         if ($frm->validate()) {
             try {
                 $_SESSION[APLICATIVO]['logType'] = PostHelper::get('logType');
+                $_SESSION[APLICATIVO]['fk_type_screen_referenced'] = PostHelper::get('fk_type_screen_referenced');
                 $frm->redirect('gen04.php', 'Redirect realizado com sucesso.', true);
             } catch (Exception $e) {
                 $frm->setMessage($e->getMessage());
@@ -63,9 +64,13 @@ try {
     
     $listFkFieldsTableSelected = TGeneratorHelper::getFKFieldsTablesSelected();
 
-    $gride = new TGrid('gd'                         // id do gride
+    $gride = new TGrid('gd'                          // id do gride
                       , Message::GRID_LIST_FK_TITLE  // titulo do gride
-                      , $listFkFieldsTableSelected);     // array de dados
+                      , $listFkFieldsTableSelected   // array de dados
+                      ,null
+                      ,null
+                      ,'ID_LINE'
+                      );
     
     $gride->setCreateDefaultEditButton(false);
     $gride->setCreateDefaultDeleteButton(false);
@@ -77,8 +82,10 @@ try {
     $gride->addColumn('REFERENCED_TABLE_NAME', 'REFERENCED_TABLE_NAME');
     $gride->addColumn('REFERENCED_COLUMN_NAME', 'REFERENCED_COLUMN_NAME');
     $listFkType = TGeneratorHelper::getFKTypeScreenReferenced(null, null);
-    //$listFkType = array(1=>'Amarelo',2=>'Verde');
-    //$gride->addSelectColumn('FK_TYPE_SCREEN_REFERENCED', 'Type Referenced', 'FK_TYPE_SCREEN_REFERENCED', $listFkType,null,false,null,null,'a','a',TGeneratorHelper::FKTYPE_SELECT);
+    //$gride->addSelectColumn('FK_TYPE_SCREEN_REFERENCED', 'Type Referenced', 'FK_TYPE_SCREEN_REFERENCED', $listFkType);
+    //$gride->addSelectColumn('sit_opcoes', 'Opções', 'SIT_OPCOES', '1=Amarelo,2=Verde');
+    //$selCol = $gride->getColumn('FK_TYPE_SCREEN_REFERENCED');   // recuperar o objeto coluna NOME_COMPRADOR
+    //$selCol->setInitialValueField(0);
     $frm->addHtmlField('gride', $gride);
 } catch (Exception $e) {
     echo $e->getMessage();
