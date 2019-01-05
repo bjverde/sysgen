@@ -76,7 +76,7 @@ try {
 
     $gride->setCreateDefaultEditButton(false);
     $gride->setCreateDefaultDeleteButton(false);
-    
+    $gride->addRowNumColumn();
     $gride->addColumn('TABLE_SCHEMA', 'TABLE_SCHEMA');
     $gride->addCheckColumn('idTableSelected', 'TABLE_NAME', 'idSelected', 'TABLE_NAME', true, true);
     $gride->addColumn('COLUMN_QTD', 'COLUMN_QTD');
