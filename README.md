@@ -34,6 +34,9 @@ Veja o tutorial [Do Zero até Rodar](https://github.com/bjverde/sysgen/wiki/Do-Z
 
 ![Esquema do SysGen](https://raw.githubusercontent.com/bjverde/sysgen/master/images/2-code-gen-database-first.png)
 
+
+[![SysGen](http://img.youtube.com/vi/GdPEt5H6l_Q/0.jpg)](http://www.youtube.com/watch?v=GdPEt5H6l_Q "SysGen vídeo no Youtube")
+
 ## Funciona com o bancos
 * SQLlite
 * MySQL
@@ -41,9 +44,10 @@ Veja o tutorial [Do Zero até Rodar](https://github.com/bjverde/sysgen/wiki/Do-Z
 * PostGres
 
 ## Ferramentas semelhantes
-* http://www.hkvstore.com/phpmaker/
-* https://www.keycdn.com/blog/php-code-generator/
+* https://www.scriptcase.com.br/
 * https://phpgrid.com/php-crud/
-* https://github.com/nette/php-generator
 * http://phreeze.com/
+* http://www.hkvstore.com/phpmaker/
+* https://github.com/nette/php-generator
 * https://www.grocerycrud.com/
+* https://www.keycdn.com/blog/php-code-generator/
