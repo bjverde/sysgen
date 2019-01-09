@@ -147,7 +147,7 @@ class TGeneratorHelper
     {
         $is_string = is_string($nome);
         $strlen    = strlen($nome) > 50;
-        $preg      = preg_match('/^(([a-z]|[0-9]|_)+|)$/', $nome, $matches);
+        $preg      = preg_match('/^(([a-z]|[0-9]|_|-)+|)$/', $nome, $matches);
         if (!$is_string || $strlen || !$preg) {
             throw new DomainException(Message::SYSTEM_ACRONYM_INVALID);
         }
