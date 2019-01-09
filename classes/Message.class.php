@@ -11,7 +11,7 @@
  */
 final class Message
 {
-    const SYSTEM_ACRONYM_INVALID = 'Sigla do sistema inválida ! Caracteres inválido (os permitidos são a-z, 0-9, _, - ) ou até 50 caracteres';
+    const SYSTEM_ACRONYM_INVALID = 'Sigla do sistema inválida ! Caracteres inválido (os permitidos são a-z, 0-9, _ ) ou até 50 caracteres';
     
     const GEN00_TITLE = 'Configurações do PHP e informações iniciais';
     
