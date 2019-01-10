@@ -21,7 +21,7 @@
 
 defined('APLICATIVO') or die();
 
-function testar($extensao = null, $html)
+function testar($extensao = null, $html = null)
 {
     if (!extension_loaded($extensao)) {
         $html->add('<b>'.$extensao.'</b>: <span class="vermelho">Não instalada</span><br>');
