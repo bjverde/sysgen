@@ -23,7 +23,7 @@ Gerador de sistemas em [FormDin](https://github.com/bjverde/formDin).
 
 **Escreve menos, faça mais. Mas "Falar é fácil. Me mostre o código"!** 
 
-O gerador de sistemas le um banco de dados e gera uma tela crud para cada uma das tabelas montando o esqueleto do sistema. O codigo gerado é de facil manutenção e modificação utilizando o como framework [FormDin](https://github.com/bjverde/formDin) para o novo sistema.
+O gerador de sistemas lê um banco de dados e gera uma tela crud para cada uma das tabelas montando o esqueleto do sistema. O código gerado é de fácil manutenção e modificação utilizando o como framework [FormDin](https://github.com/bjverde/formDin) para o novo sistema.
 
 * Reconhece o tipo de campo do banco é cria o campo equivalente no formDin
 * obrigatoriedade ou não
