@@ -51,3 +51,5 @@ Veja o tutorial [Do Zero até Rodar](https://github.com/bjverde/sysgen/wiki/Do-Z
 * https://github.com/nette/php-generator
 * https://www.grocerycrud.com/
 * https://www.keycdn.com/blog/php-code-generator/
+* https://labs.sogeti.com/top-10-post-code-generation-can-simple-pragmatic/
+* http://www.telosys.org/index.html
