@@ -35,6 +35,7 @@ class TCreateForm
     private $lines;
     private $gridType;
     private $listColumnsProperties;
+    private $tableType = null;
     
     const FORMDIN_TYPE_DATE = 'DATE';
     const FORMDIN_TYPE_TEXT = 'TEXT';
@@ -139,6 +140,15 @@ class TCreateForm
     public function getListColumnsProperties()
     {
         return $this->listColumnsProperties;
+    }
+    //------------------------------------------------------------------------------------
+    public function setTableType($tableType)
+    {
+        $this->tableType = $tableType;
+    }
+    public function getTableType()
+    {
+        return $this->tableType;
     }
     //------------------------------------------------------------------------------------
     public function getLinesArray()
@@ -425,12 +435,14 @@ class TCreateForm
         $this->addBlankLine();
         $this->addLine('$acao = isset($acao) ? $acao : null;');
         $this->addLine('switch( $acao ) {');
-        $this->addBasicaViewController_salvar();
+        $this->addBasicaViewController_limpar();
         if ($this->gridType == GRID_SIMPLE) {
             $this->addBasicaViewController_buscar();
         }
-        $this->addBasicaViewController_limpar();
-        $this->addBasicaViewController_gdExcluir();
+        if ($this->getTableType() == TGeneratorHelper::TABLE_TYPE_TABLE) {
+	        $this->addBasicaViewController_salvar();
+        	$this->addBasicaViewController_gdExcluir();
+        }
         $this->addLine('}');
     }
     //--------------------------------------------------------------------------------------
@@ -595,6 +607,10 @@ class TCreateForm
             $this->addBlankLine();
             $this->addColumnsGrid(TAB);
             $this->addBlankLine();
+            if ($this->getTableType() == TGeneratorHelper::TABLE_TYPE_VIEW) {
+                $this->addLine(TAB.'$gride->enableDefaultButtons(false);');
+            }
+            $this->addBlankLine();
             $this->addLine(TAB.'$gride->show();');
             $this->addLine(TAB.'die();');
             $this->addLine('}');
@@ -615,7 +631,9 @@ class TCreateForm
         } else {
             $this->addLine('$frm->addButton(\'Buscar\', null, \'btnBuscar\', \'buscar()\', null, true, false);');
         }
-        $this->addLine('$frm->addButton(\'Salvar\', null, \'Salvar\', null, null, false, false);');
+        if ($this->getTableType() == TGeneratorHelper::TABLE_TYPE_TABLE) {
+            $this->addLine('$frm->addButton(\'Salvar\', null, \'Salvar\', null, null, false, false);');
+        }
         $this->addLine('$frm->addButton(\'Limpar\', null, \'Limpar\', null, null, false, false);');
     }
     //--------------------------------------------------------------------------------------

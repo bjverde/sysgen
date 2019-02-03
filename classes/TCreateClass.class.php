@@ -167,7 +167,7 @@ class TCreateClass extends TCreateFileContent
         $this->addLine();
         $this->addSelectAll();
         
-        if ($this->getTableType() != TGeneratorHelper::TABLE_TYPE_VIEW) {
+        if ($this->getTableType() == TGeneratorHelper::TABLE_TYPE_TABLE) {
             $this->addLine();
             $this->addSave();
             

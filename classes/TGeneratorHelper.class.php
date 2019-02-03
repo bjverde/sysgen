@@ -311,13 +311,14 @@ class TGeneratorHelper
         $generatorDao->saveDAO();
     }
     
-    public static function createFilesForms($tableName, $listColumnsProperties)
+    public static function createFilesForms($tableName, $listColumnsProperties, $tableSchema, $tableType)
     {
         $DBMS       = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
         $configDBMS = self::getConfigByDBMS($DBMS);
         $folder     = self::getPathNewSystem().DS.'modulos'.DS;
         $columnPrimaryKey = $listColumnsProperties['COLUMN_NAME'][0];
         $geradorForm      = new TCreateForm();
+        $geradorForm->setTableType($tableType);
         $geradorForm->setFormTitle($tableName);
         $geradorForm->setFormPath($folder);
         $geradorForm->setFormFileName($tableName);
@@ -333,7 +334,7 @@ class TGeneratorHelper
     {
         self::createFilesDaoVoFromTable($tableName, $listColumnsProperties,$tableSchema,$tableType);
         self::createFilesClasses($tableName, $listColumnsProperties, $tableSchema, $tableType);
-        self::createFilesForms($tableName, $listColumnsProperties);
+        self::createFilesForms($tableName, $listColumnsProperties, $tableSchema, $tableType);
     }
     
     public static function getUrlNewSystem()
