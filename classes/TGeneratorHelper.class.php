@@ -279,11 +279,12 @@ class TGeneratorHelper
         return $config;
     }
     
-    public static function createFilesClasses($tableName, $listColumnsProperties)
+    public static function createFilesClasses($tableName, $listColumnsProperties, $tableSchema, $tableType)
     {
         $DBMS       = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
         $configDBMS = self::getConfigByDBMS($DBMS);
         $generator  = new TCreateClass($tableName);
+        $generator->setTableType($tableType);
         $generator->setListColumnsProperties($listColumnsProperties);
         $generator->setListColunnsName($listColumnsProperties['COLUMN_NAME']);
         $generator->setWithSqlPagination($configDBMS['TPGRID']);
@@ -326,6 +327,13 @@ class TGeneratorHelper
         $geradorForm->setListColumnsProperties($listColumnsProperties);
         $geradorForm->setGridType($configDBMS['TPGRID']);
         $geradorForm->saveForm();
+    }
+    
+    public static function createFilesFormClassDaoVoFromTable($tableName, $listColumnsProperties, $tableSchema, $tableType)
+    {
+        self::createFilesDaoVoFromTable($tableName, $listColumnsProperties,$tableSchema,$tableType);
+        self::createFilesClasses($tableName, $listColumnsProperties, $tableSchema, $tableType);
+        self::createFilesForms($tableName, $listColumnsProperties);
     }
     
     public static function getUrlNewSystem()

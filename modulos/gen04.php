@@ -51,12 +51,10 @@ try {
 		$tableType = strtoupper($listTables['TABLE_TYPE'][$key]);
 		$key = $key + 1;
 		if($tableType == TGeneratorHelper::TABLE_TYPE_TABLE){
-			TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable,$tableSchema,$tableType);
-		    TGeneratorHelper::createFilesClasses($table, $listFieldsTable);
-			TGeneratorHelper::createFilesForms($table, $listFieldsTable);
+		    TGeneratorHelper::createFilesFormClassDaoVoFromTable($table, $listFieldsTable,$tableSchema,$tableType);
 			$html->add('<br>'.$key.Message::CREATED_TABLE_ITEN.$table);
 		}else{
-			TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable,$tableSchema,$tableType);
+		    TGeneratorHelper::createFilesFormClassDaoVoFromTable($table, $listFieldsTable,$tableSchema,$tableType);
 		    $html->add('<br>'.$key.Message::CREATED_VIEW_ITEN.$table);
 		}
 		

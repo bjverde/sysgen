@@ -447,7 +447,7 @@ class TCreateDAO
         $this->addSqlSelectAll();
         // fim select
         
-        if ($this->getTableType() != TABLE_TYPE_VIEW) {
+        if ($this->getTableType() != TGeneratorHelper::TABLE_TYPE_VIEW) {
             // insert
             $this->addLine();
             $this->addSqlInsert();

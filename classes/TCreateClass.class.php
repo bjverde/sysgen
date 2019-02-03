@@ -27,6 +27,7 @@ class TCreateClass extends TCreateFileContent
     private $withSqlPagination;
     private $listColumnsName;
     private $listColumnsProperties;
+    private $tableType = null;
     
     public function __construct($tableRef)
     {
@@ -70,6 +71,15 @@ class TCreateClass extends TCreateFileContent
     public function getListColumnsProperties()
     {
         return $this->listColumnsProperties;
+    }
+    //------------------------------------------------------------------------------------
+    public function setTableType($tableType)
+    {
+        $this->tableType = $tableType;
+    }
+    public function getTableType()
+    {
+        return $this->tableType;
     }
     //--------------------------------------------------------------------------------------
     private function addConstruct()
@@ -157,11 +167,13 @@ class TCreateClass extends TCreateFileContent
         $this->addLine();
         $this->addSelectAll();
         
-        $this->addLine();
-        $this->addSave();
-        
-        $this->addLine();
-        $this->addDelete();
+        if ($this->getTableType() != TGeneratorHelper::TABLE_TYPE_VIEW) {
+            $this->addLine();
+            $this->addSave();
+            
+            $this->addLine();
+            $this->addDelete();
+        }
         
         $this->addBlankLine();
         $this->addLine('}');
