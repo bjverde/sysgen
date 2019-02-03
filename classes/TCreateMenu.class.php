@@ -59,7 +59,10 @@ class TCreateMenu extends TCreateFileContent
         foreach ($listTableNames as $key => $table) {
             $tableType = strtoupper($this->listTableNames['TABLE_TYPE'][$key]);
             if ($tableType == $tableTypeObjeto) {
-                $this->addLine('$menu->add(\''.$keyFatherItem.'.'.$key.'\',\''.$keyFatherItem.'\',\''.strtolower($table).'\',\'modulos/'.strtolower($table).'.php\');');
+                $this->addLine('$menu->add(\''.$keyFatherItem.'.'.$key.'\''
+                              .',\''.$keyFatherItem.'\''
+                              .',\''.strtolower($table).'\',\'modulos/'.strtolower($table).'.php\''
+                              .', null, \'Icon_35-512.png\');');
             }
         }
     }    
