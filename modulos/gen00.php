@@ -17,52 +17,61 @@ $frm->setMaximize(true);
 $frm->setAutoSize(true);
 $frm->addCssFile('css/sysgen.css');
 
+$frm->addGroupField('gpx1', 'Requisitos');
+    $htmlConfig = $frm->addHtmlField('conf', '');
+$frm->closeGroup();
 
-$html = $frm->addHtmlField('conf', '');
-$frm->addHtmlField('info', null, 'ajuda/info_gen00_pt-br.php')->setClass('htmlInfo', true);
+if (TGeneratorHelper::phpVersionValid($htmlConfig)) {
+    
+    $frm->addGroupField('gpx2', null);
+        $frm->addHtmlField('info', null, 'ajuda/info_gen00_info_pt-br.php')->setClass('htmlInfo', true);
+    $frm->closeGroup();
+    
 
+    $frm->addGroupField('gpx3', ' Configurações');
+        $dbType = array(DBMS_MYSQL=>'MySQL'
+                       ,DBMS_SQLITE=>'SQLITE'
+                       ,DBMS_SQLSERVER=>'MS SQL SERVER'
+                       ,DBMS_POSTGRES =>'POSTGRES'
+                       ,DBMS_ACCESS =>'ACCESS'
+                       ,DBMS_FIREBIRD => 'FIREBIRD'
+                       ,DBMS_ORACLE =>'ORACLE'
+                       );
+        $frm->addHtmlField('fields', null, 'ajuda/info_gen00_fields_pt-br.php')->setClass('htmlInfo', true);
+        $frm->addSelectField('DBMS', 'Escolha o tipo de Banco de Dados:', true, $dbType, null, null, null, null, null, null, ' ', 0);
+        $frm->addTextField('GEN_SYSTEM_ACRONYM', 'Sigla do Sistema', 50, true);
+        $frm->addTextField('GEN_SYSTEM_VERSION', 'Versão do sistema', 10, true, 10, '0.0.0');
+        $frm->addTextField('GEN_SYSTEM_NAME', 'Nome do sistem', 50, true);
+        
+        
+        $frm->addButton('Continuar', null, 'Continuar', null, null, true, false);
+        $frm->addButton('Limpar', null, 'Limpar', null, null, false, false);
+    $frm->closeGroup();
+ }
 
-if (TGeneratorHelper::phpVersionValid($html)) {
-    $dbType = array(DBMS_MYSQL=>'MySQL'
-                   ,DBMS_SQLITE=>'SQLITE'
-                   ,DBMS_SQLSERVER=>'MS SQL SERVER'
-                   ,DBMS_POSTGRES =>'POSTGRES'
-                   ,DBMS_ACCESS =>'ACCESS'
-                   ,DBMS_FIREBIRD => 'FIREBIRD'
-                   ,DBMS_ORACLE =>'ORACLE'
-                   );
-    $frm->addSelectField('DBMS', 'Escolha o tipo de Banco de Dados:', true, $dbType, null, null, null, null, null, null, ' ', 0);
-    $frm->addTextField('GEN_SYSTEM_ACRONYM', 'Sigla do Sistema', 50, true);
-    $frm->addTextField('GEN_SYSTEM_VERSION', 'Versão do sistema', 10, true, 10, '0.0.0');
-    $frm->addTextField('GEN_SYSTEM_NAME', 'Nome do sistem', 50, true);
-    
-    
-    $frm->addButton('Continuar', null, 'Continuar', null, null, true, false);
-    $frm->addButton('Limpar', null, 'Limpar', null, null, false, false);
-    
-    $acao = isset($acao) ? $acao : null;
-    switch ($acao) {
-        case 'Continuar':
-            if ($frm->validate()) {
-                try {
-                    $GEN_SYSTEM_ACRONYM = strtolower($frm->get('GEN_SYSTEM_ACRONYM'));
-                    TGeneratorHelper::validateFolderName($GEN_SYSTEM_ACRONYM);
-                    $_SESSION[APLICATIVO]=null;
-                    $_SESSION[APLICATIVO]['DBMS']['TYPE']=$frm->get('DBMS');
-                    $_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM']=$GEN_SYSTEM_ACRONYM;
-                    $_SESSION[APLICATIVO]['GEN_SYSTEM_VERSION']=$frm->get('GEN_SYSTEM_VERSION');
-                    $_SESSION[APLICATIVO]['GEN_SYSTEM_NAME']=$frm->get('GEN_SYSTEM_NAME');
-                    $frm->redirect('gen01.php', 'Redirect realizado com sucesso.', true);
-                } catch (Exception $e) {
-                    $frm->setMessage($e->getMessage());
-                }
+$acao = isset($acao) ? $acao : null;
+switch ($acao) {
+    case 'Continuar':
+        if ($frm->validate()) {
+            try {
+                $GEN_SYSTEM_ACRONYM = strtolower($frm->get('GEN_SYSTEM_ACRONYM'));
+                TGeneratorHelper::validateFolderName($GEN_SYSTEM_ACRONYM);
+                $_SESSION[APLICATIVO]=null;
+                $_SESSION[APLICATIVO]['DBMS']['TYPE']=$frm->get('DBMS');
+                $_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM']=$GEN_SYSTEM_ACRONYM;
+                $_SESSION[APLICATIVO]['GEN_SYSTEM_VERSION']=$frm->get('GEN_SYSTEM_VERSION');
+                $_SESSION[APLICATIVO]['GEN_SYSTEM_NAME']=$frm->get('GEN_SYSTEM_NAME');
+                $frm->redirect('gen01.php', 'Redirect realizado com sucesso.', true);
+            } catch (Exception $e) {
+                $frm->setMessage($e->getMessage());
             }
-            break;
-      //--------------------------------------------------------------------------------
-        case 'Limpar':
-            $frm->clearFields();
-            break;
-    }
+        }
+        break;
+        //--------------------------------------------------------------------------------
+    case 'Limpar':
+        $frm->clearFields();
+        break;
 }
+
 
 $frm->show();
