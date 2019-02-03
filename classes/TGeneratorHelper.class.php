@@ -19,6 +19,9 @@ class TGeneratorHelper
     const FKTYPE_AUTOSEARCH = 'AUTOSEARCH';
     const FKTYPE_SELECTCRUD = 'SELECTCRUD';
     
+    public const TABLE_TYPE_TABLE = 'TABLE';
+    public const TABLE_TYPE_VIEW = 'VIEW';
+    
     public static function validadeFormDinMinimumVersion($html)
     {
         $texto = '<b>Versão do FormDin</b>: ';

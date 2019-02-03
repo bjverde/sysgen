@@ -36,14 +36,14 @@ class TCreateMenuTest extends PHPUnit_Framework_TestCase
     protected function generateTablesSelected3t5v()
     {
         $tableSelected = isset($tableSelected) ? $tableSelected : null;
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'menu', 'TABLE');
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'acess', 'TABLE');
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'vitem', 'VIEW');
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'list', 'TABLE');
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v2', 'VIEW');
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v3', 'VIEW');
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v4', 'VIEW');
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v5', 'VIEW');
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'menu' , TGeneratorHelper::TABLE_TYPE_TABLE);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'acess', TGeneratorHelper::TABLE_TYPE_TABLE);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'vitem', TGeneratorHelper::TABLE_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'list' , TGeneratorHelper::TABLE_TYPE_TABLE);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v2'   , TGeneratorHelper::TABLE_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v3'   , TGeneratorHelper::TABLE_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v4'   , TGeneratorHelper::TABLE_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v5'   , TGeneratorHelper::TABLE_TYPE_VIEW);
         return $tableSelected;
     }
     

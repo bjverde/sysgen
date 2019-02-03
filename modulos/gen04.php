@@ -50,7 +50,7 @@ try {
 		$listFieldsTable = TGeneratorHelper::loadFieldsTablesSelectedWithFormDin($table,$tableSchema);
 		$tableType = strtoupper($listTables['TABLE_TYPE'][$key]);
 		$key = $key + 1;
-		if($tableType == TABLE_TYPE_TABLE){
+		if($tableType == TGeneratorHelper::TABLE_TYPE_TABLE){
 			TGeneratorHelper::createFilesDaoVoFromTable($table, $listFieldsTable,$tableSchema,$tableType);
 		    TGeneratorHelper::createFilesClasses($table, $listFieldsTable);
 			TGeneratorHelper::createFilesForms($table, $listFieldsTable);

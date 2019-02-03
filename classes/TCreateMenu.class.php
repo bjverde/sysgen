@@ -52,18 +52,29 @@ class TCreateMenu extends TCreateFileContent
         }
     }
     //--------------------------------------------------------------------------------------
-    public function addBasicMenuItems()
+    public function addBasicMenuItems($keyFatherItem, $tableTypeObjeto)
     {
         $this->validateListTableNames(null);
         $listTableNames = $this->listTableNames['TABLE_NAME'];
         foreach ($listTableNames as $key => $table) {
             $tableType = strtoupper($this->listTableNames['TABLE_TYPE'][$key]);
-            if ($tableType == 'TABLE') {
-                $this->addLine('$menu->add(\'1.'.$key.'\',1,\''.strtolower($table).'\',\'modulos/'.strtolower($table).'.php\');');
+            if ($tableType == $tableTypeObjeto) {
+                $this->addLine('$menu->add(\''.$keyFatherItem.'.'.$key.'\',\''.$keyFatherItem.'\',\''.strtolower($table).'\',\'modulos/'.strtolower($table).'.php\');');
             }
         }
+    }    
+    //--------------------------------------------------------------------------------------
+    private function addBasicMenuCruds()
+    {
+        $this->addLine('$menu->add(\'1\', null, \'Cruds\', null, null, \'menu-alt-512.png\');');
+        $this->addBasicMenuItems( '1', TGeneratorHelper::TABLE_TYPE_TABLE );
     }
     //--------------------------------------------------------------------------------------
+    private function addBasicMenuViews()
+    {
+        $this->addLine('$menu->add(\'2\', null, \'Views\', null, null, \'menu-alt-512.png\');');
+        $this->addBasicMenuItems( '2', TGeneratorHelper::TABLE_TYPE_VIEW );
+    }//--------------------------------------------------------------------------------------
     public function show($print = false)
     {
         $this->lines=null;
@@ -71,8 +82,10 @@ class TCreateMenu extends TCreateFileContent
         $this->addSysGenHeaderNote();
         $this->addBlankLine();
         $this->addLine('$menu = new TMenuDhtmlx();');
-        $this->addLine('$menu->add(\'1\', null, \'Menu\', null, null, \'menu-alt-512.png\');');
-        $this->addBasicMenuItems();
+        $this->addBasicMenuCruds();
+        $this->addBlankLine();
+        $this->addBasicMenuViews();
+        $this->addBlankLine();
         $this->addLine('$menu->add(\'9\', null, \'Sobre\', \'modulos/sys_about.php\', null, \'information-circle.jpg\');');
         $this->addBlankLine();
         $this->addLine('$menu->add(\'10\',null,\'Config Ambiente\',null,null,\'setting-gear-512.png\');');
