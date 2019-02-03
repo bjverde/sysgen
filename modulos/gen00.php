@@ -19,9 +19,11 @@ $frm->addCssFile('css/sysgen.css');
 
 $frm->addGroupField('gpx1', 'Requisitos');
     $htmlConfig = $frm->addHtmlField('conf', '');
+    $validFormDinPMin = TGeneratorHelper::validadeFormDinMinimumVersion($htmlConfig);
+    $validPHPMin = TGeneratorHelper::validadePhpMinimumVersion($htmlConfig);
 $frm->closeGroup();
 
-if (TGeneratorHelper::phpVersionValid($htmlConfig)) {
+if ($validFormDinPMin && $validPHPMin) {
     
     $frm->addGroupField('gpx2', null);
         $frm->addHtmlField('info', null, 'ajuda/info_gen00_info_pt-br.php')->setClass('htmlInfo', true);

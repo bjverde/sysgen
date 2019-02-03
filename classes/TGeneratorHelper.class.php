@@ -21,16 +21,20 @@ class TGeneratorHelper
     
     public static function validadeFormDinMinimumVersion($html)
     {
-        if (version_compare(FORMDIN_VERSION_MIN_VERSION,FORMDIN_VERSION,'>=')) {
+        $texto = '<b>Versão do FormDin</b>: ';
+        if (version_compare(FORMDIN_VERSION,FORMDIN_VERSION_MIN_VERSION,'>=')) {
+            $texto =  $texto.'<span class="success">'.FORMDIN_VERSION.'</span>';
+            $html->add($texto);            
             $result = true;
         } else {
-            $html->add('<b>'.$extensao.'</b>: <span class="failure">Não instalada</span><br>');
+            $texto =  $texto.'<span class="failure">'.FORMDIN_VERSION.'</span>, atualize para a versão: '.FORMDIN_VERSION_MIN_VERSION;
+            $html->add($texto);
             $result = false;
         }
         return $result;
     }    
     
-    public static function phpVersionValid($html)
+    public static function validadePhpMinimumVersion($html)
     {
         $texto = '<b>Versão do PHP</b>: ';
         if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
