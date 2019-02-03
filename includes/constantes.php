@@ -20,5 +20,6 @@ define('DS', DIRECTORY_SEPARATOR);
 define('ROOT_PATH', '../');
 define('CHAR_MAX_TEXT_FIELD', 101);
 
+define('FORMDIN_VERSION_MIN_VERSION', '4.2.9');
 define('TABLE_TYPE_TABLE', 'TABLE');
 define('TABLE_TYPE_VIEW', 'VIEW');
