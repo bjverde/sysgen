@@ -19,6 +19,17 @@ class TGeneratorHelper
     const FKTYPE_AUTOSEARCH = 'AUTOSEARCH';
     const FKTYPE_SELECTCRUD = 'SELECTCRUD';
     
+    public static function validadeFormDinMinimumVersion($html)
+    {
+        if (version_compare(FORMDIN_VERSION_MIN_VERSION,FORMDIN_VERSION,'>=')) {
+            $result = true;
+        } else {
+            $html->add('<b>'.$extensao.'</b>: <span class="failure">Não instalada</span><br>');
+            $result = false;
+        }
+        return $result;
+    }    
+    
     public static function phpVersionValid($html)
     {
         $texto = '<b>Versão do PHP</b>: ';
