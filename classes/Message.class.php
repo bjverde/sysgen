@@ -32,7 +32,7 @@ final class Message
     const GEN02_CREATED_INDEX   = 'Criado arquivo index do sistema.';
     const GEN02_REDIRECT_STEP03 = 'Você está na etapa 03 de 03. Essa parte pode demorar. Quanto maior o número de tabelas maior será demora.';
     
-    const SEL_TABLES_GENERATE = 'Selecione as tabelas que deseja gerar, depois clique em: '.self::BUTTON_GEN_FORM;
+    const SEL_TABLES_GENERATE = 'Selecione as tabelas que deseja gerar, depois clique em: '.self::BUTTON_LABEL_CONF;
     
     const GEN03_TITLE         = 'Etapa 03 de '.self::LAST_STEP;
     
