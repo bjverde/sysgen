@@ -44,6 +44,7 @@ final class Message
     const FIELDS_TABLE_VIEW   = ' - Lista de campos da Tabela/View: ';
     
     const GRID_LIST_FK_TITLE  = 'Lista de FK e como elas devem aparecer';
+    const GRID_LIST_FK_COLUMN = 'Tipo Campo para FK';
     const GPX_TYPE_CONFIG     = 'Opções de Avançada';
     const FIELD_LOGFILE_LABEL = 'Qual tipo de Log em arquivo (php_error.log) quer para o sistema?';
     const FIELD_LOGFILE_OPT00  = 'Nada será gravado no Log !!';

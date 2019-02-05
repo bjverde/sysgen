@@ -28,6 +28,10 @@ $logType = array(0=>Message::FIELD_LOGFILE_OPT00,1=>Message::FIELD_LOGFILE_OPT01
     $frm->addRadioField('logType', Message::FIELD_LOGFILE_LABEL, true, $logType, null, true, 2, 3, null, null, null, false);
 $frm->closeGroup();
 
+$frm->addGroupField('gpx3',Message::GRID_LIST_FK_COLUMN);
+    $frm->addHtmlField('info', null, 'ajuda/info_gen03_typefields_pt-br.php')->setClass('htmlInfo', true);
+$frm->closeGroup();
+
 $frm->addButton(Message::BUTTON_LABEL_BACK, 'back', null, null, null, true, false);
 $frm->addButton(Message::BUTTON_LABEL_CLEAN, 'clean', null, null, null, false, false);
 $frm->addButton(Message::BUTTON_GEN_FORM, 'generate', 'Gerar', null, null, false, false);
@@ -82,10 +86,18 @@ try {
     $gride->addColumn('REFERENCED_TABLE_NAME', 'REFERENCED_TABLE_NAME');
     $gride->addColumn('REFERENCED_COLUMN_NAME', 'REFERENCED_COLUMN_NAME');
     $listFkType = TGeneratorHelper::getFKTypeScreenReferenced(null, null);
-    //$gride->addSelectColumn('FK_TYPE_SCREEN_REFERENCED', 'Type Referenced', 'FK_TYPE_SCREEN_REFERENCED', $listFkType);
-    //$gride->addSelectColumn('sit_opcoes', 'Opções', 'SIT_OPCOES', '1=Amarelo,2=Verde');
-    //$selCol = $gride->getColumn('FK_TYPE_SCREEN_REFERENCED');   // recuperar o objeto coluna NOME_COMPRADOR
-    //$selCol->setInitialValueField(0);
+    $gride->addSelectColumn('FK_TYPE_SCREEN_REFERENCED'
+        , Message::GRID_LIST_FK_COLUMN
+        , 'FK_TYPE_SCREEN_REFERENCED'  //ID no campo na origem dos dados no gride
+        , $listFkType                  //Array de possível valores
+        , 100                           //5: largura do campo em pixel
+        , true                         //6: Somente Leitura
+        , ''                           //7: Label do Primeiro elemento
+        , 2                            //8: Valor do Primeiro elemento
+        , null                         //9:
+        , null                         //10:
+        , null                         //11:
+        );
     $frm->addHtmlField('gride', $gride);
 } catch (Exception $e) {
     echo $e->getMessage();
