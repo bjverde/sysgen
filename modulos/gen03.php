@@ -28,11 +28,11 @@ $logType = array(0=>Message::FIELD_LOGFILE_OPT00,1=>Message::FIELD_LOGFILE_OPT01
     $frm->addRadioField('logType', Message::FIELD_LOGFILE_LABEL, true, $logType, null, true, 2, 3, null, null, null, false);
 $frm->closeGroup();
 
-/*
+
 $frm->addGroupField('gpx3',Message::GRID_LIST_FK_COLUMN);
     $frm->addHtmlField('info', null, 'ajuda/info_gen03_typefields_pt-br.php')->setClass('htmlInfo', true);
 $frm->closeGroup();
-*/
+
 
 $frm->addButton(Message::BUTTON_LABEL_BACK, 'back', null, null, null, true, false);
 $frm->addButton(Message::BUTTON_LABEL_CLEAN, 'clean', null, null, null, false, false);
@@ -87,7 +87,6 @@ try {
     $gride->addColumn('DATA_TYPE', 'DATA_TYPE');
     $gride->addColumn('REFERENCED_TABLE_NAME', 'REFERENCED_TABLE_NAME');
     $gride->addColumn('REFERENCED_COLUMN_NAME', 'REFERENCED_COLUMN_NAME');
-    /*
     $listFkType = TGeneratorHelper::getFKTypeScreenReferenced(null, null);
     $gride->addSelectColumn('FK_TYPE_SCREEN_REFERENCED'
         , Message::GRID_LIST_FK_COLUMN
@@ -101,7 +100,6 @@ try {
         , null                         //10:
         , null                         //11:
         );
-    */
     $frm->addHtmlField('gride', $gride);
 } catch (Exception $e) {
     echo $e->getMessage();
