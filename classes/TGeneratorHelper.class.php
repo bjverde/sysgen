@@ -423,6 +423,7 @@ class TGeneratorHelper
                 $FkFieldsTableSelected['FK_TYPE_SCREEN_REFERENCED'][] = null;
             }
         }
+        $_SESSION[APLICATIVO]['FkFieldsTableSelected'] = $FkFieldsTableSelected;
         return $FkFieldsTableSelected;
     }
 }
