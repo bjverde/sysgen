@@ -58,7 +58,7 @@ switch ($acao) {
                     $keyType = $key-1; //change index key
                     $_SESSION[APLICATIVO]['FkFieldsTableSelected']['FK_TYPE_SCREEN_REFERENCED'][$keyType] = $type;
                 }
-                //d($_SESSION[APLICATIVO]['FkFieldsTableSelected']);//debug
+                d($_SESSION[APLICATIVO]);//debug
                 //$frm->redirect('gen04.php', 'Redirect realizado com sucesso.', true);
             } catch (Exception $e) {
                 $frm->setMessage($e->getMessage());
@@ -92,7 +92,7 @@ try {
     $gride->addColumn('DATA_TYPE', 'DATA_TYPE');
     $gride->addColumn('REFERENCED_TABLE_NAME', 'REFERENCED_TABLE_NAME');
     $gride->addColumn('REFERENCED_COLUMN_NAME', 'REFERENCED_COLUMN_NAME');
-    $listFkType = TGeneratorHelper::getFKTypeScreenReferenced(null, null);
+    $listFkType = TGeneratorHelper::getListFKTypeScreenReferenced();
     $gride->addSelectColumn(TableInfo::FK_TYPE_SCREEN_REFERENCED
         , Message::GRID_LIST_FK_COLUMN
         , TableInfo::FK_TYPE_SCREEN_REFERENCED  //ID no campo na origem dos dados no gride

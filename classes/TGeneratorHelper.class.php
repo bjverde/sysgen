@@ -378,11 +378,21 @@ class TGeneratorHelper
             //$formDinType = self::convertDataType2FormDinType($dataType);
             $formDinType = TCreateForm::convertDataType2FormDinType($dataType);
             $listFieldsTable[TCreateForm::FORMDIN_TYPE_COLUMN_NAME][$key] = $formDinType;
+            
+            $columanName = $listFieldsTable[TableInfo::COLUMN_NAME][$key];
+            $fkTypeScreenReferenced = self::getFKTypeScreenReferencedSelected($table, $tableSchema, $columanName);
+            $listFieldsTable[TableInfo::FK_TYPE_SCREEN_REFERENCED][$key] = $fkTypeScreenReferenced;
         }
         return $listFieldsTable;
     }
     
-    public static function getFKTypeScreenReferenced($refTable, $refColumn)
+    public static function getFKTypeScreenReferencedSelected($table, $tableSchema, $columanName)
+    {
+        $_SESSION[APLICATIVO][TableInfo::FK_FIELDS_TABLE_SELECTED];
+        return $array;
+    }
+    
+    public static function getListFKTypeScreenReferenced()
     {
         $array = array();
         $array[TCreateForm::FORM_FKTYPE_SELECT] = 'Select Field';
@@ -391,7 +401,8 @@ class TGeneratorHelper
         //$array[] = 'Select Field + Crud';
         return $array;
     }
-    
+
+
     public static function listFKFieldsTablesSelected()
     {
         $FkFieldsTableSelected = null;
@@ -408,7 +419,7 @@ class TGeneratorHelper
                 $ID_LINE = $ID_LINE + 1;
                 $FkFieldsTableSelected['TABLE_SCHEMA'][]= $FieldsTableSelected[$key]['TABLE_SCHEMA'][$keyFieldFkTable];
                 $FkFieldsTableSelected['TABLE_NAME'][]  = $FieldsTableSelected[$key]['TABLE_NAME'][$keyFieldFkTable];
-                $FkFieldsTableSelected['COLUMN_NAME'][] = $FieldsTableSelected[$key]['COLUMN_NAME'][$keyFieldFkTable];
+                $FkFieldsTableSelected[TableInfo::COLUMN_NAME][] = $FieldsTableSelected[$key][TableInfo::COLUMN_NAME][$keyFieldFkTable];
                 $FkFieldsTableSelected['DATA_TYPE'][]   = $FieldsTableSelected[$key]['DATA_TYPE'][$keyFieldFkTable];
                 $FkFieldsTableSelected['REFERENCED_TABLE_NAME'][]  = $refTable;
                 $FkFieldsTableSelected['REFERENCED_COLUMN_NAME'][] = $refColumn;

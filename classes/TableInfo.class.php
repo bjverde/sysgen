@@ -17,6 +17,9 @@
  */
 final class TableInfo
 {
+    public const COLUMN_NAME = 'COLUMN_NAME';
+    public const DATA_TYPE = 'DATA_TYPE';
+    
     public const FK_FIELDS_TABLE_SELECTED = 'FkFieldsTableSelected';
     public const FK_TYPE_SCREEN_REFERENCED = 'FK_TYPE_SCREEN_REFERENCED';    
     
