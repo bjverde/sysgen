@@ -378,13 +378,7 @@ class TGeneratorHelper
             //$formDinType = self::convertDataType2FormDinType($dataType);
             $formDinType = TCreateForm::convertDataType2FormDinType($dataType);
             $listFieldsTable[TCreateForm::FORMDIN_TYPE_COLUMN_NAME][$key] = $formDinType;
-            
-            $fkTypeScreenReferenced = null;
-            if($listFieldsTable[TableInfo::KEY_TYPE][$key] == TableInfo::KEY_TYPE_FK){
-                $fkTypeScreenReferenced = TCreateForm::FORM_FKTYPE_SELECT;
-                //$columanName = $listFieldsTable[TableInfo::COLUMN_NAME][$key];
-                //$fkTypeScreenReferenced = self::getFKTypeScreenReferencedSelected($table, $tableSchema, $columanName);
-            }
+            $fkTypeScreenReferenced = self::getFKTypeScreenReferencedSelected($table, $tableSchema, $listFieldsTable, $key);
             $listFieldsTable[TableInfo::FK_TYPE_SCREEN_REFERENCED][$key] = $fkTypeScreenReferenced;
         }
         d($listFieldsTable);
@@ -392,10 +386,15 @@ class TGeneratorHelper
         return $listFieldsTable;
     }
     
-    public static function getFKTypeScreenReferencedSelected($table, $tableSchema, $columanName)
+    public static function getFKTypeScreenReferencedSelected($table, $tableSchema, $listFieldsTable, $key)
     {
-        $_SESSION[APLICATIVO][TableInfo::FK_FIELDS_TABLE_SELECTED];
-        return $array;
+        $fkTypeScreenReferenced = null;
+        if($listFieldsTable[TableInfo::KEY_TYPE][$key] == TableInfo::KEY_TYPE_FK){
+            $fkTypeScreenReferenced = TCreateForm::FORM_FKTYPE_SELECT;
+            //$columanName = $listFieldsTable[TableInfo::COLUMN_NAME][$key];
+            //$fkTypeScreenReferenced = self::getFKTypeScreenReferencedSelected($table, $tableSchema, $columanName);
+        }
+        return $fkTypeScreenReferenced;
     }
     
     public static function getListFKTypeScreenReferenced()
