@@ -40,8 +40,8 @@ class TCreateForm
     const FORMDIN_TYPE_DATE = 'DATE';
     const FORMDIN_TYPE_TEXT = 'TEXT';
     const FORMDIN_TYPE_NUMBER = 'NUMBER';
-    const FORMDIN_TYPE_COLUMN_NAME = 'FORMDIN_TYPE';
-
+    const FORMDIN_TYPE_COLUMN_NAME = 'FORMDIN_TYPE';    
+    
     public const FORM_FKTYPE_SELECT = 'SELECT';
     public const FORM_FKTYPE_AUTOCOMPLETE = 'AUTOCOMPLETE';
     public const FORM_FKTYPE_ONSEARCH = 'ONSEARCH';
@@ -619,7 +619,11 @@ class TCreateForm
             }
             $this->getMixUpdateFields(TAB);
             $this->addLine(TAB.'$gride = new TGrid( \'gd\'                        // id do gride');
-            $this->addLine(TAB.'				   ,\'Gride with SQL Pagination\' // titulo do gride');
+            if ($this->gridType == GRID_SQL_PAGINATION) {
+                $this->addLine(TAB.'				   ,\'Gride with SQL Pagination. Qtd:\'.$realTotalRowsSqlPaginator // titulo do gride');
+            }else{
+                $this->addLine(TAB.'				   ,\'Gride with SQL Pagination\' // titulo do gride');
+            }
             $this->addLine(TAB.'				   );');
             $this->addLine(TAB.'$gride->addKeyField( $primaryKey ); // chave primaria');
             $this->addLine(TAB.'$gride->setData( $dados ); // array de dados');
