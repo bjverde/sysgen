@@ -11,13 +11,6 @@
  */
 class TGeneratorHelper
 {
-
-    
-    const FKTYPE_SELECT = 'SELECT';
-    const FKTYPE_AUTOCOMPLETE = 'AUTOCOMPLETE';
-    const FKTYPE_ONSEARCH = 'ONSEARCH';
-    const FKTYPE_AUTOSEARCH = 'AUTOSEARCH';
-    const FKTYPE_SELECTCRUD = 'SELECTCRUD';
     
     public const TABLE_TYPE_TABLE = 'TABLE';
     public const TABLE_TYPE_VIEW = 'VIEW';
@@ -392,8 +385,8 @@ class TGeneratorHelper
     public static function getFKTypeScreenReferenced($refTable, $refColumn)
     {
         $array = array();
-        $array[self::FKTYPE_SELECT] = 'Select Field';
-        $array[self::FKTYPE_AUTOCOMPLETE] = 'Autocomplet';
+        $array[TCreateForm::FORM_FKTYPE_SELECT] = 'Select Field';
+        $array[TCreateForm::FORM_FKTYPE_AUTOCOMPLETE] = 'Autocomplet';
         //$array[] = 'Search On-line';
         //$array[] = 'Select Field + Crud';
         return $array;

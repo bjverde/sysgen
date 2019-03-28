@@ -42,6 +42,12 @@ class TCreateForm
     const FORMDIN_TYPE_NUMBER = 'NUMBER';
     const FORMDIN_TYPE_COLUMN_NAME = 'FORMDIN_TYPE';
 
+    public const FORM_FKTYPE_SELECT = 'SELECT';
+    public const FORM_FKTYPE_AUTOCOMPLETE = 'AUTOCOMPLETE';
+    public const FORM_FKTYPE_ONSEARCH = 'ONSEARCH';
+    public const FORM_FKTYPE_AUTOSEARCH = 'AUTOSEARCH';
+    public const FORM_FKTYPE_SELECTCRUD = 'SELECTCRUD';
+
     public function __construct()
     {
         $this->setFormTitle(null);
@@ -306,14 +312,33 @@ class TCreateForm
         $KEY_TYPE   = self::getColumnsPropertieKeyType($key);
         $REFERENCED_TABLE_NAME = self::getColumnsPropertieReferencedTable($key);
         
-        if ($KEY_TYPE == 'FOREIGN KEY') {
+        if ($KEY_TYPE != 'FOREIGN KEY') {
+            $this->addLine('$frm->addNumberField(\''.$fieldName.'\', \''.$fieldName.'\','.$NUM_LENGTH.','.$REQUIRED.','.$NUM_SCALE.');');
+            $this->addFieldTypeToolTip($key, $fieldName);
+        } else {
             $REFERENCED_TABLE_NAME = $this->getTableRefCC($REFERENCED_TABLE_NAME);
             $this->addLine('$list'.$REFERENCED_TABLE_NAME.' = '.$REFERENCED_TABLE_NAME.'::selectAll();');
             $this->addLine('$frm->addSelectField(\''.$fieldName.'\', \''.$fieldName.'\','.$REQUIRED.',$list'.$REFERENCED_TABLE_NAME.',null,null,null,null,null,null,\' \',null);');
             $this->addFieldTypeToolTip($key, $fieldName);
-        } else {
-            $this->addLine('$frm->addNumberField(\''.$fieldName.'\', \''.$fieldName.'\','.$NUM_LENGTH.','.$REQUIRED.','.$NUM_SCALE.');');
-            $this->addFieldTypeToolTip($key, $fieldName);
+
+            /*
+            switch ($formDinType) {
+                case self::FORMDIN_TYPE_DATE:
+                    $this->addLine('$frm->addDateField(\''.$fieldName.'\', \''.$fieldName.'\','.$REQUIRED.');');
+                    $this->addFieldTypeToolTip($key, $fieldName);
+                    break;
+                case self::FORMDIN_TYPE_NUMBER:
+                    $this->addFieldNumberOrForenKey($key, $fieldName, $REQUIRED);
+                    break;
+                default:
+                    if ($CHAR_MAX < CHAR_MAX_TEXT_FIELD) {
+                        $this->addLine('$frm->addTextField(\''.$fieldName.'\', \''.$fieldName.'\','.$CHAR_MAX.','.$REQUIRED.','.$CHAR_MAX.');');
+                    } else {
+                        $this->addLine('$frm->addMemoField(\''.$fieldName.'\', \''.$fieldName.'\','.$CHAR_MAX.','.$REQUIRED.',80,3);');
+                    }
+                    $this->addFieldTypeToolTip($key, $fieldName);
+            }
+            */
         }
     }
     //--------------------------------------------------------------------------------------
