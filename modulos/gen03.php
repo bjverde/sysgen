@@ -54,12 +54,11 @@ switch ($acao) {
             try {
                 $_SESSION[APLICATIVO]['logType'] = PostHelper::get('logType');
                 $fk_type_screen_referenced = PostHelper::get('fk_type_screen_referenced');
-                d($fk_type_screen_referenced);
                 foreach ($fk_type_screen_referenced as $key => $type) {
-                    $_SESSION[APLICATIVO]['FkFieldsTableSelected']['FK_TYPE_SCREEN_REFERENCED'][$key] = $type;
+                    $keyType = $key-1; //change index key
+                    $_SESSION[APLICATIVO]['FkFieldsTableSelected']['FK_TYPE_SCREEN_REFERENCED'][$keyType] = $type;
                 }
                 //$frm->redirect('gen04.php', 'Redirect realizado com sucesso.', true);
-                d($_SESSION[APLICATIVO]);
             } catch (Exception $e) {
                 $frm->setMessage($e->getMessage());
             }
