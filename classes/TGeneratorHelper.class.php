@@ -392,7 +392,7 @@ class TGeneratorHelper
         return $array;
     }
     
-    public static function getFKFieldsTablesSelected()
+    public static function listFKFieldsTablesSelected()
     {
         $FkFieldsTableSelected = null;
         $FieldsTableSelected   = self::loadFieldsTablesSelected();
@@ -413,10 +413,10 @@ class TGeneratorHelper
                 $FkFieldsTableSelected['REFERENCED_TABLE_NAME'][]  = $refTable;
                 $FkFieldsTableSelected['REFERENCED_COLUMN_NAME'][] = $refColumn;
                 //$FkFieldsTableSelected['FK_TYPE_SCREEN_REFERENCED'][] = self::getFKTypeScreenReferenced($refTable,$refColumn);
-                $FkFieldsTableSelected['FK_TYPE_SCREEN_REFERENCED'][] = null;
+                $FkFieldsTableSelected[TableInfo::FK_TYPE_SCREEN_REFERENCED][] = null;
             }
         }
-        $_SESSION[APLICATIVO]['FkFieldsTableSelected'] = $FkFieldsTableSelected;
+        $_SESSION[APLICATIVO][TableInfo::FK_FIELDS_TABLE_SELECTED] = $FkFieldsTableSelected;
         return $FkFieldsTableSelected;
     }
 }

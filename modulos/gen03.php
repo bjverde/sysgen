@@ -58,6 +58,7 @@ switch ($acao) {
                     $keyType = $key-1; //change index key
                     $_SESSION[APLICATIVO]['FkFieldsTableSelected']['FK_TYPE_SCREEN_REFERENCED'][$keyType] = $type;
                 }
+                //d($_SESSION[APLICATIVO]['FkFieldsTableSelected']);//debug
                 //$frm->redirect('gen04.php', 'Redirect realizado com sucesso.', true);
             } catch (Exception $e) {
                 $frm->setMessage($e->getMessage());
@@ -72,7 +73,7 @@ try {
     TGeneratorHelper::createFileMenu($listTables);
     $html->add(TGeneratorHelper::showMsg(true, Message::CREATED_MENU));
     
-    $listFkFieldsTableSelected = TGeneratorHelper::getFKFieldsTablesSelected();
+    $listFkFieldsTableSelected = TGeneratorHelper::listFKFieldsTablesSelected();
 
     $gride = new TGrid('gd'                          // id do gride
                       , Message::GRID_LIST_FK_TITLE  // titulo do gride
@@ -92,9 +93,9 @@ try {
     $gride->addColumn('REFERENCED_TABLE_NAME', 'REFERENCED_TABLE_NAME');
     $gride->addColumn('REFERENCED_COLUMN_NAME', 'REFERENCED_COLUMN_NAME');
     $listFkType = TGeneratorHelper::getFKTypeScreenReferenced(null, null);
-    $gride->addSelectColumn('FK_TYPE_SCREEN_REFERENCED'
+    $gride->addSelectColumn(TableInfo::FK_TYPE_SCREEN_REFERENCED
         , Message::GRID_LIST_FK_COLUMN
-        , 'FK_TYPE_SCREEN_REFERENCED'  //ID no campo na origem dos dados no gride
+        , TableInfo::FK_TYPE_SCREEN_REFERENCED  //ID no campo na origem dos dados no gride
         , $listFkType                  //Array de possível valores
         , 100                           //5: largura do campo em pixel
         , true                         //6: Somente Leitura
