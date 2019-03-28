@@ -17,6 +17,9 @@
  */
 final class TableInfo
 {
+    public const KEY_TYPE = 'KEY_TYPE';
+    public const KEY_TYPE_PK = 'PK';
+    public const KEY_TYPE_FK = 'FOREIGN KEY';
     public const COLUMN_NAME = 'COLUMN_NAME';
     public const DATA_TYPE = 'DATA_TYPE';
     

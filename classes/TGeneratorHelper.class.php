@@ -379,10 +379,16 @@ class TGeneratorHelper
             $formDinType = TCreateForm::convertDataType2FormDinType($dataType);
             $listFieldsTable[TCreateForm::FORMDIN_TYPE_COLUMN_NAME][$key] = $formDinType;
             
-            $columanName = $listFieldsTable[TableInfo::COLUMN_NAME][$key];
-            $fkTypeScreenReferenced = self::getFKTypeScreenReferencedSelected($table, $tableSchema, $columanName);
+            $fkTypeScreenReferenced = null;
+            if($listFieldsTable[TableInfo::KEY_TYPE][$key] == TableInfo::KEY_TYPE_FK){
+                $fkTypeScreenReferenced = TCreateForm::FORM_FKTYPE_SELECT;
+                //$columanName = $listFieldsTable[TableInfo::COLUMN_NAME][$key];
+                //$fkTypeScreenReferenced = self::getFKTypeScreenReferencedSelected($table, $tableSchema, $columanName);
+            }
             $listFieldsTable[TableInfo::FK_TYPE_SCREEN_REFERENCED][$key] = $fkTypeScreenReferenced;
         }
+        d($listFieldsTable);
+        die();
         return $listFieldsTable;
     }
     

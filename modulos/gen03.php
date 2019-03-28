@@ -58,8 +58,7 @@ switch ($acao) {
                     $keyType = $key-1; //change index key
                     $_SESSION[APLICATIVO]['FkFieldsTableSelected']['FK_TYPE_SCREEN_REFERENCED'][$keyType] = $type;
                 }
-                d($_SESSION[APLICATIVO]);//debug
-                //$frm->redirect('gen04.php', 'Redirect realizado com sucesso.', true);
+                $frm->redirect('gen04.php', 'Redirect realizado com sucesso.', true);
             } catch (Exception $e) {
                 $frm->setMessage($e->getMessage());
             }
