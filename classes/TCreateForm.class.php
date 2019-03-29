@@ -15,7 +15,7 @@ if (!defined('EOL')) {
     define('EOL', "\n");
 }
 if (!defined('ESP')) {
-    define('ESP', chr('    '));
+    define('ESP', '    ');
 }
 if (!defined('TAB')) {
     define('TAB', chr(9));
@@ -340,9 +340,9 @@ class TCreateForm
         $this->addLine(ESP.'$frm->addTextField(\''.$fieldName.'TEXT\',\''.$fieldName.'TEXT\',150,true,70,null,false);');
         $this->addLine(ESP.'//setAutoComplete SEMPRE deve ficar depois da definição dos campos de pesquisa e que serão carregados'); 
         $this->addLine(ESP.'$frm->setAutoComplete(\''.$fieldName.'TEXT\'  // 1: nome do campo na tela que será feita a pesquisa');
-        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.'\',\''.$REFERENCED_TABLE_NAME.'\' // Tabela ou View que é a fonte da pesquisa');
-        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.'\','.$fieldName.'TEXT\'	 		// campo de pesquisa');
-        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.'\','.$mixUpDatefields.'\' // 4: campos que serão atualizados ao selecionar o texto <campo_tabela> | <campo_formulario>');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.',\''.$REFERENCED_TABLE_NAME.'\' // Tabela ou View que é a fonte da pesquisa');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.',\''.$fieldName.'TEXT\'	 		// campo de pesquisa');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.',\''.$mixUpDatefields.'\' // 4: campos que serão atualizados ao selecionar o texto <campo_tabela> | <campo_formulario>');
         $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.',true'); 
         $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.',null 		        // 6: campo do formulário que será adicionado como filtro');
         $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.',null				// 7: função javascript de callback');
@@ -368,7 +368,7 @@ class TCreateForm
     private function addFieldNumberOrForenKey($key, $fieldName, $REQUIRED)
     {
         $KEY_TYPE   = self::getColumnsPropertieKeyType($key);
-        if ($KEY_TYPE != TableInfo::KEY_TYPE_PK) {
+        if ($KEY_TYPE != TableInfo::KEY_TYPE_FK) {
             $this->addFieldNumber($key, $fieldName, $REQUIRED);
         } else {            
             $fkTypeScreenReferenced = self::getFkTypeScreenReferenced($key);
