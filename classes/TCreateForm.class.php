@@ -14,6 +14,9 @@
 if (!defined('EOL')) {
     define('EOL', "\n");
 }
+if (!defined('ESP')) {
+    define('ESP', chr('    '));
+}
 if (!defined('TAB')) {
     define('TAB', chr(9));
 }
@@ -313,31 +316,68 @@ class TCreateForm
         }
         $result = empty($result) ? false : $result;
         return $result;
-    }    
+    }
     //--------------------------------------------------------------------------------------
-    private function addFieldNumberOrForenKey($key, $fieldName, $REQUIRED)
+    private function addFieldNumber($key, $fieldName, $REQUIRED)
     {
         $NUM_LENGTH = self::getColumnsPropertieNumLength($key);
         $NUM_SCALE  = self::getColumnsPropertieNumScale($key);
-        $KEY_TYPE   = self::getColumnsPropertieKeyType($key);
-        $REFERENCED_TABLE_NAME = self::getColumnsPropertieReferencedTable($key);
         
+        $this->addLine('$frm->addNumberField(\''.$fieldName.'\', \''.$fieldName.'\','.$NUM_LENGTH.','.$REQUIRED.','.$NUM_SCALE.');');
+        $this->addFieldTypeToolTip($key, $fieldName);
+    }
+    //--------------------------------------------------------------------------------------
+    private function addFieldForenAutoComplete($key, $fieldName, $REQUIRED)
+    {
+        $NUM_LENGTH = self::getColumnsPropertieNumLength($key);
+        $REFERENCED_TABLE_NAME = self::getColumnsPropertieReferencedTable($key);
+        $mixUpDatefields = $fieldName.'|'.$fieldName.','.$fieldName.'TEXT|'.$fieldName.'TEXT';
+            
+        $this->addLine('$frm->addGroupField(\'gpx1'.$fieldName.'\',\''.$fieldName.'\');');
+        $this->addLine(ESP.'$frm->addNumberField(\''.$fieldName.'\',\''.$fieldName.'\','.$NUM_LENGTH.',true,0);');
+        $this->addBlankLine();
+        $this->addLine(ESP.'//ALTERE O CAMPO '.$fieldName.'TEXT para o nome correto da tabela ou view');
+        $this->addLine(ESP.'$frm->addTextField(\''.$fieldName.'TEXT\',\''.$fieldName.'TEXT\',150,true,70,null,false);');
+        $this->addLine(ESP.'//setAutoComplete SEMPRE deve ficar depois da definição dos campos de pesquisa e que serão carregados'); 
+        $this->addLine(ESP.'$frm->setAutoComplete(\''.$fieldName.'TEXT\'  // 1: nome do campo na tela que será feita a pesquisa');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.'\',\''.$REFERENCED_TABLE_NAME.'\' // Tabela ou View que é a fonte da pesquisa');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.'\','.$fieldName.'TEXT\'	 		// campo de pesquisa');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.'\','.$mixUpDatefields.'\' // 4: campos que serão atualizados ao selecionar o texto <campo_tabela> | <campo_formulario>');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.',true'); 
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.',null 		        // 6: campo do formulário que será adicionado como filtro');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.',null				// 7: função javascript de callback');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.',3					// 8: Default 3, numero de caracteres minimos para disparar a pesquisa');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.',500				// 9: Default 1000, tempo após a digitação para disparar a consulta');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.',50					//10: máximo de registros que deverá ser retornado');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.', null, null, null, null');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.', true, null, null, true');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.');');
+        $this->addLine('$frm->closeGroup();');
+    }
+    //--------------------------------------------------------------------------------------
+    private function addFieldForenKeySelectField($key, $fieldName, $REQUIRED)
+    {
+        $REFERENCED_TABLE_NAME = self::getColumnsPropertieReferencedTable($key);
+        $REFERENCED_TABLE_NAME = $this->getTableRefCC($REFERENCED_TABLE_NAME);
+        
+        $this->addLine('$list'.$REFERENCED_TABLE_NAME.' = '.$REFERENCED_TABLE_NAME.'::selectAll();');
+        $this->addLine('$frm->addSelectField(\''.$fieldName.'\', \''.$fieldName.'\','.$REQUIRED.',$list'.$REFERENCED_TABLE_NAME.',null,null,null,null,null,null,\' \',null);');
+        $this->addFieldTypeToolTip($key, $fieldName);
+    }
+    //--------------------------------------------------------------------------------------
+    private function addFieldNumberOrForenKey($key, $fieldName, $REQUIRED)
+    {
+        $KEY_TYPE   = self::getColumnsPropertieKeyType($key);
         if ($KEY_TYPE != TableInfo::KEY_TYPE_PK) {
-            $this->addLine('$frm->addNumberField(\''.$fieldName.'\', \''.$fieldName.'\','.$NUM_LENGTH.','.$REQUIRED.','.$NUM_SCALE.');');
-            $this->addFieldTypeToolTip($key, $fieldName);
-        } else {
-            $REFERENCED_TABLE_NAME = $this->getTableRefCC($REFERENCED_TABLE_NAME);
+            $this->addFieldNumber($key, $fieldName, $REQUIRED);
+        } else {            
             $fkTypeScreenReferenced = self::getFkTypeScreenReferenced($key);
             switch ($fkTypeScreenReferenced) {
-                case self::FORMDIN_TYPE_NUMBER:
-                    $this->addLine('$list'.$REFERENCED_TABLE_NAME.' = '.$REFERENCED_TABLE_NAME.'::selectAll();');
-                    $this->addLine('$frm->addSelectField(\''.$fieldName.'\', \''.$fieldName.'\','.$REQUIRED.',$list'.$REFERENCED_TABLE_NAME.',null,null,null,null,null,null,\' \',null);');
-                    $this->addFieldTypeToolTip($key, $fieldName);
+                case self::FORM_FKTYPE_AUTOCOMPLETE:
+                    $this->addFieldForenAutoComplete($key, $fieldName, $REQUIRED);
                 break;
                 default:
-                    $this->addLine('$list'.$REFERENCED_TABLE_NAME.' = '.$REFERENCED_TABLE_NAME.'::selectAll();');
-                    $this->addLine('$frm->addSelectField(\''.$fieldName.'\', \''.$fieldName.'\','.$REQUIRED.',$list'.$REFERENCED_TABLE_NAME.',null,null,null,null,null,null,\' \',null);');
-                    $this->addFieldTypeToolTip($key, $fieldName);
+                    $this->addFieldForenKeySelectField($key, $fieldName, $REQUIRED);
             }
         }
     }
