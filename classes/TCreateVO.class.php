@@ -14,10 +14,7 @@
 class TCreateVO extends TCreateFileContent
 {
     private $tableName;
-    private $aColumns;
-    private $lines;
-    private $keyColumnName;
-    private $showSchema;
+    private $aColumns = array();
     private $charParam = '?';
     private $listColumnsProperties;
 
@@ -110,6 +107,7 @@ class TCreateVO extends TCreateFileContent
     public function show($print = false)
     {
         $this->addLine('<?php');
+        $this->addSysGenHeaderNote();
         $this->addLine('class '.ucfirst($this->getTableName()).'VO');
         $this->addLine('{');
         $cols='';
