@@ -20,6 +20,12 @@ class TCreateFileContent
     {
     }
     //--------------------------------------------------------------------------------------
+    /**
+     * Set path folder without fileName
+     *
+     * @param string $filePath
+     * @return void
+     */
     public function setFilePath($filePath)
     {
         if (empty($filePath)) {
