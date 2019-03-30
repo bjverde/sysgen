@@ -10,15 +10,6 @@
  * PHP Version 5.6
  */
 
-if (!defined('EOL')) {
-    define('EOL', "\n");
-}
-if (!defined('TAB')) {
-    define('TAB', chr(9));
-}
-if (!defined('DS')) {
-    define('DS', DIRECTORY_SEPARATOR);
-}
 class TCreateAutoload extends TCreateFileContent
 {
 
@@ -40,9 +31,9 @@ class TCreateAutoload extends TCreateFileContent
         $this->addSysGenHeaderNote();
         $this->addBlankLine();
         $this->addLine('if ( !function_exists( \''.$autoloadName.'\') ) {');
-        $this->addLine(TAB.'function '.$autoloadName.'( $class_name )	{');
-        $this->addLine(TAB.TAB.'require_once $class_name . \'.class.php\';');
-        $this->addLine(TAB.'}');
+        $this->addLine(ESP.'function '.$autoloadName.'( $class_name )	{');
+        $this->addLine(ESP.ESP.'require_once $class_name . \'.class.php\';');
+        $this->addLine(ESP.'}');
         $this->addLine('spl_autoload_register(\''.$autoloadName.'\');');
         $this->addLine('}');
         if ($print) {

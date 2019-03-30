@@ -10,20 +10,6 @@
  * PHP Version 5.6
  */
 
-
-if (!defined('EOL')) {
-    define('EOL', "\n");
-}
-if (!defined('ESP')) {
-    define('ESP', '    ');
-}
-if (!defined('TAB')) {
-    define('TAB', chr(9));
-}
-if (!defined('DS')) {
-    define('DS', DIRECTORY_SEPARATOR);
-}
-
 class TCreateForm
 {
     private $formTitle;
