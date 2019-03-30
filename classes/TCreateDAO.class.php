@@ -143,63 +143,6 @@ class TCreateDAO
         $this->addLine('');
     }
     //--------------------------------------------------------------------------------------
-    public function showVO($print = false)
-    {
-        $this->addLine('<?php');
-        $this->addLine("class ".ucfirst($this->getTableName())."VO {");
-        $cols='';
-        $sets='';
-        foreach ($this->getColumns() as $k => $v) {
-            $this->addLine(TAB.'private $'.$v.' = null;');
-            $cols .= $cols == '' ? '' : ', ';
-            $cols .='$'.$v.'=null';
-            $sets .= ($k == 0 ? '' : EOL ).TAB.TAB.'$this->set'.ucFirst($v).'( $'.$v.' );';
-        }
-        $this->addLine(TAB.'public function __construct( '.$cols.' ) {');
-        $this->addLine($sets);
-        $this->addLine(TAB.'}');
-        $this->addLine();
-        foreach ($this->getColumns() as $k => $v) {
-            $this->addLine(TAB.'public function set'.ucfirst($v).'( $strNewValue = null )');
-            $this->addLine(TAB."{");
-            if (preg_match('/cpf|cnpj/i', $v) > 0) {
-                $this->addLine(TAB.TAB.'$this->'.$v.' = preg_replace(\'/[^0-9]/\',\'\',$strNewValue);');
-            } else {
-                $this->addLine(TAB.TAB.'$this->'.$v.' = $strNewValue;');
-            }
-            $this->addLine(TAB."}");
-            $this->addLine(TAB.'public function get'.ucfirst($v).'()');
-            $this->addLine(TAB."{");
-            if (preg_match('/^data?_/i', $v) == 1) {
-                $this->addLine(TAB.TAB."return is_null( \$this->{$v} ) ? date( 'Y-m-d h:i:s' ) : \$this->{$v};");
-            } else {
-                $this->addLine(TAB.TAB.'return $this->'.$v.';');
-            }
-            $this->addLine(TAB."}");
-            $this->addLine();
-        }
-        $this->addLine("}");
-        $this->addLine('?>');
-        if ($print) {
-            echo trim(implode($this->lines));
-        } else {
-            return trim(implode($this->lines));
-        }
-    }
-    
-    //--------------------------------------------------------------------------------------
-    public function saveVO($fileName = null)
-    {
-        $fileName = $this->path.( is_null($fileName) ? ucfirst($this->getTableName()).'VO.class.php' : $tableName);
-        
-        if ($fileName) {
-            if (file_exists($fileName)) {
-                unlink($fileName);
-            }
-            file_put_contents($fileName, $this->showVO(false));
-        }
-    }
-    //--------------------------------------------------------------------------------------
     /***
      * Create variable with string sql basica
      **/

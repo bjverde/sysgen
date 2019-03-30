@@ -293,6 +293,12 @@ class TGeneratorHelper
         $configDBMS  = self::getConfigByDBMS($DBMS);
         $folder      = self::getPathNewSystem().DS.'dao'.DS;
         $listColumns = $listColumnsProperties['COLUMN_NAME'];
+
+        $vo = new TCreateVO($folder,$tableName, $listColumnsProperties,$configDBMS);
+        $vo->saveFile();
+
+
+        
         $columnPrimaryKey = $listColumns[0];
         $generatorDao     = new TCreateDAO($tableName, $columnPrimaryKey, $folder);
         $generatorDao->setTableType($tableType);
@@ -303,8 +309,7 @@ class TGeneratorHelper
         $generatorDao->setWithSqlPagination($configDBMS['TPGRID']);
         $generatorDao->setTableSchema($tableSchema);
         $generatorDao->setListColumnsProperties($listColumnsProperties);
-        $generatorDao->saveVO();
-        $generatorDao->saveDAO();
+        $generatorDao->saveDAO();        
     }
     
     public static function createFilesForms($tableName, $listColumnsProperties, $tableSchema, $tableType)
