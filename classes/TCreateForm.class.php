@@ -10,20 +10,6 @@
  * PHP Version 5.6
  */
 
-
-if (!defined('EOL')) {
-    define('EOL', "\n");
-}
-if (!defined('ESP')) {
-    define('ESP', '    ');
-}
-if (!defined('TAB')) {
-    define('TAB', chr(9));
-}
-if (!defined('DS')) {
-    define('DS', DIRECTORY_SEPARATOR);
-}
-
 class TCreateForm
 {
     private $formTitle;
@@ -173,7 +159,7 @@ class TCreateForm
     //--------------------------------------------------------------------------------------
     private function addLine($strNewValue = null, $boolNewLine = true)
     {
-        $strNewValue = is_null($strNewValue) ? TAB.'//' . str_repeat('-', 80) : $strNewValue;
+        $strNewValue = is_null($strNewValue) ? ESP.'//' . str_repeat('-', 80) : $strNewValue;
         $this->lines[] = $strNewValue.( $boolNewLine ? EOL : '');
     }
     //--------------------------------------------------------------------------------------
@@ -224,7 +210,7 @@ class TCreateForm
         if (ArrayHelper::has('REQUIRED', $this->listColumnsProperties)) {
             $result = $this->listColumnsProperties['REQUIRED'][$key];
         }
-        return $result;
+        return strtolower($result);
     }
     //--------------------------------------------------------------------------------------
     private function getColumnsPropertieDataType($key)
@@ -428,71 +414,71 @@ class TCreateForm
         $logType = ArrayHelper::getDefaultValeu($_SESSION[APLICATIVO], 'logType', 2);
         if ($logType == 2) {
             $this->addLine($qtdTab.'catch (DomainException $e) {');
-            $this->addLine($qtdTab.TAB.'$frm->setMessage( $e->getMessage() );');
+            $this->addLine($qtdTab.ESP.'$frm->setMessage( $e->getMessage() );');
             $this->addLine($qtdTab.'}');
         }
         $this->addLine($qtdTab.'catch (Exception $e) {');
         if (($logType == 1) || ($logType == 2)) {
-            $this->addLine($qtdTab.TAB.'MessageHelper::logRecord($e);');
+            $this->addLine($qtdTab.ESP.'MessageHelper::logRecord($e);');
         }
-        $this->addLine($qtdTab.TAB.'$frm->setMessage( $e->getMessage() );');
+        $this->addLine($qtdTab.ESP.'$frm->setMessage( $e->getMessage() );');
         $this->addLine($qtdTab.'}');
     }
     //--------------------------------------------------------------------------------------
     private function addBasicaViewController_salvar()
     {
-        $this->addLine(TAB.'case \'Salvar\':');
-        $this->addLine(TAB.TAB.'try{');
-        $this->addLine(TAB.TAB.TAB.'if ( $frm->validate() ) {');
-        $this->addLine(TAB.TAB.TAB.TAB.'$vo = new '.$this->tableRefVO.'();');
-        $this->addLine(TAB.TAB.TAB.TAB.'$frm->setVo( $vo );');
-        $this->addLine(TAB.TAB.TAB.TAB.'$resultado = '.$this->tableRefClass.'::save( $vo );');
-        $this->addLine(TAB.TAB.TAB.TAB.'if($resultado==1) {');
-        $this->addLine(TAB.TAB.TAB.TAB.TAB.'$frm->setMessage(\'Registro gravado com sucesso!!!\');');
-        $this->addLine(TAB.TAB.TAB.TAB.TAB.'$frm->clearFields();');
-        $this->addLine(TAB.TAB.TAB.TAB.'}else{');
-        $this->addLine(TAB.TAB.TAB.TAB.TAB.'$frm->setMessage($resultado);');
-        $this->addLine(TAB.TAB.TAB.TAB.'}');
-        $this->addLine(TAB.TAB.TAB.'}');
-        $this->addLine(TAB.TAB.'}');
-        $this->addBasicViewController_logCatch(TAB.TAB);
-        $this->addLine(TAB.'break;');
+        $this->addLine(ESP.'case \'Salvar\':');
+        $this->addLine(ESP.ESP.'try{');
+        $this->addLine(ESP.ESP.ESP.'if ( $frm->validate() ) {');
+        $this->addLine(ESP.ESP.ESP.ESP.'$vo = new '.$this->tableRefVO.'();');
+        $this->addLine(ESP.ESP.ESP.ESP.'$frm->setVo( $vo );');
+        $this->addLine(ESP.ESP.ESP.ESP.'$resultado = '.$this->tableRefClass.'::save( $vo );');
+        $this->addLine(ESP.ESP.ESP.ESP.'if($resultado==1) {');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.'$frm->setMessage(\'Registro gravado com sucesso!!!\');');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.'$frm->clearFields();');
+        $this->addLine(ESP.ESP.ESP.ESP.'}else{');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.'$frm->setMessage($resultado);');
+        $this->addLine(ESP.ESP.ESP.ESP.'}');
+        $this->addLine(ESP.ESP.ESP.'}');
+        $this->addLine(ESP.ESP.'}');
+        $this->addBasicViewController_logCatch(ESP.ESP);
+        $this->addLine(ESP.'break;');
     }
     //--------------------------------------------------------------------------------------
     private function addBasicaViewController_buscar()
     {
         $this->addLine();
-        $this->addLine(TAB.'case \'Buscar\':');
-        $this->addGetWhereGridParametersArray(TAB.TAB);
-        $this->addLine(TAB.TAB.'$whereGrid = $retorno;');
-        $this->addLine(TAB.'break;');
+        $this->addLine(ESP.'case \'Buscar\':');
+        $this->addGetWhereGridParametersArray(ESP.ESP);
+        $this->addLine(ESP.ESP.'$whereGrid = $retorno;');
+        $this->addLine(ESP.'break;');
     }
     //--------------------------------------------------------------------------------------
     private function addBasicaViewController_limpar()
     {
         $this->addLine();
-        $this->addLine(TAB.'case \'Limpar\':');
-        $this->addLine(TAB.TAB.'$frm->clearFields();');
-        $this->addLine(TAB.'break;');
+        $this->addLine(ESP.'case \'Limpar\':');
+        $this->addLine(ESP.ESP.'$frm->clearFields();');
+        $this->addLine(ESP.'break;');
     }
     //--------------------------------------------------------------------------------------
     private function addBasicaViewController_gdExcluir()
     {
         $this->addLine();
-        $this->addLine(TAB.'case \'gd_excluir\':');
-        $this->addLine(TAB.TAB.'try{');
-        $this->addLine(TAB.TAB.TAB.'$id = $frm->get( $primaryKey ) ;');
-        $this->addLine(TAB.TAB.TAB.'$resultado = '.$this->tableRefClass.'::delete( $id );;');
-        $this->addLine(TAB.TAB.TAB.'if($resultado==1) {');
-        $this->addLine(TAB.TAB.TAB.TAB.'$frm->setMessage(\'Registro excluido com sucesso!!!\');');
-        $this->addLine(TAB.TAB.TAB.TAB.'$frm->clearFields();');
-        $this->addLine(TAB.TAB.TAB.'}else{');
-        $this->addLine(TAB.TAB.TAB.TAB.'$frm->clearFields();');
-        $this->addLine(TAB.TAB.TAB.TAB.'$frm->setMessage($resultado);');
-        $this->addLine(TAB.TAB.TAB.'}');
-        $this->addLine(TAB.TAB.'}');
-        $this->addBasicViewController_logCatch(TAB.TAB);
-        $this->addLine(TAB.'break;');
+        $this->addLine(ESP.'case \'gd_excluir\':');
+        $this->addLine(ESP.ESP.'try{');
+        $this->addLine(ESP.ESP.ESP.'$id = $frm->get( $primaryKey ) ;');
+        $this->addLine(ESP.ESP.ESP.'$resultado = '.$this->tableRefClass.'::delete( $id );;');
+        $this->addLine(ESP.ESP.ESP.'if($resultado==1) {');
+        $this->addLine(ESP.ESP.ESP.ESP.'$frm->setMessage(\'Registro excluido com sucesso!!!\');');
+        $this->addLine(ESP.ESP.ESP.ESP.'$frm->clearFields();');
+        $this->addLine(ESP.ESP.ESP.'}else{');
+        $this->addLine(ESP.ESP.ESP.ESP.'$frm->clearFields();');
+        $this->addLine(ESP.ESP.ESP.ESP.'$frm->setMessage($resultado);');
+        $this->addLine(ESP.ESP.ESP.'}');
+        $this->addLine(ESP.ESP.'}');
+        $this->addBasicViewController_logCatch(ESP.ESP);
+        $this->addLine(ESP.'break;');
     }
     //--------------------------------------------------------------------------------------
     private function addBasicaViewController()
@@ -516,9 +502,9 @@ class TCreateForm
         if ($this->validateListColumnsName()) {
             $this->addLine($qtdTab.'$mixUpdateFields = $primaryKey.\'|\'.$primaryKey');
             foreach ($this->listColumnsName as $value) {
-                $this->addLine($qtdTab.TAB.TAB.TAB.TAB.'.\','.$value.'|'.$value.'\'');
+                $this->addLine($qtdTab.ESP.ESP.ESP.ESP.'.\','.$value.'|'.$value.'\'');
             }
-            $this->addLine($qtdTab.TAB.TAB.TAB.TAB.';');
+            $this->addLine($qtdTab.ESP.ESP.ESP.ESP.';');
         }
     }
     //--------------------------------------------------------------------------------------
@@ -553,8 +539,8 @@ class TCreateForm
     public function addGetWhereGridParametersArray($qtdTabs)
     {
         $this->addLine($qtdTabs.'$retorno = array(');
-        $this->addGetWhereGridParameters_fied(true, $this->getPrimaryKeyTable(), $qtdTabs.TAB.TAB);
-        $this->addgetWhereGridParametersFields($qtdTabs.TAB.TAB);
+        $this->addGetWhereGridParameters_fied(true, $this->getPrimaryKeyTable(), $qtdTabs.ESP.ESP);
+        $this->addgetWhereGridParametersFields($qtdTabs.ESP.ESP);
         $this->addLine($qtdTabs.');');
     }
     //--------------------------------------------------------------------------------------
@@ -562,12 +548,13 @@ class TCreateForm
     {
         if ($this->validateListColumnsName()) {
             $this->addBlankLine();
-            $this->addLine('function getWhereGridParameters(&$frm){');
-            $this->addLine(TAB.'$retorno = null;');
-            $this->addLine(TAB.'if($frm->get(\'BUSCAR\') == 1 ){');
-            $this->addGetWhereGridParametersArray(TAB.TAB);
-            $this->addLine(TAB.'}');
-            $this->addLine(TAB.'return $retorno;');
+            $this->addLine('function getWhereGridParameters(&$frm)');
+            $this->addLine('{');
+            $this->addLine(ESP.'$retorno = null;');
+            $this->addLine(ESP.'if($frm->get(\'BUSCAR\') == 1 ){');
+            $this->addGetWhereGridParametersArray(ESP.ESP);
+            $this->addLine(ESP.'}');
+            $this->addLine(ESP.'return $retorno;');
             $this->addLine('}');
         }
     }
@@ -604,27 +591,27 @@ class TCreateForm
     {
         if ($this->validateListColumnsName()) {
             $this->addLine($qtdTab.'var Parameters = {"BUSCAR":""');
-            $this->addGridPagination_jsScript_init_parameter(false, $this->getPrimaryKeyTable(),$qtdTab.TAB.TAB.TAB.TAB);
+            $this->addGridPagination_jsScript_init_parameter(false, $this->getPrimaryKeyTable(),$qtdTab.ESP.ESP.ESP.ESP);
             foreach ($this->listColumnsName as $value) {
-                $this->addGridPagination_jsScript_init_parameter(false, $value,$qtdTab.TAB.TAB.TAB.TAB);
+                $this->addGridPagination_jsScript_init_parameter(false, $value,$qtdTab.ESP.ESP.ESP.ESP);
             }
-            $this->addLine($qtdTab.TAB.TAB.TAB.TAB.'};');
+            $this->addLine($qtdTab.ESP.ESP.ESP.ESP.'};');
         }
     }
     //--------------------------------------------------------------------------------------
     public function addGridPagination_jsScript_init()
     {
         $this->addLine('function init() {');
-        $this->addGridPagination_jsScript_init_allparameters(TAB);
-        $this->addLine(TAB.'fwGetGrid(\''.$this->formFileName.'\',\'gride\',Parameters,true);');
+        $this->addGridPagination_jsScript_init_allparameters(ESP);
+        $this->addLine(ESP.'fwGetGrid(\''.$this->formFileName.'\',\'gride\',Parameters,true);');
         $this->addLine('}');
     }
     //--------------------------------------------------------------------------------------
     public function addGridPagination_jsScript_buscar()
     {
         $this->addLine('function buscar() {');
-        $this->addLine(TAB.'jQuery("#BUSCAR").val(1);');
-        $this->addLine(TAB.'init();');
+        $this->addLine(ESP.'jQuery("#BUSCAR").val(1);');
+        $this->addLine(ESP.'init();');
         $this->addLine('}');
     }
     //--------------------------------------------------------------------------------------
@@ -648,40 +635,40 @@ class TCreateForm
             $this->addGetWhereGridParameters();
             $this->addBlankLine();
             $this->addLine('if( isset( $_REQUEST[\'ajax\'] )  && $_REQUEST[\'ajax\'] ) {');
-            $this->addLine(TAB.'$maxRows = ROWS_PER_PAGE;');
-            $this->addLine(TAB.'$whereGrid = getWhereGridParameters($frm);');
+            $this->addLine(ESP.'$maxRows = ROWS_PER_PAGE;');
+            $this->addLine(ESP.'$whereGrid = getWhereGridParameters($frm);');
             if ($this->gridType == GRID_SQL_PAGINATION) {
-                $this->addLine(TAB.'$page = PostHelper::get(\'page\');');
-                $this->addLine(TAB.'$dados = '.$this->tableRefClass.'::selectAllPagination( $primaryKey, $whereGrid, $page,  $maxRows);');
-                $this->addLine(TAB.'$realTotalRowsSqlPaginator = '.$this->tableRefClass.'::selectCount( $whereGrid );');
+                $this->addLine(ESP.'$page = PostHelper::get(\'page\');');
+                $this->addLine(ESP.'$dados = '.$this->tableRefClass.'::selectAllPagination( $primaryKey, $whereGrid, $page,  $maxRows);');
+                $this->addLine(ESP.'$realTotalRowsSqlPaginator = '.$this->tableRefClass.'::selectCount( $whereGrid );');
             } elseif ($this->gridType == GRID_SCREEN_PAGINATION) {
-                $this->addLine(TAB.'$dados = '.$this->tableRefClass.'::selectAll( $primaryKey, $whereGrid );');
+                $this->addLine(ESP.'$dados = '.$this->tableRefClass.'::selectAll( $primaryKey, $whereGrid );');
             }
-            $this->getMixUpdateFields(TAB);
-            $this->addLine(TAB.'$gride = new TGrid( \'gd\'                        // id do gride');
+            $this->getMixUpdateFields(ESP);
+            $this->addLine(ESP.'$gride = new TGrid( \'gd\'                        // id do gride');
             if ($this->gridType == GRID_SQL_PAGINATION) {
-                $this->addLine(TAB.'				   ,\'Gride with SQL Pagination. Qtd:\'.$realTotalRowsSqlPaginator // titulo do gride');
+                $this->addLine(ESP.'				   ,\'Gride with SQL Pagination. Qtd:\'.$realTotalRowsSqlPaginator // titulo do gride');
             }else{
-                $this->addLine(TAB.'				   ,\'Gride with SQL Pagination\' // titulo do gride');
+                $this->addLine(ESP.'				   ,\'Gride with SQL Pagination\' // titulo do gride');
             }
-            $this->addLine(TAB.'				   );');
-            $this->addLine(TAB.'$gride->addKeyField( $primaryKey ); // chave primaria');
-            $this->addLine(TAB.'$gride->setData( $dados ); // array de dados');
+            $this->addLine(ESP.'				   );');
+            $this->addLine(ESP.'$gride->addKeyField( $primaryKey ); // chave primaria');
+            $this->addLine(ESP.'$gride->setData( $dados ); // array de dados');
             if ($this->gridType == GRID_SQL_PAGINATION) {
-                $this->addLine(TAB.'$gride->setRealTotalRowsSqlPaginator( $realTotalRowsSqlPaginator );');
+                $this->addLine(ESP.'$gride->setRealTotalRowsSqlPaginator( $realTotalRowsSqlPaginator );');
             }
-            $this->addLine(TAB.'$gride->setMaxRows( $maxRows );');
-            $this->addLine(TAB.'$gride->setUpdateFields($mixUpdateFields);');
-            $this->addLine(TAB.'$gride->setUrl( \''.$this->getFormFileName().'\' );');
+            $this->addLine(ESP.'$gride->setMaxRows( $maxRows );');
+            $this->addLine(ESP.'$gride->setUpdateFields($mixUpdateFields);');
+            $this->addLine(ESP.'$gride->setUrl( \''.$this->getFormFileName().'\' );');
             $this->addBlankLine();
-            $this->addColumnsGrid(TAB);
+            $this->addColumnsGrid(ESP);
             $this->addBlankLine();
             if ($this->getTableType() == TGeneratorHelper::TABLE_TYPE_VIEW) {
-                $this->addLine(TAB.'$gride->enableDefaultButtons(false);');
+                $this->addLine(ESP.'$gride->enableDefaultButtons(false);');
             }
             $this->addBlankLine();
-            $this->addLine(TAB.'$gride->show();');
-            $this->addLine(TAB.'die();');
+            $this->addLine(ESP.'$gride->show();');
+            $this->addLine(ESP.'die();');
             $this->addLine('}');
             $this->addBlankLine();
             $this->addLine('$frm->addHtmlField(\'gride\');');

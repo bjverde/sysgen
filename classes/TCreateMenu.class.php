@@ -10,16 +10,6 @@
  * PHP Version 5.6
  */
 
-if (!defined('EOL')) {
-    define('EOL', "\n");
-}
-if (!defined('TAB')) {
-    define('TAB', chr(9));
-}
-if (!defined('DS')) {
-    define('DS', DIRECTORY_SEPARATOR);
-}
-
 class TCreateMenu extends TCreateFileContent
 {
     private $listTableNames;

@@ -10,15 +10,6 @@
  * PHP Version 5.6
  */
 
-if (!defined('EOL')) {
-    define('EOL', "\n");
-}
-if (!defined('TAB')) {
-    define('TAB', chr(9));
-}
-if (!defined('DS')) {
-    define('DS', DIRECTORY_SEPARATOR);
-}
 
 class TCreateIndex extends TCreateFileContent
 {
@@ -41,6 +32,7 @@ class TCreateIndex extends TCreateFileContent
         $this->addLine('//FormDin version: '.FORMDIN_VERSION);
         $this->addLine('require_once(\'../base/classes/webform/TApplication.class.php\');');
         $this->addLine('require_once(\'classes/autoload_'.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].'.php\');');
+        $this->addLine('require_once(\'dao/autoload_'.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].'_dao.php\');');
         $this->addBlankLine();
         $this->addBlankLine();
         $this->addLine('$app = new TApplication(); // criar uma instancia do objeto aplicacao');

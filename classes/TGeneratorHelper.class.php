@@ -209,6 +209,9 @@ class TGeneratorHelper
     {
         $file = new TCreateAutoload();
         $file->saveFile();
+
+        $file = new CreateAutoloadDAO();
+        $file->saveFile();
     }
     
     public static function createFileMenu($listTable)

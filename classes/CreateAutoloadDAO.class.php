@@ -10,7 +10,7 @@
  * PHP Version 5.6
  */
 
-class TCreateAutoload extends TCreateFileContent
+class CreateAutoloadDAO extends TCreateFileContent
 {
 
     private $gen_system_acronym;
@@ -18,14 +18,14 @@ class TCreateAutoload extends TCreateFileContent
     public function __construct()
     {
         $this->gen_system_acronym = $_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
-        $this->setFileName('autoload_'.$this->gen_system_acronym.'.php');
-        $path = TGeneratorHelper::getPathNewSystem().DS.'classes'.DS;
+        $this->setFileName('autoload_'.$this->gen_system_acronym.'_dao.php');
+        $path = TGeneratorHelper::getPathNewSystem().DS.'dao'.DS;
         $this->setFilePath($path);
     }
     //--------------------------------------------------------------------------------------
     public function show($print = false)
     {
-        $autoloadName = $this->gen_system_acronym.'_autoload';
+        $autoloadName = $this->gen_system_acronym.'_dao_autoload';
         $this->lines=null;
         $this->addLine('<?php');
         $this->addSysGenHeaderNote();

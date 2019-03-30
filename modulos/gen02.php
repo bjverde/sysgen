@@ -70,9 +70,9 @@ try {
     $html->add('<br>');
     $html->add(Message::SEL_TABLES_GENERATE);
     
-    $gride = new TGrid('gd'        // id do gride
-, 'Lista de Tabelas'     // titulo do gride
-, $listTablesAll);           // array de dados
+    $gride = new TGrid('gd'                 // id do gride
+                      , 'Lista de Tabelas'  // titulo do gride
+                      , $listTablesAll);    // array de dados
 
     $gride->setCreateDefaultEditButton(false);
     $gride->setCreateDefaultDeleteButton(false);

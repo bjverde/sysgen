@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * SysGen - System Generator with Formdin Framework
  * Download Formdin Framework: https://github.com/bjverde/formDin
@@ -95,7 +95,7 @@ try {
     $gride->addSelectColumn(TableInfo::FK_TYPE_SCREEN_REFERENCED
         , Message::GRID_LIST_FK_COLUMN
         , TableInfo::FK_TYPE_SCREEN_REFERENCED  //ID no campo na origem dos dados no gride
-        , $listFkType                  //Array de possível valores
+        , $listFkType                  //Array de possĂ­vel valores
         , 100                           //5: largura do campo em pixel
         , true                         //6: Somente Leitura
         , ''                           //7: Label do Primeiro elemento
