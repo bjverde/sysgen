@@ -11,38 +11,25 @@
  */
 
 
- /**
- *  AINDA NÃO ESTÁ PRONTO
- *
- * @todo   terminar TCreateVO e remover VO da TCreateDAO
- * @author bjverte
- */
 class TCreateVO extends TCreateFileContent
 {
     private $tableName;
     private $aColumns;
     private $lines;
     private $keyColumnName;
-    private $path;
-    private $databaseManagementSystem;
     private $showSchema;
-    private $withSqlPagination;
     private $charParam = '?';
     private $listColumnsProperties;
 
-    public function __construct($strTableName = null, $strkeyColumnName = null, $strPath = null, $databaseManagementSystem = null)
+    public function __construct($pathFolder ,$tableName ,$listColumnsProperties ,$databaseManagementSystem)
     {
-        $tableRef = strtolower($tableRef);
-        $this->setTableName($strTableName);
-        $this->setFileName(ucfirst($tableRef).'VO.class.php');
-        $path = TGeneratorHelper::getPathNewSystem().DS.'dao'.DS;
-        $this->setFilePath($path);
+        $tableName = strtolower($tableName);
+        $this->setTableName($tableName);
+        $this->setFileName(ucfirst($tableName).'VO.class.php');
+        $this->setFilePath($pathFolder);
+        $this->setListColumnsProperties($listColumnsProperties);
+        $this->configArrayColumns();
         
-        $this->aColumns=array();
-        $this->setTableName($strTableName);
-        $this->keyColumnName = $strkeyColumnName;
-        $this->path = $strPath;
-        $this->databaseManagementSystem = strtoupper($databaseManagementSystem);
         if ($databaseManagementSystem == DBMS_POSTGRES) {
             $this->charParam = '$1';
         }
@@ -59,64 +46,9 @@ class TCreateVO extends TCreateFileContent
         return $this->tableName;
     }
     //------------------------------------------------------------------------------------
-    public function getKeyColumnName()
-    {
-        return $this->keyColumnName;
-    }
-    //------------------------------------------------------------------------------------
-    public function setDatabaseManagementSystem($databaseManagementSystem)
-    {
-        return $this->databaseManagementSystem = strtoupper($databaseManagementSystem);
-    }
-    //------------------------------------------------------------------------------------
-    public function getDatabaseManagementSystem()
-    {
-        return $this->databaseManagementSystem;
-    }
-    //------------------------------------------------------------------------------------
-    public function setShowSchema($showSchema)
-    {
-        return $this->showSchema = $showSchema;
-    }
-    //------------------------------------------------------------------------------------
-    public function getShowSchema()
-    {
-        return $this->showSchema;
-    }
-    //------------------------------------------------------------------------------------
-    public function hasSchema()
-    {
-        $result = '';
-        if ($this->getShowSchema() == true) {
-            $result = '\'.SCHEMA.\'';
-        }
-        return $result;
-    }
-    //------------------------------------------------------------------------------------
-    public function setWithSqlPagination($withSqlPagination)
-    {
-        return $this->withSqlPagination = $withSqlPagination;
-    }
-    //------------------------------------------------------------------------------------
-    public function getWithSqlPagination()
-    {
-        return $this->withSqlPagination;
-    }
-    //------------------------------------------------------------------------------------
     public function getCharParam()
     {
         return $this->charParam;
-    }
-    //------------------------------------------------------------------------------------
-    public function getLinesArray()
-    {
-        return $this->lines;
-    }
-    //------------------------------------------------------------------------------------
-    public function getLinesString()
-    {
-        $string = implode($this->lines);
-        return trim($string);
     }
     //------------------------------------------------------------------------------------
     public function addColumn($strColumnName)
@@ -143,47 +75,62 @@ class TCreateVO extends TCreateFileContent
         return $this->listColumnsProperties;
     }
     //--------------------------------------------------------------------------------------
+    protected function configArrayColumns()
+    {
+        $listColumnsProperties = $this->getListColumnsProperties();
+        $listColumns = $listColumnsProperties['COLUMN_NAME'];
+        foreach ($listColumns as $v) {
+            $this->addColumn($v);
+        }
+    }
+    //--------------------------------------------------------------------------------------
+    protected function addGettersAndSetters()
+    {
+        foreach ($this->getColumns() as $v) {
+            $this->addLine(ESP.'public function set'.ucfirst($v).'( $strNewValue = null )');
+            $this->addLine(ESP."{");
+            if (preg_match('/cpf|cnpj/i', $v) > 0) {
+                $this->addLine(ESP.ESP.'$this->'.$v.' = preg_replace(\'/[^0-9]/\',\'\',$strNewValue);');
+            } else {
+                $this->addLine(ESP.ESP.'$this->'.$v.' = $strNewValue;');
+            }
+            $this->addLine(ESP."}");
+            $this->addLine(ESP.'public function get'.ucfirst($v).'()');
+            $this->addLine(ESP."{");
+            if (preg_match('/^data?_/i', $v) == 1) {
+                $this->addLine(ESP.ESP."return is_null( \$this->{$v} ) ? date( 'Y-m-d h:i:s' ) : \$this->{$v};");
+            } else {
+                $this->addLine(ESP.ESP.'return $this->'.$v.';');
+            }
+            $this->addLine(ESP."}");
+            $this->addLine();
+        }
+    }
+    //--------------------------------------------------------------------------------------
     public function show($print = false)
     {
         $this->addLine('<?php');
-        $this->addLine("class ".ucfirst($this->getTableName())."VO {");
+        $this->addLine('class '.ucfirst($this->getTableName()).'VO');
+        $this->addLine('{');
         $cols='';
         $sets='';
         foreach ($this->getColumns() as $k => $v) {
-            $this->addLine(TAB.'private $'.$v.' = null;');
+            $this->addLine(ESP.'private $'.$v.' = null;');
             $cols .= $cols == '' ? '' : ', ';
             $cols .='$'.$v.'=null';
-            $sets .= ($k == 0 ? '' : EOL ).TAB.TAB.'$this->set'.ucFirst($v).'( $'.$v.' );';
+            $sets .= ($k == 0 ? '' : EOL ).ESP.ESP.'$this->set'.ucFirst($v).'( $'.$v.' );';
         }
-        $this->addLine(TAB.'public function __construct( '.$cols.' ) {');
+        $this->addLine(ESP.'public function __construct( '.$cols.' ) {');
         $this->addLine($sets);
-        $this->addLine(TAB.'}');
+        $this->addLine(ESP.'}');
         $this->addLine();
-        foreach ($this->getColumns() as $k => $v) {
-            $this->addLine(TAB.'public function set'.ucfirst($v).'( $strNewValue = null )');
-            $this->addLine(TAB."{");
-            if (preg_match('/cpf|cnpj/i', $v) > 0) {
-                $this->addLine(TAB.TAB.'$this->'.$v.' = preg_replace(\'/[^0-9]/\',\'\',$strNewValue);');
-            } else {
-                $this->addLine(TAB.TAB.'$this->'.$v.' = $strNewValue;');
-            }
-            $this->addLine(TAB."}");
-            $this->addLine(TAB.'public function get'.ucfirst($v).'()');
-            $this->addLine(TAB."{");
-            if (preg_match('/^data?_/i', $v) == 1) {
-                $this->addLine(TAB.TAB."return is_null( \$this->{$v} ) ? date( 'Y-m-d h:i:s' ) : \$this->{$v};");
-            } else {
-                $this->addLine(TAB.TAB.'return $this->'.$v.';');
-            }
-            $this->addLine(TAB."}");
-            $this->addLine();
-        }
+        $this->addGettersAndSetters();
         $this->addLine("}");
         $this->addLine('?>');
         if ($print) {
-            echo trim(implode($this->lines));
+            echo $this->getLinesString();
         } else {
-            return trim(implode($this->lines));
+            return $this->getLinesString();
         }
     }
 }
