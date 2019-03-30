@@ -75,13 +75,15 @@ class TCreateClass extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     private function addConstruct()
     {
-        $this->addLine(ESP.'public function __construct(){');
+        $this->addLine(ESP.'public function __construct()');
+        $this->addLine(ESP.'{');
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     private function addSelectById()
     {
-        $this->addLine(ESP.'public static function selectById( $id ){');
+        $this->addLine(ESP.'public static function selectById( $id )');
+        $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$result = '.$this->tableRefDAO.'::selectById( $id );');
         $this->addLine(ESP.ESP.'return $result;');
         $this->addLine(ESP.'}');
@@ -89,7 +91,8 @@ class TCreateClass extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     private function addSelectCount()
     {
-        $this->addLine(ESP.'public static function selectCount( $where=null ){');
+        $this->addLine(ESP.'public static function selectCount( $where=null )');
+        $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$result = '.$this->tableRefDAO.'::selectCount( $where );');
         $this->addLine(ESP.ESP.'return $result;');
         $this->addLine(ESP.'}');
@@ -97,7 +100,8 @@ class TCreateClass extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     private function addSelectAllPagination()
     {
-        $this->addLine(ESP.'public static function selectAllPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null){');
+        $this->addLine(ESP.'public static function selectAllPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null)');
+        $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$result = '.$this->tableRefDAO.'::selectAllPagination( $orderBy, $where, $page,  $rowsPerPage );');
         $this->addLine(ESP.ESP.'return $result;');
         $this->addLine(ESP.'}');
@@ -105,7 +109,8 @@ class TCreateClass extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     private function addSelectAll()
     {
-        $this->addLine(ESP.'public static function selectAll( $orderBy=null, $where=null ){');
+        $this->addLine(ESP.'public static function selectAll( $orderBy=null, $where=null )');
+        $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$result = '.$this->tableRefDAO.'::selectAll( $orderBy, $where );');
         $this->addLine(ESP.ESP.'return $result;');
         $this->addLine(ESP.'}');
@@ -114,7 +119,8 @@ class TCreateClass extends TCreateFileContent
     private function addSave()
     {
         $columunPK = ucfirst(strtolower($this->listColumnsName[0]));
-        $this->addLine(ESP.'public static function save( '.$this->tableRefVO.' $objVo ){');
+        $this->addLine(ESP.'public static function save( '.$this->tableRefVO.' $objVo )');
+        $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$result = null;');
         $this->addLine(ESP.ESP.'if( $objVo->get'.$columunPK.'() ) {');
         $this->addLine(ESP.ESP.ESP.'$result = '.$this->tableRefDAO.'::update( $objVo );');
@@ -127,7 +133,8 @@ class TCreateClass extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     private function addDelete()
     {
-        $this->addLine(ESP.'public static function delete( $id ){');
+        $this->addLine(ESP.'public static function delete( $id )');
+        $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$result = '.$this->tableRefDAO.'::delete( $id );');
         $this->addLine(ESP.ESP.'return $result;');
         $this->addLine(ESP.'}');
@@ -139,7 +146,8 @@ class TCreateClass extends TCreateFileContent
         $this->addLine('<?php');
         $this->addSysGenHeaderNote();
         $this->addBlankLine();
-        $this->addLine('class '.$this->tableRef.' {');
+        $this->addLine('class '.$this->tableRef);
+        $this->addLine('{');
         $this->addBlankLine();
         $this->addBlankLine();
         $this->addConstruct();
