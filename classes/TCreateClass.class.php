@@ -75,62 +75,62 @@ class TCreateClass extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     private function addConstruct()
     {
-        $this->addLine(TAB.'public function __construct(){');
-        $this->addLine(TAB.'}');
+        $this->addLine(ESP.'public function __construct(){');
+        $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     private function addSelectById()
     {
-        $this->addLine(TAB.'public static function selectById( $id ){');
-        $this->addLine(TAB.TAB.'$result = '.$this->tableRefDAO.'::selectById( $id );');
-        $this->addLine(TAB.TAB.'return $result;');
-        $this->addLine(TAB.'}');
+        $this->addLine(ESP.'public static function selectById( $id ){');
+        $this->addLine(ESP.ESP.'$result = '.$this->tableRefDAO.'::selectById( $id );');
+        $this->addLine(ESP.ESP.'return $result;');
+        $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     private function addSelectCount()
     {
-        $this->addLine(TAB.'public static function selectCount( $where=null ){');
-        $this->addLine(TAB.TAB.'$result = '.$this->tableRefDAO.'::selectCount( $where );');
-        $this->addLine(TAB.TAB.'return $result;');
-        $this->addLine(TAB.'}');
+        $this->addLine(ESP.'public static function selectCount( $where=null ){');
+        $this->addLine(ESP.ESP.'$result = '.$this->tableRefDAO.'::selectCount( $where );');
+        $this->addLine(ESP.ESP.'return $result;');
+        $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     private function addSelectAllPagination()
     {
-        $this->addLine(TAB.'public static function selectAllPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null){');
-        $this->addLine(TAB.TAB.'$result = '.$this->tableRefDAO.'::selectAllPagination( $orderBy, $where, $page,  $rowsPerPage );');
-        $this->addLine(TAB.TAB.'return $result;');
-        $this->addLine(TAB.'}');
+        $this->addLine(ESP.'public static function selectAllPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null){');
+        $this->addLine(ESP.ESP.'$result = '.$this->tableRefDAO.'::selectAllPagination( $orderBy, $where, $page,  $rowsPerPage );');
+        $this->addLine(ESP.ESP.'return $result;');
+        $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     private function addSelectAll()
     {
-        $this->addLine(TAB.'public static function selectAll( $orderBy=null, $where=null ){');
-        $this->addLine(TAB.TAB.'$result = '.$this->tableRefDAO.'::selectAll( $orderBy, $where );');
-        $this->addLine(TAB.TAB.'return $result;');
-        $this->addLine(TAB.'}');
+        $this->addLine(ESP.'public static function selectAll( $orderBy=null, $where=null ){');
+        $this->addLine(ESP.ESP.'$result = '.$this->tableRefDAO.'::selectAll( $orderBy, $where );');
+        $this->addLine(ESP.ESP.'return $result;');
+        $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     private function addSave()
     {
         $columunPK = ucfirst(strtolower($this->listColumnsName[0]));
-        $this->addLine(TAB.'public static function save( '.$this->tableRefVO.' $objVo ){');
-        $this->addLine(TAB.TAB.'$result = null;');
-        $this->addLine(TAB.TAB.'if( $objVo->get'.$columunPK.'() ) {');
-        $this->addLine(TAB.TAB.TAB.'$result = '.$this->tableRefDAO.'::update( $objVo );');
-        $this->addLine(TAB.TAB.'} else {');
-        $this->addLine(TAB.TAB.TAB.'$result = '.$this->tableRefDAO.'::insert( $objVo );');
-        $this->addLine(TAB.TAB.'}');
-        $this->addLine(TAB.TAB.'return $result;');
-        $this->addLine(TAB.'}');
+        $this->addLine(ESP.'public static function save( '.$this->tableRefVO.' $objVo ){');
+        $this->addLine(ESP.ESP.'$result = null;');
+        $this->addLine(ESP.ESP.'if( $objVo->get'.$columunPK.'() ) {');
+        $this->addLine(ESP.ESP.ESP.'$result = '.$this->tableRefDAO.'::update( $objVo );');
+        $this->addLine(ESP.ESP.'} else {');
+        $this->addLine(ESP.ESP.ESP.'$result = '.$this->tableRefDAO.'::insert( $objVo );');
+        $this->addLine(ESP.ESP.'}');
+        $this->addLine(ESP.ESP.'return $result;');
+        $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     private function addDelete()
     {
-        $this->addLine(TAB.'public static function delete( $id ){');
-        $this->addLine(TAB.TAB.'$result = '.$this->tableRefDAO.'::delete( $id );');
-        $this->addLine(TAB.TAB.'return $result;');
-        $this->addLine(TAB.'}');
+        $this->addLine(ESP.'public static function delete( $id ){');
+        $this->addLine(ESP.ESP.'$result = '.$this->tableRefDAO.'::delete( $id );');
+        $this->addLine(ESP.ESP.'return $result;');
+        $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     public function show($print = false)
