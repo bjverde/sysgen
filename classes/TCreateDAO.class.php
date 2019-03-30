@@ -10,10 +10,10 @@
  * PHP Version 5.6
  */
 
-class TCreateDAO
+class TCreateDAO extends TCreateFileContent
 {
     private $tableName;
-    private $aColumns;
+    private $aColumns = array();
     private $lines;
     private $keyColumnName;
     private $path;
@@ -24,13 +24,22 @@ class TCreateDAO
     private $listColumnsProperties;
     private $tableType = null;
 
-    public function __construct($strTableName = null, $strkeyColumnName = null, $strPath = null, $databaseManagementSystem = null)
+
+    /**
+     * Create file DAO form a table info
+     * @param string $pathFolder   - folder path to create file
+     * @param string $tableName    - table name
+     * @param array $listColumnsProperties
+     * @param array $databaseManagementSystem
+     */
+    public function __construct($pathFolder ,$tableName ,$listColumnsProperties)
     {
-        $this->aColumns=array();
-        $this->setTableName($strTableName);
-        $this->keyColumnName = $strkeyColumnName;
-        $this->path = $strPath;
-        $this->databaseManagementSystem = strtoupper($databaseManagementSystem);
+        $tableName = strtolower($tableName);
+        $this->setTableName($tableName);
+        $this->setFileName(ucfirst($tableName).'DAO.class.php');
+        $this->setFilePath($pathFolder);
+        $this->setListColumnsProperties($listColumnsProperties);
+        $this->configArrayColumns();
     }
     //-----------------------------------------------------------------------------------
     public function setTableName($strTableName)
@@ -97,17 +106,6 @@ class TCreateDAO
         return $this->charParam;
     }
     //------------------------------------------------------------------------------------
-    public function getLinesArray()
-    {
-        return $this->lines;
-    }
-    //------------------------------------------------------------------------------------
-    public function getLinesString()
-    {
-        $string = implode($this->lines);
-        return trim($string);
-    }
-    //------------------------------------------------------------------------------------
     public function addColumn($strColumnName)
     {
         if (!in_array($strColumnName, $this->aColumns)) {
@@ -132,15 +130,14 @@ class TCreateDAO
         return $this->listColumnsProperties;
     }
     //--------------------------------------------------------------------------------------
-    public function addLine($strNewValue = null, $boolNewLine = true)
+    protected function configArrayColumns()
     {
-        $strNewValue = is_null($strNewValue) ? TAB.'//' . str_repeat('-', 80) : $strNewValue;
-        $this->lines[] = $strNewValue.( $boolNewLine ? EOL : '');
-    }
-    //--------------------------------------------------------------------------------------
-    private function addBlankLine()
-    {
-        $this->addLine('');
+        $listColumnsProperties = $this->getListColumnsProperties();
+        $listColumns = $listColumnsProperties['COLUMN_NAME'];
+        $this->keyColumnName = $listColumns[0];
+        foreach ($listColumns as $v) {
+            $this->addColumn($v);
+        }
     }
     //--------------------------------------------------------------------------------------
     /***
@@ -349,7 +346,7 @@ class TCreateDAO
         }
     }
     //--------------------------------------------------------------------------------------
-    public function showDAO($print = false)
+    public function show($print = false)
     {
         $this->lines=null;
         $this->addLine('<?php');
@@ -360,7 +357,7 @@ class TCreateDAO
         
         // construct
         $this->addConstruct();
-
+        
         $this->addProcessWhereGridParameters();
         
         // select by Id
@@ -372,7 +369,7 @@ class TCreateDAO
         $this->addLine();
         $this->addSqlSelectCount();
         // fim Select Count
-
+        
         if ($this->getWithSqlPagination() == GRID_SQL_PAGINATION) {
             $this->addLine();
             $this->addSqlSelectAllPagination();
@@ -404,7 +401,6 @@ class TCreateDAO
             return $this->getLinesString();
         }
     }
-
     //---------------------------------------------------------------------------------------
     public function saveDAO($fileName = null)
     {
