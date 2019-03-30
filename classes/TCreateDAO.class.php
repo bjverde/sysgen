@@ -350,7 +350,9 @@ class TCreateDAO extends TCreateFileContent
     {
         $this->lines=null;
         $this->addLine('<?php');
-        $this->addLine('class '.ucfirst($this->getTableName()).'DAO extends TPDOConnection {');
+        $this->addSysGenHeaderNote();
+        $this->addLine('class '.ucfirst($this->getTableName()).'DAO extends TPDOConnection');
+        $this->addLine('{');
         $this->addBlankLine();
         $this->addSqlVariable();
         $this->addBlankLine();
