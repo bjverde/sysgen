@@ -158,7 +158,8 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlSelectById()
     {
-        $this->addLine(ESP.'public static function selectById( $id ) {');
+        $this->addLine(ESP.'public static function selectById( $id )');
+        $this->addLine(ESP.'{');
         
         $formDinType = self::getColumnPKeyPropertieFormDinType();
         if ($formDinType == TCreateForm::FORMDIN_TYPE_NUMBER) {
@@ -197,7 +198,8 @@ class TCreateDAO extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     public function addProcessWhereGridParameters()
     {
-        $this->addLine(ESP.'private static function processWhereGridParameters( $whereGrid ) {');
+        $this->addLine(ESP.'private static function processWhereGridParameters( $whereGrid )');
+        $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$result = $whereGrid;');
         $this->addLine(ESP.ESP.'if ( is_array($whereGrid) ){');
         $this->addLine(ESP.ESP.ESP.'$where = \' 1=1 \';');
@@ -220,7 +222,8 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlSelectCount()
     {
-        $this->addLine(ESP.'public static function selectCount( $where=null ){');
+        $this->addLine(ESP.'public static function selectCount( $where=null )');
+        $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$where = self::processWhereGridParameters($where);');
         $this->addLine(ESP.ESP.'$sql = \'select count('.$this->getKeyColumnName().') as qtd from '.$this->hasSchema().$this->getTableName().'\';');
         $this->addLine(ESP.ESP.'$sql = $sql.( ($where)? \' where \'.$where:\'\');');
@@ -234,7 +237,8 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlSelectAllPagination()
     {
-        $this->addLine(ESP.'public static function selectAllPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null ) {');
+        $this->addLine(ESP.'public static function selectAllPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null )');
+        $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$rowStart = PaginationSQLHelper::getRowStart($page,$rowsPerPage);');
         $this->addLine(ESP.ESP.'$where = self::processWhereGridParameters($where);');
         $this->addBlankLine();
@@ -258,7 +262,8 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlSelectAll()
     {
-        $this->addLine(ESP.'public static function selectAll( $orderBy=null, $where=null ) {');
+        $this->addLine(ESP.'public static function selectAll( $orderBy=null, $where=null )');
+        $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$where = self::processWhereGridParameters($where);');
         $this->addLine(ESP.ESP.'$sql = self::$sqlBasicSelect');
         $this->addLine(ESP.ESP.'.( ($where)? \' where \'.$where:\'\')');
@@ -274,7 +279,8 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlInsert()
     {
-        $this->addLine(ESP.'public static function insert( '.ucfirst($this->tableName).'VO $objVo ) {');
+        $this->addLine(ESP.'public static function insert( '.ucfirst($this->tableName).'VO $objVo )');
+        $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$values = array(', false);
         $cnt=0;
         foreach ($this->getColumns() as $k => $v) {
@@ -300,7 +306,8 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlUpdate()
     {
-        $this->addLine(ESP.'public static function update ( '.ucfirst($this->tableName).'VO $objVo ) {');
+        $this->addLine(ESP.'public static function update ( '.ucfirst($this->tableName).'VO $objVo )');
+        $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$values = array(', false);
         $count=0;
         foreach ($this->getColumns() as $k => $v) {
@@ -329,7 +336,8 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlDelete()
     {
-        $this->addLine(ESP.'public static function delete( $id ){');
+        $this->addLine(ESP.'public static function delete( $id )');
+        $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$values = array($id);');
         $this->addLine(ESP.ESP.'return self::executeSql(\'delete from '.$this->hasSchema().$this->getTableName().' where '.$this->keyColumnName.' = '.$this->charParam.'\',$values);');
         $this->addLine(ESP.'}');
