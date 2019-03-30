@@ -145,8 +145,8 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlVariable()
     {
-        $indent = TAB.TAB.TAB.TAB.TAB.TAB.TAB.TAB.TAB.' ';
-        $this->addLine(TAB.'private static $sqlBasicSelect = \'select');
+        $indent = ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.' ';
+        $this->addLine(ESP.'private static $sqlBasicSelect = \'select');
         foreach ($this->getColumns() as $k => $v) {
             $this->addLine($indent.( $k==0 ? ' ' : ',').$v);
         }
@@ -158,20 +158,20 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlSelectById()
     {
-        $this->addLine(TAB.'public static function selectById( $id ) {');
+        $this->addLine(ESP.'public static function selectById( $id ) {');
         
         $formDinType = self::getColumnPKeyPropertieFormDinType();
         if ($formDinType == TCreateForm::FORMDIN_TYPE_NUMBER) {
-            $this->addLine(TAB.TAB.'if( empty($id) || !is_numeric($id) ){');
-            $this->addLine(TAB.TAB.TAB.'throw new InvalidArgumentException();');
-            $this->addLine(TAB.TAB.'}');
+            $this->addLine(ESP.ESP.'if( empty($id) || !is_numeric($id) ){');
+            $this->addLine(ESP.ESP.ESP.'throw new InvalidArgumentException();');
+            $this->addLine(ESP.ESP.'}');
         }
         
-        $this->addLine(TAB.TAB.'$values = array($id);');
-        $this->addLine(TAB.TAB.'$sql = self::$sqlBasicSelect.\' where '.$this->getKeyColumnName().' = '.$this->charParam.'\';');
-        $this->addLine(TAB.TAB.'$result = self::executeSql($sql, $values );');
-        $this->addLine(TAB.TAB.'return $result;');
-        $this->addLine(TAB.'}');
+        $this->addLine(ESP.ESP.'$values = array($id);');
+        $this->addLine(ESP.ESP.'$sql = self::$sqlBasicSelect.\' where '.$this->getKeyColumnName().' = '.$this->charParam.'\';');
+        $this->addLine(ESP.ESP.'$result = self::executeSql($sql, $values );');
+        $this->addLine(ESP.ESP.'return $result;');
+        $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     private function getColumnPKeyPropertieFormDinType()
@@ -197,22 +197,22 @@ class TCreateDAO extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     public function addProcessWhereGridParameters()
     {
-        $this->addLine(TAB.'private static function processWhereGridParameters( $whereGrid ) {');
-        $this->addLine(TAB.TAB.'$result = $whereGrid;');
-        $this->addLine(TAB.TAB.'if ( is_array($whereGrid) ){');
-        $this->addLine(TAB.TAB.TAB.'$where = \' 1=1 \';');
+        $this->addLine(ESP.'private static function processWhereGridParameters( $whereGrid ) {');
+        $this->addLine(ESP.ESP.'$result = $whereGrid;');
+        $this->addLine(ESP.ESP.'if ( is_array($whereGrid) ){');
+        $this->addLine(ESP.ESP.ESP.'$where = \' 1=1 \';');
         foreach ($this->getColumns() as $key => $v) {
             $formDinType = self::getColumnsPropertieFormDinType($key);
             if ($formDinType == TCreateForm::FORMDIN_TYPE_NUMBER) {
-                $this->addLine(TAB.TAB.TAB.'$where = SqlHelper::getAtributeWhereGridParameters($where, $whereGrid, \''.strtoupper($v).'\', SqlHelper::SQL_TYPE_NUMERIC);');
+                $this->addLine(ESP.ESP.ESP.'$where = SqlHelper::getAtributeWhereGridParameters($where, $whereGrid, \''.strtoupper($v).'\', SqlHelper::SQL_TYPE_NUMERIC);');
             } else {
-                $this->addLine(TAB.TAB.TAB.'$where = SqlHelper::getAtributeWhereGridParameters($where, $whereGrid, \''.strtoupper($v).'\', SqlHelper::SQL_TYPE_TEXT_LIKE);');
+                $this->addLine(ESP.ESP.ESP.'$where = SqlHelper::getAtributeWhereGridParameters($where, $whereGrid, \''.strtoupper($v).'\', SqlHelper::SQL_TYPE_TEXT_LIKE);');
             }
         }
-        $this->addLine(TAB.TAB.TAB.'$result = $where;');
-        $this->addLine(TAB.TAB.'}');
-        $this->addLine(TAB.TAB.'return $result;');
-        $this->addLine(TAB.'}');
+        $this->addLine(ESP.ESP.ESP.'$result = $where;');
+        $this->addLine(ESP.ESP.'}');
+        $this->addLine(ESP.ESP.'return $result;');
+        $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     /***
@@ -220,13 +220,13 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlSelectCount()
     {
-        $this->addLine(TAB.'public static function selectCount( $where=null ){');
-        $this->addLine(TAB.TAB.'$where = self::processWhereGridParameters($where);');
-        $this->addLine(TAB.TAB.'$sql = \'select count('.$this->getKeyColumnName().') as qtd from '.$this->hasSchema().$this->getTableName().'\';');
-        $this->addLine(TAB.TAB.'$sql = $sql.( ($where)? \' where \'.$where:\'\');');
-        $this->addLine(TAB.TAB.'$result = self::executeSql($sql);');
-        $this->addLine(TAB.TAB.'return $result[\'QTD\'][0];');
-        $this->addLine(TAB.'}');
+        $this->addLine(ESP.'public static function selectCount( $where=null ){');
+        $this->addLine(ESP.ESP.'$where = self::processWhereGridParameters($where);');
+        $this->addLine(ESP.ESP.'$sql = \'select count('.$this->getKeyColumnName().') as qtd from '.$this->hasSchema().$this->getTableName().'\';');
+        $this->addLine(ESP.ESP.'$sql = $sql.( ($where)? \' where \'.$where:\'\');');
+        $this->addLine(ESP.ESP.'$result = self::executeSql($sql);');
+        $this->addLine(ESP.ESP.'return $result[\'QTD\'][0];');
+        $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     /***
@@ -234,23 +234,23 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlSelectAllPagination()
     {
-        $this->addLine(TAB.'public static function selectAllPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null ) {');
-        $this->addLine(TAB.TAB.'$rowStart = PaginationSQLHelper::getRowStart($page,$rowsPerPage);');
-        $this->addLine(TAB.TAB.'$where = self::processWhereGridParameters($where);');
+        $this->addLine(ESP.'public static function selectAllPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null ) {');
+        $this->addLine(ESP.ESP.'$rowStart = PaginationSQLHelper::getRowStart($page,$rowsPerPage);');
+        $this->addLine(ESP.ESP.'$where = self::processWhereGridParameters($where);');
         $this->addBlankLine();
-        $this->addLine(TAB.TAB.'$sql = self::$sqlBasicSelect');
-        $this->addLine(TAB.TAB.'.( ($where)? \' where \'.$where:\'\')');
-        $this->addLine(TAB.TAB.'.( ($orderBy) ? \' order by \'.$orderBy:\'\')');
+        $this->addLine(ESP.ESP.'$sql = self::$sqlBasicSelect');
+        $this->addLine(ESP.ESP.'.( ($where)? \' where \'.$where:\'\')');
+        $this->addLine(ESP.ESP.'.( ($orderBy) ? \' order by \'.$orderBy:\'\')');
         if ($this->getDatabaseManagementSystem() == DBMS_MYSQL) {
-            $this->addLine(TAB.TAB.'.( \' LIMIT \'.$rowStart.\',\'.$rowsPerPage);');
+            $this->addLine(ESP.ESP.'.( \' LIMIT \'.$rowStart.\',\'.$rowsPerPage);');
         }
         if ($this->getDatabaseManagementSystem() == DBMS_SQLSERVER) {
-            $this->addLine(TAB.TAB.'.( \' OFFSET \'.$rowStart.\' ROWS FETCH NEXT \'.$rowsPerPage.\' ROWS ONLY \');');
+            $this->addLine(ESP.ESP.'.( \' OFFSET \'.$rowStart.\' ROWS FETCH NEXT \'.$rowsPerPage.\' ROWS ONLY \');');
         }
         $this->addBlankLine();
-        $this->addLine(TAB.TAB.'$result = self::executeSql($sql);');
-        $this->addLine(TAB.TAB.'return $result;');
-        $this->addLine(TAB.'}');
+        $this->addLine(ESP.ESP.'$result = self::executeSql($sql);');
+        $this->addLine(ESP.ESP.'return $result;');
+        $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     /***
@@ -258,15 +258,15 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlSelectAll()
     {
-        $this->addLine(TAB.'public static function selectAll( $orderBy=null, $where=null ) {');
-        $this->addLine(TAB.TAB.'$where = self::processWhereGridParameters($where);');
-        $this->addLine(TAB.TAB.'$sql = self::$sqlBasicSelect');
-        $this->addLine(TAB.TAB.'.( ($where)? \' where \'.$where:\'\')');
-        $this->addLine(TAB.TAB.'.( ($orderBy) ? \' order by \'.$orderBy:\'\');');
+        $this->addLine(ESP.'public static function selectAll( $orderBy=null, $where=null ) {');
+        $this->addLine(ESP.ESP.'$where = self::processWhereGridParameters($where);');
+        $this->addLine(ESP.ESP.'$sql = self::$sqlBasicSelect');
+        $this->addLine(ESP.ESP.'.( ($where)? \' where \'.$where:\'\')');
+        $this->addLine(ESP.ESP.'.( ($orderBy) ? \' order by \'.$orderBy:\'\');');
         $this->addBlankLine();
-        $this->addLine(TAB.TAB.'$result = self::executeSql($sql);');
-        $this->addLine(TAB.TAB.'return $result;');
-        $this->addLine(TAB.'}');
+        $this->addLine(ESP.ESP.'$result = self::executeSql($sql);');
+        $this->addLine(ESP.ESP.'return $result;');
+        $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     /***
@@ -274,25 +274,25 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlInsert()
     {
-        $this->addLine(TAB.'public static function insert( '.ucfirst($this->tableName).'VO $objVo ) {');
-        $this->addLine(TAB.TAB.'$values = array(', false);
+        $this->addLine(ESP.'public static function insert( '.ucfirst($this->tableName).'VO $objVo ) {');
+        $this->addLine(ESP.ESP.'$values = array(', false);
         $cnt=0;
         foreach ($this->getColumns() as $k => $v) {
             if ($v != strtolower($this->keyColumnName)) {
-                $this->addLine(( $cnt++==0 ? ' ' : TAB.TAB.TAB.TAB.TAB.TAB.',').' $objVo->get'.ucfirst($v).'() ');
+                $this->addLine(( $cnt++==0 ? ' ' : ESP.ESP.ESP.ESP.ESP.ESP.',').' $objVo->get'.ucfirst($v).'() ');
             }
         }
-        $this->addLine(TAB.TAB.TAB.TAB.TAB.TAB.');');
-        $this->addLine(TAB.TAB.'return self::executeSql(\'insert into '.$this->hasSchema().$this->getTableName().'(');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.');');
+        $this->addLine(ESP.ESP.'return self::executeSql(\'insert into '.$this->hasSchema().$this->getTableName().'(');
         $cnt=0;
         foreach ($this->getColumns() as $k => $v) {
             if ($v != strtolower($this->keyColumnName)) {
-                $this->addLine(TAB.TAB.TAB.TAB.TAB.TAB.TAB.TAB.( $cnt++==0 ? ' ' : ',').$v);
+                $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.( $cnt++==0 ? ' ' : ',').$v);
             }
         }
-        //$this->addLine(TAB.TAB.TAB.TAB.TAB.TAB.TAB.TAB.') values (?'.str_repeat(',?',count($this->getColumns())-1 ).')\', $values );');
-        $this->addLine(TAB.TAB.TAB.TAB.TAB.TAB.TAB.TAB.') values ('.$this->getParams().')\', $values );');
-        $this->addLine(TAB.'}');
+        //$this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.') values (?'.str_repeat(',?',count($this->getColumns())-1 ).')\', $values );');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.') values ('.$this->getParams().')\', $values );');
+        $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     /***
@@ -300,28 +300,28 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlUpdate()
     {
-        $this->addLine(TAB.'public static function update ( '.ucfirst($this->tableName).'VO $objVo ) {');
-        $this->addLine(TAB.TAB.'$values = array(', false);
+        $this->addLine(ESP.'public static function update ( '.ucfirst($this->tableName).'VO $objVo ) {');
+        $this->addLine(ESP.ESP.'$values = array(', false);
         $count=0;
         foreach ($this->getColumns() as $k => $v) {
             if (strtolower($v) != strtolower($this->keyColumnName)) {
-                $this->addLine(( $count==0 ? ' ' : TAB.TAB.TAB.TAB.TAB.TAB.',').'$objVo->get'.ucfirst($v).'()');
+                $this->addLine(( $count==0 ? ' ' : ESP.ESP.ESP.ESP.ESP.ESP.',').'$objVo->get'.ucfirst($v).'()');
                 $count++;
             }
         }
-        $this->addline(TAB.TAB.TAB.TAB.TAB.TAB.',$objVo->get'.ucfirst($this->keyColumnName).'() );');
-        $this->addLine(TAB.TAB.'return self::executeSql(\'update '.$this->hasSchema().$this->getTableName().' set ');
+        $this->addline(ESP.ESP.ESP.ESP.ESP.ESP.',$objVo->get'.ucfirst($this->keyColumnName).'() );');
+        $this->addLine(ESP.ESP.'return self::executeSql(\'update '.$this->hasSchema().$this->getTableName().' set ');
         $count=0;
         foreach ($this->getColumns() as $k => $v) {
             if (strtolower($v) != strtolower($this->keyColumnName)) {
             	$param = $this->charParam;
-                $this->addLine(TAB.TAB.TAB.TAB.TAB.TAB.TAB.TAB.( $count==0 ? ' ' : ',').$v.' = '.$param);
+                $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.( $count==0 ? ' ' : ',').$v.' = '.$param);
                 $count++;
             }
         }
         $param = $this->charParam;
-        $this->addLine(TAB.TAB.TAB.TAB.TAB.TAB.TAB.TAB.'where '.$this->keyColumnName.' = '.$param.'\',$values);');
-        $this->addLine(TAB.'}');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.'where '.$this->keyColumnName.' = '.$param.'\',$values);');
+        $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     /***
@@ -329,10 +329,10 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlDelete()
     {
-        $this->addLine(TAB.'public static function delete( $id ){');
-        $this->addLine(TAB.TAB.'$values = array($id);');
-        $this->addLine(TAB.TAB.'return self::executeSql(\'delete from '.$this->hasSchema().$this->getTableName().' where '.$this->keyColumnName.' = '.$this->charParam.'\',$values);');
-        $this->addLine(TAB.'}');
+        $this->addLine(ESP.'public static function delete( $id ){');
+        $this->addLine(ESP.ESP.'$values = array($id);');
+        $this->addLine(ESP.ESP.'return self::executeSql(\'delete from '.$this->hasSchema().$this->getTableName().' where '.$this->keyColumnName.' = '.$this->charParam.'\',$values);');
+        $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     /**
@@ -341,8 +341,8 @@ class TCreateDAO extends TCreateFileContent
     public function addConstruct()
     {
         if (version_compare(phpversion(), '5.6.0', '<')) {
-            $this->addLine(TAB.'public function '.$this->getTableName().'DAO() {');
-            $this->addLine(TAB.'}');
+            $this->addLine(ESP.'public function '.$this->getTableName().'DAO() {');
+            $this->addLine(ESP.'}');
         }
     }
     //--------------------------------------------------------------------------------------
