@@ -224,7 +224,7 @@ class TCreateForm
         if (ArrayHelper::has('REQUIRED', $this->listColumnsProperties)) {
             $result = $this->listColumnsProperties['REQUIRED'][$key];
         }
-        return $result;
+        return strtolower($result);
     }
     //--------------------------------------------------------------------------------------
     private function getColumnsPropertieDataType($key)
