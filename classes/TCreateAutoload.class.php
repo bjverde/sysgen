@@ -31,8 +31,14 @@ class TCreateAutoload extends TCreateFileContent
         $this->addSysGenHeaderNote();
         $this->addBlankLine();
         $this->addLine('if ( !function_exists( \''.$autoloadName.'\') ) {');
-        $this->addLine(ESP.'function '.$autoloadName.'( $class_name )	{');
-        $this->addLine(ESP.ESP.'require_once $class_name . \'.class.php\';');
+        $this->addLine(ESP.'function '.$autoloadName.'( $class_name )');
+        $this->addLine(ESP.'{');        
+		$this->addLine(ESP.ESP.'$path = __DIR__.DS.$class_name.\'.class.php\';');
+		$this->addLine(ESP.ESP.'if (file_exists($path)){');
+        $this->addLine(ESP.ESP.ESP.'require_once $path;');
+		$this->addLine(ESP.ESP.'} else {');
+        $this->addLine(ESP.ESP.ESP.'return false;');
+		$this->addLine(ESP.ESP.'}');
         $this->addLine(ESP.'}');
         $this->addLine('spl_autoload_register(\''.$autoloadName.'\');');
         $this->addLine('}');
