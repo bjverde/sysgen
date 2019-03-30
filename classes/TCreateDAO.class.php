@@ -411,18 +411,6 @@ class TCreateDAO extends TCreateFileContent
             return $this->getLinesString();
         }
     }
-    //---------------------------------------------------------------------------------------
-    public function saveDAO($fileName = null)
-    {
-        
-        $fileName = $this->path.(is_null($fileName) ? ucfirst($this->getTableName()).'DAO.class.php' : $tableName);
-        if ($fileName) {
-            if (file_exists($fileName)) {
-                unlink($fileName);
-            }
-            file_put_contents($fileName, $this->showDAO(false));
-        }
-    }
     //--------------------------------------------------------------------------------------
     /**
      * Returns the number of parameters
