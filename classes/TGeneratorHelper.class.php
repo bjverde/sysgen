@@ -239,9 +239,12 @@ class TGeneratorHelper
         }
     }
 
-    public static function createApiRouter($listTable)
+    public static function createApiIndexAndRouter($listTable)
     {
-        $file = new CreateAutoloadAPI();
+        $file = new CreateApiIndex();
+        $file->saveFile();
+        
+        $file = new CreateApiRoutesCall($listTable);
         $file->saveFile();
     }
     

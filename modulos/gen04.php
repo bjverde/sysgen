@@ -39,8 +39,8 @@ try {
     $listTables = TGeneratorHelper::loadTablesSelected();
 	
 	if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != TGeneratorHelper::TP_SYSTEM_FORM ){
-		TGeneratorHelper::createApiRouter($listTables);
-		$html->add(TGeneratorHelper::showMsg(true, Message::CREATED_MENU));
+		TGeneratorHelper::createApiIndexAndRouter($listTables);
+		$html->add(TGeneratorHelper::showMsg(true, Message::CREATED_API_INDEX));
 	}
 
 	if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != TGeneratorHelper::TP_SYSTEM_REST ){
