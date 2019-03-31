@@ -23,23 +23,12 @@ class TCreateMenu extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     public function setListTableNames($listTableNames)
     {
-        $this->validateListTableNames($listTableNames);
+        TGeneratorHelper::validateListTableNames($listTableNames);
         $this->listTableNames = $listTableNames;
     }
     public function getListTableNames()
     {
         return $this->listTableNames;
-    }
-    //--------------------------------------------------------------------------------------
-    private function validateListTableNames($listTableNames)
-    {
-        $listTableNames = empty($listTableNames)?$this->getListTableNames():$listTableNames;
-        if (empty($listTableNames)) {
-            throw new InvalidArgumentException('List of Tables Names is empty');
-        }
-        if (!is_array($listTableNames)) {
-            throw new InvalidArgumentException('List of Tables Names not is array');
-        }
     }
     //--------------------------------------------------------------------------------------
     public function addBasicMenuItems($keyFatherItem, $tableTypeObjeto)

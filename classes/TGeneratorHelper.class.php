@@ -481,4 +481,15 @@ class TGeneratorHelper
         $_SESSION[APLICATIVO][TableInfo::FK_FIELDS_TABLE_SELECTED] = $FkFieldsTableSelected;
         return $FkFieldsTableSelected;
     }
+    
+    //--------------------------------------------------------------------------------------
+    public function validateListTableNames($listTableNames)
+    {   
+        if (empty($listTableNames)) {
+            throw new InvalidArgumentException('List of Tables Names is empty');
+        }
+        if (!is_array($listTableNames)) {
+            throw new InvalidArgumentException('List of Tables Names not is array');
+        }
+    }
 }
