@@ -74,6 +74,7 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.ESP.'$response = $response->withJson($msg);');
         $this->addLine(ESP.ESP.'return $response;');
         $this->addLine(ESP.'}');
+        $this->addLine('}');
 
 
         if ($print) {
