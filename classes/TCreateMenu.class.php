@@ -33,7 +33,6 @@ class TCreateMenu extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     public function addBasicMenuItems($keyFatherItem, $tableTypeObjeto)
     {
-        $this->validateListTableNames(null);
         $listTableNames = $this->listTableNames['TABLE_NAME'];
         foreach ($listTableNames as $key => $table) {
             $tableType = strtoupper($this->listTableNames['TABLE_TYPE'][$key]);
