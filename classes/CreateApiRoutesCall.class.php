@@ -36,7 +36,7 @@ class CreateApiRoutesCall extends TCreateFileContent
     {
         $listTableNames = $this->getListTableNames();
         foreach ($listTableNames['TABLE_NAME'] as $tableName) {
-            $this->addLine(ESP.','.$tableName);
+            $this->addLine(ESP.','.$tableName.'API');
         }
     }
     //--------------------------------------------------------------------------------------
@@ -61,7 +61,10 @@ class CreateApiRoutesCall extends TCreateFileContent
         $this->addBlankLine();
         $this->addLine('$app = new \Slim\App(slimConfiguration());');
         $this->addBlankLine();
+        $this->addLine('$app->get(\'/sysinfo\', SysinfoAPI::class . \':getInfo\');');
+        $this->addBlankLine();
         $this->addFileRouter();
+        $this->addBlankLine();
         $this->addLine('$app->run();');
         if ($print) {
             echo $this->getLinesString();
