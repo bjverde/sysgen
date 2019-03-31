@@ -241,9 +241,11 @@ class TGeneratorHelper
     
     public static function createFileMenu($listTable)
     {
-        $file = new TCreateMenu();
-        $file->setListTableNames($listTable);
-        $file->saveFile();
+        if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != self::TP_SYSTEM_REST ){
+            $file = new TCreateMenu();
+            $file->setListTableNames($listTable);
+            $file->saveFile();
+        }
     }
     
     public static function createFileIndex()

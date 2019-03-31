@@ -42,7 +42,9 @@ class TCreateIndex extends TCreateFileContent
         $this->addLine('$app->setSigla(SYSTEM_ACRONYM);');
         $this->addLine('$app->setVersionSystem(SYSTEM_VERSION);');
         $this->addBlankLine();
-        $this->addLine('$app->setMainMenuFile(\'includes/menu.php\');');
+        if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != TGeneratorHelper::TP_SYSTEM_REST ){
+            $this->addLine('$app->setMainMenuFile(\'includes/menu.php\');');
+        }
         $this->addLine('$app->run();');
         $this->addLine('?>');
         if ($print) {
