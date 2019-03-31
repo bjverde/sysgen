@@ -57,7 +57,7 @@ class CreateApiRoutesCall extends TCreateFileContent
         $this->addLine('use Controllers\{');
         $this->addLine(ESP.'SysinfoAPI');
         $this->addClass();
-        $this->addLine('}');
+        $this->addLine('};');
         $this->addBlankLine();
         $this->addLine('$app = new \Slim\App(slimConfiguration());');
         $this->addBlankLine();
