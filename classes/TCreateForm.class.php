@@ -409,7 +409,8 @@ class TCreateForm extends TCreateFileContent
         $this->addLine(ESP.ESP.ESP.'if ( $frm->validate() ) {');
         $this->addLine(ESP.ESP.ESP.ESP.'$vo = new '.$this->tableRefVO.'();');
         $this->addLine(ESP.ESP.ESP.ESP.'$frm->setVo( $vo );');
-        $this->addLine(ESP.ESP.ESP.ESP.'$resultado = '.$this->tableRefClass.'::save( $vo );');
+        $this->addLine(ESP.ESP.ESP.ESP.'$class = new '.$this->tableRefClass.'();');
+        $this->addLine(ESP.ESP.ESP.ESP.'$resultado = $class->save( $vo );');
         $this->addLine(ESP.ESP.ESP.ESP.'if($resultado==1) {');
         $this->addLine(ESP.ESP.ESP.ESP.ESP.'$frm->setMessage(\'Registro gravado com sucesso!!!\');');
         $this->addLine(ESP.ESP.ESP.ESP.ESP.'$frm->clearFields();');
@@ -445,7 +446,8 @@ class TCreateForm extends TCreateFileContent
         $this->addLine(ESP.'case \'gd_excluir\':');
         $this->addLine(ESP.ESP.'try{');
         $this->addLine(ESP.ESP.ESP.'$id = $frm->get( $primaryKey ) ;');
-        $this->addLine(ESP.ESP.ESP.'$resultado = '.$this->tableRefClass.'::delete( $id );;');
+        $this->addLine(ESP.ESP.ESP.'$class = new '.$this->tableRefClass.'();');
+        $this->addLine(ESP.ESP.ESP.'$resultado = $class->delete( $id );');
         $this->addLine(ESP.ESP.ESP.'if($resultado==1) {');
         $this->addLine(ESP.ESP.ESP.ESP.'$frm->setMessage(\'Registro excluido com sucesso!!!\');');
         $this->addLine(ESP.ESP.ESP.ESP.'$frm->clearFields();');

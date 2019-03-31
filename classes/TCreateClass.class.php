@@ -119,7 +119,7 @@ class TCreateClass extends TCreateFileContent
     private function addSave()
     {
         $columunPK = ucfirst(strtolower($this->listColumnsName[0]));
-        $this->addLine(ESP.'public static function save( '.$this->tableRefVO.' $objVo )');
+        $this->addLine(ESP.'public function save( '.$this->tableRefVO.' $objVo )');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$result = null;');
         $this->addLine(ESP.ESP.'if( $objVo->get'.$columunPK.'() ) {');
@@ -133,7 +133,7 @@ class TCreateClass extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     private function addDelete()
     {
-        $this->addLine(ESP.'public static function delete( $id )');
+        $this->addLine(ESP.'public function delete( $id )');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$result = '.$this->tableRefDAO.'::delete( $id );');
         $this->addLine(ESP.ESP.'return $result;');
