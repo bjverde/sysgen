@@ -14,6 +14,10 @@ class TGeneratorHelper
     
     public const TABLE_TYPE_TABLE = 'TABLE';
     public const TABLE_TYPE_VIEW = 'VIEW';
+
+    public const TP_SYSTEM_FORM = 'TP_SYSTEM_FORM';
+    public const TP_SYSTEM_REST = 'TP_SYSTEM_REST';
+    public const TP_SYSTEM_FORM_REST = 'TP_SYSTEM_FORM_REST';
     
     public static function validadeFormDinMinimumVersion($html)
     {
@@ -399,6 +403,14 @@ class TGeneratorHelper
         return $array;
     }
 
+    public static function getListTypeSystem()
+    {
+        $array = array();
+        $array[self::TP_SYSTEM_FORM] = 'Somente tela FormDin';
+        $array[self::TP_SYSTEM_REST] = 'Somente API REST';
+        $array[self::TP_SYSTEM_FORM_REST] = 'FormDin + REST';
+        return $array;
+    }
 
     public static function listFKFieldsTablesSelected()
     {

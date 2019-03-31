@@ -17,6 +17,8 @@
  */
 final class TableInfo
 {
+    public const TP_SYSTEM = 'TP_SYSTEM';
+    
     public const KEY_TYPE = 'KEY_TYPE';
     public const KEY_TYPE_PK = 'PK';
     public const KEY_TYPE_FK = 'FOREIGN KEY';

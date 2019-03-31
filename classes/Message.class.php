@@ -46,6 +46,8 @@ final class Message
     const GRID_LIST_FK_TITLE  = 'Lista de FK e como elas devem aparecer';
     const GRID_LIST_FK_COLUMN = 'Tipo Campo para FK';
     const GPX_TYPE_CONFIG     = 'Opções de Avançada';
+    const GPX_TYPE_SYSTEM     = 'Tipo de sistema';
+    const FIELD_TP_SYSTEM     = 'Qual tipo de sistema deseja gerar ?';
     const FIELD_LOGFILE_LABEL = 'Qual tipo de Log em arquivo (php_error.log) quer para o sistema?';
     const FIELD_LOGFILE_OPT00  = 'Nada será gravado no Log !!';
     const FIELD_LOGFILE_OPT01  = 'Quero tudo mesmo! até DomainException !';

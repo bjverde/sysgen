@@ -49,6 +49,12 @@ if ($validFormDinPMin && $validPHPMin) {
         $frm->addButton('Continuar', null, 'Continuar', null, null, true, false);
         $frm->addButton('Limpar', null, 'Limpar', null, null, false, false);
     $frm->closeGroup();
+
+    $frm->addGroupField('gpxTpSystem', Message::GPX_TYPE_SYSTEM);
+        $frm->addHtmlField('info', null, 'ajuda/info_gen00_tpsys_pt-br.php')->setClass('htmlInfo', true);
+        $listTpSystem = TGeneratorHelper::getListTypeSystem();
+        $frm->addRadioField(TableInfo::TP_SYSTEM, Message::FIELD_TP_SYSTEM, true, $listTpSystem, null, true, TGeneratorHelper::TP_SYSTEM_FORM, 3, null, null, null, false);
+    $frm->closeGroup();
  }
 
 $acao = isset($acao) ? $acao : null;
@@ -63,6 +69,7 @@ switch ($acao) {
                 $_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM']=$GEN_SYSTEM_ACRONYM;
                 $_SESSION[APLICATIVO]['GEN_SYSTEM_VERSION']=$frm->get('GEN_SYSTEM_VERSION');
                 $_SESSION[APLICATIVO]['GEN_SYSTEM_NAME']=$frm->get('GEN_SYSTEM_NAME');
+                $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM]=$frm->get(TableInfo::TP_SYSTEM);
                 $frm->redirect('gen01.php', 'Redirect realizado com sucesso.', true);
             } catch (Exception $e) {
                 $frm->setMessage($e->getMessage());
