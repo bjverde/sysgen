@@ -44,8 +44,7 @@ class CreateApiRoutesCall extends TCreateFileContent
     {
         $listTableNames = $this->getListTableNames();
         foreach ($listTableNames['TABLE_NAME'] as $tableName) {
-            $this->addLine(ESP.','.$tableName);
-            $this->addLine('require_once \'routes\'.DS.\''.$tableName.'\'.routes.php\';');
+            $this->addLine('require_once \'routes\'.DS.\''.$tableName.'.route.php\';');
         }
     }
     //--------------------------------------------------------------------------------------

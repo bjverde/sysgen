@@ -22,7 +22,7 @@ class CreateApiRoutesFiles extends TCreateFileContent
         $tableName = strtolower($tableName);
         $this->setTableName($tableName);
         $this->setTableType($tableType);
-        $this->setFileName($tableName.'.routes.php');
+        $this->setFileName($tableName.'.route.php');
         $this->setFilePath($pathFolder);
         $this->setListColumnsProperties($listColumnsProperties);
     }
