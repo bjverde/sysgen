@@ -32,7 +32,7 @@ class CreateAutoloadAPI extends TCreateFileContent
         $this->addBlankLine();
         $this->addLine('if ( !function_exists( \''.$autoloadName.'\') ) {');
         $this->addLine(ESP.'function '.$autoloadName.'( $class_name )');
-        $this->addLine(ESP.'{');        
+        $this->addLine(ESP.'{');
 		$this->addLine(ESP.ESP.'$path = __DIR__.DS.$class_name.\'.class.php\';');
 		$this->addLine(ESP.ESP.'if (file_exists($path)){');
         $this->addLine(ESP.ESP.ESP.'require_once $path;');
