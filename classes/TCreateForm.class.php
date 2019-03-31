@@ -117,9 +117,7 @@ class TCreateForm extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     public function setListColumnsProperties($listColumnsProperties)
     {
-        if (!is_array($listColumnsProperties)) {
-            throw new InvalidArgumentException('List of Columns Properties not is a array');
-        }
+        TGeneratorHelper::validateListColumnsProperties($listColumnsProperties);
         $this->listColumnsProperties = $listColumnsProperties;
     }
     public function getListColumnsProperties()

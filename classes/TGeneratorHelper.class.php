@@ -480,8 +480,7 @@ class TGeneratorHelper
         }
         $_SESSION[APLICATIVO][TableInfo::FK_FIELDS_TABLE_SELECTED] = $FkFieldsTableSelected;
         return $FkFieldsTableSelected;
-    }
-    
+    }    
     //--------------------------------------------------------------------------------------
     public function validateListTableNames($listTableNames)
     {   
@@ -492,4 +491,11 @@ class TGeneratorHelper
             throw new InvalidArgumentException('List of Tables Names not is array');
         }
     }
+    //--------------------------------------------------------------------------------------
+    public function validateListColumnsProperties($listColumnsProperties)
+    {   
+        if (!is_array($listColumnsProperties)) {
+            throw new InvalidArgumentException('List of Columns Properties not is a array');
+        }
+    }    
 }
