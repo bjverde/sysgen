@@ -238,14 +238,18 @@ class TGeneratorHelper
             $file->saveFile();
         }
     }
+
+    public static function createApiRouter($listTable)
+    {
+        $file = new CreateAutoloadAPI();
+        $file->saveFile();
+    }
     
     public static function createFileMenu($listTable)
     {
-        if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != self::TP_SYSTEM_REST ){
-            $file = new TCreateMenu();
-            $file->setListTableNames($listTable);
-            $file->saveFile();
-        }
+        $file = new TCreateMenu();
+        $file->setListTableNames($listTable);
+        $file->saveFile();
     }
     
     public static function createFileIndex()
