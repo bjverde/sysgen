@@ -674,6 +674,8 @@ class TCreateForm extends TCreateFileContent
     {
         $this->lines=null;
         $this->addLine('<?php');
+        $this->addSysGenHeaderNote();
+        $this->addBlankLine();
         $this->addLine('defined(\'APLICATIVO\') or die();');
         $this->addBlankLine();
         if ($this->gridType == GRID_SIMPLE) {
