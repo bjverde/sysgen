@@ -349,8 +349,12 @@ class TGeneratorHelper
         $geradorForm->saveFile();
     }
 
-    public static function createFilesControllesAPI($tableName, $listColumnsProperties, $tableSchema, $tableType)
+    public static function createFilesControllesAndRoutesAPI($tableName, $listColumnsProperties, $tableSchema, $tableType)
     {
+        $pathFolder= self::getPathNewSystem().DS.'api'.DS.'Controllers';
+        $generator = new CreateApiControllesFiles($pathFolder,$tableName, $listColumnsProperties, $tableType);
+        $generator->saveFile();
+
         $pathFolder= self::getPathNewSystem().DS.'api'.DS.'routes';
         $generator = new CreateApiRoutesFiles($pathFolder,$tableName, $listColumnsProperties, $tableType);
         $generator->saveFile();
@@ -366,7 +370,7 @@ class TGeneratorHelper
         }
 
         if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != TGeneratorHelper::TP_SYSTEM_FORM ){
-            self::createFilesControllesAPI($tableName, $listColumnsProperties, $tableSchema, $tableType);
+            self::createFilesControllesAndRoutesAPI($tableName, $listColumnsProperties, $tableSchema, $tableType);
         }
     }
     
