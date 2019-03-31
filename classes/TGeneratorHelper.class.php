@@ -179,10 +179,9 @@ class TGeneratorHelper
         return ROOT_PATH.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
     }
     
-    public static function copySystemSkeletonToNewSystem()
+    public static function copySystemSkeletonToNewSystemByTpSystem($pathSkeleton)
     {
         $pathNewSystem = self::getPathNewSystem();
-        $pathSkeleton  = 'system_skeleton';
         
         $list = new RecursiveDirectoryIterator($pathSkeleton);
         $it   = new RecursiveIteratorIterator($list);
@@ -194,6 +193,23 @@ class TGeneratorHelper
                 self::mkDir($pathNewSystem.DS.$it->getSubPath());
                 copy($pathSkeleton.DS.$it->getSubPathName(), $pathNewSystem.DS.$it->getSubPathName());
             }
+        }
+    }
+    
+    public static function copySystemSkeletonToNewSystem()
+    {
+        $tpSystem = $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM];
+        switch ($tpSystem) {
+            case self::TP_SYSTEM_REST:
+            case self::TP_SYSTEM_FORM_REST:
+                $pathSkeleton  = 'system_skeleton'.DS.'rest';
+                self::copySystemSkeletonToNewSystemByTpSystem($pathSkeleton);
+            //break;
+            //--------------------------------------------------------------------------------
+            case self::TP_SYSTEM_FORM:
+                $pathSkeleton  = 'system_skeleton'.DS.'form';
+                self::copySystemSkeletonToNewSystemByTpSystem($pathSkeleton);
+            break;
         }
     }
     
@@ -347,7 +363,7 @@ class TGeneratorHelper
         $listTablesAll   = TGeneratorHelper::loadTablesFromDatabase();
         $idTableSelected = $_SESSION[APLICATIVO]['idTableSelected'];
         $listTablesSelected = array();
-        foreach ($idTableSelected as $key => $id) {
+        foreach ($idTableSelected as $id) {
             $keyTable = array_search($id, $listTablesAll['idSelected']);
             $listTablesSelected['TABLE_SCHEMA'][] = $listTablesAll['TABLE_SCHEMA'][$keyTable];
             $listTablesSelected['TABLE_NAME'][]   = $listTablesAll['TABLE_NAME'][$keyTable];
