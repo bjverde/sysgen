@@ -62,6 +62,7 @@ class CreateApiRoutesCall extends TCreateFileContent
         $this->addLine('$app = new \Slim\App(slimConfiguration());');
         $this->addBlankLine();
         $this->addFileRouter();
+        $this->addLine('$app->run();');
         if ($print) {
             echo $this->getLinesString();
         } else {
