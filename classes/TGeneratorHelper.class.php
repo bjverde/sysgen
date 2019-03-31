@@ -340,7 +340,7 @@ class TGeneratorHelper
         $DBMS       = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
         $configDBMS = self::getConfigByDBMS($DBMS);
         $pathFolder = self::getPathNewSystem().DS.'modulos'.DS;
-        $geradorForm      = new TCreateForm($pathFolder ,$tableName ,$listColumnsProperties);
+        $geradorForm= new TCreateForm($pathFolder ,$tableName ,$listColumnsProperties);
         $geradorForm->setTableType($tableType);
         $geradorForm->setGridType($configDBMS['TPGRID']);
         $geradorForm->saveFile();
@@ -348,7 +348,9 @@ class TGeneratorHelper
 
     public static function createFilesControllesAPI($tableName, $listColumnsProperties, $tableSchema, $tableType)
     {
-
+        $pathFolder= self::getPathNewSystem().DS.'api'.DS.'routes';
+        $generator = new CreateApiRoutesFiles($pathFolder,$tableName, $listColumnsProperties, $tableType);
+        $generator->saveFile();
     }
     
     public static function createFilesFormClassDaoVoFromTable($tableName, $listColumnsProperties, $tableSchema, $tableType)
