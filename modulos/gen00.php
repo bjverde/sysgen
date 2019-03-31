@@ -28,7 +28,12 @@ if ($validFormDinPMin && $validPHPMin) {
     $frm->addGroupField('gpx2', null);
         $frm->addHtmlField('info', null, 'ajuda/info_gen00_info_pt-br.php')->setClass('htmlInfo', true);
     $frm->closeGroup();
-    
+
+    $frm->addGroupField('gpxTpSystem', Message::GPX_TYPE_SYSTEM);
+        $frm->addHtmlField('info', null, 'ajuda/info_gen00_tpsys_pt-br.php')->setClass('htmlInfo', true);
+        $listTpSystem = TGeneratorHelper::getListTypeSystem();
+        $frm->addRadioField(TableInfo::TP_SYSTEM, Message::FIELD_TP_SYSTEM, true, $listTpSystem, null, true, TGeneratorHelper::TP_SYSTEM_FORM, 3, null, null, null, false);
+    $frm->closeGroup();    
 
     $frm->addGroupField('gpx3', ' Configurações');
         $dbType = array(DBMS_MYSQL=>'MySQL'
@@ -48,12 +53,6 @@ if ($validFormDinPMin && $validPHPMin) {
         
         $frm->addButton('Continuar', null, 'Continuar', null, null, true, false);
         $frm->addButton('Limpar', null, 'Limpar', null, null, false, false);
-    $frm->closeGroup();
-
-    $frm->addGroupField('gpxTpSystem', Message::GPX_TYPE_SYSTEM);
-        $frm->addHtmlField('info', null, 'ajuda/info_gen00_tpsys_pt-br.php')->setClass('htmlInfo', true);
-        $listTpSystem = TGeneratorHelper::getListTypeSystem();
-        $frm->addRadioField(TableInfo::TP_SYSTEM, Message::FIELD_TP_SYSTEM, true, $listTpSystem, null, true, TGeneratorHelper::TP_SYSTEM_FORM, 3, null, null, null, false);
     $frm->closeGroup();
  }
 
