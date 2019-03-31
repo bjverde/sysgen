@@ -341,12 +341,24 @@ class TGeneratorHelper
         $geradorForm->setGridType($configDBMS['TPGRID']);
         $geradorForm->saveFile();
     }
+
+    public static function createFilesControllesAPI($tableName, $listColumnsProperties, $tableSchema, $tableType)
+    {
+
+    }
     
     public static function createFilesFormClassDaoVoFromTable($tableName, $listColumnsProperties, $tableSchema, $tableType)
     {
         self::createFilesDaoVoFromTable($tableName, $listColumnsProperties,$tableSchema,$tableType);
         self::createFilesClasses($tableName, $listColumnsProperties, $tableSchema, $tableType);
-        self::createFilesForms($tableName, $listColumnsProperties, $tableSchema, $tableType);
+
+        if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != TGeneratorHelper::TP_SYSTEM_REST ){
+            self::createFilesForms($tableName, $listColumnsProperties, $tableSchema, $tableType);
+        }
+
+        if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != TGeneratorHelper::TP_SYSTEM_FORM ){
+            self::createFilesControllesAPI($tableName, $listColumnsProperties, $tableSchema, $tableType);
+        }
     }
     
     public static function getUrlNewSystem()
