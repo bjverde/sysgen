@@ -482,7 +482,7 @@ class TGeneratorHelper
         return $FkFieldsTableSelected;
     }    
     //--------------------------------------------------------------------------------------
-    public function validateListTableNames($listTableNames)
+    public static function validateListTableNames($listTableNames)
     {   
         if (empty($listTableNames)) {
             throw new InvalidArgumentException('List of Tables Names is empty');
@@ -492,10 +492,10 @@ class TGeneratorHelper
         }
     }
     //--------------------------------------------------------------------------------------
-    public function validateListColumnsProperties($listColumnsProperties)
+    public static function validateListColumnsProperties($listColumnsProperties)
     {   
         if (!is_array($listColumnsProperties)) {
             throw new InvalidArgumentException('List of Columns Properties not is a array');
         }
-    }    
+    }
 }
