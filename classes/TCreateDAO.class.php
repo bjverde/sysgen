@@ -30,7 +30,6 @@ class TCreateDAO extends TCreateFileContent
      * @param string $pathFolder   - folder path to create file
      * @param string $tableName    - table name
      * @param array $listColumnsProperties
-     * @param array $databaseManagementSystem
      */
     public function __construct($pathFolder ,$tableName ,$listColumnsProperties)
     {
