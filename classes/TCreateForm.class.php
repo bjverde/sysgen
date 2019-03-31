@@ -10,11 +10,9 @@
  * PHP Version 5.6
  */
 
-class TCreateForm
+class TCreateForm extends TCreateFileContent
 {
     private $formTitle;
-    private $formPath;
-    private $formFileName;
     private $primaryKeyTable;
     private $tableRef;
     private $tableRefClass;
@@ -37,13 +35,22 @@ class TCreateForm
     public const FORM_FKTYPE_AUTOSEARCH = 'AUTOSEARCH';
     public const FORM_FKTYPE_SELECTCRUD = 'SELECTCRUD';
 
-    public function __construct()
+    /**
+     * Create file FROM form a table info
+     * @param string $pathFolder   - folder path to create file
+     * @param string $tableName    - table name
+     * @param array $listColumnsProperties
+     */
+    public function __construct($pathFolder ,$tableName ,$listColumnsProperties)
     {
-        $this->setFormTitle(null);
-        $this->setFormPath(null);
-        $this->setFormFileName(null);
-        $this->setPrimaryKeyTable(null);
-        $this->setGridType(null);
+        $tableName = strtolower($tableName);
+        $this->setFormTitle($tableName);
+        $this->setTableRef($tableName);
+        $this->setFileName(strtolower($tableName).'.php');
+        $this->setFilePath($pathFolder);
+        $this->setListColumnsProperties($listColumnsProperties);
+        $this->configArrayColumns();
+        
     }
     //--------------------------------------------------------------------------------------
     public function setFormTitle($formTitle)
@@ -57,26 +64,9 @@ class TCreateForm
         return $this->formTitle;
     }
     //--------------------------------------------------------------------------------------
-    public function setFormPath($formPath)
-    {
-        $formPath = ( !empty($formPath) ) ?$formPath : "/modulos";
-        $this->formPath    = $formPath;
-    }
-    //--------------------------------------------------------------------------------------
-    public function getFormPath()
-    {
-        return $this->formPath;
-    }
-    //--------------------------------------------------------------------------------------
-    public function setFormFileName($formFileName)
-    {
-        $formFileName = ( !empty($formFileName) ) ?$formFileName : "form-".date('Ymd-Gis');
-        $this->formFileName    = strtolower($formFileName.'.php');
-    }
-    //--------------------------------------------------------------------------------------
     public function getFormFileName()
     {
-        return $this->formFileName;
+        return $this->getFileName();
     }
     //--------------------------------------------------------------------------------------
     public function setPrimaryKeyTable($primaryKeyTable)
@@ -136,6 +126,15 @@ class TCreateForm
     {
         return $this->listColumnsProperties;
     }
+    //--------------------------------------------------------------------------------------
+    protected function configArrayColumns()
+    {
+        $listColumnsProperties = $this->getListColumnsProperties();
+        $listColumns = $listColumnsProperties['COLUMN_NAME'];
+        $columnPrimaryKey = $listColumns[0];
+        $this->setListColunnsName($listColumns);
+        $this->setPrimaryKeyTable($columnPrimaryKey);
+    }
     //------------------------------------------------------------------------------------
     public function setTableType($tableType)
     {
@@ -145,29 +144,7 @@ class TCreateForm
     {
         return $this->tableType;
     }
-    //------------------------------------------------------------------------------------
-    public function getLinesArray()
-    {
-        return $this->lines;
-    }
-    //------------------------------------------------------------------------------------
-    public function getLinesString()
-    {
-        $string = implode($this->lines);
-        return trim($string);
-    }
     //--------------------------------------------------------------------------------------
-    private function addLine($strNewValue = null, $boolNewLine = true)
-    {
-        $strNewValue = is_null($strNewValue) ? ESP.'//' . str_repeat('-', 80) : $strNewValue;
-        $this->lines[] = $strNewValue.( $boolNewLine ? EOL : '');
-    }
-    //--------------------------------------------------------------------------------------
-    private function addBlankLine()
-    {
-        $this->addLine('');
-    }
-    
     /***
      * Create variable with string sql basica
      **/
@@ -603,7 +580,7 @@ class TCreateForm
     {
         $this->addLine('function init() {');
         $this->addGridPagination_jsScript_init_allparameters(ESP);
-        $this->addLine(ESP.'fwGetGrid(\''.$this->formFileName.'\',\'gride\',Parameters,true);');
+        $this->addLine(ESP.'fwGetGrid(\''.$this->getFormFileName().'\',\'gride\',Parameters,true);');
         $this->addLine('}');
     }
     //--------------------------------------------------------------------------------------
@@ -693,7 +670,7 @@ class TCreateForm
         $this->addLine('$frm->addButton(\'Limpar\', null, \'Limpar\', null, null, false, false);');
     }
     //--------------------------------------------------------------------------------------
-    public function showForm($print = false)
+    public function show($print = false)
     {
         $this->lines=null;
         $this->addLine('<?php');
@@ -724,21 +701,6 @@ class TCreateForm
             echo $this->getLinesString();
         } else {
             return $this->getLinesString();
-        }
-    }
-    //---------------------------------------------------------------------------------------
-    /**
-     * @codeCoverageIgnore
-     */
-    public function saveForm()
-    {
-        $fileName = $this->formPath.DS.$this->formFileName;
-        if ($fileName) {
-            if (file_exists($fileName)) {
-                unlink($fileName);
-            }
-            $payload = $this->showForm(false);
-            file_put_contents($fileName, $payload);
         }
     }
 }

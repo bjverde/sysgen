@@ -308,19 +308,11 @@ class TGeneratorHelper
     {
         $DBMS       = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
         $configDBMS = self::getConfigByDBMS($DBMS);
-        $folder     = self::getPathNewSystem().DS.'modulos'.DS;
-        $columnPrimaryKey = $listColumnsProperties['COLUMN_NAME'][0];
-        $geradorForm      = new TCreateForm();
+        $pathFolder = self::getPathNewSystem().DS.'modulos'.DS;
+        $geradorForm      = new TCreateForm($pathFolder ,$tableName ,$listColumnsProperties);
         $geradorForm->setTableType($tableType);
-        $geradorForm->setFormTitle($tableName);
-        $geradorForm->setFormPath($folder);
-        $geradorForm->setFormFileName($tableName);
-        $geradorForm->setPrimaryKeyTable($columnPrimaryKey);
-        $geradorForm->setTableRef($tableName);
-        $geradorForm->setListColunnsName($listColumnsProperties['COLUMN_NAME']);
-        $geradorForm->setListColumnsProperties($listColumnsProperties);
         $geradorForm->setGridType($configDBMS['TPGRID']);
-        $geradorForm->saveForm();
+        $geradorForm->saveFile();
     }
     
     public static function createFilesFormClassDaoVoFromTable($tableName, $listColumnsProperties, $tableSchema, $tableType)
