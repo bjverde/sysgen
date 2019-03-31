@@ -10,7 +10,7 @@
  * PHP Version 5.6
  */
 
-class CreateAutoloadDAO extends TCreateFileContent
+class CreateAutoloadAPI extends TCreateFileContent
 {
 
     private $gen_system_acronym;

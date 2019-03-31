@@ -216,6 +216,11 @@ class TGeneratorHelper
 
         $file = new CreateAutoloadDAO();
         $file->saveFile();
+
+        if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != self::TP_SYSTEM_FORM ){
+            $file = new CreateAutoloadAPI();
+            $file->saveFile();
+        }
     }
     
     public static function createFileMenu($listTable)
