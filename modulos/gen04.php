@@ -43,7 +43,7 @@ try {
 		$html->add(TGeneratorHelper::showMsg(true, Message::CREATED_MENU));
 	}
 
-	if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != self::TP_SYSTEM_REST ){
+	if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != TGeneratorHelper::TP_SYSTEM_REST ){
 		TGeneratorHelper::createFileMenu($listTables);
 		$html->add(TGeneratorHelper::showMsg(true, Message::CREATED_MENU));
 	}
