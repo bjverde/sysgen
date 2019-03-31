@@ -30,7 +30,10 @@ class TCreateConstants extends TCreateFileContent
         $this->addLine('define(\'SYSTEM_ACRONYM\' , \''.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].'\');');
         $this->addLine('define(\'SYSTEM_VERSION\' , \''.$_SESSION[APLICATIVO]['GEN_SYSTEM_VERSION'].'\');');
         $this->addLine('define(\'APLICATIVO\'     , SYSTEM_ACRONYM);');
-        $this->addLine('define(\'DS\'   , DIRECTORY_SEPARATOR);');
+        $this->addBlankLine();
+        $this->addLine('if (! defined ( \'DS\' )) {');
+        $this->addLine(ESP.'define(\'DS\'   , DIRECTORY_SEPARATOR);');
+        $this->addLine('}');
         $this->addLine('?>');
         if ($print) {
             echo $this->getLinesString();
