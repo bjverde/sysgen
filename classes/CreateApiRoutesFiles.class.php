@@ -19,7 +19,7 @@ class CreateApiRoutesFiles extends TCreateFileContent
 
     public function __construct($pathFolder ,$tableName ,$listColumnsProperties, $tableType)
     {
-        $tableName = strtolower($tableName);
+        $tableName = ucfirst(strtolower($tableName));
         $this->setTableName($tableName);
         $this->setTableType($tableType);
         $this->setFileName($tableName.'.route.php');
