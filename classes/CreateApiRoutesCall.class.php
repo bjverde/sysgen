@@ -60,7 +60,7 @@ class CreateApiRoutesCall extends TCreateFileContent
             $this->addLine('$app->group(\'/'.$tableName.'\', function() use ($app) {');
             $this->addLine(ESP.'$app->get(\'\', '.$tableName.'API::class . \':selectAll\');');
             $this->addBlankLine();
-            $this->addLine(ESP.'$app->get(\'/{id:[0-9]+}\', '.$tableName.'API::class . \':selectAll\');');
+            $this->addLine(ESP.'$app->get(\'/{id:[0-9]+}\', '.$tableName.'API::class . \':selectById\');');
             $this->addLine('});');
         }
     }
