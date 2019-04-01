@@ -36,6 +36,7 @@ class CreateApiRoutesCall extends TCreateFileContent
     {
         $listTableNames = $this->getListTableNames();
         foreach ($listTableNames['TABLE_NAME'] as $tableName) {
+            $tableName = ucfirst(strtolower($tableName));
             $this->addLine(ESP.','.$tableName.'API');
         }
     }
@@ -59,7 +60,7 @@ class CreateApiRoutesCall extends TCreateFileContent
             $this->addLine('//  '.$tableName);
             $this->addLine('//--------------------------------------------------------------------');
             $tableName = ucfirst(strtolower($tableName));
-            $this->addLine('$app->group(\'/'.$tableName.'\', function() use ($app) {');
+            $this->addLine('$app->group(\'/'.strtolower($tableName).'\', function() use ($app) {');
             $this->addLine(ESP.'$app->get(\'\', '.$tableName.'API::class . \':selectAll\');');
             $this->addBlankLine();
             $this->addLine(ESP.'$app->get(\'/{id:[0-9]+}\', '.$tableName.'API::class . \':selectById\');');
