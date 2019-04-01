@@ -21,7 +21,7 @@ class CreateApiControllesFiles extends TCreateFileContent
     {
         $tableName = strtolower($tableName);
         $this->setTableName(ucfirst($tableName));
-        $this->setTableType($tableType);
+        $this->setTableType( strtoupper($tableType) );
         $this->setFileName($tableName.'API.class.php');
         $this->setFilePath($pathFolder);
     }
@@ -45,6 +45,56 @@ class CreateApiControllesFiles extends TCreateFileContent
         return $this->tableType;
     }
     //--------------------------------------------------------------------------------------
+    public function addConstruct()
+    {
+        $this->addLine(ESP.'public function __construct()');
+        $this->addLine(ESP.'{');
+        $this->addLine(ESP.'}');
+    }
+    //--------------------------------------------------------------------------------------
+    public function addSelectAll()
+    {
+        $this->addLine();
+        $this->addLine(ESP.'public static function selectAll(Request $request, Response $response, array $args): Response');
+        $this->addLine(ESP.'{');
+        $this->addLine(ESP.ESP.'$result = \\'.ucfirst( $this->getTableName() ).'::selectAll();');
+        $this->addLine(ESP.ESP.'$result = \ArrayHelper::convertArrayFormDin2Pdo($result);');
+        $this->addLine(ESP.ESP.'$msg = array( \'qtd\'=> \CountHelper::count($result)');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.', \'result\'=>$result');
+        $this->addLine(ESP.ESP.');');
+        $this->addLine(ESP.ESP.'$response = $response->withJson($msg);');
+        $this->addLine(ESP.ESP.'return $response;');
+        $this->addLine(ESP.'}');
+    }
+    //--------------------------------------------------------------------------------------
+    public function addSelectById()
+    {
+        $this->addLine();
+        $this->addLine(ESP.'public static function selectById(Request $request, Response $response, array $args): Response');
+        $this->addLine(ESP.'{');
+        $this->addLine(ESP.ESP.'$id = $args[\'id\'];');
+        $this->addLine(ESP.ESP.'$result = \\'.ucfirst( $this->getTableName() ).'::selectById($id);');
+        $this->addLine(ESP.ESP.'$result = \ArrayHelper::convertArrayFormDin2Pdo($result);');
+        $this->addLine(ESP.ESP.'$msg = array( \'qtd\'=> \CountHelper::count($result)');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.', \'result\'=>$result');
+        $this->addLine(ESP.ESP.');');
+        $this->addLine(ESP.ESP.'$response = $response->withJson($msg);');
+        $this->addLine(ESP.ESP.'return $response;');
+        $this->addLine(ESP.'}');
+    }
+    //--------------------------------------------------------------------------------------
+    public function addDelete()
+    {
+        $this->addLine();
+        $this->addLine(ESP.'public static function delete(Request $request, Response $response, array $args): Response');
+        $this->addLine(ESP.'{');
+        $this->addLine(ESP.ESP.'$id = $args[\'id\'];');
+        $this->addLine(ESP.ESP.'$result = \\'.ucfirst( $this->getTableName() ).'::delete($id);');
+        $this->addLine(ESP.ESP.'$response = $response->withJson($msg);');
+        $this->addLine(ESP.ESP.'return $response;');
+        $this->addLine(ESP.'}');
+    }    
+    //--------------------------------------------------------------------------------------
     public function show($print = false)
     {
         $this->addLine('<?php');
@@ -60,22 +110,16 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine('class '.ucfirst( $this->getTableName() ).'API');
         $this->addLine('{');
         $this->addBlankLine();
-        $this->addLine(ESP.'public function __construct()');
-        $this->addLine(ESP.'{');
-        $this->addLine(ESP.'}');
-        $this->addLine();
-        $this->addLine(ESP.'public static function selectAll(Request $request, Response $response, array $args): Response');
-        $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$result = \\'.ucfirst( $this->getTableName() ).'::selectAll();');
-        $this->addLine(ESP.ESP.'$result = \ArrayHelper::convertArrayFormDin2Pdo($result);');
-        $this->addLine(ESP.ESP.'$msg = array( \'qtd\'=> \CountHelper::count($result)');
-        $this->addLine(ESP.ESP.ESP.ESP.ESP.', \'result\'=>$result');
-        $this->addLine(ESP.ESP.');');
-        $this->addLine(ESP.ESP.'$response = $response->withJson($msg);');
-        $this->addLine(ESP.ESP.'return $response;');
-        $this->addLine(ESP.'}');
+        $this->addConstruct();
+        $this->addBlankLine();
+        $this->addSelectAll();
+        $this->addBlankLine();
+        $this->addSelectById();
+        if( $this->getTableType() == TGeneratorHelper::TABLE_TYPE_TABLE ){
+            $this->addBlankLine();
+            $this->addDelete();
+        }
         $this->addLine('}');
-
 
         if ($print) {
             echo $this->getLinesString();
