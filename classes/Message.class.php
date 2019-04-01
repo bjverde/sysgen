@@ -57,7 +57,9 @@ final class Message
     const GEN04_TITLE        = 'Etapa 04 de '.self::LAST_STEP;
     
     const BUTTON_LABEL_BACK  = 'Voltar';
-    const BUTTON_LABEL_CLEAN = 'Limpar';
-    const BUTTON_GEN_FORM    = 'Gerar Telas';
+    const BUTTON_LABEL_CLEAN = 'Limpar';    
     const BUTTON_LABEL_CONF  = 'Gerar Config';
+    
+    const GEN03_BTN_NEXT4_LABEL = 'Seguir Etapa 04 ->';
+    const GEN03_BTN_NEXT4_ACT   = 'next4';
 }
