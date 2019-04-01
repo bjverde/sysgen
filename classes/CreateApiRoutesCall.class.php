@@ -52,7 +52,7 @@ class CreateApiRoutesCall extends TCreateFileContent
     {
         $listTableNames = $this->getListTableNames();
         foreach ($listTableNames['TABLE_NAME'] as $key => $tableName) { 
-            $tableType = strtoupper($listTableNames['TABLE_NAME'][$key]);
+            $tableType = strtoupper($listTableNames['TABLE_TYPE'][$key]);
             $this->addBlankLine();
             $this->addBlankLine();
             $this->addLine('//--------------------------------------------------------------------');
