@@ -51,7 +51,8 @@ class CreateApiRoutesCall extends TCreateFileContent
     private function addRouterForTable()
     {
         $listTableNames = $this->getListTableNames();
-        foreach ($listTableNames['TABLE_NAME'] as $tableName) {            
+        foreach ($listTableNames['TABLE_NAME'] as $key => $tableName) { 
+            $tableType = strtoupper($listTableNames['TABLE_NAME'][$key]);
             $this->addBlankLine();
             $this->addBlankLine();
             $this->addLine('//--------------------------------------------------------------------');
@@ -61,6 +62,10 @@ class CreateApiRoutesCall extends TCreateFileContent
             $this->addLine(ESP.'$app->get(\'\', '.$tableName.'API::class . \':selectAll\');');
             $this->addBlankLine();
             $this->addLine(ESP.'$app->get(\'/{id:[0-9]+}\', '.$tableName.'API::class . \':selectById\');');
+            if( $tableType == TGeneratorHelper::TABLE_TYPE_TABLE ){
+                $this->addBlankLine();
+                $this->addLine(ESP.'$app->delete(\'/{id:[0-9]+}\', '.$tableName.'API::class . \':delete\');');
+            }
             $this->addLine('});');
         }
     }
