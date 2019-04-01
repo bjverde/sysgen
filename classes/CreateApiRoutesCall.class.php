@@ -48,6 +48,23 @@ class CreateApiRoutesCall extends TCreateFileContent
         }
     }
     //--------------------------------------------------------------------------------------
+    private function addRouterForTable()
+    {
+        $listTableNames = $this->getListTableNames();
+        foreach ($listTableNames['TABLE_NAME'] as $tableName) {            
+            $this->addBlankLine();
+            $this->addBlankLine();
+            $this->addLine('//--------------------------------------------------------------------');
+            $this->addLine('//  '.$tableName);
+            $this->addLine('//--------------------------------------------------------------------');
+            $this->addLine('$app->group(\'/'.$tableName.'\', function() use ($app) {');
+            $this->addLine(ESP.'$app->get(\'\', '.$tableName.'API::class . \':selectAll\');');
+            $this->addBlankLine();
+            $this->addLine(ESP.'$app->get(\'/{id:[0-9]+}\', '.$tableName.'API::class . \':selectAll\');');
+            $this->addLine('});');
+        }
+    }
+    //--------------------------------------------------------------------------------------
     public function show($print = false)
     {
         $this->lines=null;
@@ -63,7 +80,7 @@ class CreateApiRoutesCall extends TCreateFileContent
         $this->addBlankLine();
         $this->addLine('$app->get(\'/sysinfo\', SysinfoAPI::class . \':getInfo\');');
         $this->addBlankLine();
-        $this->addFileRouter();
+        $this->addRouterForTable();
         $this->addBlankLine();
         $this->addLine('$app->run();');
         if ($print) {

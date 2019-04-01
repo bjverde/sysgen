@@ -355,9 +355,9 @@ class TGeneratorHelper
         $generator = new CreateApiControllesFiles($pathFolder,$tableName, $listColumnsProperties, $tableType);
         $generator->saveFile();
 
-        $pathFolder= self::getPathNewSystem().DS.'api'.DS.'routes';
-        $generator = new CreateApiRoutesFiles($pathFolder,$tableName, $listColumnsProperties, $tableType);
-        $generator->saveFile();
+        //$pathFolder= self::getPathNewSystem().DS.'api'.DS.'routes';
+        //$generator = new CreateApiRoutesFiles($pathFolder,$tableName, $listColumnsProperties, $tableType);
+        //$generator->saveFile();
     }
     
     public static function createFilesFormClassDaoVoFromTable($tableName, $listColumnsProperties, $tableSchema, $tableType)
