@@ -40,8 +40,8 @@ final class Message
     const NEW_SYSTEM_OK       = 'Sistema Criado com Sucesso';
     const CREATED_MENU        = 'Criado arquivo de menu.';
     const CREATED_API_INDEX   = 'Criado arquivo de index e routes da API';
-    const CREATED_TABLE_ITEN  = ' - Criado Form, Class, DAO e VO da tabela: ';
-    const CREATED_VIEW_ITEN   = ' - Criado DAO e VO da view: ';
+    const CREATED_TABLE_ITEN  = ' - Criado Form, Class, DAO e VO da TABELA: ';
+    const CREATED_VIEW_ITEN   = ' - Criado Form de Consulta, Class, DAO e VO da VIEW: ';
     const FIELDS_TABLE_VIEW   = ' - Lista de campos da Tabela/View: ';
     
     const GRID_LIST_FK_TITLE  = 'Lista de FK e como elas devem aparecer';
