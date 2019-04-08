@@ -62,10 +62,12 @@ class CreateApiRoutesCall extends TCreateFileContent
             $tableName = ucfirst(strtolower($tableName));
             $this->addLine('$app->group(\'/'.strtolower($tableName).'\', function() use ($app) {');
             $this->addLine(ESP.'$app->get(\'\', '.$tableName.'API::class . \':selectAll\');');
-            $this->addBlankLine();
             $this->addLine(ESP.'$app->get(\'/{id:[0-9]+}\', '.$tableName.'API::class . \':selectById\');');
+            $this->addBlankLine();            
             if( $tableType == TGeneratorHelper::TABLE_TYPE_TABLE ){
                 $this->addBlankLine();
+                $this->addLine(ESP.'$app->post(\'\', '.$tableName.'API::class . \':save\');');
+                $this->addLine(ESP.'$app->put(\'/{id:[0-9]+}\', '.$tableName.'API::class . \':save\');');
                 $this->addLine(ESP.'$app->delete(\'/{id:[0-9]+}\', '.$tableName.'API::class . \':delete\');');
             }
             $this->addLine('});');

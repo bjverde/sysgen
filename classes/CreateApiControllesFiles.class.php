@@ -83,17 +83,31 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
+    public function addSave()
+    {
+        $this->addLine();
+        $this->addLine(ESP.'public static function delete(Request $request, Response $response, array $args): Response');
+        $this->addLine(ESP.'{');
+        $this->addLine(ESP.ESP.'$id = $args[\'id\'];');
+        $this->addLine(ESP.ESP.'$class = new \\'.ucfirst( $this->getTableName() ).';');
+        $this->addLine(ESP.ESP.'$vo = new \\'.ucfirst( $this->getTableName() ).'VO;');
+        $this->addLine(ESP.ESP.'$result = $class->salve($vo);');
+        $this->addLine(ESP.ESP.'return $response;');
+        $this->addLine(ESP.'}');
+    }    
+    //--------------------------------------------------------------------------------------
     public function addDelete()
     {
         $this->addLine();
         $this->addLine(ESP.'public static function delete(Request $request, Response $response, array $args): Response');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$id = $args[\'id\'];');
-        $this->addLine(ESP.ESP.'$result = \\'.ucfirst( $this->getTableName() ).'::delete($id);');
+        $this->addLine(ESP.ESP.'$class = new \\'.ucfirst( $this->getTableName() ).';');
+        $this->addLine(ESP.ESP.'$result = $class->delete($id);');
         $this->addLine(ESP.ESP.'$response = $response->withJson($msg);');
         $this->addLine(ESP.ESP.'return $response;');
         $this->addLine(ESP.'}');
-    }    
+    }
     //--------------------------------------------------------------------------------------
     public function show($print = false)
     {
