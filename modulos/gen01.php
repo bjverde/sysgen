@@ -31,9 +31,9 @@ if ($validoPDOAndDBMS) {
     $pc->addPage(DBMS_MYSQL, $showAba, $showAba, 'abamy');
     $frm->addHiddenField('myDbType', DBMS_MYSQL);
     $frm->addTextField('myHost', 'Host:', 20, true, 20, '127.0.0.1', true, null, null, true);
-    $frm->addTextField('myDb', 'Database:', 20, true, 20, 'test', true, null, null, true);
-    $frm->addTextField('myUser', 'User:', 40, true, 20, 'root', false, null, null, true);
-    $frm->addTextField('myPass', 'Password:', 40, true, 20, '', false, null, null, true);
+    $frm->addTextField('myDb', 'Database:', 20, true, 20, 'form_exemplo', true, null, null, true);
+    $frm->addTextField('myUser', 'User:', 40, true, 20, 'form_exemplo', false, null, null, true);
+    $frm->addTextField('myPass', 'Password:', 40, true, 20, '123456', false, null, null, true);
     $frm->addTextField('myPort', 'Porta:', 6, false, 6, '3306', false, null, null, true, false);
     $frm->addButton('Testar Conexão', null, 'btnTestarmy', 'testarConexao("my")', null, true, false);
     $frm->addHtmlField('myGride', '');
