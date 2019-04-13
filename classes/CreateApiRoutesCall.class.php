@@ -49,6 +49,16 @@ class CreateApiRoutesCall extends TCreateFileContent
         }
     }
     //--------------------------------------------------------------------------------------
+    private function addCommentTableOrView($tableType,$tableName){
+        $this->addLine('//--------------------------------------------------------------------');
+        if( $tableType == TGeneratorHelper::TABLE_TYPE_TABLE ){
+            $this->addLine('//  TABLE: '.$tableName);
+        }else{
+            $this->addLine('//  VIEW: '.$tableName);
+        }
+        $this->addLine('//--------------------------------------------------------------------');
+    }
+    //--------------------------------------------------------------------------------------
     private function addRouterForTable()
     {
         $listTableNames = $this->getListTableNames();
@@ -56,14 +66,12 @@ class CreateApiRoutesCall extends TCreateFileContent
             $tableType = strtoupper($listTableNames['TABLE_TYPE'][$key]);
             $this->addBlankLine();
             $this->addBlankLine();
-            $this->addLine('//--------------------------------------------------------------------');
-            $this->addLine('//  '.$tableName);
-            $this->addLine('//--------------------------------------------------------------------');
+            $this->addCommentTableOrView($tableType,$tableName);
             $tableName = ucfirst(strtolower($tableName));
             $this->addLine('$app->group(\'/'.strtolower($tableName).'\', function() use ($app) {');
             $this->addLine(ESP.'$app->get(\'\', '.$tableName.'API::class . \':selectAll\');');
             $this->addLine(ESP.'$app->get(\'/{id:[0-9]+}\', '.$tableName.'API::class . \':selectById\');');
-            $this->addBlankLine();            
+            $this->addBlankLine();
             if( $tableType == TGeneratorHelper::TABLE_TYPE_TABLE ){
                 $this->addBlankLine();
                 $this->addLine(ESP.'$app->post(\'\', '.$tableName.'API::class . \':save\');');
