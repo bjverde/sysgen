@@ -10,6 +10,7 @@
  * PHP Version 5.6
  */
 defined('APLICATIVO') or die();
+$_SESSION[APLICATIVO] = null;
 
 $frm = new TForm(Message::GEN00_TITLE, 200, 600);
 $frm->setFlat(true);
