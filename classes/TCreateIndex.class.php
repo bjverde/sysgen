@@ -35,8 +35,9 @@ class TCreateIndex extends TCreateFileContent
         $this->addLine('require_once(\'dao/autoload_'.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].'_dao.php\');');
         $this->addBlankLine();
         $this->addBlankLine();
-        $this->addLine('$app = new TApplication(); // criar uma instancia do objeto aplicacao');
+        $this->addLine('$app = new TApplication(); // criar uma instancia do objeto aplicacao');        
         $this->addLine('$app->setAppRootDir(__DIR__);');
+        $this->addLine('$app->setTitle(FORMDIN_VERSION_MIN_VERSION);');
         $this->addLine('$app->setTitle(SYSTEM_NAME);');
         //$this->addLine('$app->setSUbTitle(SYSTEM_NAME_SUB);');
         $this->addLine('$app->setSigla(SYSTEM_ACRONYM);');

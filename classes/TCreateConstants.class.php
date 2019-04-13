@@ -31,6 +31,8 @@ class TCreateConstants extends TCreateFileContent
         $this->addLine('define(\'SYSTEM_VERSION\' , \''.$_SESSION[APLICATIVO]['GEN_SYSTEM_VERSION'].'\');');
         $this->addLine('define(\'APLICATIVO\'     , SYSTEM_ACRONYM);');
         $this->addBlankLine();
+        $this->addLine('define(\'FORMDIN_VERSION_MIN_VERSION\', \''.FORMDIN_VERSION.'\');');
+        $this->addBlankLine();
         $this->addLine('if (! defined ( \'DS\' )) {');
         $this->addLine(ESP.'define(\'DS\'   , DIRECTORY_SEPARATOR);');
         $this->addLine('}');
