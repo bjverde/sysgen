@@ -200,13 +200,25 @@ class TGeneratorHelper
     {
         $tpSystem = $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM];
         switch ($tpSystem) {
+            case self::TP_SYSTEM_FORM:
+                $pathSkeleton  = 'system_skeleton'.DS.'common';
+                self::copySystemSkeletonToNewSystemByTpSystem($pathSkeleton);
+                $pathSkeleton  = 'system_skeleton'.DS.'form';
+                self::copySystemSkeletonToNewSystemByTpSystem($pathSkeleton);
+            break;
+            //--------------------------------------------------------------------------------
             case self::TP_SYSTEM_REST:
-            case self::TP_SYSTEM_FORM_REST:
+                $pathSkeleton  = 'system_skeleton'.DS.'common';
+                self::copySystemSkeletonToNewSystemByTpSystem($pathSkeleton);
                 $pathSkeleton  = 'system_skeleton'.DS.'rest';
                 self::copySystemSkeletonToNewSystemByTpSystem($pathSkeleton);
-            //break;
+            break;
             //--------------------------------------------------------------------------------
-            case self::TP_SYSTEM_FORM:
+            case self::TP_SYSTEM_FORM_REST:
+                $pathSkeleton  = 'system_skeleton'.DS.'common';
+                self::copySystemSkeletonToNewSystemByTpSystem($pathSkeleton);
+                $pathSkeleton  = 'system_skeleton'.DS.'rest';
+                self::copySystemSkeletonToNewSystemByTpSystem($pathSkeleton);
                 $pathSkeleton  = 'system_skeleton'.DS.'form';
                 self::copySystemSkeletonToNewSystemByTpSystem($pathSkeleton);
             break;
