@@ -683,6 +683,7 @@ class TCreateForm extends TCreateFileContent
         }
         $this->addLine('$primaryKey = \''.$this->getPrimaryKeyTable().'\';');
         $this->addLine('$frm = new TForm(\''.$this->formTitle.'\',800,950);');
+        $this->addLine('$frm->setShowCloseButton(false);');
         $this->addLine('$frm->setFlat(true);');
         $this->addLine('$frm->setMaximize(true);');
         //$this->addLine('$frm->setAutoSize(true);');  // https://github.com/bjverde/formDin/issues/48 problema com o Chrome
