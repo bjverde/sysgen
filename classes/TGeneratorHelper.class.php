@@ -429,8 +429,8 @@ class TGeneratorHelper
     
     public static function getFKTypeScreenReferencedSelected($table, $tableSchema, $listFieldsTable, $key)
     {
-        $fkTypeScreenReferenced = null;
-        if($listFieldsTable[TableInfo::KEY_TYPE][$key] == TableInfo::KEY_TYPE_FK){
+        $fkTypeScreenReferenced = null;                
+        if(ArrayHelper::has(TableInfo::KEY_TYPE,$listFieldsTable) && $listFieldsTable[TableInfo::KEY_TYPE][$key] == TableInfo::KEY_TYPE_FK){
             $columnNameTarget = $listFieldsTable[TableInfo::COLUMN_NAME][$key];
             $idColumnTarger = $tableSchema.$table.$columnNameTarget;
             $listIdColumns = $_SESSION[APLICATIVO][TableInfo::FK_FIELDS_TABLE_SELECTED][TableInfo::ID_COLUMN_FK_SRSELECTED];
