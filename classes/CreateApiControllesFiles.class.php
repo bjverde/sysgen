@@ -47,6 +47,7 @@ class CreateApiControllesFiles extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     public function addConstruct()
     {
+        $this->addBlankLine();
         $this->addLine(ESP.'public function __construct()');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.'}');
@@ -54,6 +55,7 @@ class CreateApiControllesFiles extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     public function addSelectAll()
     {
+        $this->addBlankLine();
         $this->addLine();
         $this->addLine(ESP.'public static function selectAll(Request $request, Response $response, array $args): Response');
         $this->addLine(ESP.'{');
@@ -69,6 +71,7 @@ class CreateApiControllesFiles extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     public function addSelectById()
     {
+        $this->addBlankLine();
         $this->addLine();
         $this->addLine(ESP.'public static function selectById(Request $request, Response $response, array $args): Response');
         $this->addLine(ESP.'{');
@@ -98,6 +101,7 @@ class CreateApiControllesFiles extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     public function addDelete()
     {
+        $this->addBlankLine();
         $this->addLine();
         $this->addLine(ESP.'public static function delete(Request $request, Response $response, array $args): Response');
         $this->addLine(ESP.'{');
@@ -123,14 +127,10 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addBlankLine();
         $this->addLine('class '.ucfirst( $this->getTableName() ).'API');
         $this->addLine('{');
-        $this->addBlankLine();
         $this->addConstruct();
-        $this->addBlankLine();
         $this->addSelectAll();
-        $this->addBlankLine();
         $this->addSelectById();
         if( $this->getTableType() == TGeneratorHelper::TABLE_TYPE_TABLE ){
-            $this->addBlankLine();
             $this->addDelete();
         }
         $this->addLine('}');
