@@ -30,7 +30,7 @@ if ($validoPDOAndDBMS) {
     $showAba = TGeneratorHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_MYSQL);
     $pc->addPage(DBMS_MYSQL, $showAba, $showAba, 'abamy');
     $frm->addHiddenField('myDbType', DBMS_MYSQL);
-    $frm->addTextField('myHost', 'Host:', 20, true, 20, '127.0.0.0.1', true, null, null, true);
+    $frm->addTextField('myHost', 'Host:', 20, true, 20, '127.0.0.1', true, null, null, true);
     $frm->addTextField('myDb', 'Database:', 20, true, 20, 'test', true, null, null, true);
     $frm->addTextField('myUser', 'User:', 40, true, 20, 'root', false, null, null, true);
     $frm->addTextField('myPass', 'Password:', 40, true, 20, '', false, null, null, true);
@@ -49,7 +49,7 @@ if ($validoPDOAndDBMS) {
     $showAba = TGeneratorHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_SQLSERVER);
     $pc->addPage(DBMS_SQLSERVER, $showAba, $showAba, 'abass');
     $frm->addHiddenField('ssDbType', DBMS_SQLSERVER);
-    $frm->addTextField('ssHost', 'Host:', 50, true, 50, '127.0.0.0.1', true, null, null, true);
+    $frm->addTextField('ssHost', 'Host:', 50, true, 50, '127.0.0.1', true, null, null, true);
     $frm->addTextField('ssDb', 'Database:', 20, true, 20, 'Northwind', true, null, null, true);
     $frm->addTextField('ssUser', 'User:', 40, true, 20, 'sa', false, null, null, true);
     $frm->addTextField('ssPass', 'Password:', 40, true, 20, '123456', false, null, null, true);
@@ -61,7 +61,7 @@ if ($validoPDOAndDBMS) {
     $showAba = TGeneratorHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_POSTGRES);
     $pc->addPage(DBMS_POSTGRES, $showAba, $showAba, 'abapg');
     $frm->addHiddenField('pgDbType', DBMS_POSTGRES);
-    $frm->addTextField('pgHost', 'Host:', 20, true, 20, '127.0.0.0.1', true, null, null, true);
+    $frm->addTextField('pgHost', 'Host:', 20, true, 20, '127.0.0.1', true, null, null, true);
     $frm->addTextField('pgDb', 'Database:', 20, true, 20, 'test', true, null, null, true);
     $frm->addTextField('pgUser', 'User:', 40, true, 20, 'postgres', false, null, null, true);
     $frm->addTextField('pgPass', 'Password:', 40, true, 20, '123456', false, null, null, true);
@@ -74,7 +74,7 @@ if ($validoPDOAndDBMS) {
     $showAba = TGeneratorHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_ORACLE);
     $pc->addPage(DBMS_ORACLE, $showAba, $showAba, 'abaora');
     $frm->addHiddenField('oraDbType', DBMS_ORACLE);
-    $frm->addTextField('oraHost', 'Host:', 50, true, 50, '127.0.0.0.1', true, null, null, true);
+    $frm->addTextField('oraHost', 'Host:', 50, true, 50, '127.0.0.1', true, null, null, true);
     $frm->addTextField('oraDb', 'Database:', 20, true, 20, 'xe', true, null, null, true);
     $frm->addTextField('oraUser', 'User:', 40, true, 20, 'root', false, null, null, true);
     $frm->addTextField('oraPass', 'Password:', 40, true, 20, '123456', false, null, null, true);
