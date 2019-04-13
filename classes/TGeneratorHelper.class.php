@@ -433,8 +433,11 @@ class TGeneratorHelper
         foreach ($listFieldsTable['DATA_TYPE'] as $key => $dataType) {
             $formDinType = TCreateForm::convertDataType2FormDinType($dataType);
             $listFieldsTable[TCreateForm::FORMDIN_TYPE_COLUMN_NAME][$key] = $formDinType;
-            $fkTypeScreenReferenced = self::getFKTypeScreenReferencedSelected($table, $tableSchema, $listFieldsTable, $key);
-            $listFieldsTable[TableInfo::FK_TYPE_SCREEN_REFERENCED][$key] = $fkTypeScreenReferenced;
+            
+            if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != self::TP_SYSTEM_REST ){
+                $fkTypeScreenReferenced = self::getFKTypeScreenReferencedSelected($table, $tableSchema, $listFieldsTable, $key);
+                $listFieldsTable[TableInfo::FK_TYPE_SCREEN_REFERENCED][$key] = $fkTypeScreenReferenced;
+            }
         }
         return $listFieldsTable;
     }
