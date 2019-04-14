@@ -100,15 +100,26 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
+    public function addSelectByIdInside()
+    {
+        $this->addBlankLine();
+        $this->addLine();
+        $this->addLine(ESP.'private static function selectByIdInside(array $args)');
+        $this->addLine(ESP.'{');
+        $this->addLine(ESP.ESP.'$id = $args[\'id\'];');
+        $this->addLine(ESP.ESP.'$result = \\'.ucfirst( $this->getTableName() ).'::selectById($id);');
+        $this->addLine(ESP.ESP.'$result = \ArrayHelper::convertArrayFormDin2Pdo($result);');
+        $this->addLine(ESP.ESP.'return $result;');
+        $this->addLine(ESP.'}');
+    }    
+    //--------------------------------------------------------------------------------------
     public function addSelectById()
     {
         $this->addBlankLine();
         $this->addLine();
         $this->addLine(ESP.'public static function selectById(Request $request, Response $response, array $args): Response');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$id = $args[\'id\'];');
-        $this->addLine(ESP.ESP.'$result = \\'.ucfirst( $this->getTableName() ).'::selectById($id);');
-        $this->addLine(ESP.ESP.'$result = \ArrayHelper::convertArrayFormDin2Pdo($result);');
+        $this->addLine(ESP.ESP.'$result = self::selectByIdInside($args);');
         $this->addLine(ESP.ESP.'$msg = array( \'qtd\'=> \CountHelper::count($result)');
         $this->addLine(ESP.ESP.ESP.ESP.ESP.', \'result\'=>$result');
         $this->addLine(ESP.ESP.');');
@@ -140,13 +151,19 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.'public static function save(Request $request, Response $response, array $args): Response');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$vo = new \\'.ucfirst( $this->getTableName() ).'VO;');
-        $this->addLine(ESP.ESP.'$vo = self::setVo($args,$request);');
-        $this->addLine(ESP.ESP.'$class = new \\'.ucfirst( $this->getTableName() ).';');
-        $this->addLine(ESP.ESP.'$class->save($vo);');
         $this->addLine(ESP.ESP.'$msg = \Message::GENERIC_INSERT;');
         $this->addLine(ESP.ESP.'if($request->isPut()){');
         $this->addLine(ESP.ESP.ESP.'$msg = \Message::GENERIC_UPDATE;');
+        $this->addLine(ESP.ESP.ESP.'$result = self::selectByIdInside($args);');
+        $this->addLine(ESP.ESP.ESP.'$bodyRequest = $result[0];');
+        $this->addLine(ESP.ESP.ESP.'$vo = \FormDinHelper::setPropertyVo($bodyRequest,$vo);');
         $this->addLine(ESP.ESP.'}');
+        $this->addLine(ESP.ESP.'$bodyRequest = json_decode($request->getBody(),true);');
+        $this->addLine(ESP.ESP.'$vo = \FormDinHelper::setPropertyVo($bodyRequest,$vo);');
+        $this->addBlankLine();
+        $this->addLine(ESP.ESP.'$class = new \\'.ucfirst( $this->getTableName() ).';');
+        $this->addLine(ESP.ESP.'$class->save($vo);');
+        $this->addBlankLine();
         $this->addLine(ESP.ESP.'$response = $response->withJson($msg);');
         $this->addLine(ESP.ESP.'return $response;');
         $this->addLine(ESP.'}');
@@ -182,9 +199,9 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine('{');
         $this->addConstruct();
         $this->addSelectAll();
+        $this->addSelectByIdInside();
         $this->addSelectById();
         if( $this->getTableType() == TGeneratorHelper::TABLE_TYPE_TABLE ){
-            $this->addSetVo();
             $this->addSave();
             $this->addDelete();
         }
