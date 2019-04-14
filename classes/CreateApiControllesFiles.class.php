@@ -86,15 +86,37 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
+    public function addSetVo()
+    {
+        $this->addBlankLine();
+        $this->addLine();
+        $this->addLine(ESP.'public static function setVo($args,$request)');
+        $this->addLine(ESP.'{');
+        $this->addLine(ESP.ESP.'$bodyRequest = json_decode($request->getBody(),true);');
+        $this->addLine(ESP.ESP.'$vo = new \\'.ucfirst( $this->getTableName() ).'VO;');
+        $this->addLine(ESP.ESP.'$vo = \FormDinHelper::setPropertyVo($bodyRequest,$vo);');
+        $this->addLine(ESP.ESP.'if($request->isPut()){');
+        $this->addLine(ESP.ESP.ESP.'$vo->setId_item($args[\'id\']);');
+        $this->addLine(ESP.ESP.'}');
+        $this->addLine(ESP.ESP.'return $vo;');
+        $this->addLine(ESP.'}');
+    }
+    //--------------------------------------------------------------------------------------
     public function addSave()
     {
+        $this->addBlankLine();
         $this->addLine();
-        $this->addLine(ESP.'public static function delete(Request $request, Response $response, array $args): Response');
+        $this->addLine(ESP.'public static function setVo($args,$request)');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$id = $args[\'id\'];');
-        $this->addLine(ESP.ESP.'$class = new \\'.ucfirst( $this->getTableName() ).';');
         $this->addLine(ESP.ESP.'$vo = new \\'.ucfirst( $this->getTableName() ).'VO;');
-        $this->addLine(ESP.ESP.'$result = $class->salve($vo);');
+        $this->addLine(ESP.ESP.'$vo = self::setVo($args,$request);');
+        $this->addLine(ESP.ESP.'$class = new \\'.ucfirst( $this->getTableName() ).';');
+        $this->addLine(ESP.ESP.'$class->save($vo);');
+        $this->addLine(ESP.ESP.'$msg = \Message::GENERIC_INSERT;');
+        $this->addLine(ESP.ESP.'if($request->isPut()){');
+        $this->addLine(ESP.ESP.ESP.'$msg = \Message::GENERIC_UPDATE;');
+        $this->addLine(ESP.ESP.'}');
+        $this->addLine(ESP.ESP.'$response = $response->withJson($msg);');
         $this->addLine(ESP.ESP.'return $response;');
         $this->addLine(ESP.'}');
     }    
@@ -131,6 +153,8 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addSelectAll();
         $this->addSelectById();
         if( $this->getTableType() == TGeneratorHelper::TABLE_TYPE_TABLE ){
+            $this->addSetVo();
+            $this->addSave();
             $this->addDelete();
         }
         $this->addLine('}');
