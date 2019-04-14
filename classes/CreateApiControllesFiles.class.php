@@ -106,7 +106,7 @@ class CreateApiControllesFiles extends TCreateFileContent
     {
         $this->addBlankLine();
         $this->addLine();
-        $this->addLine(ESP.'public static function setVo($args,$request)');
+        $this->addLine(ESP.'public static function save(Request $request, Response $response, array $args): Response');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$vo = new \\'.ucfirst( $this->getTableName() ).'VO;');
         $this->addLine(ESP.ESP.'$vo = self::setVo($args,$request);');
