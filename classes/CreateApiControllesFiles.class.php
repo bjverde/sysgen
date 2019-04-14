@@ -20,8 +20,8 @@ class CreateApiControllesFiles extends TCreateFileContent
 
     public function __construct($pathFolder ,$tableName ,$listColumnsProperties, $tableType)
     {
-        $tableName = strtolower($tableName);
-        $this->setTableName(ucfirst($tableName));
+        $tableName = ucfirst( strtolower($tableName) );
+        $this->setTableName($tableName);
         $this->setTableType( strtoupper($tableType) );
         $this->setFileName($tableName.'API.class.php');
         $this->setFilePath($pathFolder);
@@ -31,7 +31,6 @@ class CreateApiControllesFiles extends TCreateFileContent
     //-----------------------------------------------------------------------------------
     public function setTableName($strTableName)
     {
-        $strTableName = strtolower($strTableName);
         $this->tableName=$strTableName;
     }
     public function getTableName()
