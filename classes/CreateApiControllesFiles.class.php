@@ -16,6 +16,7 @@ class CreateApiControllesFiles extends TCreateFileContent
     private $tableName;
     private $tableType;
     private $listColumnsProperties;
+    private $columnPrimaryKey;
 
     public function __construct($pathFolder ,$tableName ,$listColumnsProperties, $tableType)
     {
@@ -24,6 +25,8 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->setTableType( strtoupper($tableType) );
         $this->setFileName($tableName.'API.class.php');
         $this->setFilePath($pathFolder);
+        $this->setListColumnsProperties($listColumnsProperties);
+        $this->configArrayColumns();
     }
     //-----------------------------------------------------------------------------------
     public function setTableName($strTableName)
@@ -35,6 +38,34 @@ class CreateApiControllesFiles extends TCreateFileContent
     {
         return $this->tableName;
     }
+    //--------------------------------------------------------------------------------------
+    public function setListColumnsProperties($listColumnsProperties)
+    {
+        TGeneratorHelper::validateListColumnsProperties($listColumnsProperties);
+        $this->listColumnsProperties = $listColumnsProperties;
+    }
+    public function getListColumnsProperties()
+    {
+        return $this->listColumnsProperties;
+    }
+    //--------------------------------------------------------------------------------------
+    protected function configArrayColumns()
+    {
+        $listColumnsProperties = $this->getListColumnsProperties();
+        $listColumns = $listColumnsProperties['COLUMN_NAME'];
+        $columnPrimaryKey = $listColumns[0];
+        $this->setColumnPrimaryKey($columnPrimaryKey);
+    }
+    //--------------------------------------------------------------------------------------
+    public function setColumnPrimaryKey($columnPrimaryKey)
+    {
+        $columnPrimaryKey = ( !empty($columnPrimaryKey) ) ?$columnPrimaryKey : "id";
+        $this->columnPrimaryKey    = strtoupper($columnPrimaryKey);
+    }
+    public function getColumnPrimaryKey()
+    {
+        return $this->columnPrimaryKey;
+    }        
     //------------------------------------------------------------------------------------
     public function setTableType($tableType)
     {
@@ -96,7 +127,7 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.ESP.'$vo = new \\'.ucfirst( $this->getTableName() ).'VO;');
         $this->addLine(ESP.ESP.'$vo = \FormDinHelper::setPropertyVo($bodyRequest,$vo);');
         $this->addLine(ESP.ESP.'if($request->isPut()){');
-        $this->addLine(ESP.ESP.ESP.'$vo->setId_item($args[\'id\']);');
+        $this->addLine(ESP.ESP.ESP.'$vo->set'.ucfirst( $this->getColumnPrimaryKey() ).'($args[\'id\']);');
         $this->addLine(ESP.ESP.'}');
         $this->addLine(ESP.ESP.'return $vo;');
         $this->addLine(ESP.'}');
