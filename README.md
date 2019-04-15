@@ -2,12 +2,20 @@
 
 **Write less, do more. But "Talk is Cheap. Show me the Code"!** 
 
-The system generator reads a database and generates a crud screen for each of the tables by mounting the system skeleton. The generated code is easy to maintain and modify using the [FormDin FrameWork](https://github.com/bjverde/formDin) for the new system.
+The system generator reads a database and generates a CRUD system. After version v1.4.0 you choose the type of system you want to generate.
 
-* Recognize the type of bank field is create equivalent field in formDin
-* mandatory or not
-* foreign keys already taz as select field
-* all fields can be used as search parameters
+FormDin = It's a web system using HTML + JS + CSS, everything is done using [FormDin FrameWork](https://github.com/bjverde/formDin). It has all the operations of a CRUD with a screen for each table or view.
+
+* REST = Create all REST backend using Slim FrameWork. In this mode no screen is just REST with JSON. It has all the operations of a CRUD with the URLs for each table or view.
+
+* FormDin + REST = the combination of the two modes.
+
+* The code generated from the new system is easy to maintain and modify.
+
+Regardless of the mode you will always have to have the [BASE of FormDin](https://github.com/bjverde/formDin).
+
+*unfortunately the documentation in English is not complete. The first language is Brazilian Portuguese. Translations are made as soon as possible.*
+
 
 ![Esquema do SysGen](https://raw.githubusercontent.com/bjverde/sysgen/master/images/2-code-gen-database-first.png)
 
@@ -23,12 +31,17 @@ Gerador de sistemas em [FormDin](https://github.com/bjverde/formDin).
 
 **Escreve menos, faça mais. Mas "Falar é fácil. Me mostre o código"!** 
 
-O gerador de sistemas lê um banco de dados e gera uma tela crud para cada uma das tabelas montando o esqueleto do sistema. O código gerado é de fácil manutenção e modificação utilizando o como framework [FormDin](https://github.com/bjverde/formDin) para o novo sistema.
+O gerador de sistemas lê um banco de dados e gera uma sistema CRUD. Depois da versão v1.4.0 você escolher o tipo de sistema que deseja gerar.
 
-* Reconhece o tipo de campo do banco é cria o campo equivalente no formDin
-* obrigatoriedade ou não
-* chaves estrangeiras já traz como select field
-* todos os campos podem ser utilizados como parâmetro de busca
+* FormDin =  É um sistema Web usando HTML + JS + CSS, tudo é feito utilizando o  [FormDin FrameWork](https://github.com/bjverde/formDin). Tem todas as operações de um CRUD com uma tela para cada tabela ou view.
+
+* REST = Criar todo backend REST usando Slim FrameWork. Nesse modo não tem tela é apenas REST com JSON. Tem todas as operações de um CRUD com as URL para cada tabela ou view.
+
+* FormDin + REST = a combinação dos dois modos.
+
+O código gerado do novo sistema é de fácil manutenção e modificação.
+
+Independente do modo sempre terá que ter o BASE do [FormDin](https://github.com/bjverde/formDin).
 
 Veja o tutorial [Do Zero até Rodar](https://github.com/bjverde/sysgen/wiki/Do-Zero-at%C3%A9-Rodar) que irá te ajudar com o sysGen
 
