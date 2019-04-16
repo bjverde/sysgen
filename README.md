@@ -14,8 +14,9 @@ FormDin = It's a web system using HTML + JS + CSS, everything is done using [For
 
 Regardless of the mode you will always have to have the [BASE of FormDin](https://github.com/bjverde/formDin).
 
-*unfortunately the documentation in English is not complete. The first language is Brazilian Portuguese. Translations are made as soon as possible.*
+See the tutorial [From Zero to Run, explaining what it needs to work](https://translate.googleusercontent.com/translate_c?depth=1&hl=pt-BR&rurl=translate.google.com.br&sl=pt-BR&sp=nmt4&tl=en&u=https://github.com/bjverde/sysgen/wiki/Do-Zero-at%25C3%25A9-Rodar&xid=17259,15700022,15700186,15700190,15700253,15700256,15700259&usg=ALkJrhji6I_1MZNkeaCFikC4QZpRwb0Cww)
 
+*unfortunately the documentation in English is not complete. The first language is Brazilian Portuguese. Translations are made as soon as possible.*
 
 ![Esquema do SysGen](https://raw.githubusercontent.com/bjverde/sysgen/master/images/2-code-gen-database-first.png)
 
@@ -43,7 +44,7 @@ O código gerado do novo sistema é de fácil manutenção e modificação.
 
 Independente do modo sempre terá que ter o BASE do [FormDin](https://github.com/bjverde/formDin).
 
-Veja o tutorial [Do Zero até Rodar](https://github.com/bjverde/sysgen/wiki/Do-Zero-at%C3%A9-Rodar) que irá te ajudar com o sysGen
+Veja o tutorial [Do Zero até Rodar, explicando o que precisa para funcionar](https://github.com/bjverde/sysgen/wiki/Do-Zero-at%C3%A9-Rodar) que irá te ajudar com o sysGen
 
 ![Esquema do SysGen](https://raw.githubusercontent.com/bjverde/sysgen/master/images/2-code-gen-database-first.png)
 
