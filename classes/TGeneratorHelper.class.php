@@ -22,7 +22,9 @@ class TGeneratorHelper
     public static function validadeFormDinMinimumVersion($html)
     {
         $texto = '<b>Versão do FormDin</b>: ';
-        if (version_compare(FORMDIN_VERSION,FORMDIN_VERSION_MIN_VERSION,'>=')) {
+        $formVersion = explode("-", FORMDIN_VERSION);
+        $formVersion = $formVersion[0];
+        if (version_compare($formVersion,FORMDIN_VERSION_MIN_VERSION,'>=')) {
             $texto =  $texto.'<span class="success">'.FORMDIN_VERSION.'</span>';
             $html->add($texto);            
             $result = true;
