@@ -29,11 +29,11 @@ class TCreateForm extends TCreateFileContent
     const FORMDIN_TYPE_NUMBER = 'NUMBER';
     const FORMDIN_TYPE_COLUMN_NAME = 'FORMDIN_TYPE';    
     
-    public const FORM_FKTYPE_SELECT = 'SELECT';
-    public const FORM_FKTYPE_AUTOCOMPLETE = 'AUTOCOMPLETE';
-    public const FORM_FKTYPE_ONSEARCH = 'ONSEARCH';
-    public const FORM_FKTYPE_AUTOSEARCH = 'AUTOSEARCH';
-    public const FORM_FKTYPE_SELECTCRUD = 'SELECTCRUD';
+    const FORM_FKTYPE_SELECT = 'SELECT';
+    const FORM_FKTYPE_AUTOCOMPLETE = 'AUTOCOMPLETE';
+    const FORM_FKTYPE_ONSEARCH = 'ONSEARCH';
+    const FORM_FKTYPE_AUTOSEARCH = 'AUTOSEARCH';
+    const FORM_FKTYPE_SELECTCRUD = 'SELECTCRUD';
 
     /**
      * Create file FROM form a table info

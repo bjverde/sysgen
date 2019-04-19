@@ -12,12 +12,12 @@
 class TGeneratorHelper
 {
     
-    public const TABLE_TYPE_TABLE = 'TABLE';
-    public const TABLE_TYPE_VIEW = 'VIEW';
+    const TABLE_TYPE_TABLE = 'TABLE';
+    const TABLE_TYPE_VIEW = 'VIEW';
 
-    public const TP_SYSTEM_FORM = 'TP_SYSTEM_FORM';
-    public const TP_SYSTEM_REST = 'TP_SYSTEM_REST';
-    public const TP_SYSTEM_FORM_REST = 'TP_SYSTEM_FORM_REST';
+    const TP_SYSTEM_FORM = 'TP_SYSTEM_FORM';
+    const TP_SYSTEM_REST = 'TP_SYSTEM_REST';
+    const TP_SYSTEM_FORM_REST = 'TP_SYSTEM_FORM_REST';
     
     public static function validadeFormDinMinimumVersion($html)
     {

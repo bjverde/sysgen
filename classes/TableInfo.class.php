@@ -17,16 +17,16 @@
  */
 final class TableInfo
 {
-    public const TP_SYSTEM = 'TP_SYSTEM';
+    const TP_SYSTEM = 'TP_SYSTEM';
     
-    public const KEY_TYPE = 'KEY_TYPE';
-    public const KEY_TYPE_PK = 'PK';
-    public const KEY_TYPE_FK = 'FOREIGN KEY';
-    public const COLUMN_NAME = 'COLUMN_NAME';
-    public const DATA_TYPE = 'DATA_TYPE';
+    const KEY_TYPE = 'KEY_TYPE';
+    const KEY_TYPE_PK = 'PK';
+    const KEY_TYPE_FK = 'FOREIGN KEY';
+    const COLUMN_NAME = 'COLUMN_NAME';
+    const DATA_TYPE = 'DATA_TYPE';
     
-    public const ID_COLUMN_FK_SRSELECTED = 'ID_COLUMN_FK_SRSELECTED';
-    public const FK_FIELDS_TABLE_SELECTED = 'FkFieldsTableSelected';
-    public const FK_TYPE_SCREEN_REFERENCED = 'FK_TYPE_SCREEN_REFERENCED';    
+    const ID_COLUMN_FK_SRSELECTED = 'ID_COLUMN_FK_SRSELECTED';
+    const FK_FIELDS_TABLE_SELECTED = 'FkFieldsTableSelected';
+    const FK_TYPE_SCREEN_REFERENCED = 'FK_TYPE_SCREEN_REFERENCED';
     
 }
