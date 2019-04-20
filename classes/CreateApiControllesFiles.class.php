@@ -87,7 +87,7 @@ class CreateApiControllesFiles extends TCreateFileContent
     {
         $this->addBlankLine();
         $this->addLine();
-        $this->addLine(ESP.'public static function selectAll(Request $request, Response $response, array $args): Response');
+        $this->addLine(ESP.'public static function selectAll(Request $request, Response $response, array $args)');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$result = \\'.ucfirst( $this->getTableName() ).'::selectAll();');
         $this->addLine(ESP.ESP.'$result = \ArrayHelper::convertArrayFormDin2Pdo($result);');
@@ -116,7 +116,7 @@ class CreateApiControllesFiles extends TCreateFileContent
     {
         $this->addBlankLine();
         $this->addLine();
-        $this->addLine(ESP.'public static function selectById(Request $request, Response $response, array $args): Response');
+        $this->addLine(ESP.'public static function selectById(Request $request, Response $response, array $args)');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$result = self::selectByIdInside($args);');
         $this->addLine(ESP.ESP.'$msg = array( \'qtd\'=> \CountHelper::count($result)');
@@ -147,7 +147,7 @@ class CreateApiControllesFiles extends TCreateFileContent
     {
         $this->addBlankLine();
         $this->addLine();
-        $this->addLine(ESP.'public static function save(Request $request, Response $response, array $args): Response');
+        $this->addLine(ESP.'public static function save(Request $request, Response $response, array $args)');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$vo = new \\'.ucfirst( $this->getTableName() ).'VO;');
         $this->addLine(ESP.ESP.'$msg = \Message::GENERIC_INSERT;');
@@ -172,7 +172,7 @@ class CreateApiControllesFiles extends TCreateFileContent
     {
         $this->addBlankLine();
         $this->addLine();
-        $this->addLine(ESP.'public static function delete(Request $request, Response $response, array $args): Response');
+        $this->addLine(ESP.'public static function delete(Request $request, Response $response, array $args)');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$id = $args[\'id\'];');
         $this->addLine(ESP.ESP.'$class = new \\'.ucfirst( $this->getTableName() ).';');

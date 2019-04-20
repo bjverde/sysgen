@@ -1,5 +1,5 @@
 <?php
-function slimConfiguration(): \Slim\Container
+function slimConfiguration()
 {
     $configuration = [
         'settings' => [
