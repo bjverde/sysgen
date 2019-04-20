@@ -32,12 +32,19 @@ class CreateApiRoutesCall extends TCreateFileContent
         return $this->listTableNames;
     }
     //--------------------------------------------------------------------------------------
-    private function addClass()
+    private function addClass($contract = false)
     {
         $listTableNames = $this->getListTableNames();
-        foreach ($listTableNames['TABLE_NAME'] as $tableName) {
-            $tableName = ucfirst(strtolower($tableName));
-            $this->addLine(ESP.','.$tableName.'API');
+        if($contract){
+            foreach ($listTableNames['TABLE_NAME'] as $tableName) {
+                $tableName = ucfirst(strtolower($tableName));
+                $this->addLine(ESP.','.$tableName.'API');
+            }
+        }else{
+            foreach ($listTableNames['TABLE_NAME'] as $tableName) {
+                $tableName = ucfirst(strtolower($tableName));
+                $this->addLine('use Controllers\\'.$tableName.'API;');
+            }
         }
     }
     //--------------------------------------------------------------------------------------
@@ -82,16 +89,25 @@ class CreateApiRoutesCall extends TCreateFileContent
         }
     }
     //--------------------------------------------------------------------------------------
+    private function addNameSpaces($contract = false)
+    {
+        $this->addBlankLine();
+        $this->addLine('use Controllers\SysinfoAPI;');
+        if($contract){
+            $this->addLine('use Controllers\{');        
+            $this->addClass($contract);
+            $this->addLine('};');
+        }else{
+            $this->addClass($contract);
+        }
+    }
+    //--------------------------------------------------------------------------------------
     public function show($print = false)
     {
         $this->lines=null;
         $this->addLine('<?php');
         $this->addSysGenHeaderNote();
-        $this->addBlankLine();
-        $this->addLine('use Controllers\{');
-        $this->addLine(ESP.'SysinfoAPI');
-        $this->addClass();
-        $this->addLine('};');
+        $this->addNameSpaces();
         $this->addBlankLine();
         $this->addLine('$app = new \Slim\App(slimConfiguration());');
         $this->addBlankLine();
