@@ -687,6 +687,7 @@ class TCreateForm extends TCreateFileContent
         $this->addLine('$frm->setFlat(true);');
         $this->addLine('$frm->setMaximize(true);');
         //$this->addLine('$frm->setAutoSize(true);');  // https://github.com/bjverde/formDin/issues/48 problema com o Chrome
+        $this->addLine('$frm->setHelpOnLine(\'Ajuda\',600,980,\'ajuda/ajuda_tela.php\',null);');
         $this->addBlankLine();
         $this->addBlankLine();
         if ($this->gridType != GRID_SIMPLE) {
