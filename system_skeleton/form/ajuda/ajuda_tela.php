@@ -23,8 +23,8 @@ $msgSysNameVersion = SYSTEM_NAME.' - v'.SYSTEM_VERSION;
     <br>
     <br><h4>Detalhe das ações</h4>
     <ul>
-      <li>Buscar - informe um valor em um ou mais campos, que serão utilizados como criterios de busca. Na lista de registro irá aparecer apenas os regristos que respeitam a busca. Se informar mais de um campo eles serão usados com E. Logo a Pesquisa será "Quero todos os registro com o <b>campo a E o campo B</b></li>
-      <li>Salvar - informe todos o campos e poderá gravar um novo registro. Se clicar no botão altera da lista de registro os valores serão enviados para os campos. Depois poderá alterar esse registro</li>
+      <li>Buscar - informe um valor em um ou mais campos, que serão utilizados como critérios de busca. Na lista de registro aparecerá apenas os registros que respeitam a busca. Se informar mais de um campo eles serão usados com E. Logo a Pesquisa será "Quero todos os registro com o <b>campo a E o campo B</b></li>
+      <li>Salvar - informe todos os campos e poderá gravar um novo registro. Se clicar no botão altera da lista de registro os valores serão enviados para os campos. Depois poderá alterar esse registro</li>
       <li>Limpar - limpa os valores que estão nos campos</li>
     </ul>
     <br>
@@ -33,7 +33,7 @@ $msgSysNameVersion = SYSTEM_NAME.' - v'.SYSTEM_VERSION;
       <li>Alterar - Carrega todos os valores do registro para os campos. Possibilitando a sua alteração</li>
       <li>Excluir - Exclui o registro selecionado</li>
       <li>Exportar - Exporta os registro na tela para o formato XLS</li>
-      <li>Ordernar - Poder ordenar por qualquer coluna, porém apenas entre os registros aparecem na tela</li>
-    </ul>    
+      <li>Ordenar - Poder ordenar por qualquer coluna, porém apenas entre os registros aparecem na tela</li>
+    </ul>
 </body>
 </html>
