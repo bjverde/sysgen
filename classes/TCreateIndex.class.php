@@ -42,6 +42,7 @@ class TCreateIndex extends TCreateFileContent
         //$this->addLine('$app->setSUbTitle(SYSTEM_NAME_SUB);');
         $this->addLine('$app->setSigla(SYSTEM_ACRONYM);');
         $this->addLine('$app->setVersionSystem(SYSTEM_VERSION);');
+        $this->addLine('//$app->setFavIcon(\'../base/imagens/favicon-16x16.png\');');
         $this->addBlankLine();
         if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != TGeneratorHelper::TP_SYSTEM_REST ){
             $this->addLine('$app->setMainMenuFile(\'includes/menu.php\');');
