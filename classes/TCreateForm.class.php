@@ -450,7 +450,6 @@ class TCreateForm extends TCreateFileContent
         $this->addLine(ESP.ESP.ESP.ESP.'$frm->setMessage(\'Registro excluido com sucesso!!!\');');
         $this->addLine(ESP.ESP.ESP.ESP.'$frm->clearFields();');
         $this->addLine(ESP.ESP.ESP.'}else{');
-        $this->addLine(ESP.ESP.ESP.ESP.'$frm->clearFields();');
         $this->addLine(ESP.ESP.ESP.ESP.'$frm->setMessage($resultado);');
         $this->addLine(ESP.ESP.ESP.'}');
         $this->addLine(ESP.ESP.'}');
