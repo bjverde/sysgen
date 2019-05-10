@@ -176,7 +176,7 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$id = $args[\'id\'];');
         $this->addLine(ESP.ESP.'$class = new \\'.ucfirst( $this->getTableName() ).';');
-        $this->addLine(ESP.ESP.'$result = $class->delete($id);');
+        $this->addLine(ESP.ESP.'$msg = $class->delete($id);');
         $this->addLine(ESP.ESP.'$response = $response->withJson($msg);');
         $this->addLine(ESP.ESP.'return $response;');
         $this->addLine(ESP.'}');
