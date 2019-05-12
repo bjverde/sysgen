@@ -348,7 +348,7 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlDelete()
     {
-        $this->addLine(ESP.'public static function delete( $id )');
+        $this->addLine(ESP.'public function delete( $id )');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$values = array($id);');
         $this->addLine(ESP.ESP.'$sql = \'delete from '.$this->hasSchema().$this->getTableName().' where '.$this->keyColumnName.' = '.$this->charParam.'\';');
@@ -356,12 +356,9 @@ class TCreateDAO extends TCreateFileContent
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
-    /**
-     * No PHP 7.1 classes com construtores ficou deprecated
-     */
     public function addConstruct()
     {
-        $this->addLine(ESP.'private $TPDOConnection = null;');
+        $this->addLine(ESP.'private $tpdo = null;');
         $this->addBlankLine();
         $this->addLine(ESP.'public function __construct() {');
         $this->addLine(ESP.ESP.'$tpdo = New TPDOConnectionObj();');
@@ -371,7 +368,7 @@ class TCreateDAO extends TCreateFileContent
         $this->addLine(ESP.ESP.'return $this->TPDOConnection;');
         $this->addLine(ESP.'}');
         $this->addLine(ESP.'public function setTPDOConnection($TPDOConnection)');
-        $this->addLine(ESP.ESP.'$this->TPDOConnection = $TPDOConnection;');
+        $this->addLine(ESP.ESP.'$this->tpdo = $TPDOConnection;');
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
@@ -426,9 +423,11 @@ class TCreateDAO extends TCreateFileContent
         //-------- FIM
         $this->addLine("}");
         $this->addLine("?>");
-        if ($print) {
+        if ($print == 'array') {
+            return $this->getLinesArray();
+        } else if ($print == true){
             echo $this->getLinesString();
-        } else {
+        } else if ($print == false){
             return $this->getLinesString();
         }
     }
