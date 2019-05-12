@@ -140,9 +140,37 @@ class TCreateDAOTest extends TestCase
 	    $this->assertSame($expected[6], $resultArray[6]);
 	}
 	
-	public function testShow_numLines(){
-	    $expectedQtd = 108;
+	public function testShow_VIEW_numLines(){
+	    $expectedQtd = 74;
 	    
+	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_VIEW);
+	    $resultArray = $this->create->show('array');
+	    $size = CountHelper::count($resultArray);
+	    $this->assertEquals( $expectedQtd, $size);
+	}
+	
+	public function testShow_VIEW_GRID_SQL_numLines(){
+	    $expectedQtd = 87;
+	    
+	    $this->create->setWithSqlPagination(GRID_SQL_PAGINATION);
+	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_VIEW);
+	    $resultArray = $this->create->show('array');
+	    $size = CountHelper::count($resultArray);
+	    $this->assertEquals( $expectedQtd, $size);
+	}
+	
+	public function testShow_TABLE_numLines(){
+	    $expectedQtd = 108;	    
+	    
+	    $resultArray = $this->create->show('array');
+	    $size = CountHelper::count($resultArray);
+	    $this->assertEquals( $expectedQtd, $size);
+	}
+	
+	public function testShow_TABLE_GRID_SQL_numLines(){
+	    $expectedQtd = 121;
+	    
+	    $this->create->setWithSqlPagination(GRID_SQL_PAGINATION);
 	    $resultArray = $this->create->show('array');
 	    $size = CountHelper::count($resultArray);
 	    $this->assertEquals( $expectedQtd, $size);
