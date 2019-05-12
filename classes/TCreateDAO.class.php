@@ -306,7 +306,7 @@ class TCreateDAO extends TCreateFileContent
             }
         }
         //$this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.') values (?'.str_repeat(',?',count($this->getColumns())-1 ).')\', $values );');
-        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.') values ('.$this->getParams().')\', $values );');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.') values ('.$this->getParams().')\';');
         $this->addExecuteSql(true);
         $this->addLine(ESP.'}');
     }
@@ -364,9 +364,11 @@ class TCreateDAO extends TCreateFileContent
         $this->addLine(ESP.ESP.'$this->setTPDOConnection($tpdo);');
         $this->addLine(ESP.'}');
         $this->addLine(ESP.'public function getTPDOConnection()');
-        $this->addLine(ESP.ESP.'return $this->TPDOConnection;');
+        $this->addLine(ESP.'{');
+        $this->addLine(ESP.ESP.'return $this->tpdo;');
         $this->addLine(ESP.'}');
         $this->addLine(ESP.'public function setTPDOConnection($TPDOConnection)');
+        $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$this->tpdo = $TPDOConnection;');
         $this->addLine(ESP.'}');
     }

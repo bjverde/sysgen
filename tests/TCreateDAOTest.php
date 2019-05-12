@@ -149,7 +149,7 @@ class TCreateDAOTest extends TestCase
 	}
 
 	public function testAddConstruct_numLines(){
-	    $expectedQtd = 12;
+	    $expectedQtd = 14;
 		
 		$this->create->addConstruct();
 	    $resultArray = $this->create->getLinesArray();
@@ -179,7 +179,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_VIEW_numLines(){
-	    $expectedQtd = 74;
+	    $expectedQtd = 76;
 	    
 	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_VIEW);
 	    $resultArray = $this->create->show('array');
@@ -188,7 +188,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_VIEW_GRID_SQL_numLines(){
-	    $expectedQtd = 87;
+	    $expectedQtd = 89;
 	    
 	    $this->create->setWithSqlPagination(GRID_SQL_PAGINATION);
 	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_VIEW);
@@ -198,7 +198,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_TABLE_numLines(){
-	    $expectedQtd = 110;	    
+	    $expectedQtd = 112;	    
 	    
 	    $resultArray = $this->create->show('array');
 	    $size = CountHelper::count($resultArray);
@@ -206,7 +206,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_TABLE_GRID_SQL_numLines(){
-	    $expectedQtd = 123;
+	    $expectedQtd = 125;
 	    
 	    $this->create->setWithSqlPagination(GRID_SQL_PAGINATION);
 	    $resultArray = $this->create->show('array');
