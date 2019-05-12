@@ -71,45 +71,56 @@ class TCreateClass extends TCreateFileContent
         return $this->tableType;
     }
     //--------------------------------------------------------------------------------------
-    private function addConstruct()
+    public  function addConstruct()
     {
+        $this->addLine(ESP.'private $dao = null;');
+        $this->addBlankLine();
         $this->addLine(ESP.'public function __construct()');
         $this->addLine(ESP.'{');
+        $this->addLine(ESP.ESP.'$this->dao = new '.$this->tableRefDAO.'();');
+        $this->addLine(ESP.'}');
+        $this->addLine(ESP.'public function getDao()');
+        $this->addLine(ESP.'{');
+        $this->addLine(ESP.ESP.'return $this->dao;');
+        $this->addLine(ESP.'}');
+        $this->addLine(ESP.'public function setDao($dao)');
+        $this->addLine(ESP.'{');
+        $this->addLine(ESP.ESP.'$this->dao = $dao;');
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     private function addSelectById()
     {
-        $this->addLine(ESP.'public static function selectById( $id )');
+        $this->addLine(ESP.'public function selectById( $id )');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$result = '.$this->tableRefDAO.'::selectById( $id );');
+        $this->addLine(ESP.ESP.'$result = $this->dao->selectById( $id );');
         $this->addLine(ESP.ESP.'return $result;');
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     private function addSelectCount()
     {
-        $this->addLine(ESP.'public static function selectCount( $where=null )');
+        $this->addLine(ESP.'public function selectCount( $where=null )');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$result = '.$this->tableRefDAO.'::selectCount( $where );');
+        $this->addLine(ESP.ESP.'$result = $this->dao->selectCount( $where );');
         $this->addLine(ESP.ESP.'return $result;');
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     private function addSelectAllPagination()
     {
-        $this->addLine(ESP.'public static function selectAllPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null)');
+        $this->addLine(ESP.'public function selectAllPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null)');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$result = '.$this->tableRefDAO.'::selectAllPagination( $orderBy, $where, $page,  $rowsPerPage );');
+        $this->addLine(ESP.ESP.'$result = $this->dao->selectAllPagination( $orderBy, $where, $page,  $rowsPerPage );');
         $this->addLine(ESP.ESP.'return $result;');
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     private function addSelectAll()
     {
-        $this->addLine(ESP.'public static function selectAll( $orderBy=null, $where=null )');
+        $this->addLine(ESP.'public function selectAll( $orderBy=null, $where=null )');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$result = '.$this->tableRefDAO.'::selectAll( $orderBy, $where );');
+        $this->addLine(ESP.ESP.'$result = $this->dao->selectAll( $orderBy, $where );');
         $this->addLine(ESP.ESP.'return $result;');
         $this->addLine(ESP.'}');
     }
@@ -121,9 +132,9 @@ class TCreateClass extends TCreateFileContent
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$result = null;');
         $this->addLine(ESP.ESP.'if( $objVo->get'.$columunPK.'() ) {');
-        $this->addLine(ESP.ESP.ESP.'$result = '.$this->tableRefDAO.'::update( $objVo );');
+        $this->addLine(ESP.ESP.ESP.'$result = $this->dao->update( $objVo );');
         $this->addLine(ESP.ESP.'} else {');
-        $this->addLine(ESP.ESP.ESP.'$result = '.$this->tableRefDAO.'::insert( $objVo );');
+        $this->addLine(ESP.ESP.ESP.'$result = $this->dao->insert( $objVo );');
         $this->addLine(ESP.ESP.'}');
         $this->addLine(ESP.ESP.'return $result;');
         $this->addLine(ESP.'}');
@@ -133,7 +144,7 @@ class TCreateClass extends TCreateFileContent
     {
         $this->addLine(ESP.'public function delete( $id )');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$result = '.$this->tableRefDAO.'::delete( $id );');
+        $this->addLine(ESP.ESP.'$result = $this->dao->delete( $id );');
         $this->addLine(ESP.ESP.'return $result;');
         $this->addLine(ESP.'}');
     }
@@ -143,7 +154,6 @@ class TCreateClass extends TCreateFileContent
         $this->lines=null;
         $this->addLine('<?php');
         $this->addSysGenHeaderNote();
-        $this->addBlankLine();
         $this->addLine('class '.$this->tableRef);
         $this->addLine('{');
         $this->addBlankLine();
@@ -175,10 +185,6 @@ class TCreateClass extends TCreateFileContent
         $this->addBlankLine();
         $this->addLine('}');
         $this->addLine('?>');
-        if ($print) {
-            echo $this->getLinesString();
-        } else {
-            return $this->getLinesString();
-        }
+        return $this->showContent($print);
     }
 }
