@@ -60,29 +60,88 @@ class TCreateDAOTest extends TestCase
 	    $this->assertSame($esperado[1], $retorno[1]);
 	}
 	
+	public function testAddSqlInsert_numLines(){
+	    $expectedQtd = 13;
+	    
+	    $this->create->addSqlInsert();
+	    $resultArray = $this->create->getLinesArray();
+	    $size = CountHelper::count($resultArray);
+	    $this->assertEquals( $expectedQtd, $size);
+	}
+	
+	public function testAddSqlInsert(){
+	    $expected = array();
+	    $expected[] = ESP.'public function insert( TestVO $objVo )'.EOL;
+	    $expected[] = ESP.'{'.EOL;
+	    $expected[] = ESP.ESP.'$values = array(';
+	    $expected[] = '  $objVo->getNm_test() '.EOL;
+	    $expected[] = ESP.ESP.'                , $objVo->getTip_test() '.EOL;
+	    $expected[] = ESP.ESP.'                );'.EOL;
+	    $expected[] = ESP.ESP.'$sql = \'insert into test('.EOL;
+	    
+	    $this->create->addSqlInsert();
+	    $result = $this->create->getLinesArray();
+	    $this->assertSame($expected[0], $result[0]);
+	    $this->assertSame($expected[1], $result[1]);
+	    $this->assertSame($expected[2], $result[2]);
+	    $this->assertSame($expected[3], $result[3]);
+	    $this->assertSame($expected[4], $result[4]);
+	    $this->assertSame($expected[5], $result[5]);
+	}
+	
 	public function testAddSqlDelete() {
-	    $esperado = array();
-	    $esperado[] = ESP.'public function delete( $id )'.EOL;
-	    $esperado[] = ESP.'{'.EOL;
-	    $esperado[] = ESP.ESP.'$values = array($id);'.EOL;
-	    $esperado[] = ESP.ESP.'$sql = \'delete from test where idTest = ?\';'.EOL;
-	    $esperado[] = ESP.ESP.'$result = $this->tpdo->executeSql($sql, $values);'.EOL;
-	    $esperado[] = ESP.ESP.'return $result;'.EOL;
-	    $esperado[] = ESP.'}'.EOL;
+	    $expected = array();
+	    $expected[] = ESP.'public function delete( $id )'.EOL;
+	    $expected[] = ESP.'{'.EOL;
+	    $expected[] = ESP.ESP.'$values = array($id);'.EOL;
+	    $expected[] = ESP.ESP.'$sql = \'delete from test where idTest = ?\';'.EOL;
+	    $expected[] = ESP.ESP.'$result = $this->tpdo->executeSql($sql, $values);'.EOL;
+	    $expected[] = ESP.ESP.'return $result;'.EOL;
+	    $expected[] = ESP.'}'.EOL;
 	    
 	    $this->create->addSqlDelete();
+	    $result = $this->create->getLinesArray();
+	    $this->assertSame($expected[0], $result[0]);
+	    $this->assertSame($expected[1], $result[1]);
+	    $this->assertSame($expected[2], $result[2]);
+	    $this->assertSame($expected[3], $result[3]);
+	    $this->assertSame($expected[4], $result[4]);
+	    $this->assertSame($expected[5], $result[5]);
+	    $this->assertSame($expected[6], $result[6]);
+	}
+
+	public function testAddConstruct_numLines(){
+	    $expectedQtd = 12;
+		
+		$this->create->addConstruct();
 	    $resultArray = $this->create->getLinesArray();
-	    $this->assertSame($esperado[0], $resultArray[0]);
-	    $this->assertSame($esperado[1], $resultArray[1]);
-	    $this->assertSame($esperado[2], $resultArray[2]);
-	    $this->assertSame($esperado[3], $resultArray[3]);
-	    $this->assertSame($esperado[4], $resultArray[4]);
-	    $this->assertSame($esperado[5], $resultArray[5]);
-	    $this->assertSame($esperado[6], $resultArray[6]);
+	    $size = CountHelper::count($resultArray);
+	    $this->assertEquals( $expectedQtd, $size);
+	}
+
+	public function testAddConstruct(){
+	    $expected = array();
+	    $expected[] = ESP.'private $tpdo = null;'.EOL;
+		$expected[] = EOL;
+		$expected[] = ESP.'public function __construct() {'.EOL;
+		$expected[] = ESP.ESP.'$tpdo = New TPDOConnectionObj();'.EOL;
+		$expected[] = ESP.ESP.'$this->setTPDOConnection($tpdo);'.EOL;
+		$expected[] = ESP.'}'.EOL;
+		$expected[] = ESP.'public function getTPDOConnection()'.EOL;
+		
+		$this->create->addConstruct();
+	    $resultArray = $this->create->getLinesArray();
+	    $this->assertSame($expected[0], $resultArray[0]);
+	    $this->assertSame($expected[1], $resultArray[1]);
+	    $this->assertSame($expected[2], $resultArray[2]);
+	    $this->assertSame($expected[3], $resultArray[3]);
+	    $this->assertSame($expected[4], $resultArray[4]);
+	    $this->assertSame($expected[5], $resultArray[5]);
+	    $this->assertSame($expected[6], $resultArray[6]);
 	}
 	
 	public function testShow_numLines(){
-	    $expectedQtd = 106;
+	    $expectedQtd = 108;
 	    
 	    $resultArray = $this->create->show('array');
 	    $size = CountHelper::count($resultArray);

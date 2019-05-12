@@ -291,7 +291,7 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlInsert()
     {
-        $this->addLine(ESP.'public static function insert( '.ucfirst($this->tableName).'VO $objVo )');
+        $this->addLine(ESP.'public function insert( '.ucfirst($this->tableName).'VO $objVo )');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$values = array(', false);
         $cnt=0;
@@ -301,7 +301,7 @@ class TCreateDAO extends TCreateFileContent
             }
         }
         $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.');');
-        $this->addLine(ESP.ESP.'return self::executeSql(\'insert into '.$this->hasSchema().$this->getTableName().'(');
+        $this->addLine(ESP.ESP.'$sql = \'insert into '.$this->hasSchema().$this->getTableName().'(');
         $cnt=0;
         foreach ($this->getColumns() as $v) {
             if ($v != strtolower($this->keyColumnName)) {
@@ -310,6 +310,7 @@ class TCreateDAO extends TCreateFileContent
         }
         //$this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.') values (?'.str_repeat(',?',count($this->getColumns())-1 ).')\', $values );');
         $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.') values ('.$this->getParams().')\', $values );');
+        $this->addExecuteSql(true);
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
@@ -339,7 +340,7 @@ class TCreateDAO extends TCreateFileContent
             }
         }
         $param = $this->charParam;
-        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.'where '.$this->keyColumnName.' = '.$param.'\',$values);');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.'where '.$this->keyColumnName.' = '.$param.'\';');
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
