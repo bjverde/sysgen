@@ -42,10 +42,6 @@ class TCreateAutoload extends TCreateFileContent
         $this->addLine(ESP.'}');
         $this->addLine('spl_autoload_register(\''.$autoloadName.'\');');
         $this->addLine('}');
-        if ($print) {
-            echo $this->getLinesString();
-        } else {
-            return $this->getLinesString();
-        }
+        $this->showContent($print);
     }
 }

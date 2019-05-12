@@ -10,6 +10,10 @@
  * PHP Version 5.6
  */
 
+$pathBase =  __DIR__.'/../../base/';
+require_once $pathBase.'classes/constants.php';
+require_once $pathBase.'classes/helpers/autoload_formdin_helper.php';
+
 $path =  __DIR__.'/../';
 require_once $path.'includes/constantes.php';
 require_once $path.'classes/autoload_sysgen.php';
@@ -35,8 +39,7 @@ class TCreateAutoloadTest extends TestCase
     protected function setUp(){
     	$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM']='test';
         parent::setUp();
-        $this->testClass = new TCreateAutoload();
-        
+        $this->testClass = new TCreateAutoload();        
     }
 
     /**
@@ -50,7 +53,7 @@ class TCreateAutoloadTest extends TestCase
     public function testShow_numLines(){
         $esperado = 18;
 
-        $resultArray = $this->testClass->show(false);
+        $resultArray = $this->testClass->show('array');
         $size = count($resultArray);
         $this->assertEquals( $esperado, $size);
     }
