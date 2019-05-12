@@ -424,13 +424,7 @@ class TCreateDAO extends TCreateFileContent
         //-------- FIM
         $this->addLine("}");
         $this->addLine("?>");
-        if ($print == 'array') {
-            return $this->getLinesArray();
-        } else if ($print == true){
-            echo $this->getLinesString();
-        } else if ($print == false){
-            return $this->getLinesString();
-        }
+        $this->showContent($print);
     }
     //--------------------------------------------------------------------------------------
     /**
