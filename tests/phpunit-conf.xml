@@ -1,0 +1,29 @@
+<phpunit 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"    
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.2/phpunit.xsd"
+    colors="true"
+    verbose="true"
+    >
+    <testsuites>
+        <testsuite name="SysGen">
+            <directory>D:\wamp\www\formDin\sysgen\tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">D:\wamp\www\formDin\sysgen\</directory>
+            <exclude>                
+                <directory suffix=".php">D:\wamp\www\formDin\sysgen\ajuda</directory>
+                <directory suffix=".php">D:\wamp\www\formDin\sysgen\bancos_locais</directory>
+                <directory suffix=".php">D:\wamp\www\formDin\sysgen\css</directory>
+                <directory suffix=".php">D:\wamp\www\formDin\sysgen\images</directory>
+                <directory suffix=".php">D:\wamp\www\formDin\sysgen\system_skeleton</directory>               
+            </exclude>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-html" target="D:\wamp\www\formDin\phpunit-code-coverage\" lowUpperBound="35" highLowerBound="70"/>        
+        <log type="testdox-text" target="D:\wamp\www\formDin\phpunit-code-coverage\testResult.txt"/>
+        <log type="testdox-html" target="D:\wamp\www\formDin\phpunit-code-coverage\testResult.html"/>
+    </logging>     
+</phpunit>
