@@ -274,15 +274,14 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlSelectAll()
     {
-        $this->addLine(ESP.'public static function selectAll( $orderBy=null, $where=null )');
+        $this->addLine(ESP.'public function selectAll( $orderBy=null, $where=null )');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$where = self::processWhereGridParameters($where);');
         $this->addLine(ESP.ESP.'$sql = self::$sqlBasicSelect');
         $this->addLine(ESP.ESP.'.( ($where)? \' where \'.$where:\'\')');
         $this->addLine(ESP.ESP.'.( ($orderBy) ? \' order by \'.$orderBy:\'\');');
         $this->addBlankLine();
-        $this->addLine(ESP.ESP.'$result = self::executeSql($sql);');
-        $this->addLine(ESP.ESP.'return $result;');
+        $this->addExecuteSql(true);
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
@@ -319,7 +318,7 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlUpdate()
     {
-        $this->addLine(ESP.'public static function update ( '.ucfirst($this->tableName).'VO $objVo )');
+        $this->addLine(ESP.'public function update ( '.ucfirst($this->tableName).'VO $objVo )');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$values = array(', false);
         $count=0;
@@ -330,7 +329,7 @@ class TCreateDAO extends TCreateFileContent
             }
         }
         $this->addline(ESP.ESP.ESP.ESP.ESP.ESP.',$objVo->get'.ucfirst($this->keyColumnName).'() );');
-        $this->addLine(ESP.ESP.'return self::executeSql(\'update '.$this->hasSchema().$this->getTableName().' set ');
+        $this->addLine(ESP.ESP.'$sql = \'update '.$this->hasSchema().$this->getTableName().' set ');
         $count=0;
         foreach ($this->getColumns() as $v) {
             if (strtolower($v) != strtolower($this->keyColumnName)) {
@@ -341,6 +340,7 @@ class TCreateDAO extends TCreateFileContent
         }
         $param = $this->charParam;
         $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.'where '.$this->keyColumnName.' = '.$param.'\';');
+        $this->addExecuteSql(true);
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------

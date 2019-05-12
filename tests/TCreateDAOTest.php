@@ -89,6 +89,15 @@ class TCreateDAOTest extends TestCase
 	    $this->assertSame($expected[5], $result[5]);
 	}
 	
+	public function testAddSqlDelete_numLines(){
+	    $expectedQtd = 7;
+	    
+	    $this->create->addSqlDelete();
+	    $resultArray = $this->create->getLinesArray();
+	    $size = CountHelper::count($resultArray);
+	    $this->assertEquals( $expectedQtd, $size);
+	}
+	
 	public function testAddSqlDelete() {
 	    $expected = array();
 	    $expected[] = ESP.'public function delete( $id )'.EOL;
@@ -160,7 +169,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_TABLE_numLines(){
-	    $expectedQtd = 108;	    
+	    $expectedQtd = 110;	    
 	    
 	    $resultArray = $this->create->show('array');
 	    $size = CountHelper::count($resultArray);
@@ -168,7 +177,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_TABLE_GRID_SQL_numLines(){
-	    $expectedQtd = 121;
+	    $expectedQtd = 123;
 	    
 	    $this->create->setWithSqlPagination(GRID_SQL_PAGINATION);
 	    $resultArray = $this->create->show('array');
