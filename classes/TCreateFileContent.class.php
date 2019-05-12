@@ -16,8 +16,9 @@ class TCreateFileContent
     private $filePath;
     private $fileName;
 
-    public function __construct()
+    public function __construct()    
     {
+        $this->lines = array();
     }
     //--------------------------------------------------------------------------------------
     /**
@@ -72,6 +73,11 @@ class TCreateFileContent
         $this->addLine('');
     }
     //--------------------------------------------------------------------------------------
+    public function getGenSystemAcronym()
+    {
+        return $_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
+    }
+    //--------------------------------------------------------------------------------------
     public function addSysGenHeaderNote()
     {
         $headerNote = array();
@@ -83,9 +89,20 @@ class TCreateFileContent
         $headerNote[] = ' * SysGen  Version: '.SYSTEM_VERSION.EOL;
         $headerNote[] = ' * FormDin Version: '.FORMDIN_VERSION.EOL;
         $headerNote[] = ' * '.EOL;
-        $headerNote[] = ' * System '.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].' created in: '.DateTimeHelper::getNow().EOL;
+        $headerNote[] = ' * System '.$this->getGenSystemAcronym().' created in: '.DateTimeHelper::getNow().EOL;
         $headerNote[] = ' */'.EOL;
         $this->lines = array_merge($this->lines, $headerNote);
+    }
+    //---------------------------------------------------------------------------------------
+    public function showContent($print = false)    
+    {
+        if ($print == 'array') {
+            return $this->getLinesArray();
+        } else if ($print == true){
+            echo $this->getLinesString();
+        } else if ($print == false){
+            return $this->getLinesString();
+        }
     }
     //---------------------------------------------------------------------------------------
     /**
