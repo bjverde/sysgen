@@ -51,7 +51,7 @@ class TCreateAutoloadTest extends TestCase
     }
     
     public function testShow_numLines(){
-        $esperado = 18;
+        $esperado = 24;
 
         $resultArray = $this->testClass->show('array');
         $size = count($resultArray);
