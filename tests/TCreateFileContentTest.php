@@ -62,4 +62,22 @@ class TCreateFileContentTest extends TestCase
         $sizeResult = CountHelper::count($result);
         $this->assertEquals( $expectedQtd, $sizeResult);
     }
+    
+    public function testShowContent_getArray(){
+        $expectedQtd = 10;
+        
+        $this->create->addSysGenHeaderNote();
+        $result = $this->create->showContent('array');
+        $sizeResult = CountHelper::count($result);
+        $this->assertEquals( $expectedQtd, $sizeResult);
+    }
+    
+    public function testShowContent_string(){
+        $expected = true;
+        
+        $this->create->addSysGenHeaderNote();
+        $result = $this->create->showContent();
+        $result = is_string($result);
+        $this->assertEquals( $expected, $result);
+    }
 }
