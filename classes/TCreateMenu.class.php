@@ -45,17 +45,18 @@ class TCreateMenu extends TCreateFileContent
         }
     }    
     //--------------------------------------------------------------------------------------
-    private function addBasicMenuCruds()
+    public function addBasicMenuCruds()
     {
         $this->addLine('$menu->add(\'1\', null, \'Cruds\', null, null, \'menu-alt-512.png\');');
         $this->addBasicMenuItems( '1', TGeneratorHelper::TABLE_TYPE_TABLE );
     }
     //--------------------------------------------------------------------------------------
-    private function addBasicMenuViews()
+    public function addBasicMenuViews()
     {
         $this->addLine('$menu->add(\'2\', null, \'Views\', null, null, \'menu-alt-512.png\');');
         $this->addBasicMenuItems( '2', TGeneratorHelper::TABLE_TYPE_VIEW );
-    }//--------------------------------------------------------------------------------------
+    }
+    //--------------------------------------------------------------------------------------
     public function show($print = false)
     {
         $this->lines=null;

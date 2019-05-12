@@ -10,6 +10,10 @@
  * PHP Version 5.6
  */
 
+$pathBase =  __DIR__.'/../../base/';
+require_once $pathBase.'classes/constants.php';
+require_once $pathBase.'classes/helpers/autoload_formdin_helper.php';
+
 $path =  __DIR__.'/../';
 require_once $path.'includes/constantes.php';
 require_once $path.'classes/autoload_sysgen.php';
@@ -35,7 +39,7 @@ class TCreateMenuTest extends TestCase
     
     protected function generateTablesSelected3t5v()
     {
-        $tableSelected = isset($tableSelected) ? $tableSelected : null;
+        $tableSelected = array();
         $tableSelected = $this->includeTable($tableSelected, 'dbo', 'menu' , TGeneratorHelper::TABLE_TYPE_TABLE);
         $tableSelected = $this->includeTable($tableSelected, 'dbo', 'acess', TGeneratorHelper::TABLE_TYPE_TABLE);
         $tableSelected = $this->includeTable($tableSelected, 'dbo', 'vitem', TGeneratorHelper::TABLE_TYPE_VIEW);
@@ -49,15 +53,15 @@ class TCreateMenuTest extends TestCase
     
     protected function generateTablesSelected1t7v()
     {
-        $tableSelected = isset($tableSelected) ? $tableSelected : null;
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'menu', 'VIEW');
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'acess', 'VIEW');
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'vitem', 'VIEW');
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'list', 'TABLE');
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v2', 'VIEW');
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v3', 'VIEW');
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v4', 'VIEW');
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v5', 'VIEW');
+        $tableSelected = array();
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'menu' , TGeneratorHelper::TABLE_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'acess', TGeneratorHelper::TABLE_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'vitem', TGeneratorHelper::TABLE_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'list' , TGeneratorHelper::TABLE_TYPE_TABLE);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v2'   , TGeneratorHelper::TABLE_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v3'   , TGeneratorHelper::TABLE_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v4'   , TGeneratorHelper::TABLE_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v5'   , TGeneratorHelper::TABLE_TYPE_VIEW);
         return $tableSelected;
     }
     
@@ -89,23 +93,47 @@ class TCreateMenuTest extends TestCase
         parent::tearDown();
     }
     
-    public function testQtdItensMenuOnlyTableNotViews3t()
+    public function testAddBasicMenuCruds_3tables()
     {
+        $expected = 4; //4 Tables + 1 header line
         $listTableNames   = $this->generateTablesSelected3t5v();
         $this->createMenu->setListTableNames($listTableNames);
-        $this->createMenu->addBasicMenuItems();
+        $this->createMenu->addBasicMenuCruds();
         $resultArray = $this->createMenu->getLinesArray();
-        $size = count($resultArray);
-        $this->assertEquals(3, $size);
+        $size = CountHelper::count($resultArray);
+        $this->assertEquals($expected, $size);
     }
     
-    public function testQtdItensMenuOnlyTableNotViews()
+    public function testAddBasicMenuCruds_1tables()
     {
+        $expected = 2; //1 Tables + 1 header line
         $listTableNames   = $this->generateTablesSelected1t7v();
         $this->createMenu->setListTableNames($listTableNames);
-        $this->createMenu->addBasicMenuItems();
+        $this->createMenu->addBasicMenuCruds();
         $resultArray = $this->createMenu->getLinesArray();
-        $size = count($resultArray);
-        $this->assertEquals(1, $size);
+        $size = CountHelper::count($resultArray);
+        $this->assertEquals($expected, $size);
+    }
+    
+    public function testAddBasicMenuViews_5Views()
+    {
+        $expected = 6; //5 Views + 1 header line
+        $listTableNames   = $this->generateTablesSelected3t5v();
+        $this->createMenu->setListTableNames($listTableNames);
+        $this->createMenu->addBasicMenuViews();
+        $resultArray = $this->createMenu->getLinesArray();
+        $size = CountHelper::count($resultArray);
+        $this->assertEquals($expected, $size);
+    }
+    
+    public function testAddBasicMenuViews_7Views()
+    {
+        $expected = 8; //7 Views + 1 header line
+        $listTableNames   = $this->generateTablesSelected1t7v();
+        $this->createMenu->setListTableNames($listTableNames);
+        $this->createMenu->addBasicMenuViews();
+        $resultArray = $this->createMenu->getLinesArray();
+        $size = CountHelper::count($resultArray);
+        $this->assertEquals($expected, $size);
     }
 }
