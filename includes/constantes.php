@@ -9,7 +9,6 @@
  *
  * PHP Version 5.6
  */
-$debug = false;
 
 define('SYSTEM_NAME', 'Gerador de Sistemas em FormDin');
 define('SYSTEM_NAME_SUB', 'write less, do more. But "Talk is Cheap. Show me the Code"! ');
