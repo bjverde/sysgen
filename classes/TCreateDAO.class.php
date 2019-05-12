@@ -170,7 +170,7 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlSelectById()
     {
-        $this->addLine(ESP.'public static function selectById( $id )');
+        $this->addLine(ESP.'public function selectById( $id )');
         $this->addLine(ESP.'{');
         
         $formDinType = self::getColumnPKeyPropertieFormDinType();
@@ -182,8 +182,7 @@ class TCreateDAO extends TCreateFileContent
         
         $this->addLine(ESP.ESP.'$values = array($id);');
         $this->addLine(ESP.ESP.'$sql = self::$sqlBasicSelect.\' where '.$this->getKeyColumnName().' = '.$this->charParam.'\';');
-        $this->addLine(ESP.ESP.'$result = self::executeSql($sql, $values );');
-        $this->addLine(ESP.ESP.'return $result;');
+        $this->addExecuteSql(true);
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
@@ -210,7 +209,7 @@ class TCreateDAO extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     public function addProcessWhereGridParameters()
     {
-        $this->addLine(ESP.'private static function processWhereGridParameters( $whereGrid )');
+        $this->addLine(ESP.'private function processWhereGridParameters( $whereGrid )');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$result = $whereGrid;');
         $this->addLine(ESP.ESP.'if ( is_array($whereGrid) ){');
@@ -234,12 +233,12 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlSelectCount()
     {
-        $this->addLine(ESP.'public static function selectCount( $where=null )');
+        $this->addLine(ESP.'public function selectCount( $where=null )');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$where = self::processWhereGridParameters($where);');
+        $this->addLine(ESP.ESP.'$where = $this->processWhereGridParameters($where);');
         $this->addLine(ESP.ESP.'$sql = \'select count('.$this->getKeyColumnName().') as qtd from '.$this->hasSchema().$this->getTableName().'\';');
         $this->addLine(ESP.ESP.'$sql = $sql.( ($where)? \' where \'.$where:\'\');');
-        $this->addLine(ESP.ESP.'$result = self::executeSql($sql);');
+        $this->addLine(ESP.ESP.'$result = $this->tpdo->executeSql($sql);');
         $this->addLine(ESP.ESP.'return $result[\'QTD\'][0];');
         $this->addLine(ESP.'}');
     }
@@ -249,10 +248,10 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addSqlSelectAllPagination()
     {
-        $this->addLine(ESP.'public static function selectAllPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null )');
+        $this->addLine(ESP.'public function selectAllPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null )');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$rowStart = PaginationSQLHelper::getRowStart($page,$rowsPerPage);');
-        $this->addLine(ESP.ESP.'$where = self::processWhereGridParameters($where);');
+        $this->addLine(ESP.ESP.'$where = $this->processWhereGridParameters($where);');
         $this->addBlankLine();
         $this->addLine(ESP.ESP.'$sql = self::$sqlBasicSelect');
         $this->addLine(ESP.ESP.'.( ($where)? \' where \'.$where:\'\')');
@@ -264,8 +263,7 @@ class TCreateDAO extends TCreateFileContent
             $this->addLine(ESP.ESP.'.( \' OFFSET \'.$rowStart.\' ROWS FETCH NEXT \'.$rowsPerPage.\' ROWS ONLY \');');
         }
         $this->addBlankLine();
-        $this->addLine(ESP.ESP.'$result = self::executeSql($sql);');
-        $this->addLine(ESP.ESP.'return $result;');
+        $this->addExecuteSql();
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
@@ -276,12 +274,12 @@ class TCreateDAO extends TCreateFileContent
     {
         $this->addLine(ESP.'public function selectAll( $orderBy=null, $where=null )');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$where = self::processWhereGridParameters($where);');
+        $this->addLine(ESP.ESP.'$where = $this->processWhereGridParameters($where);');
         $this->addLine(ESP.ESP.'$sql = self::$sqlBasicSelect');
         $this->addLine(ESP.ESP.'.( ($where)? \' where \'.$where:\'\')');
         $this->addLine(ESP.ESP.'.( ($orderBy) ? \' order by \'.$orderBy:\'\');');
         $this->addBlankLine();
-        $this->addExecuteSql(true);
+        $this->addExecuteSql();
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------

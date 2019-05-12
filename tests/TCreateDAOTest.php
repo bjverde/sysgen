@@ -70,6 +70,25 @@ class TCreateDAOTest extends TestCase
 	    $this->assertSame($esperado[1], $retorno[1]);
 	}
 	
+	public function testAddSqlSelectAll(){
+	    $expected = array();
+	    $expected[] = ESP.'public function selectAll( $orderBy=null, $where=null )'.EOL;
+	    $expected[] = ESP.'{'.EOL;
+	    $expected[] = ESP.ESP.'$where = $this->processWhereGridParameters($where);'.EOL;
+	    $expected[] = ESP.ESP.'$sql = self::$sqlBasicSelect'.EOL;
+	    $expected[] = ESP.ESP.'.( ($where)? \' where \'.$where:\'\')'.EOL;
+	    $expected[] = ESP.ESP.'.( ($orderBy) ? \' order by \'.$orderBy:\'\');'.EOL;
+	    
+	    $this->create->addSqlSelectAll();
+	    $result = $this->create->getLinesArray();
+	    $this->assertSame($expected[0], $result[0]);
+	    $this->assertSame($expected[1], $result[1]);
+	    $this->assertSame($expected[2], $result[2]);
+	    $this->assertSame($expected[3], $result[3]);
+	    $this->assertSame($expected[4], $result[4]);
+	    $this->assertSame($expected[5], $result[5]);
+	}
+	
 	public function testAddSqlInsert_numLines(){
 	    $expectedQtd = 13;
 	    
