@@ -424,7 +424,7 @@ class TCreateDAO extends TCreateFileContent
         //-------- FIM
         $this->addLine("}");
         $this->addLine("?>");
-        $this->showContent($print);
+        return $this->showContent($print);
     }
     //--------------------------------------------------------------------------------------
     /**
