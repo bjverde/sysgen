@@ -10,13 +10,13 @@
  * PHP Version 5.6
  */
 
-header('Location: ../index.php');
+$path =  __DIR__.'/../';
+require_once $path.'includes/constantes.php';
+require_once $path.'classes/autoload_sysgen.php';
 
+use PHPUnit\Framework\TestCase;
 
-require_once '../classes/autoload_sysgen.php';
-//require_once('../classes/TCreateMenu.class.php');
-
-class TCreateMenuTest extends PHPUnit_Framework_TestCase
+class TCreateMenuTest extends TestCase
 {
     
     /**

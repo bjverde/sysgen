@@ -10,15 +10,19 @@
  * PHP Version 5.6
  */
 
-require_once '../classes/autoload_sysgen.php';
-require_once '../includes/constantes.php';
+$path =  __DIR__.'/../';
+require_once $path.'includes/constantes.php';
+require_once $path.'classes/autoload_sysgen.php';
+
+use PHPUnit\Framework\TestCase;
 
 define('TEOL',"\n");
 define('TTAB',chr(9));
 /**
  * TDAOCreate test case.
  */
-class TCreateAutoloadTest extends PHPUnit_Framework_TestCase {
+class TCreateAutoloadTest extends TestCase
+{
 
     /**
      * @var TCreateAutoload

@@ -137,6 +137,21 @@ class TCreateDAO extends TCreateFileContent
         }
     }
     //--------------------------------------------------------------------------------------
+    /**
+     * add Execuute SQL 
+     * @param string $qtEsp
+     */
+    public function addExecuteSql($withValues = false)
+    {
+        if($withValues){
+            $this->addLine(ESP.ESP.'$result = $this->tpdo->executeSql($sql, $values);');
+            $this->addLine(ESP.ESP.'return $result;');
+        } else {
+            $this->addLine(ESP.ESP.'$result = $this->tpdo->executeSql($sql);');
+            $this->addLine(ESP.ESP.'return $result;');
+        }
+    }    
+    //--------------------------------------------------------------------------------------
     /***
      * Create variable with string sql basica
      **/
@@ -280,7 +295,7 @@ class TCreateDAO extends TCreateFileContent
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$values = array(', false);
         $cnt=0;
-        foreach ($this->getColumns() as $k => $v) {
+        foreach ($this->getColumns() as $v) {
             if ($v != strtolower($this->keyColumnName)) {
                 $this->addLine(( $cnt++==0 ? ' ' : ESP.ESP.ESP.ESP.ESP.ESP.',').' $objVo->get'.ucfirst($v).'() ');
             }
@@ -288,7 +303,7 @@ class TCreateDAO extends TCreateFileContent
         $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.');');
         $this->addLine(ESP.ESP.'return self::executeSql(\'insert into '.$this->hasSchema().$this->getTableName().'(');
         $cnt=0;
-        foreach ($this->getColumns() as $k => $v) {
+        foreach ($this->getColumns() as $v) {
             if ($v != strtolower($this->keyColumnName)) {
                 $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.( $cnt++==0 ? ' ' : ',').$v);
             }
@@ -307,7 +322,7 @@ class TCreateDAO extends TCreateFileContent
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$values = array(', false);
         $count=0;
-        foreach ($this->getColumns() as $k => $v) {
+        foreach ($this->getColumns() as $v) {
             if (strtolower($v) != strtolower($this->keyColumnName)) {
                 $this->addLine(( $count==0 ? ' ' : ESP.ESP.ESP.ESP.ESP.ESP.',').'$objVo->get'.ucfirst($v).'()');
                 $count++;
@@ -316,7 +331,7 @@ class TCreateDAO extends TCreateFileContent
         $this->addline(ESP.ESP.ESP.ESP.ESP.ESP.',$objVo->get'.ucfirst($this->keyColumnName).'() );');
         $this->addLine(ESP.ESP.'return self::executeSql(\'update '.$this->hasSchema().$this->getTableName().' set ');
         $count=0;
-        foreach ($this->getColumns() as $k => $v) {
+        foreach ($this->getColumns() as $v) {
             if (strtolower($v) != strtolower($this->keyColumnName)) {
             	$param = $this->charParam;
                 $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.( $count==0 ? ' ' : ',').$v.' = '.$param);
@@ -336,7 +351,8 @@ class TCreateDAO extends TCreateFileContent
         $this->addLine(ESP.'public static function delete( $id )');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$values = array($id);');
-        $this->addLine(ESP.ESP.'return self::executeSql(\'delete from '.$this->hasSchema().$this->getTableName().' where '.$this->keyColumnName.' = '.$this->charParam.'\',$values);');
+        $this->addLine(ESP.ESP.'$sql = \'delete from '.$this->hasSchema().$this->getTableName().' where '.$this->keyColumnName.' = '.$this->charParam.'\';');
+        $this->addExecuteSql(true);
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
@@ -345,10 +361,18 @@ class TCreateDAO extends TCreateFileContent
      */
     public function addConstruct()
     {
-        if (version_compare(phpversion(), '5.6.0', '<')) {
-            $this->addLine(ESP.'public function '.$this->getTableName().'DAO() {');
-            $this->addLine(ESP.'}');
-        }
+        $this->addLine(ESP.'private $TPDOConnection = null;');
+        $this->addBlankLine();
+        $this->addLine(ESP.'public function __construct() {');
+        $this->addLine(ESP.ESP.'$tpdo = New TPDOConnectionObj();');
+        $this->addLine(ESP.ESP.'$this->setTPDOConnection($tpdo);');
+        $this->addLine(ESP.'}');
+        $this->addLine(ESP.'public function getTPDOConnection()');
+        $this->addLine(ESP.ESP.'return $this->TPDOConnection;');
+        $this->addLine(ESP.'}');
+        $this->addLine(ESP.'public function setTPDOConnection($TPDOConnection)');
+        $this->addLine(ESP.ESP.'$this->TPDOConnection = $TPDOConnection;');
+        $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
     public function show($print = false)
@@ -356,7 +380,7 @@ class TCreateDAO extends TCreateFileContent
         $this->lines=null;
         $this->addLine('<?php');
         $this->addSysGenHeaderNote();
-        $this->addLine('class '.ucfirst($this->getTableName()).'DAO extends TPDOConnection');
+        $this->addLine('class '.ucfirst($this->getTableName()).'DAO ');
         $this->addLine('{');
         $this->addBlankLine();
         $this->addSqlVariable();
