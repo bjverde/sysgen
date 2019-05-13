@@ -187,12 +187,10 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine('<?php');
         $this->addSysGenHeaderNote();
         $this->addBlankLine();
-        $this->addBlankLine();
         $this->addLine('namespace Controllers;');
         $this->addBlankLine();
         $this->addLine('use Psr\Http\Message\ServerRequestInterface as Request;');
         $this->addLine('use Psr\Http\Message\ResponseInterface as Response;');
-        $this->addBlankLine();
         $this->addBlankLine();
         $this->addLine('class '.ucfirst( $this->getTableName() ).'API');
         $this->addLine('{');
@@ -205,11 +203,6 @@ class CreateApiControllesFiles extends TCreateFileContent
             $this->addDelete();
         }
         $this->addLine('}');
-
-        if ($print) {
-            echo $this->getLinesString();
-        } else {
-            return $this->getLinesString();
-        }
+        return $this->showContent($print);
     }
 }

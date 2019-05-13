@@ -297,7 +297,7 @@ class TGeneratorHelper
             throw new InvalidArgumentException('List of Tables Names not is array');
         }
         foreach ($listAllTables['TABLE_NAME'] as $key => $value) {
-            $listAllTables['idSelected'][] = $listAllTables['TABLE_SCHEMA'][$key].$listAllTables['TABLE_NAME'][$key].$listAllTables['COLUMN_QTD'][$key].$listAllTables['TABLE_TYPE'][$key];
+            $listAllTables['idSelected'][] = $listAllTables['TABLE_SCHEMA'][$key].$value.$listAllTables['COLUMN_QTD'][$key].$listAllTables['TABLE_TYPE'][$key];
         }
         return $listAllTables;
     }
