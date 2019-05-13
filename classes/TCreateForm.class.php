@@ -321,7 +321,8 @@ class TCreateForm extends TCreateFileContent
         $REFERENCED_TABLE_NAME = self::getColumnsPropertieReferencedTable($key);
         $REFERENCED_TABLE_NAME = $this->getTableRefCC($REFERENCED_TABLE_NAME);
         
-        $this->addLine('$list'.$REFERENCED_TABLE_NAME.' = '.$REFERENCED_TABLE_NAME.'::selectAll();');
+        $this->addLine('$controller'.$REFERENCED_TABLE_NAME.' = new '.$REFERENCED_TABLE_NAME.'();');
+        $this->addLine('$list'.$REFERENCED_TABLE_NAME.' = $controller'.$REFERENCED_TABLE_NAME.'->selectAll();');
         $this->addLine('$frm->addSelectField(\''.$fieldName.'\', \''.$fieldName.'\','.$REQUIRED.',$list'.$REFERENCED_TABLE_NAME.',null,null,null,null,null,null,\' \',null);');
         $this->addFieldTypeToolTip($key, $fieldName);
     }
@@ -352,7 +353,7 @@ class TCreateForm extends TCreateFileContent
         $key = $key+1;
         $CHAR_MAX    = self::getColumnsPropertieCharMax($key);
         $REQUIRED    = self::getColumnsPropertieRequired($key);
-        $DATA_TYPE   = self::getColumnsPropertieDataType($key);
+        //$DATA_TYPE   = self::getColumnsPropertieDataType($key);
         $formDinType = self::getColumnsPropertieFormDinType($key);
 
         switch ($formDinType) {
@@ -444,8 +445,8 @@ class TCreateForm extends TCreateFileContent
         $this->addLine(ESP.'case \'gd_excluir\':');
         $this->addLine(ESP.ESP.'try{');
         $this->addLine(ESP.ESP.ESP.'$id = $frm->get( $primaryKey ) ;');
-        $this->addLine(ESP.ESP.ESP.'$class = new '.$this->tableRefClass.'();');
-        $this->addLine(ESP.ESP.ESP.'$resultado = $class->delete( $id );');
+        $this->addLine(ESP.ESP.ESP.'$controller = new '.$this->tableRefClass.'();');
+        $this->addLine(ESP.ESP.ESP.'$resultado = $controller->delete( $id );');
         $this->addLine(ESP.ESP.ESP.'if($resultado==1) {');
         $this->addLine(ESP.ESP.ESP.ESP.'$frm->setMessage(\'Registro excluido com sucesso!!!\');');
         $this->addLine(ESP.ESP.ESP.ESP.'$frm->clearFields();');
@@ -538,7 +539,8 @@ class TCreateForm extends TCreateFileContent
     private function addBasicaGrid()
     {
         $this->addBlankLine();
-        $this->addLine('$dados = '.$this->tableRefClass.'::selectAll($primaryKey,$whereGrid);');
+        $this->addLine('$controller = new '.$this->tableRefClass.'();');
+        $this->addLine('$dados = $controller->selectAll($primaryKey,$whereGrid);');
         $this->getMixUpdateFields(null);
         $this->addLine('$gride = new TGrid( \'gd\'        // id do gride');
         $this->addLine('				   ,\'Gride\'     // titulo do gride');
@@ -615,10 +617,11 @@ class TCreateForm extends TCreateFileContent
             $this->addLine(ESP.'$whereGrid = getWhereGridParameters($frm);');
             if ($this->gridType == GRID_SQL_PAGINATION) {
                 $this->addLine(ESP.'$page = PostHelper::get(\'page\');');
-                $this->addLine(ESP.'$dados = '.$this->tableRefClass.'::selectAllPagination( $primaryKey, $whereGrid, $page,  $maxRows);');
-                $this->addLine(ESP.'$realTotalRowsSqlPaginator = '.$this->tableRefClass.'::selectCount( $whereGrid );');
+                $this->addLine('$controller = new '.$this->tableRefClass.'();');
+                $this->addLine(ESP.'$dados = $controller->selectAllPagination( $primaryKey, $whereGrid, $page,  $maxRows);');
+                $this->addLine(ESP.'$realTotalRowsSqlPaginator = $controller->selectCount( $whereGrid );');
             } elseif ($this->gridType == GRID_SCREEN_PAGINATION) {
-                $this->addLine(ESP.'$dados = '.$this->tableRefClass.'::selectAll( $primaryKey, $whereGrid );');
+                $this->addLine(ESP.'$dados = $controller->selectAll($primaryKey,$whereGrid);');
             }
             $this->getMixUpdateFields(ESP);
             $this->addLine(ESP.'$gride = new TGrid( \'gd\'                        // id do gride');
@@ -699,11 +702,6 @@ class TCreateForm extends TCreateFileContent
         $this->addBasicaViewController();
         $this->addBlankLine();
         $this->addGrid();
-        
-        if ($print) {
-            echo $this->getLinesString();
-        } else {
-            return $this->getLinesString();
-        }
+        return $this->showContent($print);
     }
 }
