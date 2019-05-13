@@ -89,7 +89,8 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine();
         $this->addLine(ESP.'public static function selectAll(Request $request, Response $response, array $args)');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$result = \\'.ucfirst( $this->getTableName() ).'::selectAll();');
+        $this->addLine(ESP.ESP.'$controller = new \\'.ucfirst( $this->getTableName() ).'();');
+        $this->addLine(ESP.ESP.'$result = $controller->selectAll();');
         $this->addLine(ESP.ESP.'$result = \ArrayHelper::convertArrayFormDin2Pdo($result);');
         $this->addLine(ESP.ESP.'$msg = array( \'qtd\'=> \CountHelper::count($result)');
         $this->addLine(ESP.ESP.ESP.ESP.ESP.', \'result\'=>$result');
@@ -106,7 +107,8 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.'private static function selectByIdInside(array $args)');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$id = $args[\'id\'];');
-        $this->addLine(ESP.ESP.'$result = \\'.ucfirst( $this->getTableName() ).'::selectById($id);');
+        $this->addLine(ESP.ESP.'$controller = new \\'.ucfirst( $this->getTableName() ).'();');
+        $this->addLine(ESP.ESP.'$result = $controller->selectById($id);');
         $this->addLine(ESP.ESP.'$result = \ArrayHelper::convertArrayFormDin2Pdo($result);');
         $this->addLine(ESP.ESP.'return $result;');
         $this->addLine(ESP.'}');
@@ -160,8 +162,8 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.ESP.'$bodyRequest = json_decode($request->getBody(),true);');
         $this->addLine(ESP.ESP.'$vo = \FormDinHelper::setPropertyVo($bodyRequest,$vo);');
         $this->addBlankLine();
-        $this->addLine(ESP.ESP.'$class = new \\'.ucfirst( $this->getTableName() ).';');
-        $this->addLine(ESP.ESP.'$class->save($vo);');
+        $this->addLine(ESP.ESP.'$controller = new \\'.ucfirst( $this->getTableName() ).';');
+        $this->addLine(ESP.ESP.'$controller->save($vo);');
         $this->addBlankLine();
         $this->addLine(ESP.ESP.'$response = $response->withJson($msg);');
         $this->addLine(ESP.ESP.'return $response;');
@@ -175,8 +177,8 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.'public static function delete(Request $request, Response $response, array $args)');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$id = $args[\'id\'];');
-        $this->addLine(ESP.ESP.'$class = new \\'.ucfirst( $this->getTableName() ).';');
-        $this->addLine(ESP.ESP.'$msg = $class->delete($id);');
+        $this->addLine(ESP.ESP.'$controller = new \\'.ucfirst( $this->getTableName() ).';');
+        $this->addLine(ESP.ESP.'$msg = $controller->delete($id);');
         $this->addLine(ESP.ESP.'$response = $response->withJson($msg);');
         $this->addLine(ESP.ESP.'return $response;');
         $this->addLine(ESP.'}');

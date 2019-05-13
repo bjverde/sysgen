@@ -617,7 +617,7 @@ class TCreateForm extends TCreateFileContent
             $this->addLine(ESP.'$whereGrid = getWhereGridParameters($frm);');
             if ($this->gridType == GRID_SQL_PAGINATION) {
                 $this->addLine(ESP.'$page = PostHelper::get(\'page\');');
-                $this->addLine('$controller = new '.$this->tableRefClass.'();');
+                $this->addLine(ESP.'$controller = new '.$this->tableRefClass.'();');
                 $this->addLine(ESP.'$dados = $controller->selectAllPagination( $primaryKey, $whereGrid, $page,  $maxRows);');
                 $this->addLine(ESP.'$realTotalRowsSqlPaginator = $controller->selectCount( $whereGrid );');
             } elseif ($this->gridType == GRID_SCREEN_PAGINATION) {
