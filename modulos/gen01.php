@@ -41,7 +41,7 @@ if ($validoPDOAndDBMS) {
     $showAba = TGeneratorHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_SQLITE);
     $pc->addPage(DBMS_SQLITE, $showAba, $showAba, 'abaSqlite');
     $frm->addHiddenField('sqDbType', DBMS_SQLITE);
-    $frm->addTextField('sqDb	', 'Database:', 80, true, 80, 'bancos_locais/bdApoio.s3db', false, null, null, true);
+    $frm->addTextField('sqDb	', 'Database:', 80, true, 80, __DIR__.DS.'..'.DS.'bancos_locais'.DS.'bdApoio.s3db', false, null, null, true);
     $frm->addButton('Testar Conexão', null, 'btnTestarsq', 'testarConexao("sq")', null, true, false);
     $frm->addHtmlField('sqGride', '');
             
