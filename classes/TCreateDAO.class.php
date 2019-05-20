@@ -250,7 +250,7 @@ class TCreateDAO extends TCreateFileContent
     {
         $this->addLine(ESP.'public function selectAllPagination( $orderBy=null, $where=null, $page=null,  $rowsPerPage= null )');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$rowStart = PaginationSQLHelper::getRowStart($page,$rowsPerPage);');
+        $this->addLine(ESP.ESP.'$rowStart = SqlHelper::getRowStart($page,$rowsPerPage);');
         $this->addLine(ESP.ESP.'$where = $this->processWhereGridParameters($where);');
         $this->addBlankLine();
         $this->addLine(ESP.ESP.'$sql = self::$sqlBasicSelect');
