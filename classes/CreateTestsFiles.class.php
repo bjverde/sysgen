@@ -24,7 +24,7 @@ class CreateTestsFiles extends TCreateFileContent
         $this->setTableName($tableName);
         $this->setTableType( strtoupper($tableType) );
         $this->setFileName($tableName.'Test.php');
-        $pathFolder = TGeneratorHelper::getPathNewSystem().DS.'tests'.DS.'crontrollers';
+        $pathFolder = TGeneratorHelper::getPathNewSystem().DS.'tests'.DS.'controllers';
         $this->setFilePath($pathFolder);
         $this->setListColumnsProperties($listColumnsProperties);
         $this->configArrayColumns();
