@@ -19,7 +19,7 @@ class TCreateAutoload extends TCreateFileContent
     {
         $this->gen_system_acronym = $_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'];
         $this->setFileName('autoload_'.$this->gen_system_acronym.'.php');
-        $path = TGeneratorHelper::getPathNewSystem().DS.'classes'.DS;
+        $path = TGeneratorHelper::getPathNewSystem().DS.'controllers'.DS;
         $this->setFilePath($path);
     }
     //--------------------------------------------------------------------------------------
