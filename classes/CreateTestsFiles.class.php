@@ -103,7 +103,7 @@ class CreateTestsFiles extends TCreateFileContent
         $this->addLine('<?php');
         $this->addSysGenHeaderNote();
         $this->addBlankLine();
-        $this->addLine('$path =  __DIR__.\'/../\';');
+        $this->addLine('$path =  __DIR__.\'/../../\';');
         $this->addLine('require_once $path.\'includes/constantes.php\';');
         $this->addBlankLine();
         $this->addLine('require_once $path.\'../base/classes/webform/TApplication.class.php\';');
