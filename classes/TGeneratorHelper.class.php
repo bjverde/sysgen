@@ -323,11 +323,11 @@ class TGeneratorHelper
         return $config;
     }
     
-    public static function createFilesClasses($tableName, $listColumnsProperties, $tableSchema, $tableType)
+    public static function createFilesControllers($tableName, $listColumnsProperties, $tableSchema, $tableType)
     {
         $DBMS       = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
         $configDBMS = self::getConfigByDBMS($DBMS);
-        $generator  = new TCreateClass($tableName);
+        $generator  = new CreateControllers($tableName);
         $generator->setTableType($tableType);
         $generator->setListColumnsProperties($listColumnsProperties);
         $generator->setListColunnsName($listColumnsProperties['COLUMN_NAME']);
@@ -383,7 +383,7 @@ class TGeneratorHelper
     public static function createFilesFormClassDaoVoFromTable($tableName, $listColumnsProperties, $tableSchema, $tableType)
     {
         self::createFilesDaoVoFromTable($tableName, $listColumnsProperties,$tableSchema,$tableType);
-        self::createFilesClasses($tableName, $listColumnsProperties, $tableSchema, $tableType);
+        self::createFilesControllers($tableName, $listColumnsProperties, $tableSchema, $tableType);
         self::createFilesTests($tableName, $listColumnsProperties, $tableSchema, $tableType);
 
         if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != TGeneratorHelper::TP_SYSTEM_REST ){

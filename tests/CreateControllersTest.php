@@ -20,7 +20,7 @@ require_once $path.'classes/autoload_sysgen.php';
 
 use PHPUnit\Framework\TestCase;
 
-class TCreateClassTest extends TestCase
+class CreateControllersTest extends TestCase
 {	
 
 	private $create;	
@@ -34,7 +34,7 @@ class TCreateClassTest extends TestCase
 		$listColumnsProperties['COLUMN_NAME'][] = 'idTest';
 		$listColumnsProperties['COLUMN_NAME'][] = 'nm_test';
 		$listColumnsProperties['COLUMN_NAME'][] = 'tip_test';
-		$this->create = new TCreateClass('test');
+		$this->create = new CreateControllers('test');
 	}
 	
 	/**

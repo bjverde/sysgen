@@ -10,7 +10,7 @@
  * PHP Version 5.6
  */
 
-class TCreateClass extends TCreateFileContent
+class CreateControllers extends TCreateFileContent
 {
     private $tableRef;
     private $tableRefDAO;
@@ -27,7 +27,7 @@ class TCreateClass extends TCreateFileContent
         $this->tableRefDAO= $tableRef.'DAO';
         $this->tableRefVO = $tableRef.'VO';
         $this->setFileName($tableRef.'.class.php');
-        $path = TGeneratorHelper::getPathNewSystem().DS.'classes'.DS;
+        $path = TGeneratorHelper::getPathNewSystem().DS.'controllers'.DS;
         $this->setFilePath($path);
     }
     //------------------------------------------------------------------------------------
