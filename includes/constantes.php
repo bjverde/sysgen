@@ -13,12 +13,12 @@
 define('SYSTEM_NAME', 'Gerador de Sistemas em FormDin');
 define('SYSTEM_NAME_SUB', 'write less, do more. But "Talk is Cheap. Show me the Code"! ');
 define('SYSTEM_ACRONYM', 'sysGen');
-define('SYSTEM_VERSION', '1.6.0-alpha');
+define('SYSTEM_VERSION', '1.6.0');
 define('APLICATIVO', SYSTEM_ACRONYM);
 define('ROOT_PATH', '../');
 define('CHAR_MAX_TEXT_FIELD', 101);
 
-define('FORMDIN_VERSION_MIN_VERSION', '4.5.2');
+define('FORMDIN_VERSION_MIN_VERSION', '4.6.2');
 
 
 if(!defined('DS')) { 
