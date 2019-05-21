@@ -371,7 +371,7 @@ class TGeneratorHelper
 
     public static function createFilesControllesAndRoutesAPI($tableName, $listColumnsProperties, $tableSchema, $tableType)
     {
-        $pathFolder= self::getPathNewSystem().DS.'api'.DS.'Controllers';
+        $pathFolder= self::getPathNewSystem().DS.'api'.DS.'api_controllers';
         $generator = new CreateApiControllesFiles($pathFolder,$tableName, $listColumnsProperties, $tableType);
         $generator->saveFile();
 

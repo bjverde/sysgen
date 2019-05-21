@@ -43,7 +43,7 @@ class CreateApiRoutesCall extends TCreateFileContent
         }else{
             foreach ($listTableNames['TABLE_NAME'] as $tableName) {
                 $tableName = ucfirst(strtolower($tableName));
-                $this->addLine('use Controllers\\'.$tableName.'API;');
+                $this->addLine('use api_controllers\\'.$tableName.'API;');
             }
         }
     }
@@ -92,9 +92,9 @@ class CreateApiRoutesCall extends TCreateFileContent
     private function addNameSpaces($contract = false)
     {
         $this->addBlankLine();
-        $this->addLine('use Controllers\SysinfoAPI;');
+        $this->addLine('use api_controllers\SysinfoAPI;');
         if($contract){
-            $this->addLine('use Controllers\{');        
+            $this->addLine('use api_controllers\{');        
             $this->addClass($contract);
             $this->addLine('};');
         }else{

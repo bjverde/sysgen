@@ -48,7 +48,7 @@ class CreateApiControllesFilesTest extends TestCase
 		
 	public function testShow(){
 	    $expected = array();
-	    $expected[12] = 'namespace Controllers;'.EOL;
+	    $expected[12] = 'namespace api_controllers;'.EOL;
 	    $expected[13] = EOL;
 	    $expected[14] = 'use Psr\Http\Message\ServerRequestInterface as Request;'.EOL;
 	    $expected[15] = 'use Psr\Http\Message\ResponseInterface as Response;'.EOL;

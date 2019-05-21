@@ -189,7 +189,7 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine('<?php');
         $this->addSysGenHeaderNote();
         $this->addBlankLine();
-        $this->addLine('namespace Controllers;');
+        $this->addLine('namespace api_controllers;');
         $this->addBlankLine();
         $this->addLine('use Psr\Http\Message\ServerRequestInterface as Request;');
         $this->addLine('use Psr\Http\Message\ResponseInterface as Response;');

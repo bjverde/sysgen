@@ -39,7 +39,7 @@ class CreateApiIndex extends TCreateFileContent
         $this->addLine('require_once $current_dirApi.DS.\'..\'.DS.\'includes\'.DS.\'constantes.php\';');
         $this->addLine('require_once $current_dirApi.DS.\'..\'.DS.\'includes\'.DS.\'config_conexao.php\';');
         $this->addLine('require_once $current_dirApi.DS.\'..\'.DS.\'..\'.DS.\'base/classes/webform/TApplication.class.php\';');
-        $this->addLine('require_once $current_dirApi.DS.\'..\'.DS.\'classes\'.DS.\'autoload_'.$this->gen_system_acronym.'.php\';');
+        $this->addLine('require_once $current_dirApi.DS.\'..\'.DS.\'controllers\'.DS.\'autoload_'.$this->gen_system_acronym.'.php\';');
         $this->addLine('require_once $current_dirApi.DS.\'..\'.DS.\'dao\'.DS.\'autoload_'.$this->gen_system_acronym.'_dao.php\';');
         $this->addLine('require_once $current_dirApi.DS.\'autoload_'.$this->gen_system_acronym.'_api.php\';');
         $this->addBlankLine();
