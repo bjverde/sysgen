@@ -107,7 +107,7 @@ class CreateTestsFiles extends TCreateFileContent
         $this->addLine('require_once $path.\'includes/constantes.php\';');
         $this->addBlankLine();
         $this->addLine('require_once $path.\'../base/classes/webform/TApplication.class.php\';');
-        $this->addLine('require_once $path.\'classes/autoload_'.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].'.php\';');
+        $this->addLine('require_once $path.\'controllers/autoload_'.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].'.php\';');
         $this->addBlankLine();
         $this->addLine('use PHPUnit\Framework\TestCase;');        
         $this->addBlankLine();
