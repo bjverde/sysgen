@@ -24,7 +24,7 @@ class CreateTestsFiles extends TCreateFileContent
         $this->setTableName($tableName);
         $this->setTableType( strtoupper($tableType) );
         $this->setFileName($tableName.'Test.php');
-        $pathFolder = TGeneratorHelper::getPathNewSystem().DS.'tests'.DS;
+        $pathFolder = TGeneratorHelper::getPathNewSystem().DS.'tests'.DS.'classes';
         $this->setFilePath($pathFolder);
         $this->setListColumnsProperties($listColumnsProperties);
         $this->configArrayColumns();
@@ -103,7 +103,7 @@ class CreateTestsFiles extends TCreateFileContent
         $this->addLine('<?php');
         $this->addSysGenHeaderNote();
         $this->addBlankLine();
-        $this->addLine('$path =  __DIR__.DS.\'..\'.DS;');
+        $this->addLine('$path =  __DIR__.\'/../\';');
         $this->addLine('require_once $path.\'includes/constantes.php\';');
         $this->addBlankLine();
         $this->addLine('require_once $path.\'../base/classes/webform/TApplication.class.php\';');

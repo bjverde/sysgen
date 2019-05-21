@@ -335,6 +335,12 @@ class TGeneratorHelper
         $generator->saveFile();
     }
     
+    public static function createFilesTests($tableName, $listColumnsProperties, $tableSchema, $tableType)
+    {
+        $generator  = new CreateTestsFiles($tableName, $listColumnsProperties, $tableType);
+        $generator->saveFile();
+    }
+    
     public static function createFilesDaoVoFromTable($tableName, $listColumnsProperties, $tableSchema, $tableType)
     {
         $DBMS        = $_SESSION[APLICATIVO]['DBMS']['TYPE'];
@@ -378,6 +384,7 @@ class TGeneratorHelper
     {
         self::createFilesDaoVoFromTable($tableName, $listColumnsProperties,$tableSchema,$tableType);
         self::createFilesClasses($tableName, $listColumnsProperties, $tableSchema, $tableType);
+        self::createFilesTests($tableName, $listColumnsProperties, $tableSchema, $tableType);
 
         if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != TGeneratorHelper::TP_SYSTEM_REST ){
             self::createFilesForms($tableName, $listColumnsProperties, $tableSchema, $tableType);
