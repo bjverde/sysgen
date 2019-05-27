@@ -48,7 +48,7 @@ class CreateApiRoutesCall extends TCreateFileContent
         }
     }
     //--------------------------------------------------------------------------------------
-    private function addFileRouter()
+    public function addFileRouter()
     {
         $listTableNames = $this->getListTableNames();
         foreach ($listTableNames['TABLE_NAME'] as $tableName) {
@@ -56,7 +56,7 @@ class CreateApiRoutesCall extends TCreateFileContent
         }
     }
     //--------------------------------------------------------------------------------------
-    private function addCommentTableOrView($tableType,$tableName){
+    public function addCommentTableOrView($tableType,$tableName){
         $this->addLine('//--------------------------------------------------------------------');
         if( $tableType == TGeneratorHelper::TABLE_TYPE_TABLE ){
             $this->addLine('//  TABLE: '.$tableName);
@@ -66,7 +66,7 @@ class CreateApiRoutesCall extends TCreateFileContent
         $this->addLine('//--------------------------------------------------------------------');
     }
     //--------------------------------------------------------------------------------------
-    private function addRouterForTable()
+    public function addRouterForTable()
     {
         $listTableNames = $this->getListTableNames();
         foreach ($listTableNames['TABLE_NAME'] as $key => $tableName) { 
@@ -89,7 +89,7 @@ class CreateApiRoutesCall extends TCreateFileContent
         }
     }
     //--------------------------------------------------------------------------------------
-    private function addNameSpaces($contract = false)
+    public function addNameSpaces($contract = false)
     {
         $this->addBlankLine();
         $this->addLine('use api_controllers\SysinfoAPI;');
@@ -102,6 +102,35 @@ class CreateApiRoutesCall extends TCreateFileContent
         }
     }
     //--------------------------------------------------------------------------------------
+    public function addIndexRoutes()
+    {
+        $this->addBlankLine();
+        $this->addLine('$app->get("/", function ($request, $response, $args) use ($app) {');
+        $this->addLine(ESP.'$url = \ServerHelper::getCurrentUrl();');
+        $this->addLine(ESP.'$url = substr($url,0,strlen($url)-1);');
+        $this->addLine(ESP.'$routes = $app->getContainer()->router->getRoutes();');
+        $this->addLine(ESP.'$routesArray = array();');
+        $this->addLine(ESP.'foreach ($routes as $route) {');
+        $this->addLine(ESP.ESP.'$routeArray = array();');
+        $this->addLine(ESP.ESP.'$met = $route->getMethods();');
+        $this->addLine(ESP.ESP.'$routeArray[\'methods\']  = $met[0];');
+        $this->addLine(ESP.ESP.'$routeArray[\'url\']  = $url.$route->getPattern();');
+        $this->addLine(ESP.ESP.'$routesArray[] = $routeArray;');
+        $this->addLine(ESP.'}');
+        $this->addBlankLine();
+        $this->addLine(ESP.'$msg = array( \'info\'=> SysinfoAPI::info()');
+        $this->addLine(ESP.ESP.ESP.ESP.', \'endpoints\'=>array( \'qtd\'=> \CountHelper::count($routesArray)');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.',\'result\'=>$routesArray');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.')');
+        $this->addLine(ESP.ESP.ESP.ESP.');');
+        $this->addBlankLine();
+        $this->addLine(ESP.'$response = $response->withJson($msg);');
+        $this->addLine(ESP.'return $response;');
+        $this->addLine('});');
+        $this->addBlankLine();
+        $this->addLine('$app->get(\'/sysinfo\', SysinfoAPI::class . \':getInfo\');');
+    }    
+    //--------------------------------------------------------------------------------------
     public function show($print = false)
     {
         $this->lines=null;
@@ -110,8 +139,7 @@ class CreateApiRoutesCall extends TCreateFileContent
         $this->addNameSpaces();
         $this->addBlankLine();
         $this->addLine('$app = new \Slim\App(slimConfiguration());');
-        $this->addBlankLine();
-        $this->addLine('$app->get(\'/sysinfo\', SysinfoAPI::class . \':getInfo\');');
+        $this->addIndexRoutes();        
         $this->addBlankLine();
         $this->addRouterForTable();
         $this->addBlankLine();
