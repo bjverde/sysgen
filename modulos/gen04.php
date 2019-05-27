@@ -37,20 +37,26 @@ switch( $acao ) {
 
 try {
     $listTables = TGeneratorHelper::loadTablesSelected();
+    $tpSystem = $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM];
 	
-	if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != TGeneratorHelper::TP_SYSTEM_FORM ){
-		TGeneratorHelper::createApiIndexAndRouter($listTables);
-		$html->add(TGeneratorHelper::showMsg(true, Message::CREATED_API_INDEX));
-	}
-
-	if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != TGeneratorHelper::TP_SYSTEM_REST ){
-		TGeneratorHelper::createFileMenu($listTables);
-		$html->add(TGeneratorHelper::showMsg(true, Message::CREATED_MENU));
-	}
     
-	$html->add(TGeneratorHelper::showMsg(true,Message::NEW_SYSTEM_OK));
-	$html->add('<a href="'.TGeneratorHelper::getUrlNewSystem().'" target="_blank">'.TGeneratorHelper::getUrlNewSystem().'</a>');
-	$html->add('<br>');
+    if( $tpSystem != TGeneratorHelper::TP_SYSTEM_FORM ){
+        TGeneratorHelper::createApiIndexAndRouter($listTables);
+        $html->add(TGeneratorHelper::showMsg(true, Message::CREATED_API_INDEX));
+        
+        $html->add('<a href="'.TGeneratorHelper::getUrlNewSystem().'/api" target="_blank">'.TGeneratorHelper::getUrlNewSystem().'/api </a>');
+        $html->add('<br>');
+    }
+    
+    
+    if( $tpSystem != TGeneratorHelper::TP_SYSTEM_REST ){
+        TGeneratorHelper::createFileMenu($listTables);
+        $html->add(TGeneratorHelper::showMsg(true, Message::CREATED_MENU));
+        
+        $html->add(TGeneratorHelper::showMsg(true,Message::NEW_SYSTEM_OK));
+        $html->add('<a href="'.TGeneratorHelper::getUrlNewSystem().'" target="_blank">'.TGeneratorHelper::getUrlNewSystem().'</a>');
+        $html->add('<br>');
+    }
 
 	foreach ($listTables['TABLE_NAME'] as $key=>$table){
 	    $tableSchema = $listTables['TABLE_SCHEMA'][$key];
