@@ -4,13 +4,13 @@
 
 The system generator reads a database and generates a CRUD system. After version v1.4.0 you choose the type of system you want to generate.
 
-FormDin = It's a web system using HTML + JS + CSS, everything is done using [FormDin FrameWork](https://github.com/bjverde/formDin). It has all the operations of a CRUD with a screen for each table or view.
+* FormDin = It's a web system using HTML + JS + CSS, everything is done using [FormDin FrameWork](https://github.com/bjverde/formDin). It has all the operations of a CRUD with a screen for each table or view.
 
 * REST = Create all REST backend using Slim FrameWork. In this mode no screen is just REST with JSON. It has all the operations of a CRUD with the URLs for each table or view.
 
 * FormDin + REST = the combination of the two modes.
 
-* The code generated from the new system is easy to maintain and modify.
+The code generated from the new system is easy to maintain and modify.
 
 Regardless of the mode you will always have to have the [BASE of FormDin](https://github.com/bjverde/formDin).
 
