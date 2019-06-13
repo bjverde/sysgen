@@ -81,7 +81,7 @@ class mockDatabase
      * @param string $data_type      - 4: 
      * @return unknown
      */
-    protected function includeFieldsFromTable($tableFields, $column_name, $requred, $data_type)
+    protected function includeFieldsFromTable($tableField, $column_name, $requred, $data_type)
     {
         $tableField['COLUMN_NAME'][] = $column_name;
         $tableField['REQUIRED'][]    = $requred;

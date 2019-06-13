@@ -26,17 +26,17 @@ use PHPUnit\Framework\TestCase;
 class TCreateDAOTest extends TestCase
 {	
 
-	private $create;	
+	private $create;
+	
+	private $mockDatabase;
 	
 	/**
 	 * Prepares the environment before running a test.
 	 */
 	protected function setUp() {
 		parent::setUp ();
-		$listColumnsProperties  = array();
-		$listColumnsProperties['COLUMN_NAME'][] = 'idTest';
-		$listColumnsProperties['COLUMN_NAME'][] = 'nm_test';
-		$listColumnsProperties['COLUMN_NAME'][] = 'tip_test';
+		$this->mockDatabase = new mockDatabase();
+		$listColumnsProperties = $this->mockDatabase->generateFieldsOneTable();
 		$this->create = new TCreateDAO('xx/dao','test',$listColumnsProperties);
 	}
 	
