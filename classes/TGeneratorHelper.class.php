@@ -517,17 +517,20 @@ class TGeneratorHelper
     public static function validateListTableNames($listTableNames)
     {   
         if (empty($listTableNames)) {
-            throw new InvalidArgumentException('List of Tables Names is empty');
+            throw new InvalidArgumentException(Message::ERRO_LIST_TABLE_EMPTY);
         }
         if (!is_array($listTableNames)) {
-            throw new InvalidArgumentException('List of Tables Names not is array');
+            throw new InvalidArgumentException(Message::ERRO_LIST_TABLE_NOT_ARRAY);
         }
     }
     //--------------------------------------------------------------------------------------
     public static function validateListColumnsProperties($listColumnsProperties)
     {   
+        if (empty($listColumnsProperties)) {
+            throw new InvalidArgumentException(Message::ERRO_LIST_COLUMNS_EMPTY);
+        }
         if (!is_array($listColumnsProperties)) {
-            throw new InvalidArgumentException('List of Columns Properties not is a array');
+            throw new InvalidArgumentException(Message::ERRO_LIST_COLUMNS_NOT_ARRAY);
         }
     }
 }

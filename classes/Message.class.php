@@ -62,4 +62,11 @@ final class Message
     
     const GEN03_BTN_NEXT4_LABEL = 'Seguir Etapa 04 ->';
     const GEN03_BTN_NEXT4_ACT   = 'next4';
+
+
+    const ERRO_LIST_TABLE_EMPTY     = 'List of Tables Names is empty';
+    const ERRO_LIST_TABLE_NOT_ARRAY = 'List of Tables Names not is array';
+
+    const ERRO_LIST_COLUMNS_EMPTY     = 'List of Columns Properties is empty';
+    const ERRO_LIST_COLUMNS_NOT_ARRAY = 'List of Columns Properties not is a array';
 }
