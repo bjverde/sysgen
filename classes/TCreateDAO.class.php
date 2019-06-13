@@ -166,20 +166,26 @@ class TCreateDAO extends TCreateFileContent
     }
     //--------------------------------------------------------------------------------------
     /***
+     * Create variable with string sql basica
+     **/
+    public function addValidateTypeInt($qtdESP)
+    {
+        $formDinType = self::getColumnPKeyPropertieFormDinType();
+        if ($formDinType == TCreateForm::FORMDIN_TYPE_NUMBER) {
+            $this->addLine($qtdESP.'if( empty($id) || !is_numeric($id) ){');
+            $this->addLine($qtdESP.ESP.'throw new InvalidArgumentException(Message::TYPE_NOT_INT.\'class:\'.__METHOD__);');
+            $this->addLine($qtdESP.'}');
+        }
+    }    
+    //--------------------------------------------------------------------------------------
+    /***
      * Create function for sql select by id
      **/
     public function addSqlSelectById()
     {
         $this->addLine(ESP.'public function selectById( $id )');
         $this->addLine(ESP.'{');
-        
-        $formDinType = self::getColumnPKeyPropertieFormDinType();
-        if ($formDinType == TCreateForm::FORMDIN_TYPE_NUMBER) {
-            $this->addLine(ESP.ESP.'if( empty($id) || !is_numeric($id) ){');
-            $this->addLine(ESP.ESP.ESP.'throw new InvalidArgumentException();');
-            $this->addLine(ESP.ESP.'}');
-        }
-        
+        $this->addValidateTypeInt(ESP.ESP);
         $this->addLine(ESP.ESP.'$values = array($id);');
         $this->addLine(ESP.ESP.'$sql = self::$sqlBasicSelect.\' where '.$this->getKeyColumnName().' = '.$this->charParam.'\';');
         $this->addExecuteSql(true);
@@ -349,6 +355,7 @@ class TCreateDAO extends TCreateFileContent
     {
         $this->addLine(ESP.'public function delete( $id )');
         $this->addLine(ESP.'{');
+        $this->addValidateTypeInt(ESP.ESP);
         $this->addLine(ESP.ESP.'$values = array($id);');
         $this->addLine(ESP.ESP.'$sql = \'delete from '.$this->hasSchema().$this->getTableName().' where '.$this->keyColumnName.' = '.$this->charParam.'\';');
         $this->addExecuteSql(true);
