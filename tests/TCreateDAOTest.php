@@ -48,6 +48,18 @@ class TCreateDAOTest extends TestCase
 		$this->create = null;
 	}
 	
+	public function testGetKeyColumnName() {
+	    $expected = 'idtest';
+		$result = $this->create->getKeyColumnName();		
+		$this->assertSame($expected, $result);
+	}
+
+	public function testGetColumnPKeyPropertieFormDinType() {
+	    $expected = 'INT';
+		$result = $this->create->getColumnPKeyPropertieFormDinType();		
+		$this->assertSame($expected, $result);
+	}
+
 	public function testAddExecuteSql_Empty() {
 	    $esperado = array();
 	    $esperado[] = ESP.ESP.'$result = $this->tpdo->executeSql($sql);'.EOL;
@@ -132,7 +144,7 @@ class TCreateDAOTest extends TestCase
 	    $expected[] = ESP.'public function delete( $id )'.EOL;
 	    $expected[] = ESP.'{'.EOL;
 	    $expected[] = ESP.ESP.'$values = array($id);'.EOL;
-	    $expected[] = ESP.ESP.'$sql = \'delete from test where idTest = ?\';'.EOL;
+	    $expected[] = ESP.ESP.'$sql = \'delete from test where idtest = ?\';'.EOL;
 	    $expected[] = ESP.ESP.'$result = $this->tpdo->executeSql($sql, $values);'.EOL;
 	    $expected[] = ESP.ESP.'return $result;'.EOL;
 	    $expected[] = ESP.'}'.EOL;

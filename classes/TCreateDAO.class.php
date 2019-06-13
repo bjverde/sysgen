@@ -131,20 +131,20 @@ class TCreateDAO extends TCreateFileContent
     {
         $listColumnsProperties = $this->getListColumnsProperties();
         $listColumns = $listColumnsProperties['COLUMN_NAME'];
-        $this->keyColumnName = $listColumns[0];
+        $this->keyColumnName = strtolower($listColumns[0]);
         foreach ($listColumns as $v) {
             $this->addColumn($v);
         }
     }
     //--------------------------------------------------------------------------------------
-    private function getColumnPKeyPropertieFormDinType()
+    public function getColumnPKeyPropertieFormDinType()
     {
         $PKeyName = $this->getKeyColumnName();
         $listColuns = $this->getColumns();
-        $key  = ArrayHelper::array_keys2($listColuns,$PKeyName);
+        $key  = ArrayHelper::array_keys2($listColuns,$PKeyName,true);
         $formDinType = null;
         if( is_array($key) && !empty($key) ){
-            $formDinType = self::getColumnsPropertieFormDinType($key[0]);
+            $formDinType = $this->getColumnsPropertieFormDinType($key[0]);
         }
         return $formDinType;
     }
@@ -192,7 +192,7 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addValidateTypeInt($qtdESP)
     {
-        $formDinType = self::getColumnPKeyPropertieFormDinType();
+        $formDinType = $this->getColumnPKeyPropertieFormDinType();
         if ($formDinType == TCreateForm::FORMDIN_TYPE_NUMBER) {
             $this->addLine($qtdESP.'if( empty($id) || !is_numeric($id) ){');
             $this->addLine($qtdESP.ESP.'throw new InvalidArgumentException(Message::TYPE_NOT_INT.\'class:\'.__METHOD__);');
