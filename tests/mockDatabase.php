@@ -81,11 +81,27 @@ class mockDatabase
      * @param string $data_type      - 4: 
      * @return unknown
      */
-    protected function includeFieldsFromTable($tableField, $column_name, $requred, $data_type)
+    protected function includeFieldsFromTable($tableField
+                                            , $column_name
+                                            , $requred
+                                            , $data_type
+                                            , $char_max = null
+                                            , $num_length  = null
+                                            , $num_scale  = null
+                                            , $column_comment = null
+                                            , $key_type  = null
+                                            , $autoincremente  = null
+                                            )
     {
-        $tableField['COLUMN_NAME'][] = $column_name;
-        $tableField['REQUIRED'][]    = $requred;
-        $tableField['DATA_TYPE'][]   = $data_type;
+        $tableField['COLUMN_NAME'][]   = $column_name;
+        $tableField['REQUIRED'][]      = $requred;
+        $tableField['DATA_TYPE'][]     = $data_type;
+        $tableField['CHAR_MAX'][]      = $char_max;
+        $tableField['NUM_LENGTH'][]    = $num_length;
+        $tableField['NUM_SCALE'][]     = $num_scale;
+        $tableField['COLUMN_COMMENT'][]= $column_comment;
+        $tableField['KEY_TYPE'][]      = $key_type;
+        $tableField['AUTOINCREMENT'][] = $autoincremente;
         return $tableField;
     }
     
