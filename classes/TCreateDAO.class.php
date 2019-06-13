@@ -137,6 +137,28 @@ class TCreateDAO extends TCreateFileContent
         }
     }
     //--------------------------------------------------------------------------------------
+    private function getColumnPKeyPropertieFormDinType()
+    {
+        $PKeyName = $this->getKeyColumnName();
+        $listColuns = $this->getColumns();
+        $key  = ArrayHelper::array_keys2($listColuns,$PKeyName);
+        $formDinType = null;
+        if( is_array($key) && !empty($key) ){
+            $formDinType = self::getColumnsPropertieFormDinType($key[0]);
+        }
+        return $formDinType;
+    }
+    
+    private function getColumnsPropertieFormDinType($key)
+    {
+        $result = null;
+        if (ArrayHelper::has(TCreateForm::FORMDIN_TYPE_COLUMN_NAME, $this->listColumnsProperties)) {
+            $result = strtoupper($this->listColumnsProperties[TCreateForm::FORMDIN_TYPE_COLUMN_NAME][$key]);
+        }
+        return $result;
+    }
+    
+    //--------------------------------------------------------------------------------------
     /**
      * add Execuute SQL 
      * @param string $qtEsp
@@ -190,27 +212,6 @@ class TCreateDAO extends TCreateFileContent
         $this->addLine(ESP.ESP.'$sql = self::$sqlBasicSelect.\' where '.$this->getKeyColumnName().' = '.$this->charParam.'\';');
         $this->addExecuteSql(true);
         $this->addLine(ESP.'}');
-    }
-    //--------------------------------------------------------------------------------------
-    private function getColumnPKeyPropertieFormDinType()
-    {
-        $PKeyName = $this->getKeyColumnName();
-        $listColuns = $this->getColumns();
-        $key  = ArrayHelper::array_keys2($listColuns,$PKeyName);
-        $formDinType = null;
-        if( is_array($key) && !empty($key) ){
-            $formDinType = self::getColumnsPropertieFormDinType($key[0]);
-        }
-        return $formDinType;
-    }
-    
-    private function getColumnsPropertieFormDinType($key)
-    {
-        $result = null;
-        if (ArrayHelper::has(TCreateForm::FORMDIN_TYPE_COLUMN_NAME, $this->listColumnsProperties)) {
-            $result = strtoupper($this->listColumnsProperties[TCreateForm::FORMDIN_TYPE_COLUMN_NAME][$key]);
-        }
-        return $result;
     }
     //--------------------------------------------------------------------------------------
     public function addProcessWhereGridParameters()
