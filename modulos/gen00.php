@@ -36,7 +36,7 @@ if ($validFormDinPMin && $validPHPMin) {
         $frm->addRadioField(TableInfo::TP_SYSTEM, Message::FIELD_TP_SYSTEM, true, $listTpSystem, null, true, TGeneratorHelper::TP_SYSTEM_FORM, 3, null, null, null, false);
     $frm->closeGroup();    
 
-    $frm->addGroupField('gpx3', ' Configurações');
+    $frm->addGroupField('gpx3', Message::GEN00_GPX3_TITLE);
         $dbType = array(DBMS_MYSQL =>'MySQL'
                        ,DBMS_SQLITE=>'SQLITE'
                        ,DBMS_SQLSERVER=>'MS SQL SERVER'

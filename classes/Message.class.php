@@ -14,6 +14,7 @@ final class Message
     const SYSTEM_ACRONYM_INVALID = 'Sigla do sistema inválida ! Caracteres inválido (os permitidos são a-z, 0-9, _ ) ou até 50 caracteres';
     
     const GEN00_TITLE = 'Configurações do PHP e informações iniciais';
+    const GEN00_GPX3_TITLE = 'Configurações';
     
     const LAST_STEP = '04';
     
@@ -36,8 +37,7 @@ final class Message
     
     const GEN03_TITLE         = 'Etapa 03 de '.self::LAST_STEP;
     
-    const WARNING_NO_TABLE    = 'Seu Mané, selecione as tabelas para gerar!';
-    const WARNING_NO_DBMS_VER = 'Seu Mané, selecione a versão do banco!';
+
     const NEW_SYSTEM_OK       = 'Sistema Criado com Sucesso';
     const CREATED_MENU        = 'Criado arquivo de menu.';
     const CREATED_API_INDEX   = 'Criado arquivo de index e routes da API';
@@ -55,15 +55,22 @@ final class Message
     const FIELD_LOGFILE_OPT01  = 'Quero tudo mesmo! até DomainException !';
     const FIELD_LOGFILE_OPT02  = 'Calma ! Quero log, SEM o DomainException!';
     
-    const GEN04_TITLE        = 'Etapa 04 de '.self::LAST_STEP;
-    
-    const BUTTON_LABEL_BACK  = 'Voltar';
-    const BUTTON_LABEL_CLEAN = 'Limpar';    
-    const BUTTON_LABEL_CONF  = 'Gerar Config';
-    
     const GEN03_BTN_NEXT4_LABEL = 'Seguir Etapa 04 ->';
     const GEN03_BTN_NEXT4_ACT   = 'next4';
 
+    const GEN04_TITLE        = 'Etapa 04 de '.self::LAST_STEP;
+
+    const BUTTON_LABEL_BACK  = 'Voltar';
+    const BUTTON_LABEL_CLEAN = 'Limpar';    
+    const BUTTON_LABEL_CONF  = 'Gerar Config';
+    const BUTTON_LABEL_GEN_STRUCTURE = 'Gerar estrutura';
+    const BUTTON_LABEL_TEST_CONNECT  = 'Testar Conexão';
+
+    const INFO_CONNECT    = 'Informe os parâmetros de conexão no banco e click no botão: '.self::BUTTON_LABEL_TEST_CONNECT
+    .'. Só depois poderá clicar em : '.self::BUTTON_LABEL_GEN_STRUCTURE;
+
+    const WARNING_NO_TABLE    = 'Seu Mané, selecione as tabelas para gerar!';
+    const WARNING_NO_DBMS_VER = 'Seu Mané, selecione a versão do banco!';    
 
     const ERRO_LIST_TABLE_EMPTY     = 'List of Tables Names is empty';
     const ERRO_LIST_TABLE_NOT_ARRAY = 'List of Tables Names not is array';

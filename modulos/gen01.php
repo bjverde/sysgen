@@ -23,6 +23,11 @@ $frm->addGroupField('gpx1', Message::GEN01_GPX1_TITLE);
     $validoPDOAndDBMS = TGeneratorHelper::validatePDOAndDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], $html);
 $frm->closeGroup();
 
+$frm->addGroupField('gpxHelp', Message::GEN00_GPX3_TITLE);
+    $html = $frm->addHtmlField('conf', '');
+    $html->add('<br>'.Message::INFO_CONNECT.'<br>');
+$frm->closeGroup();
+
 if ($validoPDOAndDBMS) {
     $frm->addGroupField('gpx2', Message::GEN01_GPX2_TITLE);
     $pc = $frm->addPageControl('pc');
@@ -40,7 +45,7 @@ if ($validoPDOAndDBMS) {
     $frm->addTextField('myUser', 'User:'    , 40, true, 20, 'form_exemplo', true, null, null, true);
     $frm->addTextField('myPass', 'Password:', 40, true, 20, '123456'      ,false, null, null, true);
     $frm->addTextField('myPort', 'Porta:'   , 6 ,false, 6 , '3306'        ,false, null, null, true, false);
-    $frm->addButton('Testar Conexão', null, 'btnTestarmy', 'testarConexao("my")', null, true, false);
+    $frm->addButton(Message::BUTTON_LABEL_TEST_CONNECT, null, 'btnTestarmy', 'testarConexao("my")', null, true, false);
     $frm->addHtmlField('myGride', '');
 
     //-----------------------------------------------------------------------------------    
@@ -48,7 +53,7 @@ if ($validoPDOAndDBMS) {
     $pc->addPage(DBMS_SQLITE, $showAba, $showAba, 'abaSqlite');
     $frm->addHiddenField('sqDbType', DBMS_SQLITE);
     $frm->addTextField('sqDb	', 'Database:', 80, true, 80, __DIR__.DS.'..'.DS.'bancos_locais'.DS.'bdApoio.s3db', false, null, null, true);
-    $frm->addButton('Testar Conexão', null, 'btnTestarsq', 'testarConexao("sq")', null, true, false);
+    $frm->addButton(Message::BUTTON_LABEL_TEST_CONNECT, null, 'btnTestarsq', 'testarConexao("sq")', null, true, false);
     $frm->addHtmlField('sqGride', '');
     
     //-----------------------------------------------------------------------------------
@@ -64,7 +69,7 @@ if ($validoPDOAndDBMS) {
     $frm->addTextField('ssUser', 'User:'    , 40, true, 20, 'sa', false, null, null, true);
     $frm->addTextField('ssPass', 'Password:', 40, true, 20, '123456', false, null, null, true);
     $frm->addTextField('ssPort', 'Porta:'   ,  6, false, 6, '1433', false, null, null, true, false);
-    $frm->addButton('Testar Conexão', null, 'btnTestarss', 'testarConexao("ss")', null, true, false);
+    $frm->addButton(Message::BUTTON_LABEL_TEST_CONNECT, null, 'btnTestarss', 'testarConexao("ss")', null, true, false);
     $frm->addHtmlField('ssGride', '');
     
     //-----------------------------------------------------------------------------------
@@ -77,7 +82,7 @@ if ($validoPDOAndDBMS) {
     $frm->addTextField('pgPass', 'Password:', 40, true, 20, '123456', false, null, null, true);
     $frm->addTextField('pgSchema', 'Esquema:', 20, true, 20, 'public', false, null, null, true);
     $frm->addTextField('pgPort', 'Porta:', 6, false, 6, '5432', false, null, null, true, false);
-    $frm->addButton('Testar Conexão', null, 'btnTestarPg', 'testarConexao("pg")', null, true, false);
+    $frm->addButton(Message::BUTTON_LABEL_TEST_CONNECT, null, 'btnTestarPg', 'testarConexao("pg")', null, true, false);
     $frm->addHtmlField('pgGride', '');
 
     //-----------------------------------------------------------------------------------
@@ -88,16 +93,16 @@ if ($validoPDOAndDBMS) {
     $frm->addTextField('oraDb', 'Database:', 20, true, 20, 'xe', true, null, null, true);
     $frm->addTextField('oraUser', 'User:', 40, true, 20, 'root', false, null, null, true);
     $frm->addTextField('oraPass', 'Password:', 40, true, 20, '123456', false, null, null, true);
-    $frm->addButton('Testar Conexão', null, 'btnTestarora', 'testarConexao("ora")', null, true, false);
+    $frm->addButton(Message::BUTTON_LABEL_TEST_CONNECT, null, 'btnTestarora', 'testarConexao("ora")', null, true, false);
     $frm->addHtmlField('oraGride', '');
     
     $frm->closeGroup(); //Fechando Abas
     $frm->closeGroup(); //Close Group
 }
 
-$frm->addButton('Voltar', null, 'Voltar', null, null, true, false);
-$frm->addButton('Limpar', null, 'Limpar', null, null, false, false);
-$frm->addButton('Gerar estrutura', 'Gerar', 'Gerar', null, null, false, false);
+$frm->addButton(Message::BUTTON_LABEL_BACK, null, 'Voltar', null, null, true, false);
+$frm->addButton(Message::BUTTON_LABEL_CLEAN, null, 'Limpar', null, null, false, false);
+$frm->addButton(Message::BUTTON_LABEL_GEN_STRUCTURE, 'Gerar', 'Gerar', null, null, false, false);
 
 
 $banco    = PostHelper::get('banco');
@@ -136,7 +141,7 @@ switch ($acao) {
     break;
     //--------------------------------------------------------------------------------
     case 'Voltar':
-        $frm->redirect('gen00.php', 'Redirect realizado com sucesso.', true);
+        $frm->redirect('gen00.php', null, true);
     break;
     //--------------------------------------------------------------------------------
     case 'Limpar':
@@ -151,10 +156,10 @@ switch ($acao) {
             if (empty($dbversion)){
                 $frm->setMessage(Message::WARNING_NO_DBMS_VER);
             }else{
-                $frm->redirect('gen02.php', 'Redirect realizado com sucesso.', true);
+                $frm->redirect('gen02.php', null, true);
             }
         } else {
-            $frm->redirect('gen02.php', 'Redirect realizado com sucesso.', true);
+            $frm->redirect('gen02.php', null, true);
         }
     break;
 }
