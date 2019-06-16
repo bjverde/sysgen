@@ -28,8 +28,18 @@ final class TableInfo
     const ID_COLUMN_FK_SRSELECTED   = 'ID_COLUMN_FK_SRSELECTED';
     const FK_FIELDS_TABLE_SELECTED  = 'FkFieldsTableSelected';
     const FK_TYPE_SCREEN_REFERENCED = 'FK_TYPE_SCREEN_REFERENCED';
+    //-----------------------------------------------------------------------------------    
+    const DBMS_VERSION_SQLSERVER_2012_GTE = 'DBMS_VERSION_SQLSERVER_2012_GTE';
+    const DBMS_VERSION_SQLSERVER_2012_LT  = 'DBMS_VERSION_SQLSERVER_2012_LT';
 
-    const DBMS_VERSION_SQLSERVER_2012_GTE = 'SQL Server 2012 (11.0) ou superior';
-    const DBMS_VERSION_SQLSERVER_2012_LT  = 'SQL Server anteior 2012';
+    const DBMS_VERSION_SQLSERVER_2012_GTE_LABEL = 'SQL Server 2012 (11.0) ou superior';
+    const DBMS_VERSION_SQLSERVER_2012_LT_LABEL  = 'SQL Server anteior 2012';
+
+    const DBMS_VERSION_MYSQL_8_GTE = 'DBMS_VERSION_MYSQL_8_GTE';
+    const DBMS_VERSION_MYSQL_8_LT  = 'DBMS_VERSION_MYSQL_8_LT';
+
+    const DBMS_VERSION_MYSQL_8_GTE_LABEL = 'MySQL 8 ou superior';
+    const DBMS_VERSION_MYSQL_8_LT_LABEL  = 'MySQL anterior a versão 8';
+    //-----------------------------------------------------------------------------------    
     
 }
