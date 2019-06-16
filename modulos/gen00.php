@@ -37,13 +37,13 @@ if ($validFormDinPMin && $validPHPMin) {
     $frm->closeGroup();    
 
     $frm->addGroupField('gpx3', ' Configurações');
-        $dbType = array(DBMS_MYSQL=>'MySQL'
+        $dbType = array(DBMS_MYSQL =>'MySQL'
                        ,DBMS_SQLITE=>'SQLITE'
                        ,DBMS_SQLSERVER=>'MS SQL SERVER'
                        ,DBMS_POSTGRES =>'POSTGRES'
-                       ,DBMS_ACCESS =>'ACCESS'
-                       ,DBMS_FIREBIRD => 'FIREBIRD'
-                       ,DBMS_ORACLE =>'ORACLE'
+                       ,DBMS_ACCESS   =>'ACCESS'
+                       ,DBMS_FIREBIRD =>'FIREBIRD'
+                       ,DBMS_ORACLE   =>'ORACLE'
                        );
         $frm->addHtmlField('fields', null, 'ajuda/info_gen00_fields_pt-br.php')->setClass('htmlInfo', true);
         $frm->addSelectField('DBMS', 'Escolha o tipo de Banco de Dados:', true, $dbType, null, null, null, null, null, null, ' ', 0);
@@ -75,11 +75,11 @@ switch ($acao) {
                 $frm->setMessage($e->getMessage());
             }
         }
-        break;
-        //--------------------------------------------------------------------------------
+    break;
+    //--------------------------------------------------------------------------------
     case 'Limpar':
         $frm->clearFields();
-        break;
+    break;
 }
 
 
