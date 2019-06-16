@@ -48,12 +48,13 @@ if ($validoPDOAndDBMS) {
         
     $showAba = TGeneratorHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_SQLSERVER);
     $pc->addPage(DBMS_SQLSERVER, $showAba, $showAba, 'abass');
-    $frm->addHiddenField('ssDbType', DBMS_SQLSERVER);
-    $frm->addTextField('ssHost', 'Host:', 50, true, 50, '127.0.0.1', true, null, null, true);
-    $frm->addTextField('ssDb', 'Database:', 20, true, 20, 'Northwind', true, null, null, true);
-    $frm->addTextField('ssUser', 'User:', 40, true, 20, 'sa', false, null, null, true);
+    $frm->addHiddenField('ssDbType', DBMS_SQLSERVER);    
+    //$frm->addSelectField('ssDbVersion', 'Escolha a versão do DBMS:', true, $dbType, null, null, null, null, null, null, ' ', 0);
+    $frm->addTextField('ssHost', 'Host:'    , 50, true, 50, '127.0.0.1', true, null, null, true);
+    $frm->addTextField('ssDb'  , 'Database:', 20, true, 20, 'Northwind', true, null, null, true);
+    $frm->addTextField('ssUser', 'User:'    , 40, true, 20, 'sa', false, null, null, true);
     $frm->addTextField('ssPass', 'Password:', 40, true, 20, '123456', false, null, null, true);
-    $frm->addTextField('ssPort', 'Porta:', 6, false, 6, '1433', false, null, null, true, false);
+    $frm->addTextField('ssPort', 'Porta:'   ,  6, false, 6, '1433', false, null, null, true, false);
     $frm->addButton('Testar Conexão', null, 'btnTestarss', 'testarConexao("ss")', null, true, false);
     $frm->addHtmlField('ssGride', '');
             
@@ -99,6 +100,7 @@ $host     = PostHelper::get($banco.'Host');
 $port     = PostHelper::get($banco.'Port');
 $schema   = PostHelper::get($banco.'Schema');
 $sql      = PostHelper::get($banco.'Sql');
+//$dbversion= PostHelper::get($banco.'DbVersion');
 
 $acao = isset($acao) ? $acao : null;
 switch ($acao) {
@@ -114,9 +116,10 @@ switch ($acao) {
             $_SESSION[APLICATIVO]['DBMS']['USER'] = $user;
             $_SESSION[APLICATIVO]['DBMS']['PASSWORD'] = $password;
             $_SESSION[APLICATIVO]['DBMS']['DATABASE'] = $dataBase;
-            $_SESSION[APLICATIVO]['DBMS']['HOST'] = $host;
-            $_SESSION[APLICATIVO]['DBMS']['PORT'] = $port;
-            $_SESSION[APLICATIVO]['DBMS']['SCHEMA'] = $schema;
+            $_SESSION[APLICATIVO]['DBMS']['HOST']     = $host;
+            $_SESSION[APLICATIVO]['DBMS']['PORT']     = $port;
+            $_SESSION[APLICATIVO]['DBMS']['SCHEMA']   = $schema;
+            //$_SESSION[APLICATIVO]['DBMS']['VERSION']  = $dbversion;
             prepareReturnAjax(2, null, 'Conexão OK! Pode clicar em "Gerar"');
         } else {
             prepareReturnAjax(0, null, $dao->getError());
