@@ -37,6 +37,7 @@ final class Message
     const GEN03_TITLE         = 'Etapa 03 de '.self::LAST_STEP;
     
     const WARNING_NO_TABLE    = 'Seu Mané, selecione as tabelas para gerar!';
+    const WARNING_NO_DBMS_VER = 'Seu Mané, selecione a versão do banco!';
     const NEW_SYSTEM_OK       = 'Sistema Criado com Sucesso';
     const CREATED_MENU        = 'Criado arquivo de menu.';
     const CREATED_API_INDEX   = 'Criado arquivo de index e routes da API';

@@ -40,6 +40,59 @@ final class TableInfo
 
     const DBMS_VERSION_MYSQL_8_GTE_LABEL = 'MySQL 8 ou superior';
     const DBMS_VERSION_MYSQL_8_LT_LABEL  = 'MySQL anterior a versão 8';
+
     //-----------------------------------------------------------------------------------    
-    
+    public static function getPreDBMS($dbType){
+        $return = null;
+        switch ($dbType) {
+            //-------------------
+            case DBMS_MYSQL:
+                $return = 'my';
+            break;
+            //-------------------
+            case DBMS_SQLITE:
+                $return = 'sq';
+            break;
+            //-------------------
+            case DBMS_SQLSERVER:
+                $return = 'ss';
+            break;
+            //-------------------
+            case DBMS_POSTGRES:
+                $return = 'pg';
+            break;
+            //-------------------
+            case DBMS_ORACLE:
+                $return = 'ora';
+            break;
+        }
+        return $return;
+    }
+    //-----------------------------------------------------------------------------------    
+    public static function getDbmsWithVersion($dbType){
+        $return = false;
+        switch ($dbType) {
+            //-------------------
+            case DBMS_MYSQL:
+                $return = false;
+            break;
+            //-------------------
+            case DBMS_SQLITE:
+                $return = false;
+            break;
+            //-------------------
+            case DBMS_SQLSERVER:
+                $return = true;
+            break;
+            //-------------------
+            case DBMS_POSTGRES:
+                $return = false;
+            break;
+            //-------------------
+            case DBMS_ORACLE:
+                $return = false;
+            break;
+        }
+        return $return;
+    }    
 }
