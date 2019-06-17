@@ -622,13 +622,14 @@ class TCreateForm extends TCreateFileContent
                 $this->addLine(ESP.'$realTotalRowsSqlPaginator = $controller->selectCount( $whereGrid );');
             } elseif ($this->gridType == GRID_SCREEN_PAGINATION) {
                 $this->addLine(ESP.'$dados = $controller->selectAll($primaryKey,$whereGrid);');
+                $this->addLine(ESP.'$realTotalRowsSqlPaginator = $controller->selectCount( $whereGrid );');
             }
             $this->getMixUpdateFields(ESP);
             $this->addLine(ESP.'$gride = new TGrid( \'gd\'                        // id do gride');
             if ($this->gridType == GRID_SQL_PAGINATION) {
-                $this->addLine(ESP.'				   ,\'Gride with SQL Pagination. Qtd:\'.$realTotalRowsSqlPaginator // titulo do gride');
+                $this->addLine(ESP.'				   ,\'Gride with SQL Pagination. Qtd: \'.$realTotalRowsSqlPaginator // titulo do gride');
             }else{
-                $this->addLine(ESP.'				   ,\'Gride with SQL Pagination\' // titulo do gride');
+                $this->addLine(ESP.'				   ,\'Gride with Screen Pagination. Qtd: \'.$realTotalRowsSqlPaginator // titulo do gride');
             }
             $this->addLine(ESP.'				   );');
             $this->addLine(ESP.'$gride->addKeyField( $primaryKey ); // chave primaria');
