@@ -42,6 +42,22 @@ class TGeneratorHelperTest extends TestCase
         parent::tearDown();
     }
     
+    public function testGetConfigGridSqlServer_ScreenPagination()
+    {
+        $result = GRID_SCREEN_PAGINATION;
+        $_SESSION[APLICATIVO]['DBMS']['VERSION'] = TableInfo::DBMS_VERSION_SQLSERVER_2012_LT;
+        $expected = TGeneratorHelper::getConfigGridSqlServer(DBMS_SQLSERVER);
+        $this->assertEquals($expected, $result);
+    }
+    
+    public function testGetConfigGridSqlServer_SqlPagination()
+    {
+        $result = GRID_SQL_PAGINATION;
+        $_SESSION[APLICATIVO]['DBMS']['VERSION'] = TableInfo::DBMS_VERSION_SQLSERVER_2012_GTE;
+        $expected = TGeneratorHelper::getConfigGridSqlServer(DBMS_SQLSERVER);
+        $this->assertEquals($expected, $result);
+    }
+    
     /**
      * @expectedException InvalidArgumentException
      */

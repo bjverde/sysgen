@@ -302,17 +302,39 @@ class TGeneratorHelper
         return $listAllTables;
     }
     
+    public static function getConfigGridSqlServer($DBMS)
+    {
+        $dbversion = $_SESSION[APLICATIVO]['DBMS']['VERSION'];
+        $TPGRID = GRID_SQL_PAGINATION;
+        $withVersion = TableInfo::getDbmsWithVersion($DBMS);
+        if( ($dbversion == TableInfo::DBMS_VERSION_SQLSERVER_2012_LT) && $withVersion ){
+            $TPGRID = GRID_SCREEN_PAGINATION;
+        }
+        return $TPGRID;
+    }
+    
+    public static function getConfigGridMySql($DBMS)
+    {
+        $dbversion = $_SESSION[APLICATIVO]['DBMS']['VERSION'];
+        $TPGRID = GRID_SQL_PAGINATION;
+        $withVersion = TableInfo::getDbmsWithVersion($DBMS);
+        if( ($dbversion == TableInfo::DBMS_VERSION_MYSQL_8_LT) && $withVersion ){
+            $TPGRID = GRID_SCREEN_PAGINATION;
+        }
+        return $TPGRID;
+    }
+    
     private static function getConfigByDBMS($DBMS)
     {
         switch ($DBMS) {
             case DBMS_MYSQL:
                 $SCHEMA = false;
-                $TPGRID = GRID_SQL_PAGINATION;
-                break;
+                $TPGRID = self::getConfigGridMySql($DBMS);
+            break;
             case DBMS_SQLSERVER:
                 $SCHEMA = true;
-                $TPGRID = GRID_SQL_PAGINATION;
-                break;
+                $TPGRID = self::getConfigGridSqlServer($DBMS);
+            break;
             default:
                 $SCHEMA = false;
                 $TPGRID = GRID_SCREEN_PAGINATION;

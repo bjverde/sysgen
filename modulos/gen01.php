@@ -39,7 +39,7 @@ if ($validoPDOAndDBMS) {
     $listMyDbVersion = array(TableInfo::DBMS_VERSION_MYSQL_8_GTE=>TableInfo::DBMS_VERSION_MYSQL_8_GTE_LABEL
                             ,TableInfo::DBMS_VERSION_MYSQL_8_LT =>TableInfo::DBMS_VERSION_MYSQL_8_LT_LABEL
                         );
-    //$frm->addSelectField('myDbVersion', 'Escolha a versão do DBMS:', true, $listMyDbVersion, null, null, null, null, null, null, ' ');    
+    $frm->addSelectField('myDbVersion', 'Escolha a versão do DBMS:', true, $listMyDbVersion, null, null, null, null, null, null, ' ');    
     $frm->addTextField('myHost', 'Host:'    , 20, true, 20, '127.0.0.1'   , true, null, null, true);
     $frm->addTextField('myDb'  , 'Database:', 20, true, 20, 'form_exemplo',false, null, null, true);
     $frm->addTextField('myUser', 'User:'    , 40, true, 20, 'form_exemplo', true, null, null, true);
@@ -65,9 +65,9 @@ if ($validoPDOAndDBMS) {
                         );
     $frm->addSelectField('ssDbVersion', 'Escolha a versão do DBMS:', true, $listSsDbVersion, null, null, null, null, null, null, ' ');
     $frm->addTextField('ssHost', 'Host:'    , 50, true, 50, '127.0.0.1', true, null, null, true);
-    $frm->addTextField('ssDb'  , 'Database:', 20, true, 20, 'Northwind', true, null, null, true);
-    $frm->addTextField('ssUser', 'User:'    , 40, true, 20, 'sa', false, null, null, true);
-    $frm->addTextField('ssPass', 'Password:', 40, true, 20, '123456', false, null, null, true);
+    $frm->addTextField('ssDb'  , 'Database:', 20, true, 20, 'Northwind',false, null, null, true);
+    $frm->addTextField('ssUser', 'User:'    , 40, true, 20, 'sa'      ,  true, null, null, true);
+    $frm->addTextField('ssPass', 'Password:', 40, true, 20, '123456'  , false, null, null, true);
     $frm->addTextField('ssPort', 'Porta:'   ,  6, false, 6, '1433', false, null, null, true, false);
     $frm->addButton(Message::BUTTON_LABEL_TEST_CONNECT, null, 'btnTestarss', 'testarConexao("ss")', null, true, false);
     $frm->addHtmlField('ssGride', '');
@@ -156,6 +156,7 @@ switch ($acao) {
             if (empty($dbversion)){
                 $frm->setMessage(Message::WARNING_NO_DBMS_VER);
             }else{
+                $_SESSION[APLICATIVO]['DBMS']['VERSION']  =  $dbversion;
                 $frm->redirect('gen02.php', null, true);
             }
         } else {
