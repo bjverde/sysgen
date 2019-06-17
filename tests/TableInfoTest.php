@@ -69,22 +69,22 @@ class TableInfoTest extends TestCase
         $expected = TableInfo::getPreDBMS(DBMS_POSTGRES);
         $this->assertEquals($expected, $result);
     }
-
+    //--------------------------------------------------------
     public function testGetDbmsWithVersion_MySql(){
         $result = false;
-        $expected = TableInfo::getPreDBMS(DBMS_MYSQL);
+        $expected = TableInfo::getDbmsWithVersion(DBMS_MYSQL);
         $this->assertEquals($expected, $result);
     }
 
     public function testGetDbmsWithVersion_SqLite(){
         $result = false;
-        $expected = TableInfo::getPreDBMS(DBMS_SQLITE);
+        $expected = TableInfo::getDbmsWithVersion(DBMS_SQLITE);
         $this->assertEquals($expected, $result);
     }
 
     public function testGetDbmsWithVersion_SqlServer(){
         $result = true;
-        $expected = TableInfo::getPreDBMS(DBMS_SQLSERVER);
+        $expected = TableInfo::getDbmsWithVersion(DBMS_SQLSERVER);
         $this->assertEquals($expected, $result);
     }
     
