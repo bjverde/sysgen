@@ -152,7 +152,7 @@ class TCreateFormTest extends TestCase
 	}	
 	
 	public function testShow_GridScreenPaginator_numlines(){
-	    $expectedQtd = 60;
+	    $expectedQtd = 61;
 	    
 	    $this->create->setGridType(GRID_SCREEN_PAGINATION);
 	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_TABLE);
