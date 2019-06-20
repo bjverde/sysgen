@@ -82,6 +82,27 @@ class TCreateDAOTest extends TestCase
 	    $this->assertSame($esperado[1], $retorno[1]);
 	}
 	
+	public function testAddGetVoById(){
+	    $expected = array();
+	    $expected[] = ESP.'public function getVoById( $id )'.EOL;
+	    $expected[] = ESP.'{'.EOL;
+	    $expected[] = ESP.ESP.'$result = $this->selectById( $id );'.EOL;
+	    $expected[] = ESP.ESP.'$vo = new TestVO();'.EOL;
+	    $expected[] = ESP.ESP.'$vo = \FormDinHelper::setPropertyVo($result,$vo);'.EOL;
+	    $expected[] = ESP.ESP.'return $vo;'.EOL;
+	    $expected[] = ESP.'}'.EOL;
+	    
+	    $this->create->addGetVoById();
+	    $result = $this->create->getLinesArray();
+	    $this->assertSame($expected[0], $result[0]);
+	    $this->assertSame($expected[1], $result[1]);
+	    $this->assertSame($expected[2], $result[2]);
+	    $this->assertSame($expected[3], $result[3]);
+	    $this->assertSame($expected[4], $result[4]);
+	    $this->assertSame($expected[5], $result[5]);
+	    $this->assertSame($expected[6], $result[6]);
+	}
+	
 	public function testAddSqlSelectAll(){
 	    $expected = array();
 	    $expected[] = ESP.'public function selectAll( $orderBy=null, $where=null )'.EOL;
@@ -191,7 +212,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_VIEW_numLines(){
-	    $expectedQtd = 76;
+	    $expectedQtd = 84;
 	    
 	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_VIEW);
 	    $resultArray = $this->create->show('array');
@@ -200,7 +221,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_VIEW_GRID_SQL_numLines(){
-	    $expectedQtd = 89;
+	    $expectedQtd = 97;
 	    
 	    $this->create->setWithSqlPagination(GRID_SQL_PAGINATION);
 	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_VIEW);
@@ -210,7 +231,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_TABLE_numLines(){
-	    $expectedQtd = 112;	    
+	    $expectedQtd = 120;	    
 	    
 	    $resultArray = $this->create->show('array');
 	    $size = CountHelper::count($resultArray);
@@ -218,7 +239,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_TABLE_GRID_SQL_numLines(){
-	    $expectedQtd = 125;
+	    $expectedQtd = 133;
 	    
 	    $this->create->setWithSqlPagination(GRID_SQL_PAGINATION);
 	    $resultArray = $this->create->show('array');
