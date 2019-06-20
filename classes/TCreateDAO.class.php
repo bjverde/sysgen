@@ -203,6 +203,21 @@ class TCreateDAO extends TCreateFileContent
     /***
      * Create function for sql select by id
      **/
+    public function addGetVoById()
+    {
+        $this->addLine(ESP.'public function getVoById( $id )');
+        $this->addLine(ESP.'{');
+        $this->addValidateTypeInt(ESP.ESP);
+        $this->addLine(ESP.ESP.'$result = $this->selectById( $id );');
+        $this->addLine(ESP.ESP.'$vo = new '.ucfirst($this->tableName).'VO();');
+        $this->addLine(ESP.ESP.'$vo = \FormDinHelper::setPropertyVo($result,$vo);');
+        $this->addLine(ESP.ESP.'return $vo;');
+        $this->addLine(ESP.'}');
+    }
+    
+    /***
+     * Create function for sql select by id
+     **/
     public function addSqlSelectById()
     {
         $this->addLine(ESP.'public function selectById( $id )');
@@ -428,6 +443,11 @@ class TCreateDAO extends TCreateFileContent
             $this->addLine();
             $this->addSqlDelete();
         }
+        
+        // get Object VO select by Id
+        $this->addLine();
+        $this->addGetVoById();
+        // fim select
         
         //-------- FIM
         $this->addLine("}");
