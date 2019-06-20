@@ -157,7 +157,7 @@ class TCreateForm extends TCreateFileContent
             case 'TIMESTAMP':
                 //case preg_match( '/date|datetime|timestamp/i', $DATA_TYPE ):
                 $result = self::FORMDIN_TYPE_DATE;
-                break;
+            break;
             case 'BIGINT':
             case 'DECIMAL':
             case 'DOUBLE':
@@ -172,7 +172,7 @@ class TCreateForm extends TCreateFileContent
             case 'TINYINT':
                 //case preg_match( '/decimal|real|float|numeric|number|int|int64|integer|double|smallint|bigint|tinyint/i', $DATA_TYPE ):
                 $result = self::FORMDIN_TYPE_NUMBER;
-                break;
+            break;
             default:
                 $result = self::FORMDIN_TYPE_TEXT;
         }

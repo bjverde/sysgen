@@ -45,6 +45,102 @@ class TCreateFormTest extends TestCase
 		$this->create = null;
 	}
 	
+	public function testConvertDataType2FormDinType_DATETIME(){
+	    $expected = TCreateForm::FORMDIN_TYPE_DATE;
+	    $result = TCreateForm::convertDataType2FormDinType('DATETIME');
+	    $this->assertSame($expected, $result);
+	}
+	
+	public function testConvertDataType2FormDinType_DATETIME2(){
+	    $expected = TCreateForm::FORMDIN_TYPE_DATE;
+	    $result = TCreateForm::convertDataType2FormDinType('DATETIME2');
+	    $this->assertSame($expected, $result);
+	}
+	
+	public function testConvertDataType2FormDinType_DATE(){
+	    $expected = TCreateForm::FORMDIN_TYPE_DATE;
+	    $result = TCreateForm::convertDataType2FormDinType('DATE');
+	    $this->assertSame($expected, $result);
+	}
+	
+	public function testConvertDataType2FormDinType_TIMESTAMP(){
+	    $expected = TCreateForm::FORMDIN_TYPE_DATE;
+	    $result = TCreateForm::convertDataType2FormDinType('TIMESTAMP');
+	    $this->assertSame($expected, $result);
+	}
+	
+	public function testConvertDataType2FormDinType_BIGINT(){
+	    $expected = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $result = TCreateForm::convertDataType2FormDinType('BIGINT');
+	    $this->assertSame($expected, $result);
+	}
+	
+	public function testConvertDataType2FormDinType_DECIMAL(){
+	    $expected = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $result = TCreateForm::convertDataType2FormDinType('DECIMAL');
+	    $this->assertSame($expected, $result);
+	}
+	
+	public function testConvertDataType2FormDinType_DOUBLE(){
+	    $expected = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $result = TCreateForm::convertDataType2FormDinType('DOUBLE');
+	    $this->assertSame($expected, $result);
+	}
+	
+	public function testConvertDataType2FormDinType_FLOAT(){
+	    $expected = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $result = TCreateForm::convertDataType2FormDinType('FLOAT');
+	    $this->assertSame($expected, $result);
+	}
+	
+	public function testConvertDataType2FormDinType_INT(){
+	    $expected = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $result = TCreateForm::convertDataType2FormDinType('INT');
+	    $this->assertSame($expected, $result);
+	}
+	
+	public function testConvertDataType2FormDinType_INT64(){
+	    $expected = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $result = TCreateForm::convertDataType2FormDinType('INT64');
+	    $this->assertSame($expected, $result);
+	}
+	
+	public function testConvertDataType2FormDinType_INTEGER(){
+	    $expected = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $result = TCreateForm::convertDataType2FormDinType('INTEGER');
+	    $this->assertSame($expected, $result);
+	}
+	
+	public function testConvertDataType2FormDinType_NUMERIC(){
+	    $expected = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $result = TCreateForm::convertDataType2FormDinType('NUMERIC');
+	    $this->assertSame($expected, $result);
+	}
+	
+	public function testConvertDataType2FormDinType_NUMBER(){
+	    $expected = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $result = TCreateForm::convertDataType2FormDinType('NUMBER');
+	    $this->assertSame($expected, $result);
+	}
+	
+	public function testConvertDataType2FormDinType_REAL(){
+	    $expected = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $result = TCreateForm::convertDataType2FormDinType('REAL');
+	    $this->assertSame($expected, $result);
+	}
+	
+	public function testConvertDataType2FormDinType_SMALLINT(){
+	    $expected = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $result = TCreateForm::convertDataType2FormDinType('SMALLINT');
+	    $this->assertSame($expected, $result);
+	}
+	
+	public function testConvertDataType2FormDinType_TINYINT(){
+	    $expected = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $result = TCreateForm::convertDataType2FormDinType('TINYINT');
+	    $this->assertSame($expected, $result);
+	}
+	
 	public function testAddButtons_GridSimple_View(){
 	    $expected = array();
 	    $expected[] = '$frm->addButton(\'Buscar\', null, \'Buscar\', null, null, true, false);'.EOL;
