@@ -101,7 +101,8 @@ class mockDatabase
         $tableField['NUM_SCALE'][]     = $num_scale;
         $tableField['COLUMN_COMMENT'][]= $column_comment;
         $tableField['KEY_TYPE'][]      = $key_type;
-        $tableField['AUTOINCREMENT'][] = $autoincremente;
+        $tableField['AUTOINCREMENT'][] = $autoincremente;        
+        $tableField[TCreateForm::FORMDIN_TYPE_COLUMN_NAME][]=TCreateForm::convertDataType2FormDinType($data_type);        
         return $tableField;
     }
     
