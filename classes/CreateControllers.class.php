@@ -136,6 +136,7 @@ class CreateControllers extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     private function addSave()
     {
+        $this->addLine();
         $columunPK = ucfirst(strtolower($this->listColumnsName[0]));
         $this->addLine(ESP.'public function save( '.$this->tableRefVO.' $objVo )');
         $this->addLine(ESP.'{');
@@ -151,9 +152,20 @@ class CreateControllers extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     private function addDelete()
     {
+        $this->addLine();
         $this->addLine(ESP.'public function delete( $id )');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$result = $this->dao->delete( $id );');
+        $this->addLine(ESP.ESP.'return $result;');
+        $this->addLine(ESP.'}');
+    }
+    //--------------------------------------------------------------------------------------
+    public function addExecProcedure()
+    {
+        $this->addLine();
+        $this->addLine(ESP.'public function execProcedure( '.$this->tableRefVO.' $objVo )');
+        $this->addLine(ESP.'{');
+        $this->addLine(ESP.ESP.'$result = $this->dao->execProcedure( $objVo );');
         $this->addLine(ESP.ESP.'return $result;');
         $this->addLine(ESP.'}');
     }
@@ -182,13 +194,16 @@ class CreateControllers extends TCreateFileContent
         
         $this->addLine();
         $this->addSelectAll();
-        
-        if ($this->getTableType() == TGeneratorHelper::TABLE_TYPE_TABLE) {
-            $this->addLine();
-            $this->addSave();
-            
-            $this->addLine();
-            $this->addDelete();
+
+        switch ($this->getTableType()) {
+            case TableInfo::TB_TYPE_TABLE:
+                $this->addSave();
+                $this->addDelete();
+            break;
+            //-----------------------------------------
+            case TableInfo::TB_TYPE_PROCEDURE:
+                $this->addExecProcedure();
+            break;
         }
         $this->addLine();
         $this->addGetVoById();

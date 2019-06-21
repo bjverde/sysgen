@@ -10,11 +10,7 @@
  * PHP Version 5.6
  */
 class TGeneratorHelper
-{
-    
-    const TABLE_TYPE_TABLE = 'TABLE';
-    const TABLE_TYPE_VIEW = 'VIEW';
-
+{    
     const TP_SYSTEM_FORM = 'TP_SYSTEM_FORM';
     const TP_SYSTEM_REST = 'TP_SYSTEM_REST';
     const TP_SYSTEM_FORM_REST = 'TP_SYSTEM_FORM_REST';

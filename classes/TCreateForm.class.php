@@ -459,6 +459,28 @@ class TCreateForm extends TCreateFileContent
         $this->addLine(ESP.'break;');
     }
     //--------------------------------------------------------------------------------------
+    private function addBasicaViewController_exec()
+    {
+        $this->addLine();
+        $this->addLine(ESP.'case \'Executar\':');
+        $this->addLine(ESP.ESP.'try{');
+        $this->addLine(ESP.ESP.ESP.'if ( $frm->validate() ) {');
+        $this->addLine(ESP.ESP.ESP.ESP.'$vo = new '.$this->tableRefVO.'();');
+        $this->addLine(ESP.ESP.ESP.ESP.'$frm->setVo( $vo );');
+        $this->addLine(ESP.ESP.ESP.ESP.'$controller = new '.$this->tableRefClass.'();');
+        $this->addLine(ESP.ESP.ESP.ESP.'$resultado = $controller->execProcedure( $vo );');
+        $this->addLine(ESP.ESP.ESP.ESP.'if($resultado==true) {');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.'$frm->setMessage(Message::GENERIC_EXEC);');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.'$frm->clearFields();');
+        $this->addLine(ESP.ESP.ESP.ESP.'}else{');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.'$frm->setMessage($resultado);');
+        $this->addLine(ESP.ESP.ESP.ESP.'}');
+        $this->addLine(ESP.ESP.ESP.'}');
+        $this->addLine(ESP.ESP.'}');
+        $this->addBasicViewController_logCatch(ESP.ESP);
+        $this->addLine(ESP.'break;');
+    }    
+    //--------------------------------------------------------------------------------------
     private function addBasicaViewController()
     {
         $this->addBlankLine();
@@ -468,9 +490,12 @@ class TCreateForm extends TCreateFileContent
         if ($this->gridType == GRID_SIMPLE) {
             $this->addBasicaViewController_buscar();
         }
-        if ($this->getTableType() == TGeneratorHelper::TABLE_TYPE_TABLE) {
+        if ($this->getTableType() == TableInfo::TB_TYPE_TABLE) {
 	        $this->addBasicaViewController_salvar();
         	$this->addBasicaViewController_gdExcluir();
+        }
+        if ($this->getTableType() == TableInfo::TB_TYPE_PROCEDURE) {
+            $this->addBasicaViewController_exec();
         }
         $this->addLine('}');
     }
@@ -644,7 +669,7 @@ class TCreateForm extends TCreateFileContent
             $this->addBlankLine();
             $this->addColumnsGrid(ESP);
             $this->addBlankLine();
-            if ($this->getTableType() == TGeneratorHelper::TABLE_TYPE_VIEW) {
+            if ($this->getTableType() == TableInfo::TB_TYPE_VIEW) {
                 $this->addLine(ESP.'$gride->enableDefaultButtons(false);');
             }
             $this->addBlankLine();
@@ -668,8 +693,11 @@ class TCreateForm extends TCreateFileContent
         } else {
             $this->addLine('$frm->addButton(\'Buscar\', null, \'btnBuscar\', \'buscar()\', null, true, false);');
         }
-        if ($this->getTableType() == TGeneratorHelper::TABLE_TYPE_TABLE) {
+        if ($this->getTableType() == TableInfo::TB_TYPE_TABLE) {
             $this->addLine('$frm->addButton(\'Salvar\', null, \'Salvar\', null, null, false, false);');
+        }
+        if ($this->getTableType() == TableInfo::TB_TYPE_PROCEDURE) {
+            $this->addLine('$frm->addButton(\'Executar\', null, \'Executar\', null, null, false, false);');
         }
         $this->addLine('$frm->addButton(\'Limpar\', null, \'Limpar\', null, null, false, false);');
     }
