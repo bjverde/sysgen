@@ -59,8 +59,9 @@ try {
     }
 
 	foreach ($listTables['TABLE_NAME'] as $key=>$table){
-	    $tableSchema = $listTables['TABLE_SCHEMA'][$key];
-		$listFieldsTable = TGeneratorHelper::loadFieldsTablesSelectedWithFormDin($table,$tableSchema);
+		$tableSchema = $listTables['TABLE_SCHEMA'][$key];
+		$tableType   = $listTables['TABLE_TYPE'][$key];
+		$listFieldsTable = TGeneratorHelper::loadFieldsTablesSelectedWithFormDin($table,$tableType,$tableSchema);
 		$tableType = strtoupper($listTables['TABLE_TYPE'][$key]);
 		$key = $key + 1;
 		if($tableType == TableInfo::TB_TYPE_TABLE){

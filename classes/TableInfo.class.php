@@ -21,8 +21,9 @@ final class TableInfo
     const TB_TYPE_TABLE = 'TABLE';
     const TB_TYPE_VIEW  = 'VIEW';
     const TB_TYPE_PROCEDURE  = 'PROCEDURE';
-    //-----------------------------------------------------------------------------------        
-    
+    //-----------------------------------------------------------------------------------
+    const LIST_TABLES_DB = 'LIST_TABLES_DB';
+    //-----------------------------------------------------------------------------------
     const TP_SYSTEM = 'TP_SYSTEM';
     
     const KEY_TYPE = 'KEY_TYPE';

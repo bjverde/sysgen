@@ -74,6 +74,8 @@ class TCreateMenu extends TCreateFileContent
         $this->addBlankLine();
         $this->addBasicMenuViews();
         $this->addBlankLine();
+        $this->addBasicMenuProcedure();
+        $this->addBlankLine();
         $this->addLine('$menu->add(\'9\', null, \'Sobre\', \'modulos/sys_about.php\', null, \'information-circle.jpg\');');
         $this->addBlankLine();
         $this->addLine('$menu->add(\'10\',null,\'Config Ambiente\',null,null,\'setting-gear-512.png\');');

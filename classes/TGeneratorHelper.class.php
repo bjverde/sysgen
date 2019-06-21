@@ -287,13 +287,19 @@ class TGeneratorHelper
     
     public static function loadTablesFromDatabase()
     {
-        $dao = self::getTDAOConect(null, null);
-        $listAllTables = $dao->loadTablesFromDatabase();
-        if (!is_array($listAllTables)) {
-            throw new InvalidArgumentException('List of Tables Names not is array');
-        }
-        foreach ($listAllTables['TABLE_NAME'] as $key => $value) {
-            $listAllTables['idSelected'][] = $listAllTables['TABLE_SCHEMA'][$key].$value.$listAllTables['COLUMN_QTD'][$key].$listAllTables['TABLE_TYPE'][$key];
+        $listAllTables = array();
+        if(ArrayHelper::has(TableInfo::LIST_TABLES_DB, $_SESSION[APLICATIVO])){
+            $listAllTables = $_SESSION[APLICATIVO][TableInfo::LIST_TABLES_DB];
+        }else{
+            $dao = self::getTDAOConect(null, null);
+            $listAllTables = $dao->loadTablesFromDatabase();
+            if (!is_array($listAllTables)) {
+                throw new InvalidArgumentException(Message::ERRO_LIST_TABLE_NOT_ARRAY);
+            }
+            foreach ($listAllTables['TABLE_NAME'] as $key => $value) {
+                $listAllTables['idSelected'][] = $listAllTables['TABLE_SCHEMA'][$key].$value.$listAllTables['COLUMN_QTD'][$key].$listAllTables['TABLE_TYPE'][$key];
+            }
+            $_SESSION[APLICATIVO][TableInfo::LIST_TABLES_DB] = $listAllTables;
         }
         return $listAllTables;
     }
@@ -445,18 +451,27 @@ class TGeneratorHelper
         $listTables = TGeneratorHelper::loadTablesSelected();
         foreach ($listTables['TABLE_NAME'] as $key => $table) {
             $tableSchema = $listTables['TABLE_SCHEMA'][$key];
+            $tableType   = $listTables['TABLE_TYPE'][$key];
             $dao = TGeneratorHelper::getTDAOConect($table, $tableSchema);
-            $listFieldsTable = $dao->loadFieldsOneTableFromDatabase();
+            if($tableType == TableInfo::TB_TYPE_PROCEDURE){
+                $listFieldsTable = $dao->loadFieldsOneStoredProcedureFromDatabase();
+            }else{
+                $listFieldsTable = $dao->loadFieldsOneTableFromDatabase();
+            }
             $_SESSION[APLICATIVO]['FieldsTableSelected'][] = $listFieldsTable;
         }
         $FieldsTableSelected = $_SESSION[APLICATIVO]['FieldsTableSelected'];
         return $FieldsTableSelected;
     }
     
-    public static function loadFieldsTablesSelectedWithFormDin($table, $tableSchema)
+    public static function loadFieldsTablesSelectedWithFormDin($table, $tableType, $tableSchema)
     {
         $dao = self::getTDAOConect($table, $tableSchema);
-        $listFieldsTable = $dao->loadFieldsOneTableFromDatabase();
+        if($tableType == TableInfo::TB_TYPE_PROCEDURE){
+            $listFieldsTable = $dao->loadFieldsOneStoredProcedureFromDatabase();
+        }else{
+            $listFieldsTable = $dao->loadFieldsOneTableFromDatabase();
+        }        
         foreach ($listFieldsTable['DATA_TYPE'] as $key => $dataType) {
             $formDinType = TCreateForm::convertDataType2FormDinType($dataType);
             $listFieldsTable[TCreateForm::FORMDIN_TYPE_COLUMN_NAME][$key] = $formDinType;
