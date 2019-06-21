@@ -384,18 +384,42 @@ class TCreateDAO extends TCreateFileContent
     {
         $this->addLine(ESP.'public function execProcedure( '.ucfirst($this->tableName).'VO $objVo )');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$parameters');
-        $count=0;
-        foreach ($this->getColumns() as $v) {
-            if (strtolower($v) != strtolower($this->keyColumnName)) {
-                $this->addLine(( $count==0 ? ' ' : ESP.ESP.ESP.ESP.ESP.ESP.',').'$objVo->get'.ucfirst($v).'()');
-                $count++;
-            }
-        }
+        $this->addLine(ESP.ESP.'$parameters = null;');
         if ($this->getDatabaseManagementSystem() == DBMS_MYSQL) {
+            foreach ($this->getColumns() as $v) {
+                if (strtolower($v) != strtolower($this->keyColumnName)) {
+                    $vPHP = '$'.$v;
+                    $this->addBlankLine();
+                    $this->addLine(ESP.ESP.$vPHP.' = $objVo->get'.ucfirst($v).'();');
+                    $this->addLine(ESP.ESP.$vPHP.' = SqlHelper::attributeIsset('.$vPHP.',\' , '.$v.' =\',\'\');');
+                    $this->addLine(ESP.ESP.'$parameters = $parameters.'.$vPHP.';');
+                }else{
+                    $vPHP = '$'.$v;
+                    $this->addBlankLine();
+                    $this->addLine(ESP.ESP.$vPHP.' = $objVo->get'.ucfirst($v).'();');
+                    $this->addLine(ESP.ESP.$vPHP.' = SqlHelper::attributeIsset('.$vPHP.',\' '.$v.' =\',\'\');');
+                    $this->addLine(ESP.ESP.'$parameters = $parameters.'.$vPHP.';');
+                }
+            }            
             $this->addLine(ESP.ESP.'$sql = \'CALL '.$this->hasSchema().$this->getTableName().'(\'.$parameters.\')\';');
         }
         if ($this->getDatabaseManagementSystem() == DBMS_SQLSERVER) {
+            foreach ($this->getColumns() as $v) {
+                if (strtolower($v) != strtolower($this->keyColumnName)) {
+                    $vPHP = '$'.$v;
+                    $this->addBlankLine();
+                    $this->addLine(ESP.ESP.$vPHP.' = $objVo->get'.ucfirst($v).'();');
+                    $this->addLine(ESP.ESP.$vPHP.' = SqlHelper::attributeIsset('.$vPHP.',\' , @'.$v.' =\',\'\');');
+                    $this->addLine(ESP.ESP.'$parameters = $parameters.'.$vPHP.';');
+                }else{
+                    $vPHP = '$'.$v;
+                    $this->addBlankLine();
+                    $this->addLine(ESP.ESP.$vPHP.' = $objVo->get'.ucfirst($v).'();');
+                    $this->addLine(ESP.ESP.$vPHP.' = SqlHelper::attributeIsset('.$vPHP.',\' @'.$v.' =\',\'\');');
+                    $this->addLine(ESP.ESP.'$parameters = $parameters.'.$vPHP.';');
+                }
+            }
+            $this->addBlankLine();
             $this->addLine(ESP.ESP.'$sql = \'EXEC '.$this->hasSchema().$this->getTableName().'(\'.$parameters.\')\';');
         }
         $this->addExecuteSql(false);
