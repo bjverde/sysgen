@@ -35,7 +35,7 @@ class CreateApiControllesFilesTest extends TestCase
 		$listColumnsProperties['COLUMN_NAME'][] = 'idTest';
 		$listColumnsProperties['COLUMN_NAME'][] = 'nm_test';
 		$listColumnsProperties['COLUMN_NAME'][] = 'tip_test';
-		$this->create = new CreateApiControllesFiles('api','test',$listColumnsProperties,TGeneratorHelper::TABLE_TYPE_TABLE);
+		$this->create = new CreateApiControllesFiles('api','test',$listColumnsProperties,TableInfo::TB_TYPE_TABLE);
 	}
 	
 	/**

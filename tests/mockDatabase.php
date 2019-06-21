@@ -41,28 +41,28 @@ class mockDatabase
     public function generateTablesSelected3t5v()
     {
         $tableSelected = array();
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'menu' ,null, TGeneratorHelper::TABLE_TYPE_TABLE);
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'acess',null, TGeneratorHelper::TABLE_TYPE_TABLE);
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'vitem',null, TGeneratorHelper::TABLE_TYPE_VIEW);
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'list' ,null, TGeneratorHelper::TABLE_TYPE_TABLE);
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v2'   ,null, TGeneratorHelper::TABLE_TYPE_VIEW);
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v3'   ,null, TGeneratorHelper::TABLE_TYPE_VIEW);
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v4'   ,null, TGeneratorHelper::TABLE_TYPE_VIEW);
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v5'   ,null, TGeneratorHelper::TABLE_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'menu' ,null, TableInfo::TB_TYPE_TABLE);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'acess',null, TableInfo::TB_TYPE_TABLE);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'vitem',null, TableInfo::TB_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'list' ,null, TableInfo::TB_TYPE_TABLE);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v2'   ,null, TableInfo::TB_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v3'   ,null, TableInfo::TB_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v4'   ,null, TableInfo::TB_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v5'   ,null, TableInfo::TB_TYPE_VIEW);
         return $tableSelected;
     }
     
     public function generateTablesSelected1t7v()
     {
         $tableSelected = array();
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'menu' ,null, TGeneratorHelper::TABLE_TYPE_VIEW);
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'acess',null, TGeneratorHelper::TABLE_TYPE_VIEW);
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'vitem',null, TGeneratorHelper::TABLE_TYPE_VIEW);
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'list' ,null, TGeneratorHelper::TABLE_TYPE_TABLE);
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v2'   ,null, TGeneratorHelper::TABLE_TYPE_VIEW);
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v3'   ,null, TGeneratorHelper::TABLE_TYPE_VIEW);
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v4'   ,null, TGeneratorHelper::TABLE_TYPE_VIEW);
-        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v5'   ,null, TGeneratorHelper::TABLE_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'menu' ,null, TableInfo::TB_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'acess',null, TableInfo::TB_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'vitem',null, TableInfo::TB_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'list' ,null, TableInfo::TB_TYPE_TABLE);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v2'   ,null, TableInfo::TB_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v3'   ,null, TableInfo::TB_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v4'   ,null, TableInfo::TB_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v5'   ,null, TableInfo::TB_TYPE_VIEW);
         return $tableSelected;
     }
     

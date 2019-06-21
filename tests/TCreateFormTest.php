@@ -147,7 +147,7 @@ class TCreateFormTest extends TestCase
 	    $expected[] = '$frm->addButton(\'Limpar\', null, \'Limpar\', null, null, false, false);'.EOL;
 	    
 	    $this->create->setGridType(GRID_SIMPLE);
-	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_VIEW);
+	    $this->create->setTableType(TableInfo::TB_TYPE_VIEW);
 	    $this->create->addButtons();
 	    $result = $this->create->getLinesArray();
 	    
@@ -162,7 +162,7 @@ class TCreateFormTest extends TestCase
 	    $expected[] = '$frm->addButton(\'Limpar\', null, \'Limpar\', null, null, false, false);'.EOL;
 	    
 	    $this->create->setGridType(GRID_SIMPLE);
-	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_TABLE);
+	    $this->create->setTableType(TableInfo::TB_TYPE_TABLE);
 	    $this->create->addButtons();
 	    $result = $this->create->getLinesArray();
 	    
@@ -176,7 +176,7 @@ class TCreateFormTest extends TestCase
 	    $expected[] = '$frm->addButton(\'Buscar\', null, \'btnBuscar\', \'buscar()\', null, true, false);'.EOL;
 	    $expected[] = '$frm->addButton(\'Limpar\', null, \'Limpar\', null, null, false, false);'.EOL;
 	    
-	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_VIEW);
+	    $this->create->setTableType(TableInfo::TB_TYPE_VIEW);
 	    $this->create->addButtons();
 	    $result = $this->create->getLinesArray();
 	    
@@ -190,7 +190,7 @@ class TCreateFormTest extends TestCase
 	    $expected[] = '$frm->addButton(\'Salvar\', null, \'Salvar\', null, null, false, false);'.EOL;
 	    $expected[] = '$frm->addButton(\'Limpar\', null, \'Limpar\', null, null, false, false);'.EOL;
 	    
-	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_TABLE);
+	    $this->create->setTableType(TableInfo::TB_TYPE_TABLE);
 	    $this->create->addButtons();
 	    $result = $this->create->getLinesArray();
 	    
@@ -203,7 +203,7 @@ class TCreateFormTest extends TestCase
 	    $expectedQtd = 22;
 	    
 	    $this->create->setGridType(GRID_SIMPLE);
-	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_TABLE);
+	    $this->create->setTableType(TableInfo::TB_TYPE_TABLE);
 	    $this->create->addGrid();
 	    $result = $this->create->getLinesArray();
 	    
@@ -222,7 +222,7 @@ class TCreateFormTest extends TestCase
 	    $expected[] = '                ;'.EOL;
 	    
 	    $this->create->setGridType(GRID_SIMPLE);
-	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_TABLE);
+	    $this->create->setTableType(TableInfo::TB_TYPE_TABLE);
 	    $this->create->addGrid();
 	    $result = $this->create->getLinesArray();
 	    
@@ -239,7 +239,7 @@ class TCreateFormTest extends TestCase
 	    $expectedQtd = 63;
 	    
 	    $this->create->setGridType(GRID_SQL_PAGINATION);
-	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_TABLE);
+	    $this->create->setTableType(TableInfo::TB_TYPE_TABLE);
 	    $this->create->addGrid();
 	    $result = $this->create->getLinesArray();
 	    
@@ -251,7 +251,7 @@ class TCreateFormTest extends TestCase
 	    $expectedQtd = 61;
 	    
 	    $this->create->setGridType(GRID_SCREEN_PAGINATION);
-	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_TABLE);
+	    $this->create->setTableType(TableInfo::TB_TYPE_TABLE);
 	    $this->create->addGrid();
 	    $result = $this->create->getLinesArray();
 	    
@@ -262,7 +262,7 @@ class TCreateFormTest extends TestCase
 	public function testShow_VIEW_numLines(){
 	    $expectedQtd = 99;
 	    
-	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_VIEW);
+	    $this->create->setTableType(TableInfo::TB_TYPE_VIEW);
 	    $resultArray = $this->create->show('array');
 	    $size = CountHelper::count($resultArray);
 	    $this->assertEquals( $expectedQtd, $size);
@@ -272,7 +272,7 @@ class TCreateFormTest extends TestCase
 	    $expectedQtd = 103;
 	    
 	    $this->create->setGridType(GRID_SQL_PAGINATION);
-	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_VIEW);
+	    $this->create->setTableType(TableInfo::TB_TYPE_VIEW);
 	    $resultArray = $this->create->show('array');
 	    $size = CountHelper::count($resultArray);
 	    $this->assertEquals( $expectedQtd, $size);

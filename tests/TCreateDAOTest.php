@@ -226,7 +226,7 @@ class TCreateDAOTest extends TestCase
 	public function testShow_VIEW_numLines(){
 	    $expectedQtd = 90;
 	    
-	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_VIEW);
+	    $this->create->setTableType(TableInfo::TB_TYPE_VIEW);
 	    $resultArray = $this->create->show('array');
 	    $size = CountHelper::count($resultArray);
 	    $this->assertEquals( $expectedQtd, $size);
@@ -236,7 +236,7 @@ class TCreateDAOTest extends TestCase
 	    $expectedQtd = 103;
 	    
 	    $this->create->setWithSqlPagination(GRID_SQL_PAGINATION);
-	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_VIEW);
+	    $this->create->setTableType(TableInfo::TB_TYPE_VIEW);
 	    $resultArray = $this->create->show('array');
 	    $size = CountHelper::count($resultArray);
 	    $this->assertEquals( $expectedQtd, $size);

@@ -17,6 +17,12 @@
  */
 final class TableInfo
 {
+    
+    const TB_TYPE_TABLE = 'TABLE';
+    const TB_TYPE_VIEW  = 'VIEW';
+    const TB_TYPE_PROCEDURE  = 'PROCEDURE';
+    //-----------------------------------------------------------------------------------        
+    
     const TP_SYSTEM = 'TP_SYSTEM';
     
     const KEY_TYPE = 'KEY_TYPE';
