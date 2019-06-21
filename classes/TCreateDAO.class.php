@@ -384,6 +384,7 @@ class TCreateDAO extends TCreateFileContent
     {
         $this->addLine(ESP.'public function execProcedure( '.ucfirst($this->tableName).'VO $objVo )');
         $this->addLine(ESP.'{');
+        $this->addLine(ESP.ESP.'$parameters');
         $count=0;
         foreach ($this->getColumns() as $v) {
             if (strtolower($v) != strtolower($this->keyColumnName)) {
@@ -392,10 +393,10 @@ class TCreateDAO extends TCreateFileContent
             }
         }
         if ($this->getDatabaseManagementSystem() == DBMS_MYSQL) {
-            $this->addLine(ESP.ESP.'$sql = \'CALL '.$this->hasSchema().$this->getTableName().'(\'.$param.\')\';');
+            $this->addLine(ESP.ESP.'$sql = \'CALL '.$this->hasSchema().$this->getTableName().'(\'.$parameters.\')\';');
         }
         if ($this->getDatabaseManagementSystem() == DBMS_SQLSERVER) {
-            $this->addLine(ESP.ESP.'$sql = \'EXEC '.$this->hasSchema().$this->getTableName().'(\'.$param.\')\';');
+            $this->addLine(ESP.ESP.'$sql = \'EXEC '.$this->hasSchema().$this->getTableName().'(\'.$parameters.\')\';');
         }
         $this->addExecuteSql(false);
         $this->addLine(ESP.'}');
