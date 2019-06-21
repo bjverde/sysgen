@@ -58,7 +58,7 @@ class CreateApiRoutesCall extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     public function addCommentTableOrView($tableType,$tableName){
         $this->addLine('//--------------------------------------------------------------------');
-        if( $tableType == TGeneratorHelper::TABLE_TYPE_TABLE ){
+        if( $tableType == TableInfo::TB_TYPE_TABLE ){
             $this->addLine('//  TABLE: '.$tableName);
         }else{
             $this->addLine('//  VIEW: '.$tableName);
@@ -79,7 +79,7 @@ class CreateApiRoutesCall extends TCreateFileContent
             $this->addLine(ESP.'$app->get(\'\', '.$tableName.'API::class . \':selectAll\');');
             $this->addLine(ESP.'$app->get(\'/{id:[0-9]+}\', '.$tableName.'API::class . \':selectById\');');
             $this->addBlankLine();
-            if( $tableType == TGeneratorHelper::TABLE_TYPE_TABLE ){
+            if( $tableType == TableInfo::TB_TYPE_TABLE ){
                 $this->addBlankLine();
                 $this->addLine(ESP.'$app->post(\'\', '.$tableName.'API::class . \':save\');');
                 $this->addLine(ESP.'$app->put(\'/{id:[0-9]+}\', '.$tableName.'API::class . \':save\');');

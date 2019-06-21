@@ -63,7 +63,7 @@ try {
 		$listFieldsTable = TGeneratorHelper::loadFieldsTablesSelectedWithFormDin($table,$tableSchema);
 		$tableType = strtoupper($listTables['TABLE_TYPE'][$key]);
 		$key = $key + 1;
-		if($tableType == TGeneratorHelper::TABLE_TYPE_TABLE){
+		if($tableType == TableInfo::TB_TYPE_TABLE){
 		    TGeneratorHelper::createFilesFormClassDaoVoFromTable($table, $listFieldsTable ,$tableSchema ,$tableType);
 			$html->add('<br>'.$key.Message::CREATED_TABLE_ITEN.$table);
 		}else{

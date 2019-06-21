@@ -432,7 +432,7 @@ class TCreateDAO extends TCreateFileContent
         $this->addSqlSelectAll();
         // fim select
         
-        if ($this->getTableType() != TGeneratorHelper::TABLE_TYPE_VIEW) {
+        if ($this->getTableType() != TableInfo::TB_TYPE_VIEW) {
             // insert
             $this->addLine();
             $this->addSqlInsert();

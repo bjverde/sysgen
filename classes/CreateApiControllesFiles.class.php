@@ -200,7 +200,7 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addSelectAll();
         $this->addSelectByIdInside();
         $this->addSelectById();
-        if( $this->getTableType() == TGeneratorHelper::TABLE_TYPE_TABLE ){
+        if( $this->getTableType() == TableInfo::TB_TYPE_TABLE ){
             $this->addSave();
             $this->addDelete();
         }
