@@ -435,7 +435,9 @@ class TCreateDAO extends TCreateFileContent
         
         // construct
         $this->addConstruct();
-        if($this->getTableType() != TableInfo::TB_TYPE_PROCEDURE){
+        if($this->getTableType() == TableInfo::TB_TYPE_PROCEDURE){
+            $this->addExecProcedure();
+        }else{
             $this->addProcessWhereGridParameters();
             
             // select by Id
@@ -457,10 +459,8 @@ class TCreateDAO extends TCreateFileContent
             $this->addLine();
             $this->addSqlSelectAll();
             // fim select
-        }
-        
-        switch ($this->getTableType()) {
-            case TableInfo::TB_TYPE_TABLE:
+
+            if($this->getTableType() == TableInfo::TB_TYPE_TABLE){        
                 // insert
                 $this->addLine();
                 $this->addSqlInsert();
@@ -470,14 +470,7 @@ class TCreateDAO extends TCreateFileContent
                 // EXCLUIR
                 $this->addLine();
                 $this->addSqlDelete();
-            break;
-            //-----------------------------------------
-            case TableInfo::TB_TYPE_PROCEDURE:
-                $this->addExecProcedure();
-            break;
-        }
-        
-        if($this->getTableType() != TableInfo::TB_TYPE_PROCEDURE){        
+            }
             $this->addGetVoById();
         }
         
