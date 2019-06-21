@@ -63,7 +63,7 @@ class TCreateMenuTest extends TestCase
     
     public function testAddBasicMenuCruds_3tables()
     {
-        $expected = 4; //4 Tables + 1 header line
+        $expected = 4; //3 Tables + 1 header line
         $listTableNames   = $this->mockDatabase->generateTablesSelected3t5v();
         $this->createMenu->setListTableNames($listTableNames);
         $this->createMenu->addBasicMenuCruds();
@@ -100,6 +100,17 @@ class TCreateMenuTest extends TestCase
         $listTableNames   = $this->mockDatabase->generateTablesSelected1t7v();
         $this->createMenu->setListTableNames($listTableNames);
         $this->createMenu->addBasicMenuViews();
+        $resultArray = $this->createMenu->getLinesArray();
+        $size = CountHelper::count($resultArray);
+        $this->assertEquals($expected, $size);
+    }
+
+    public function testAddBasicMenuViews_2StoredProcedure()
+    {
+        $expected = 3; //2 SP + 1 header line
+        $listTableNames   = $this->mockDatabase->generateTablesSelected3t5v2p();
+        $this->createMenu->setListTableNames($listTableNames);
+        $this->createMenu->addBasicMenuProcedure();
         $resultArray = $this->createMenu->getLinesArray();
         $size = CountHelper::count($resultArray);
         $this->assertEquals($expected, $size);

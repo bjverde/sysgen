@@ -57,6 +57,12 @@ class TCreateMenu extends TCreateFileContent
         $this->addBasicMenuItems( '2', TableInfo::TB_TYPE_VIEW );
     }
     //--------------------------------------------------------------------------------------
+    public function addBasicMenuProcedure()
+    {
+        $this->addLine('$menu->add(\'3\', null, \'Procedure\', null, null, \'menu-alt-512.png\');');
+        $this->addBasicMenuItems( '3', TableInfo::TB_TYPE_PROCEDURE );
+    }
+    //--------------------------------------------------------------------------------------
     public function show($print = false)
     {
         $this->lines=null;
