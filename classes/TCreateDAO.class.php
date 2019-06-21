@@ -205,6 +205,7 @@ class TCreateDAO extends TCreateFileContent
      **/
     public function addGetVoById()
     {
+        $this->addLine();
         $this->addLine(ESP.'public function getVoById( $id )');
         $this->addLine(ESP.'{');
         $this->addValidateTypeInt(ESP.ESP);
@@ -377,6 +378,26 @@ class TCreateDAO extends TCreateFileContent
         $this->addExecuteSql(true);
         $this->addLine(ESP.'}');
     }
+    public function addExecProcedure()
+    {
+        $this->addLine(ESP.'public function execProcedure( '.ucfirst($this->tableName).'VO $objVo )');
+        $this->addLine(ESP.'{');
+        $count=0;
+        foreach ($this->getColumns() as $v) {
+            if (strtolower($v) != strtolower($this->keyColumnName)) {
+                $this->addLine(( $count==0 ? ' ' : ESP.ESP.ESP.ESP.ESP.ESP.',').'$objVo->get'.ucfirst($v).'()');
+                $count++;
+            }
+        }
+        if ($this->getDatabaseManagementSystem() == DBMS_MYSQL) {
+            $this->addLine(ESP.ESP.'$sql = \'CALL '.$this->hasSchema().$this->getTableName().'(\'.$param.\')\';');
+        }
+        if ($this->getDatabaseManagementSystem() == DBMS_SQLSERVER) {
+            $this->addLine(ESP.ESP.'$sql = \'EXEC '.$this->hasSchema().$this->getTableName().'(\'.$param.\')\';');
+        }
+        $this->addExecuteSql(false);
+        $this->addLine(ESP.'}');
+    }    
     //--------------------------------------------------------------------------------------
     public function addConstruct()
     {
@@ -403,51 +424,59 @@ class TCreateDAO extends TCreateFileContent
         $this->addSysGenHeaderNote();
         $this->addLine('class '.ucfirst($this->getTableName()).'DAO ');
         $this->addLine('{');
-        $this->addBlankLine();
-        $this->addSqlVariable();
+        if($this->getTableType() != TableInfo::TB_TYPE_PROCEDURE){
+            $this->addBlankLine();
+            $this->addSqlVariable();
+        }
         $this->addBlankLine();
         
         // construct
         $this->addConstruct();
-        
-        $this->addProcessWhereGridParameters();
-        
-        // select by Id
-        $this->addLine();
-        $this->addSqlSelectById();
-        // fim select
-        
-        // Select Count
-        $this->addLine();
-        $this->addSqlSelectCount();
-        // fim Select Count
-        
-        if ($this->getWithSqlPagination() == GRID_SQL_PAGINATION) {
+        if($this->getTableType() != TableInfo::TB_TYPE_PROCEDURE){
+            $this->addProcessWhereGridParameters();
+            
+            // select by Id
             $this->addLine();
-            $this->addSqlSelectAllPagination();
+            $this->addSqlSelectById();
+            // fim select
+            
+            // Select Count
+            $this->addLine();
+            $this->addSqlSelectCount();
+            // fim Select Count
+            
+            if ($this->getWithSqlPagination() == GRID_SQL_PAGINATION) {
+                $this->addLine();
+                $this->addSqlSelectAllPagination();
+            }
+            
+            // select where
+            $this->addLine();
+            $this->addSqlSelectAll();
+            // fim select
         }
         
-        // select where
-        $this->addLine();
-        $this->addSqlSelectAll();
-        // fim select
-        
-        if ($this->getTableType() != TableInfo::TB_TYPE_VIEW) {
-            // insert
-            $this->addLine();
-            $this->addSqlInsert();
-            // update
-            $this->addLine();
-            $this->addSqlUpdate();
-            // EXCLUIR
-            $this->addLine();
-            $this->addSqlDelete();
+        switch ($this->getTableType()) {
+            case TableInfo::TB_TYPE_TABLE:
+                // insert
+                $this->addLine();
+                $this->addSqlInsert();
+                // update
+                $this->addLine();
+                $this->addSqlUpdate();
+                // EXCLUIR
+                $this->addLine();
+                $this->addSqlDelete();
+            break;
+            //-----------------------------------------
+            case TableInfo::TB_TYPE_PROCEDURE:
+                $this->addExecProcedure();
+            break;
         }
         
-        // get Object VO select by Id
-        $this->addLine();
-        $this->addGetVoById();
-        // fim select
+        if($this->getTableType() != TableInfo::TB_TYPE_PROCEDURE){        
+            $this->addGetVoById();
+        }
         
         //-------- FIM
         $this->addLine("}");

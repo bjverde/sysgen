@@ -181,32 +181,30 @@ class CreateControllers extends TCreateFileContent
         $this->addBlankLine();
         $this->addConstruct();
         
-        $this->addLine();
-        $this->addSelectById();
-
-        $this->addLine();
-        $this->addSelectCount();
-        
-        if ($this->getWithSqlPagination() == GRID_SQL_PAGINATION) {
+        if( $this->getTableType()== TableInfo::TB_TYPE_PROCEDURE){
+            $this->addExecProcedure();
+        }else{
             $this->addLine();
-            $this->addSelectAllPagination();
-        }
-        
-        $this->addLine();
-        $this->addSelectAll();
+            $this->addSelectById();
 
-        switch ($this->getTableType()) {
-            case TableInfo::TB_TYPE_TABLE:
+            $this->addLine();
+            $this->addSelectCount();
+            
+            if ($this->getWithSqlPagination() == GRID_SQL_PAGINATION) {
+                $this->addLine();
+                $this->addSelectAllPagination();
+            }
+            
+            $this->addLine();
+            $this->addSelectAll();
+
+            if( $this->getTableType()==TableInfo::TB_TYPE_TABLE){
                 $this->addSave();
                 $this->addDelete();
-            break;
-            //-----------------------------------------
-            case TableInfo::TB_TYPE_PROCEDURE:
-                $this->addExecProcedure();
-            break;
+            }
+            $this->addLine();
+            $this->addGetVoById();
         }
-        $this->addLine();
-        $this->addGetVoById();
         $this->addBlankLine();        
         $this->addLine('}');
         $this->addLine('?>');

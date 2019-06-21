@@ -688,16 +688,17 @@ class TCreateForm extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     public function addButtons()
     {
-        if ($this->gridType == GRID_SIMPLE) {
-            $this->addLine('$frm->addButton(\'Buscar\', null, \'Buscar\', null, null, true, false);');
-        } else {
-            $this->addLine('$frm->addButton(\'Buscar\', null, \'btnBuscar\', \'buscar()\', null, true, false);');
-        }
-        if ($this->getTableType() == TableInfo::TB_TYPE_TABLE) {
-            $this->addLine('$frm->addButton(\'Salvar\', null, \'Salvar\', null, null, false, false);');
-        }
         if ($this->getTableType() == TableInfo::TB_TYPE_PROCEDURE) {
-            $this->addLine('$frm->addButton(\'Executar\', null, \'Executar\', null, null, false, false);');
+            $this->addLine('$frm->addButton(\'Executar\', null, \'Executar\', null, null, true, false);');
+        }else{
+            if ($this->gridType == GRID_SIMPLE) {
+                $this->addLine('$frm->addButton(\'Buscar\', null, \'Buscar\', null, null, true, false);');
+            } else {
+                $this->addLine('$frm->addButton(\'Buscar\', null, \'btnBuscar\', \'buscar()\', null, true, false);');
+            }
+            if ($this->getTableType() == TableInfo::TB_TYPE_TABLE) {
+                $this->addLine('$frm->addButton(\'Salvar\', null, \'Salvar\', null, null, false, false);');
+            }
         }
         $this->addLine('$frm->addButton(\'Limpar\', null, \'Limpar\', null, null, false, false);');
     }
@@ -719,7 +720,9 @@ class TCreateForm extends TCreateFileContent
         $this->addLine('$frm->setFlat(true);');
         $this->addLine('$frm->setMaximize(true);');
         //$this->addLine('$frm->setAutoSize(true);');  // https://github.com/bjverde/formDin/issues/48 problema com o Chrome
-        $this->addLine('$frm->setHelpOnLine(\'Ajuda\',600,980,\'ajuda/ajuda_tela.php\',null);');
+        if( $this->getTableType() != TableInfo::TB_TYPE_PROCEDURE ){
+            $this->addLine('$frm->setHelpOnLine(\'Ajuda\',600,980,\'ajuda/ajuda_tela.php\',null);');
+        }
         $this->addBlankLine();
         $this->addBlankLine();
         if ($this->gridType != GRID_SIMPLE) {
@@ -731,7 +734,12 @@ class TCreateForm extends TCreateFileContent
         $this->addBlankLine();
         $this->addBasicaViewController();
         $this->addBlankLine();
-        $this->addGrid();
+        if( $this->getTableType() == TableInfo::TB_TYPE_PROCEDURE ){
+            $this->addLine('$frm->show();');
+            $this->addLine("?>");
+        }else{
+            $this->addGrid();
+        }
         return $this->showContent($print);
     }
 }
