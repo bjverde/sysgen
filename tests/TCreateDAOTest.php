@@ -84,6 +84,7 @@ class TCreateDAOTest extends TestCase
 	
 	public function testAddGetVoById(){
 	    $expected = array();
+	    $expected[] = ESP.'//--------------------------------------------------------------------------------'.EOL;
 	    $expected[] = ESP.'public function getVoById( $id )'.EOL;
 	    $expected[] = ESP.'{'.EOL;
 	    $expected[] = ESP.ESP.'if( empty($id) || !is_numeric($id) ){'.EOL;
@@ -107,6 +108,7 @@ class TCreateDAOTest extends TestCase
 	    $this->assertSame($expected[7], $result[7]);
 	    $this->assertSame($expected[8], $result[8]);
 	    $this->assertSame($expected[9], $result[9]);
+	    $this->assertSame($expected[10], $result[10]);
 	}
 	
 	public function testAddSqlSelectAll(){
