@@ -403,6 +403,7 @@ class TCreateForm extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     private function addBasicaViewController_salvar()
     {
+        $this->addLine();
         $this->addLine(ESP.'case \'Salvar\':');
         $this->addLine(ESP.ESP.'try{');
         $this->addLine(ESP.ESP.ESP.'if ( $frm->validate() ) {');

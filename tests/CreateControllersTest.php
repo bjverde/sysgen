@@ -64,8 +64,25 @@ class CreateControllersTest extends TestCase
 	    $this->assertSame($expected[5], $resultArray[5]);
 	}
 	
+	public function testAddGetVoById(){
+	    $expected = array();
+	    $expected[] = ESP.'public function getVoById( $id )'.EOL;
+	    $expected[] = ESP.'{'.EOL;
+	    $expected[] = ESP.ESP.'$result = $this->dao->getVoById( $id );'.EOL;
+	    $expected[] = ESP.ESP.'return $result;'.EOL;
+	    $expected[] = ESP.'}'.EOL;
+	    
+	    $this->create->addGetVoById();
+	    $result = $this->create->getLinesArray();
+	    $this->assertSame($expected[0], $result[0]);
+	    $this->assertSame($expected[1], $result[1]);
+	    $this->assertSame($expected[2], $result[2]);
+	    $this->assertSame($expected[3], $result[3]);
+	    $this->assertSame($expected[4], $result[4]);
+	}
+	
 	public function testShow_VIEW_numLines(){
-	    $expectedQtd = 50;
+	    $expectedQtd = 56;
 	    
 	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_VIEW);
 	    $resultArray = $this->create->show('array');
@@ -74,7 +91,7 @@ class CreateControllersTest extends TestCase
 	}
 	
 	public function testShow_VIEW_GridSqlPagination_numLines(){
-	    $expectedQtd = 56;
+	    $expectedQtd = 62;
 	    
 	    $this->create->setWithSqlPagination(GRID_SQL_PAGINATION);
 	    $this->create->setTableType(TGeneratorHelper::TABLE_TYPE_VIEW);
@@ -84,7 +101,7 @@ class CreateControllersTest extends TestCase
 	}
 	
 	public function testShow_TABLE_numLines(){
-	    $expectedQtd = 50;	    
+	    $expectedQtd = 56;	    
 	    
 	    $resultArray = $this->create->show('array');
 	    $size = CountHelper::count($resultArray);
@@ -92,7 +109,7 @@ class CreateControllersTest extends TestCase
 	}
 	
 	public function testShow_TABLE_GridSqlPagination_numLines(){
-	    $expectedQtd = 56;
+	    $expectedQtd = 62;
 	    
 	    $this->create->setWithSqlPagination(GRID_SQL_PAGINATION);
 	    $resultArray = $this->create->show('array');

@@ -98,6 +98,15 @@ class CreateControllers extends TCreateFileContent
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
+    public function addGetVoById()
+    {
+        $this->addLine(ESP.'public function getVoById( $id )');
+        $this->addLine(ESP.'{');
+        $this->addLine(ESP.ESP.'$result = $this->dao->getVoById( $id );');
+        $this->addLine(ESP.ESP.'return $result;');
+        $this->addLine(ESP.'}');
+    }
+    //--------------------------------------------------------------------------------------
     private function addSelectCount()
     {
         $this->addLine(ESP.'public function selectCount( $where=null )');
@@ -181,8 +190,9 @@ class CreateControllers extends TCreateFileContent
             $this->addLine();
             $this->addDelete();
         }
-        
-        $this->addBlankLine();
+        $this->addLine();
+        $this->addGetVoById();
+        $this->addBlankLine();        
         $this->addLine('}');
         $this->addLine('?>');
         return $this->showContent($print);
