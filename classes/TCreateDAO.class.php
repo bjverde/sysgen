@@ -211,7 +211,7 @@ class TCreateDAO extends TCreateFileContent
         $this->addValidateTypeInt(ESP.ESP);
         $this->addLine(ESP.ESP.'$result = $this->selectById( $id );');
         $this->addLine(ESP.ESP.'$result = \ArrayHelper::convertArrayFormDin2Pdo($result,false);');
-        $this->addLine(ESP.ESP.'$result = $result[0]');
+        $this->addLine(ESP.ESP.'$result = $result[0];');
         $this->addLine(ESP.ESP.'$vo = new '.ucfirst($this->tableName).'VO();');
         $this->addLine(ESP.ESP.'$vo = \FormDinHelper::setPropertyVo($result,$vo);');
         $this->addLine(ESP.ESP.'return $vo;');
