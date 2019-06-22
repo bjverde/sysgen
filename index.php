@@ -12,7 +12,7 @@
 //Constantes e configurações
 require_once 'includes/constantes.php';
 require_once '../base/classes/webform/TApplication.class.php';
-require_once 'classes/autoload_sysgen.php';
+require_once 'controllers/autoload_sysgen.php';
 
 
 $app = new TApplication(); // criar uma instancia do objeto aplicacao

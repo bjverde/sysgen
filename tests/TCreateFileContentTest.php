@@ -16,7 +16,7 @@ require_once $pathBase.'classes/helpers/autoload_formdin_helper.php';
 
 $path =  __DIR__.'/../';
 require_once $path.'includes/constantes.php';
-require_once $path.'classes/autoload_sysgen.php';
+require_once $path.'controllers/autoload_sysgen.php';
 
 use PHPUnit\Framework\TestCase;
 

@@ -95,7 +95,7 @@ class mockDatabase
      * @param string $column_name    - 2: Name of fields
      * @param string $requred        - 3: TRUE or FALSE
      * @param string $data_type      - 4: 
-     * @return unknown
+     * @return array
      */
     protected function includeFieldsFromTable($tableField
                                             , $column_name
