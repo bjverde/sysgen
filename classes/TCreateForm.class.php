@@ -327,7 +327,7 @@ class TCreateForm extends TCreateFileContent
         $this->addFieldTypeToolTip($key, $fieldName);
     }
     //--------------------------------------------------------------------------------------
-    private function addFieldNumberOrForenKey($key, $fieldName, $REQUIRED)
+    private function addFieldNumberOrForeignKey($key, $fieldName, $REQUIRED)
     {
         $KEY_TYPE   = self::getColumnsPropertieKeyType($key);
         if ($KEY_TYPE != TableInfo::KEY_TYPE_FK) {
@@ -344,13 +344,15 @@ class TCreateForm extends TCreateFileContent
         }
     }
     //--------------------------------------------------------------------------------------
-    private function addFieldType($key, $fieldName)
+    private function addFieldType($key, $fieldName, $notPK = true)
     {
         /**
          * Esse ajuste do $key acontece em função do setListColunnsName descarta o primeiro
          * registro que assume ser a chave primaria.
          */
-        $key = $key+1;
+        if($notPK){
+            $key = $key+1;
+        }
         $CHAR_MAX    = self::getColumnsPropertieCharMax($key);
         $REQUIRED    = self::getColumnsPropertieRequired($key);
         //$DATA_TYPE   = self::getColumnsPropertieDataType($key);
@@ -362,7 +364,7 @@ class TCreateForm extends TCreateFileContent
                 $this->addFieldTypeToolTip($key, $fieldName);
                 break;
             case self::FORMDIN_TYPE_NUMBER:
-                $this->addFieldNumberOrForenKey($key, $fieldName, $REQUIRED);
+                $this->addFieldNumberOrForeignKey($key, $fieldName, $REQUIRED);
                 break;
             default:
                 if ($CHAR_MAX < CHAR_MAX_TEXT_FIELD) {
@@ -377,7 +379,11 @@ class TCreateForm extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     private function addFields()
     {
-        $this->addLine('$frm->addHiddenField( $primaryKey );   // coluna chave da tabela');
+        if( $this->getTableType() != TableInfo::TB_TYPE_PROCEDURE ){            
+            $this->addLine('$frm->addHiddenField( $primaryKey );   // coluna chave da tabela');
+        }else{
+            $this->addFieldType(0, $this->getPrimaryKeyTable(),false);
+        }
         if ($this->validateListColumnsName()) {
             foreach ($this->listColumnsName as $key => $value) {
                 $this->addFieldType($key, $value);
@@ -714,7 +720,9 @@ class TCreateForm extends TCreateFileContent
         if ($this->gridType == GRID_SIMPLE) {
             $this->addLine('$whereGrid = \' 1=1 \';');
         }
-        $this->addLine('$primaryKey = \''.$this->getPrimaryKeyTable().'\';');
+        if( $this->getTableType() != TableInfo::TB_TYPE_PROCEDURE ){
+            $this->addLine('$primaryKey = \''.$this->getPrimaryKeyTable().'\';');
+        }
         $this->addLine('$frm = new TForm(\''.$this->formTitle.'\',800,950);');
         $this->addLine('$frm->setShowCloseButton(false);');
         $this->addLine('$frm->setFlat(true);');
