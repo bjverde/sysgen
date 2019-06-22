@@ -391,13 +391,13 @@ class TCreateDAO extends TCreateFileContent
                     $vPHP = '$'.$v;
                     $this->addBlankLine();
                     $this->addLine(ESP.ESP.$vPHP.' = $objVo->get'.ucfirst($v).'();');
-                    $this->addLine(ESP.ESP.$vPHP.' = SqlHelper::attributeIsset('.$vPHP.',\' , '.$v.' =\',\'\');');
+                    $this->addLine(ESP.ESP.$vPHP.' = SqlHelper::attributeIsset('.$vPHP.',\' , '.$v.' =\'.'.$vPHP.',\'\');');
                     $this->addLine(ESP.ESP.'$parameters = $parameters.'.$vPHP.';');
                 }else{
                     $vPHP = '$'.$v;
                     $this->addBlankLine();
                     $this->addLine(ESP.ESP.$vPHP.' = $objVo->get'.ucfirst($v).'();');
-                    $this->addLine(ESP.ESP.$vPHP.' = SqlHelper::attributeIsset('.$vPHP.',\' '.$v.' =\',\'\');');
+                    $this->addLine(ESP.ESP.$vPHP.' = SqlHelper::attributeIsset('.$vPHP.',\' '.$v.' =\'.'.$vPHP.',\'\');');
                     $this->addLine(ESP.ESP.'$parameters = $parameters.'.$vPHP.';');
                 }
             }            
@@ -409,13 +409,13 @@ class TCreateDAO extends TCreateFileContent
                     $vPHP = '$'.$v;
                     $this->addBlankLine();
                     $this->addLine(ESP.ESP.$vPHP.' = $objVo->get'.ucfirst($v).'();');
-                    $this->addLine(ESP.ESP.$vPHP.' = SqlHelper::attributeIsset('.$vPHP.',\' , @'.$v.' =\',\'\');');
+                    $this->addLine(ESP.ESP.$vPHP.' = SqlHelper::attributeIsset('.$vPHP.',\' , @'.$v.' =\'.'.$vPHP.',\'\');');
                     $this->addLine(ESP.ESP.'$parameters = $parameters.'.$vPHP.';');
                 }else{
                     $vPHP = '$'.$v;
                     $this->addBlankLine();
                     $this->addLine(ESP.ESP.$vPHP.' = $objVo->get'.ucfirst($v).'();');
-                    $this->addLine(ESP.ESP.$vPHP.' = SqlHelper::attributeIsset('.$vPHP.',\' @'.$v.' =\',\'\');');
+                    $this->addLine(ESP.ESP.$vPHP.' = SqlHelper::attributeIsset('.$vPHP.',\' @'.$v.' =\'.'.$vPHP.',\'\');');
                     $this->addLine(ESP.ESP.'$parameters = $parameters.'.$vPHP.';');
                 }
             }
