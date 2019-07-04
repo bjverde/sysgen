@@ -283,8 +283,9 @@ class TCreateForm extends TCreateFileContent
     {
         $NUM_LENGTH = self::getColumnsPropertieNumLength($key);
         $NUM_SCALE  = self::getColumnsPropertieNumScale($key);
+        $fieldLabel = EasyLabel::convertLabel($fieldName, self::FORMDIN_TYPE_NUMBER);
         
-        $this->addLine('$frm->addNumberField(\''.$fieldName.'\', \''.$fieldName.'\','.$NUM_LENGTH.','.$REQUIRED.','.$NUM_SCALE.');');
+        $this->addLine('$frm->addNumberField(\''.$fieldName.'\', \''.$fieldLabel.'\','.$NUM_LENGTH.','.$REQUIRED.','.$NUM_SCALE.');');
         $this->addFieldTypeToolTip($key, $fieldName);
     }
     //--------------------------------------------------------------------------------------
@@ -328,7 +329,7 @@ class TCreateForm extends TCreateFileContent
     }
     //--------------------------------------------------------------------------------------
     private function addFieldNumberOrForeignKey($key, $fieldName, $REQUIRED)
-    {
+    {        
         $KEY_TYPE   = self::getColumnsPropertieKeyType($key);
         if ($KEY_TYPE != TableInfo::KEY_TYPE_FK) {
             $this->addFieldNumber($key, $fieldName, $REQUIRED);
@@ -360,17 +361,19 @@ class TCreateForm extends TCreateFileContent
 
         switch ($formDinType) {
             case self::FORMDIN_TYPE_DATE:
-                $this->addLine('$frm->addDateField(\''.$fieldName.'\', \''.$fieldName.'\','.$REQUIRED.');');
+                $fieldLabel = EasyLabel::convertLabel($fieldName, $formDinType);
+                $this->addLine('$frm->addDateField(\''.$fieldName.'\', \''.$fieldLabel.'\','.$REQUIRED.');');
                 $this->addFieldTypeToolTip($key, $fieldName);
                 break;
             case self::FORMDIN_TYPE_NUMBER:
                 $this->addFieldNumberOrForeignKey($key, $fieldName, $REQUIRED);
                 break;
             default:
+                $fieldLabel = EasyLabel::convertLabel($fieldName, $formDinType);
                 if ($CHAR_MAX < CHAR_MAX_TEXT_FIELD) {
-                    $this->addLine('$frm->addTextField(\''.$fieldName.'\', \''.$fieldName.'\','.$CHAR_MAX.','.$REQUIRED.','.$CHAR_MAX.');');
+                    $this->addLine('$frm->addTextField(\''.$fieldName.'\', \''.$fieldLabel.'\','.$CHAR_MAX.','.$REQUIRED.','.$CHAR_MAX.');');
                 } else {
-                    $this->addLine('$frm->addMemoField(\''.$fieldName.'\', \''.$fieldName.'\','.$CHAR_MAX.','.$REQUIRED.',80,3);');
+                    $this->addLine('$frm->addMemoField(\''.$fieldName.'\', \''.$fieldLabel.'\','.$CHAR_MAX.','.$REQUIRED.',80,3);');
                 }
                 $this->addFieldTypeToolTip($key, $fieldName);
         }
@@ -522,9 +525,16 @@ class TCreateForm extends TCreateFileContent
         //$this->addLine($qtdTab.'$gride->addColumn($primaryKey,\'id\',50,\'center\');');
         $this->addLine($qtdTab.'$gride->addColumn($primaryKey,\'id\');');
         if ($this->validateListColumnsName()) {
-            foreach ($this->listColumnsName as $value) {
-                //$this->addLine($qtdTab.'$gride->addColumn(\''.$value.'\',\''.$value.'\',50,\'center\');');
-                $this->addLine($qtdTab.'$gride->addColumn(\''.$value.'\',\''.$value.'\');');
+            foreach ($this->listColumnsName as $key => $value) {
+                /**
+                 * Esse ajuste do $key acontece em função do setListColunnsName descarta o primeiro
+                 * registro que assume ser a chave primaria.
+                 */
+                $keyColumns = $key+1;
+                $formDinType = self::getColumnsPropertieFormDinType($keyColumns);
+                
+                $fieldLabel = EasyLabel::convertLabel($value, $formDinType);
+                $this->addLine($qtdTab.'$gride->addColumn(\''.$value.'\',\''.$fieldLabel.'\');');
             }
         }
     }

@@ -49,6 +49,8 @@ final class Message
     const GRID_LIST_FK_COLUMN = 'Tipo Campo para FK';
     const GPX_TYPE_CONFIG     = 'Opções de Avançada';
     const GPX_TYPE_SYSTEM     = 'Tipo de sistema';
+    const GPX_EASYLABEL       = 'EasyLabel';
+    const FIELD_EASY_LABEL    = 'Deseja usar o Easy Label ?';
     const FIELD_TP_SYSTEM     = 'Qual tipo de sistema deseja gerar ?';
     const FIELD_LOGFILE_LABEL = 'Qual tipo de Log em arquivo (php_error.log) quer para o sistema?';
     const FIELD_LOGFILE_OPT00  = 'Nada será gravado no Log !!';
