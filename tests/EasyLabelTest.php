@@ -93,9 +93,19 @@ class EasyLabelTest extends TestCase
 	    $this->assertEquals($expected, $result);
 	}
 	
+	public function testConvertLabel_NotUse()
+	{
+	    $expected ='DSTIPO';
+	    $typeField = TCreateForm::FORMDIN_TYPE_TEXT;
+	    $stringLabel = 'DSTIPO';
+	    $_SESSION[APLICATIVO]['EASYLABEL'] = 'N';
+	    $result = EasyLabel::convertLabel($stringLabel, $typeField);
+	    $this->assertEquals($expected, $result);
+	}
+	
 	public function testConvertLabel_TypeDate_inclusao()
 	{
-	    $expected ='Data Inclusao';
+	    $expected ='Data Inclusão';
 	    $typeField = TCreateForm::FORMDIN_TYPE_DATE;
 	    $stringLabel = 'DTINCLUSAO';
 	    $_SESSION[APLICATIVO]['EASYLABEL'] = 'Y';
@@ -105,7 +115,7 @@ class EasyLabelTest extends TestCase
 	
 	public function testConvertLabel_TypeDate_altercao()
 	{
-	    $expected ='Data Alteracao';
+	    $expected ='Data Alteração';
 	    $typeField = TCreateForm::FORMDIN_TYPE_DATE;
 	    $stringLabel = 'DTALTERACAO';
 	    $_SESSION[APLICATIVO]['EASYLABEL'] = 'Y';
@@ -138,6 +148,56 @@ class EasyLabelTest extends TestCase
 	    $expected ='Descrição Tipo';
 	    $typeField = TCreateForm::FORMDIN_TYPE_TEXT;
 	    $stringLabel = 'DSTIPO';
+	    $_SESSION[APLICATIVO]['EASYLABEL'] = 'Y';
+	    $result = EasyLabel::convertLabel($stringLabel, $typeField);
+	    $this->assertEquals($expected, $result);
+	}
+	
+	public function testConvertLabel_EndSao()
+	{
+	    $expected ='Data Inclusão';
+	    $typeField = TCreateForm::FORMDIN_TYPE_DATE;
+	    $stringLabel = 'DTINCLUSAO';
+	    $_SESSION[APLICATIVO]['EASYLABEL'] = 'Y';
+	    $result = EasyLabel::convertLabel($stringLabel, $typeField);
+	    $this->assertEquals($expected, $result);
+	}
+	
+	public function testConvertLabel_EndCao()
+	{
+	    $expected ='Data Alteração';
+	    $typeField = TCreateForm::FORMDIN_TYPE_DATE;
+	    $stringLabel = 'DTALTERACAO';
+	    $_SESSION[APLICATIVO]['EASYLABEL'] = 'Y';
+	    $result = EasyLabel::convertLabel($stringLabel, $typeField);
+	    $this->assertEquals($expected, $result);
+	}
+	
+	public function testConvertLabel_idPessoa()
+	{
+	    $expected ='id Pessoa';
+	    $typeField = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $stringLabel = 'IDPESSOA';
+	    $_SESSION[APLICATIVO]['EASYLABEL'] = 'Y';
+	    $result = EasyLabel::convertLabel($stringLabel, $typeField);
+	    $this->assertEquals($expected, $result);
+	}
+	
+	public function testConvertLabel_idAcao()
+	{
+	    $expected ='id Ação';
+	    $typeField = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $stringLabel = 'IDACAO';
+	    $_SESSION[APLICATIVO]['EASYLABEL'] = 'Y';
+	    $result = EasyLabel::convertLabel($stringLabel, $typeField);
+	    $this->assertEquals($expected, $result);
+	}
+	
+	public function testConvertLabel_st()
+	{
+	    $expected ='Status Ação';
+	    $typeField = TCreateForm::FORMDIN_TYPE_TEXT;
+	    $stringLabel = 'STACAO';
 	    $_SESSION[APLICATIVO]['EASYLABEL'] = 'Y';
 	    $result = EasyLabel::convertLabel($stringLabel, $typeField);
 	    $this->assertEquals($expected, $result);

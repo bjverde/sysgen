@@ -53,6 +53,18 @@ class EasyLabel
         return $result;
     }
     //--------------------------------------------------------------------------------------
+    public static function convert_st($stringLabel,$typeField)
+    {
+        $result = $stringLabel;
+        if($typeField == TCreateForm::FORMDIN_TYPE_TEXT){
+            $result = preg_replace('/(ST)(\w)/', '$2', $stringLabel);
+            if($result != $stringLabel){
+                $result = 'Status '.ucfirst(strtolower($result));
+            }
+        }
+        return $result;
+    }
+    //--------------------------------------------------------------------------------------
     public static function convert_qt($stringLabel,$typeField)
     {
         $result = $stringLabel;
@@ -62,6 +74,30 @@ class EasyLabel
                 $result = 'Quantidade '.ucfirst(strtolower($result));
             }
         }
+        return $result;
+    }
+    //--------------------------------------------------------------------------------------
+    public static function convert_id($stringLabel,$typeField)
+    {
+        $result = $stringLabel;
+        if($typeField == TCreateForm::FORMDIN_TYPE_NUMBER){
+            $result = preg_replace('/(ID)(\w)/', '$2', $stringLabel);
+            if($result != $stringLabel){
+                $result = 'id '.ucfirst(strtolower($result));
+            }
+        }
+        return $result;
+    }
+    //--------------------------------------------------------------------------------------
+    public static function convert_sao($stringLabel)
+    {
+        $result = preg_replace('/(\w)(sao)/', '$1são', $stringLabel);
+        return $result;
+    }
+    //--------------------------------------------------------------------------------------
+    public static function convert_cao($stringLabel)
+    {
+        $result = preg_replace('/(\w)(cao)/', '$1ção', $stringLabel);
         return $result;
     }
     //--------------------------------------------------------------------------------------
@@ -75,12 +111,16 @@ class EasyLabel
                 break;
                 case TCreateForm::FORMDIN_TYPE_NUMBER:
                     $stringLabel = self::convert_qt($stringLabel,$typeField);
+                    $stringLabel = self::convert_id($stringLabel,$typeField);
                     break;
                 case TCreateForm::FORMDIN_TYPE_TEXT:
                     $stringLabel = self::convert_nm($stringLabel,$typeField);
                     $stringLabel = self::convert_ds($stringLabel,$typeField);
+                    $stringLabel = self::convert_st($stringLabel,$typeField);
                 break;
             }
+            $stringLabel = self::convert_sao($stringLabel);
+            $stringLabel = self::convert_cao($stringLabel);
         }
         return $stringLabel;
     }
