@@ -202,5 +202,15 @@ class EasyLabelTest extends TestCase
 	    $result = EasyLabel::convertLabel($stringLabel, $typeField);
 	    $this->assertEquals($expected, $result);
 	}
+	
+	public function testConvertLabel_nr()
+	{
+	    $expected ='Número Otrs';
+	    $typeField = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $stringLabel = 'NROTRS';
+	    $_SESSION[APLICATIVO]['EASYLABEL'] = 'Y';
+	    $result = EasyLabel::convertLabel($stringLabel, $typeField);
+	    $this->assertEquals($expected, $result);
+	}
 
 }

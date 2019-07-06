@@ -89,6 +89,18 @@ class EasyLabel
         return $result;
     }
     //--------------------------------------------------------------------------------------
+    public static function convert_nr($stringLabel,$typeField)
+    {
+        $result = $stringLabel;
+        if($typeField == TCreateForm::FORMDIN_TYPE_NUMBER){
+            $result = preg_replace('/(NR)(\w)/', '$2', $stringLabel);
+            if($result != $stringLabel){
+                $result = 'Número '.ucfirst(strtolower($result));
+            }
+        }
+        return $result;
+    }
+    //--------------------------------------------------------------------------------------
     public static function convert_sao($stringLabel)
     {
         $result = preg_replace('/(\w)(sao)/', '$1são', $stringLabel);
@@ -112,7 +124,8 @@ class EasyLabel
                 case TCreateForm::FORMDIN_TYPE_NUMBER:
                     $stringLabel = self::convert_qt($stringLabel,$typeField);
                     $stringLabel = self::convert_id($stringLabel,$typeField);
-                    break;
+                    $stringLabel = self::convert_nr($stringLabel,$typeField);
+                break;
                 case TCreateForm::FORMDIN_TYPE_TEXT:
                     $stringLabel = self::convert_nm($stringLabel,$typeField);
                     $stringLabel = self::convert_ds($stringLabel,$typeField);
