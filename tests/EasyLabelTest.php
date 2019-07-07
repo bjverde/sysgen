@@ -193,6 +193,16 @@ class EasyLabelTest extends TestCase
 	    $this->assertEquals($expected, $result);
 	}
 	
+	public function testConvertLabel_idUnidade()
+	{
+	    $expected ='id Unidade';
+	    $typeField = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $stringLabel = 'IDUNIDADE';
+	    $_SESSION[APLICATIVO]['EASYLABEL'] = 'Y';
+	    $result = EasyLabel::convertLabel($stringLabel, $typeField);
+	    $this->assertEquals($expected, $result);
+	}
+	
 	public function testConvertLabel_st()
 	{
 	    $expected ='Status Ação';

@@ -21,7 +21,7 @@ class EasyLabel
     {
         $result = $stringLabel;
         if($typeField == TCreateForm::FORMDIN_TYPE_DATE){
-            $result = preg_replace('/(DT)(\w)/', '$2', $stringLabel);
+            $result = preg_replace('/(^DT)(\w+)/', '$2', $stringLabel);
             if($result != $stringLabel){
                 $result = 'Data '.ucfirst(strtolower($result));
             }            
@@ -33,7 +33,7 @@ class EasyLabel
     {
         $result = $stringLabel;
         if($typeField == TCreateForm::FORMDIN_TYPE_TEXT){
-            $result = preg_replace('/(NM)(\w)/', '$2', $stringLabel);
+            $result = preg_replace('/(^NM)(\w+)/', '$2', $stringLabel);
             if($result != $stringLabel){
                 $result = 'Nome '.ucfirst(strtolower($result));
             } 
@@ -45,7 +45,7 @@ class EasyLabel
     {
         $result = $stringLabel;
         if($typeField == TCreateForm::FORMDIN_TYPE_TEXT){
-            $result = preg_replace('/(DS)(\w)/', '$2', $stringLabel);
+            $result = preg_replace('/(^DS)(\w+)/', '$2', $stringLabel);
             if($result != $stringLabel){
                 $result = 'Descrição '.ucfirst(strtolower($result));
             }
@@ -57,7 +57,7 @@ class EasyLabel
     {
         $result = $stringLabel;
         if($typeField == TCreateForm::FORMDIN_TYPE_TEXT){
-            $result = preg_replace('/(ST)(\w)/', '$2', $stringLabel);
+            $result = preg_replace('/(^ST)(\w+)/', '$2', $stringLabel);
             if($result != $stringLabel){
                 $result = 'Status '.ucfirst(strtolower($result));
             }
@@ -69,7 +69,7 @@ class EasyLabel
     {
         $result = $stringLabel;
         if($typeField == TCreateForm::FORMDIN_TYPE_NUMBER){
-            $result = preg_replace('/(QT)(\w)/', '$2', $stringLabel);
+            $result = preg_replace('/(^QT)(\w+)/', '$2', $stringLabel);
             if($result != $stringLabel){
                 $result = 'Quantidade '.ucfirst(strtolower($result));
             }
@@ -81,7 +81,7 @@ class EasyLabel
     {
         $result = $stringLabel;
         if($typeField == TCreateForm::FORMDIN_TYPE_NUMBER){
-            $result = preg_replace('/(ID)(\w)/', '$2', $stringLabel);
+            $result = preg_replace('/(^ID)(\w+)/', '$2', $stringLabel);
             if($result != $stringLabel){
                 $result = 'id '.ucfirst(strtolower($result));
             }
@@ -93,7 +93,7 @@ class EasyLabel
     {
         $result = $stringLabel;
         if($typeField == TCreateForm::FORMDIN_TYPE_NUMBER){
-            $result = preg_replace('/(NR)(\w)/', '$2', $stringLabel);
+            $result = preg_replace('/(^NR)(\w+)/', '$2', $stringLabel);
             if($result != $stringLabel){
                 $result = 'Número '.ucfirst(strtolower($result));
             }
