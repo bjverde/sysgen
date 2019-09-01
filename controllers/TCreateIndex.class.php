@@ -35,8 +35,10 @@ class TCreateIndex extends TCreateFileContent
         $this->addLine('require_once(\'dao/autoload_'.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].'_dao.php\');');
         $this->addBlankLine();
         $this->addBlankLine();
-        $this->addLine('$app = new TApplication(); // criar uma instancia do objeto aplicacao');        
-        $this->addLine('$app->setAppRootDir(__DIR__);');
+        $this->addLine('define(\'ROOT_FOLDER\'     , basename(__DIR__)); //Folder root name');
+        $this->addBlankLine();
+        $this->addLine('$app = new TApplication(); //criar uma instancia do objeto aplicacao');        
+        $this->addLine('$app->setAppRootDir(__DIR__); //Caminho completo no sistema operacional');
         $this->addLine('$app->setFormDinMinimumVersion(FORMDIN_VERSION_MIN_VERSION);');
         $this->addLine('//$app->setTitleTag(SYSTEM_NAME); //Title Header Page HTML');
         $this->addLine('$app->setTitle(SYSTEM_NAME);  //Title Header System');
@@ -44,6 +46,7 @@ class TCreateIndex extends TCreateFileContent
         $this->addLine('$app->setSigla(SYSTEM_ACRONYM);');
         $this->addLine('$app->setVersionSystem(SYSTEM_VERSION);');
         $this->addLine('//$app->setFavIcon(\'../base/imagens/favicon-16x16.png\');');
+        $this->addLine('//$app->setCssDefaultFormFile(\'css/css_form_default.css\');');
         $this->addBlankLine();
         if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != TGeneratorHelper::TP_SYSTEM_REST ){
             $this->addLine('$app->setMainMenuFile(\'includes/menu.php\');');
