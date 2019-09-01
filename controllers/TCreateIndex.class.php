@@ -45,7 +45,15 @@ class TCreateIndex extends TCreateFileContent
         //$this->addLine('$app->setSUbTitle(SYSTEM_NAME_SUB);');
         $this->addLine('$app->setSigla(SYSTEM_ACRONYM);');
         $this->addLine('$app->setVersionSystem(SYSTEM_VERSION);');
+        
+        $this->addLine('//Customização simples https://github.com/bjverde/formDin/wiki/Layout-e-CSS#customiza%C3%A7%C3%A3o-simples');
+        $this->addLine('//$app->setLoginFile(\'includes/tela_login.php\'); //Tela de login');
+        $this->addLine('//$app->setLoginInfo(\'Bem-vindo\'); //Info usuario logado');
         $this->addLine('//$app->setFavIcon(\'../base/imagens/favicon-16x16.png\');');
+        $this->addLine('//$app->setImgLogoPath(\'images/logo.png\'); //Logo APP');
+        $this->addLine('//$app->setWaterMark(\'fundo.png\'); //Imagem no centro');
+        $this->addLine('//$app->setBackgroundImage(\'../imagens/bg_blackmosaic.png\'); // Imagem de Fundo');
+        $this->addLine('//$app->setImgLogoPath(\'images/logo.png\'); //Logo APP');        
         $this->addLine('//$app->setCssDefaultFormFile(\'css/css_form_default.css\');');
         $this->addBlankLine();
         if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != TGeneratorHelper::TP_SYSTEM_REST ){
