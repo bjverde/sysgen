@@ -59,6 +59,7 @@ class TCreateIndex extends TCreateFileContent
         if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != TGeneratorHelper::TP_SYSTEM_REST ){
             $this->addLine('$app->setMainMenuFile(\'includes/menu.php\');');
         }
+        $this->addLine('//$app->setDefaultModule(\'tela_inicial.php\'); //Tela padrão que será carregada');
         $this->addLine('$app->run();');
         $this->addLine('?>');
         if ($print) {
