@@ -75,9 +75,9 @@ class CreateControllers extends TCreateFileContent
     {
         $this->addLine(ESP.'private $dao = null;');
         $this->addBlankLine();
-        $this->addLine(ESP.'public function __construct()');
+        $this->addLine(ESP.'public function __construct($tpdo = null)');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$this->dao = new '.$this->tableRefDAO.'();');
+        $this->addLine(ESP.ESP.'$this->dao = new '.$this->tableRefDAO.'($tpdo);');
         $this->addLine(ESP.'}');
         $this->addLine(ESP.'public function getDao()');
         $this->addLine(ESP.'{');

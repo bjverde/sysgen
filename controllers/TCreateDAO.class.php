@@ -430,8 +430,15 @@ class TCreateDAO extends TCreateFileContent
     {
         $this->addLine(ESP.'private $tpdo = null;');
         $this->addBlankLine();
-        $this->addLine(ESP.'public function __construct() {');
-        $this->addLine(ESP.ESP.'$tpdo = New TPDOConnectionObj();');
+        $this->addLine(ESP.'public function __construct($tpdo=null) {');
+        $this->addBlankLine();
+        $this->addLine(ESP.ESP.'$typeObjWrong = !($tpdo instanceof TPDOConnectionObj);');
+        $this->addLine(ESP.ESP.'if( !is_null($tpdo) && $typeObjWrong ){');
+        $this->addLine(ESP.ESP.ESP.'throw new InvalidArgumentException(\'class:\'.__METHOD__);');
+        $this->addLine(ESP.ESP.'}');
+        $this->addLine(ESP.ESP.'if( empty($tpdo) ){');
+        $this->addLine(ESP.ESP.ESP.'$tpdo = New TPDOConnectionObj();');
+        $this->addLine(ESP.ESP.'}');
         $this->addLine(ESP.ESP.'$this->setTPDOConnection($tpdo);');
         $this->addLine(ESP.'}');
         $this->addLine(ESP.'public function getTPDOConnection()');
