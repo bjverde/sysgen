@@ -42,7 +42,7 @@ class TCreateIndex extends TCreateFileContent
         $this->addLine('$app->setFormDinMinimumVersion(FORMDIN_VERSION_MIN_VERSION);');
         $this->addLine('//$app->setTitleTag(SYSTEM_NAME); //Title Header Page HTML');
         $this->addLine('$app->setTitle(SYSTEM_NAME);  //Title Header System');
-        //$this->addLine('$app->setSUbTitle(SYSTEM_NAME_SUB);');
+        $this->addLine('//$app->setSUbTitle(SYSTEM_NAME_SUB);');
         $this->addLine('$app->setSigla(SYSTEM_ACRONYM);');
         $this->addLine('$app->setVersionSystem(SYSTEM_VERSION);');
         
@@ -51,7 +51,7 @@ class TCreateIndex extends TCreateFileContent
         $this->addLine('//$app->setLoginInfo(\'Bem-vindo\'); //Info usuario logado');
         $this->addLine('//$app->setFavIcon(\'../base/imagens/favicon-16x16.png\');');
         $this->addLine('//$app->setImgLogoPath(\'images/logo.png\'); //Logo APP');
-        $this->addLine('//$app->setWaterMark(\'fundo.png\'); //Imagem no centro');
+        $this->addLine('$app->setWaterMark(\'formdin_logo.png\'); //Imagem no centro');
         $this->addLine('//$app->setBackgroundImage(\'../imagens/bg_blackmosaic.png\'); // Imagem de Fundo');
         $this->addLine('//$app->setImgLogoPath(\'images/logo.png\'); //Logo APP');        
         $this->addLine('//$app->setCssDefaultFormFile(\'css/css_form_default.css\');');

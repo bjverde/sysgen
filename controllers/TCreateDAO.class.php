@@ -430,12 +430,9 @@ class TCreateDAO extends TCreateFileContent
     {
         $this->addLine(ESP.'private $tpdo = null;');
         $this->addBlankLine();
-        $this->addLine(ESP.'public function __construct($tpdo=null) {');
-        $this->addBlankLine();
-        $this->addLine(ESP.ESP.'$typeObjWrong = !($tpdo instanceof TPDOConnectionObj);');
-        $this->addLine(ESP.ESP.'if( !is_null($tpdo) && $typeObjWrong ){');
-        $this->addLine(ESP.ESP.ESP.'throw new InvalidArgumentException(\'class:\'.__METHOD__);');
-        $this->addLine(ESP.ESP.'}');
+        $this->addLine(ESP.'public function __construct($tpdo=null)');
+        $this->addLine(ESP.'{');
+        $this->addLine(ESP.ESP.'$this->validateObjType($tpdo);');
         $this->addLine(ESP.ESP.'if( empty($tpdo) ){');
         $this->addLine(ESP.ESP.ESP.'$tpdo = New TPDOConnectionObj();');
         $this->addLine(ESP.ESP.'}');
@@ -445,10 +442,18 @@ class TCreateDAO extends TCreateFileContent
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'return $this->tpdo;');
         $this->addLine(ESP.'}');
-        $this->addLine(ESP.'public function setTPDOConnection($TPDOConnection)');
+        $this->addLine(ESP.'public function setTPDOConnection($tpdo)');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$this->tpdo = $TPDOConnection;');
+        $this->addLine(ESP.ESP.'$this->validateObjType($tpdo);');
+        $this->addLine(ESP.ESP.'$this->tpdo = $tpdo;');
         $this->addLine(ESP.'}');
+        $this->addLine(ESP.'public function validateObjType($tpdo)');
+        $this->addLine(ESP.'{');
+        $this->addLine(ESP.ESP.'$typeObjWrong = !($tpdo instanceof TPDOConnectionObj);');
+        $this->addLine(ESP.ESP.'if( !is_null($tpdo) && $typeObjWrong ){');
+        $this->addLine(ESP.ESP.ESP.'throw new InvalidArgumentException(\'class:\'.__METHOD__);');
+        $this->addLine(ESP.ESP.'}');
+        $this->addLine(ESP.'}');        
     }
     //--------------------------------------------------------------------------------------
     public function show($print = false)
