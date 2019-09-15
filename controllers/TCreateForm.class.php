@@ -622,6 +622,7 @@ class TCreateForm extends TCreateFileContent
     public function addGridPagination_jsScript_init()
     {
         $this->addLine('function init() {');
+        $this->addLine(ESP.'//fwFullScreen(); //Habilitar iniciar maximizado');
         $this->addGridPagination_jsScript_init_allparameters(ESP);
         $this->addLine(ESP.'fwGetGrid(\''.$this->getFormFileName().'\',\'gride\',Parameters,true);');
         $this->addLine('}');
