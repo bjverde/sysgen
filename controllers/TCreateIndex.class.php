@@ -26,13 +26,13 @@ class TCreateIndex extends TCreateFileContent
         $this->addLine('<?php');
         $this->addSysGenHeaderNote();
         $this->addBlankLine();
-        $this->addLine('require_once(\'includes/constantes.php\');');
-        $this->addLine('require_once(\'includes/config_conexao.php\');');
+        $this->addLine('require_once \'includes/constantes.php\';');
+        $this->addLine('require_once \'includes/config_conexao.php\';');
         $this->addBlankLine();
         $this->addLine('//FormDin version: '.FORMDIN_VERSION);
-        $this->addLine('require_once(\'../base/classes/webform/TApplication.class.php\');');
-        $this->addLine('require_once(\'controllers/autoload_'.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].'.php\');');
-        $this->addLine('require_once(\'dao/autoload_'.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].'_dao.php\');');
+        $this->addLine('require_once \'../base/classes/webform/TApplication.class.php\';');
+        $this->addLine('require_once \'controllers/autoload_'.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].'.php\';');
+        $this->addLine('require_once \'dao/autoload_'.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].'_dao.php\';');
         $this->addBlankLine();
         $this->addBlankLine();
         $this->addLine('define(\'ROOT_FOLDER\'     , basename(__DIR__)); //Folder root name');
