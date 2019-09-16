@@ -522,7 +522,7 @@ class TCreateForm extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     public function addColumnsGrid($qtdTab)
     {
-        //$this->addLine($qtdTab.'$gride->addColumn($primaryKey,\'id\',50,\'center\');');
+        $this->addLine($qtdTab.'$gride->addRowNumColumn(); //Mostra Numero da linha');
         $this->addLine($qtdTab.'$gride->addColumn($primaryKey,\'id\');');
         if ($this->validateListColumnsName()) {
             foreach ($this->listColumnsName as $key => $value) {
