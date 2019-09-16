@@ -13,7 +13,7 @@
 define('SYSTEM_NAME', 'SysGen - Scaffold Generator System with FormDin');
 define('SYSTEM_NAME_SUB', 'write less, do more. But "Talk is Cheap. Show me the Code"! ');
 define('SYSTEM_ACRONYM', 'sysGen');
-define('SYSTEM_VERSION', '1.9.0-alpha');
+define('SYSTEM_VERSION', '1.9.0');
 define('APLICATIVO', SYSTEM_ACRONYM);
 define('ROOT_PATH', '../');
 define('CHAR_MAX_TEXT_FIELD', 101);
