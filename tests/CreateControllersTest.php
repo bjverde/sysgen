@@ -49,9 +49,9 @@ class CreateControllersTest extends TestCase
 	    $expected = array();
 	    $expected[] = ESP.'private $dao = null;'.EOL;
 		$expected[] = EOL;
-		$expected[] = ESP.'public function __construct()'.EOL;
+		$expected[] = ESP.'public function __construct($tpdo = null)'.EOL;
 		$expected[] = ESP.'{'.EOL;
-		$expected[] = ESP.ESP.'$this->dao = new TestDAO();'.EOL;
+		$expected[] = ESP.ESP.'$this->dao = new TestDAO($tpdo);'.EOL;
 		$expected[] = ESP.'}'.EOL;
 		
 		$this->create->addConstruct();

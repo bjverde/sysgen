@@ -200,7 +200,7 @@ class TCreateDAOTest extends TestCase
 	}
 
 	public function testAddConstruct_numLines(){
-	    $expectedQtd = 14;
+	    $expectedQtd = 26;
 		
 		$this->create->addConstruct();
 	    $resultArray = $this->create->getLinesArray();
@@ -212,8 +212,12 @@ class TCreateDAOTest extends TestCase
 	    $expected = array();
 	    $expected[] = ESP.'private $tpdo = null;'.EOL;
 		$expected[] = EOL;
-		$expected[] = ESP.'public function __construct() {'.EOL;
-		$expected[] = ESP.ESP.'$tpdo = New TPDOConnectionObj();'.EOL;
+		$expected[] = ESP.'public function __construct($tpdo=null)'.EOL;
+		$expected[] = ESP.'{'.EOL;
+		$expected[] = ESP.ESP.'$this->validateObjType($tpdo);'.EOL;
+		$expected[] = ESP.ESP.'if( empty($tpdo) ){'.EOL;
+		$expected[] = ESP.ESP.ESP.'$tpdo = New TPDOConnectionObj();'.EOL;
+		$expected[] = ESP.ESP.'}'.EOL;
 		$expected[] = ESP.ESP.'$this->setTPDOConnection($tpdo);'.EOL;
 		$expected[] = ESP.'}'.EOL;
 		$expected[] = ESP.'public function getTPDOConnection()'.EOL;
@@ -230,7 +234,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_VIEW_numLines(){
-	    $expectedQtd = 92;
+	    $expectedQtd = 104;
 	    
 	    $this->create->setTableType(TableInfo::TB_TYPE_VIEW);
 	    $resultArray = $this->create->show('array');
@@ -239,7 +243,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_VIEW_GRID_SQL_numLines(){
-	    $expectedQtd = 105;
+	    $expectedQtd = 117;
 	    
 	    $this->create->setWithSqlPagination(GRID_SQL_PAGINATION);
 	    $this->create->setTableType(TableInfo::TB_TYPE_VIEW);
@@ -249,7 +253,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_TABLE_numLines(){
-	    $expectedQtd = 131;	    
+	    $expectedQtd = 143;	    
 	    
 	    $this->create->setTableType(TableInfo::TB_TYPE_TABLE);
 	    $resultArray = $this->create->show('array');
@@ -258,7 +262,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_TABLE_GRID_SQL_numLines(){
-	    $expectedQtd = 144;
+	    $expectedQtd = 156;
 	    
 	    $this->create->setTableType(TableInfo::TB_TYPE_TABLE);
 	    $this->create->setWithSqlPagination(GRID_SQL_PAGINATION);

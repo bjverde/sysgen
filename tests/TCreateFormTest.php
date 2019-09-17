@@ -200,7 +200,7 @@ class TCreateFormTest extends TestCase
 	}
 	
 	public function testShow_GridSimple_numlines(){
-	    $expectedQtd = 22;
+	    $expectedQtd = 23;
 	    
 	    $this->create->setGridType(GRID_SIMPLE);
 	    $this->create->setTableType(TableInfo::TB_TYPE_TABLE);
@@ -236,7 +236,7 @@ class TCreateFormTest extends TestCase
 	
 	
 	public function testShow_GridSqlPaginator_numlines(){
-	    $expectedQtd = 63;
+	    $expectedQtd = 65;
 	    
 	    $this->create->setGridType(GRID_SQL_PAGINATION);
 	    $this->create->setTableType(TableInfo::TB_TYPE_TABLE);
@@ -248,7 +248,7 @@ class TCreateFormTest extends TestCase
 	}	
 	
 	public function testShow_GridScreenPaginator_numlines(){
-	    $expectedQtd = 61;
+	    $expectedQtd = 63;
 	    
 	    $this->create->setGridType(GRID_SCREEN_PAGINATION);
 	    $this->create->setTableType(TableInfo::TB_TYPE_TABLE);
@@ -260,7 +260,7 @@ class TCreateFormTest extends TestCase
 	}
 	
 	public function testShow_VIEW_numLines(){
-	    $expectedQtd = 99;
+	    $expectedQtd = 101;
 	    
 	    $this->create->setTableType(TableInfo::TB_TYPE_VIEW);
 	    $resultArray = $this->create->show('array');
@@ -269,7 +269,7 @@ class TCreateFormTest extends TestCase
 	}
 	
 	public function testShow_VIEW_GridSqlPagination_numLines(){
-	    $expectedQtd = 103;
+	    $expectedQtd = 105;
 	    
 	    $this->create->setGridType(GRID_SQL_PAGINATION);
 	    $this->create->setTableType(TableInfo::TB_TYPE_VIEW);
@@ -279,7 +279,7 @@ class TCreateFormTest extends TestCase
 	}
 	
 	public function testShow_TABLE_numLines(){
-	    $expectedQtd = 98;	    
+	    $expectedQtd = 100;	    
 	    
 	    $resultArray = $this->create->show('array');
 	    $size = CountHelper::count($resultArray);
@@ -287,7 +287,7 @@ class TCreateFormTest extends TestCase
 	}
 	
 	public function testShow_TABLE_GridSqlPagination_numLines(){
-	    $expectedQtd = 102;
+	    $expectedQtd = 104;
 	    
 	    $this->create->setGridType(GRID_SQL_PAGINATION);
 	    $resultArray = $this->create->show('array');
