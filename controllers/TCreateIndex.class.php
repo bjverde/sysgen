@@ -51,9 +51,9 @@ class TCreateIndex extends TCreateFileContent
         $this->addLine('//$app->setLoginInfo(\'Bem-vindo\'); //Info usuario logado');
         $this->addLine('//$app->setFavIcon(\'../base/imagens/favicon-16x16.png\');');
         $this->addLine('//$app->setImgLogoPath(\'images/logo.png\'); //Logo APP');
-        $this->addLine('$app->setWaterMark(\'formdin_logo.png\'); //Imagem no centro');
+        $this->addLine('$app->setWaterMark(\'formdin_logo.png\'); //Imagem no centro');        
         $this->addLine('//$app->setBackgroundImage(\'../imagens/bg_blackmosaic.png\'); // Imagem de Fundo');
-        $this->addLine('//$app->setImgLogoPath(\'images/logo.png\'); //Logo APP');        
+        $this->addLine('//$app->setMenuTheme("modern_blue"); // Tema do Menu');
         $this->addLine('//$app->setCssDefaultFormFile(\'css/css_form_default.css\');');
         $this->addBlankLine();
         if( $_SESSION[APLICATIVO][TableInfo::TP_SYSTEM] != TGeneratorHelper::TP_SYSTEM_REST ){
