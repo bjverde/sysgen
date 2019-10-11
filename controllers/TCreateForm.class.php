@@ -421,7 +421,7 @@ class TCreateForm extends TCreateFileContent
         $this->addLine(ESP.ESP.ESP.ESP.'$controller = new '.$this->tableRefClass.'();');
         $this->addLine(ESP.ESP.ESP.ESP.'$resultado = $controller->save( $vo );');
         $this->addLine(ESP.ESP.ESP.ESP.'if($resultado==1) {');
-        $this->addLine(ESP.ESP.ESP.ESP.ESP.'$frm->addMessage(\'Registro gravado com sucesso!!!\');');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.'$frm->addMessage(Message::GENERIC_SAVE);');
         $this->addLine(ESP.ESP.ESP.ESP.ESP.'$frm->clearFields();');
         $this->addLine(ESP.ESP.ESP.ESP.'}else{');
         $this->addLine(ESP.ESP.ESP.ESP.ESP.'$frm->addMessage($resultado);');
@@ -458,7 +458,7 @@ class TCreateForm extends TCreateFileContent
         $this->addLine(ESP.ESP.ESP.'$controller = new '.$this->tableRefClass.'();');
         $this->addLine(ESP.ESP.ESP.'$resultado = $controller->delete( $id );');
         $this->addLine(ESP.ESP.ESP.'if($resultado==1) {');
-        $this->addLine(ESP.ESP.ESP.ESP.'$frm->addMessage(\'Registro excluido com sucesso!!!\');');
+        $this->addLine(ESP.ESP.ESP.ESP.'$frm->addMessage(Message::GENERIC_DELETE);');
         $this->addLine(ESP.ESP.ESP.ESP.'$frm->clearFields();');
         $this->addLine(ESP.ESP.ESP.'}else{');
         $this->addLine(ESP.ESP.ESP.ESP.'$frm->addMessage($resultado);');
