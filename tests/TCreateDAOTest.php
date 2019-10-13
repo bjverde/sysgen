@@ -87,9 +87,7 @@ class TCreateDAOTest extends TestCase
 	    $expected[] = ESP.'//--------------------------------------------------------------------------------'.EOL;
 	    $expected[] = ESP.'public function getVoById( $id )'.EOL;
 	    $expected[] = ESP.'{'.EOL;
-	    $expected[] = ESP.ESP.'if( empty($id) || !is_numeric($id) ){'.EOL;
-	    $expected[] = ESP.ESP.ESP.'throw new InvalidArgumentException(Message::TYPE_NOT_INT.\'class:\'.__METHOD__);'.EOL;
-	    $expected[] = ESP.ESP.'}'.EOL;
+	    $expected[] = ESP.ESP.'FormDinHelper::validateIdIsNumeric($id,__METHOD__,__LINE__);'.EOL;
 	    $expected[] = ESP.ESP.'$result = $this->selectById( $id );'.EOL;
 	    $expected[] = ESP.ESP.'$result = \ArrayHelper::convertArrayFormDin2Pdo($result,false);'.EOL;
 	    $expected[] = ESP.ESP.'$result = $result[0];'.EOL;
@@ -111,8 +109,6 @@ class TCreateDAOTest extends TestCase
 	    $this->assertSame($expected[8], $result[8]);
 	    $this->assertSame($expected[9], $result[9]);
 	    $this->assertSame($expected[10], $result[10]);
-	    $this->assertSame($expected[11], $result[11]);
-	    $this->assertSame($expected[12], $result[12]);
 	}
 	
 	public function testAddSqlSelectAll(){
@@ -164,7 +160,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testAddSqlDelete_numLines(){
-	    $expectedQtd = 10;
+	    $expectedQtd = 8;
 	    
 	    $this->create->addSqlDelete();
 	    $resultArray = $this->create->getLinesArray();
@@ -176,9 +172,7 @@ class TCreateDAOTest extends TestCase
 	    $expected = array();
 	    $expected[] = ESP.'public function delete( $id )'.EOL;
 	    $expected[] = ESP.'{'.EOL;
-	    $expected[] = ESP.ESP.'if( empty($id) || !is_numeric($id) ){'.EOL;
-	    $expected[] = ESP.ESP.ESP.'throw new InvalidArgumentException(Message::TYPE_NOT_INT.\'class:\'.__METHOD__);'.EOL;
-	    $expected[] = ESP.ESP.'}'.EOL;
+	    $expected[] = ESP.ESP.'FormDinHelper::validateIdIsNumeric($id,__METHOD__,__LINE__);'.EOL;
 	    $expected[] = ESP.ESP.'$values = array($id);'.EOL;
 	    $expected[] = ESP.ESP.'$sql = \'delete from test where idtest = ?\';'.EOL;
 	    $expected[] = ESP.ESP.'$result = $this->tpdo->executeSql($sql, $values);'.EOL;
@@ -195,8 +189,6 @@ class TCreateDAOTest extends TestCase
 	    $this->assertSame($expected[5], $result[5]);
 	    $this->assertSame($expected[6], $result[6]);
 	    $this->assertSame($expected[7], $result[7]);
-	    $this->assertSame($expected[8], $result[8]);
-	    $this->assertSame($expected[9], $result[9]);
 	}
 
 	public function testAddConstruct_numLines(){
@@ -234,7 +226,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_VIEW_numLines(){
-	    $expectedQtd = 97;
+	    $expectedQtd = 93;
 	    
 	    $this->create->setTableType(TableInfo::TB_TYPE_VIEW);
 	    $resultArray = $this->create->show('array');
@@ -243,7 +235,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_VIEW_GRID_SQL_numLines(){
-	    $expectedQtd = 110;
+	    $expectedQtd = 106;
 	    
 	    $this->create->setWithSqlPagination(GRID_SQL_PAGINATION);
 	    $this->create->setTableType(TableInfo::TB_TYPE_VIEW);
@@ -253,7 +245,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_TABLE_numLines(){
-	    $expectedQtd = 137;	    
+	    $expectedQtd = 131;	    
 	    
 	    $this->create->setTableType(TableInfo::TB_TYPE_TABLE);
 	    $resultArray = $this->create->show('array');
@@ -262,7 +254,7 @@ class TCreateDAOTest extends TestCase
 	}
 	
 	public function testShow_TABLE_GRID_SQL_numLines(){
-	    $expectedQtd = 150;
+	    $expectedQtd = 144;
 	    
 	    $this->create->setTableType(TableInfo::TB_TYPE_TABLE);
 	    $this->create->setWithSqlPagination(GRID_SQL_PAGINATION);

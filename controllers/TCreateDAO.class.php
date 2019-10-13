@@ -194,9 +194,7 @@ class TCreateDAO extends TCreateFileContent
     {
         $formDinType = $this->getColumnPKeyPropertieFormDinType();
         if ($formDinType == TCreateForm::FORMDIN_TYPE_NUMBER) {
-            $this->addLine($qtdESP.'if( empty($id) || !is_numeric($id) ){');
-            $this->addLine($qtdESP.ESP.'throw new InvalidArgumentException(Message::TYPE_NOT_INT.\'class:\'.__METHOD__);');
-            $this->addLine($qtdESP.'}');
+            $this->addLine($qtdESP.'FormDinHelper::validateIdIsNumeric($id,__METHOD__,__LINE__);');
         }
     }    
     //--------------------------------------------------------------------------------------
