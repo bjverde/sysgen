@@ -50,7 +50,7 @@ class TCreateIndex extends TCreateFileContent
         $this->addLine('//$app->setLoginFile(\'includes/tela_login.php\'); //Tela de login');
         $this->addLine('//$app->setLoginInfo(\'Bem-vindo\'); //Info usuario logado');
         $this->addLine('//$app->setFavIcon(\'../base/imagens/favicon-16x16.png\');');
-        $this->addLine('//$app->setImgLogoPath(\'images/logo.png\'); //Logo APP');
+        $this->addLine('$app->setImgLogoPath(\'images/app_logo.png\'); //Logo APP');
         $this->addLine('$app->setWaterMark(\'formdin_logo.png\'); //Imagem no centro');        
         $this->addLine('//$app->setBackgroundImage(\'../imagens/bg_blackmosaic.png\'); // Imagem de Fundo');
         $this->addLine('//$app->setMenuTheme("modern_blue"); // Tema do Menu');

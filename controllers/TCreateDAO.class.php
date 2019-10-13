@@ -332,7 +332,10 @@ class TCreateDAO extends TCreateFileContent
         }
         //$this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.') values (?'.str_repeat(',?',count($this->getColumns())-1 ).')\', $values );');
         $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.') values ('.$this->getParams().')\';');
-        $this->addExecuteSql(true);
+        //$this->addExecuteSql(true);
+        $this->addLine(ESP.ESP.'$result = $this->tpdo->executeSql($sql, $values);');
+        $this->addLine(ESP.ESP.'$result = $this->tpdo->getLastInsertId();');
+        $this->addLine(ESP.ESP.'return intval($result);');
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
@@ -363,7 +366,9 @@ class TCreateDAO extends TCreateFileContent
         }
         $param = $this->charParam;
         $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.'where '.$this->keyColumnName.' = '.$param.'\';');
-        $this->addExecuteSql(true);
+        //$this->addExecuteSql(true);
+        $this->addLine(ESP.ESP.'$result = $this->tpdo->executeSql($sql, $values);');
+        $this->addLine(ESP.ESP.'return intval($result);');
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
@@ -432,7 +437,7 @@ class TCreateDAO extends TCreateFileContent
         $this->addBlankLine();
         $this->addLine(ESP.'public function __construct($tpdo=null)');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$this->validateObjType($tpdo);');
+        $this->addLine(ESP.ESP.'FormDinHelper::validateObjTypeTPDOConnectionObj($tpdo,__METHOD__,__LINE__);');
         $this->addLine(ESP.ESP.'if( empty($tpdo) ){');
         $this->addLine(ESP.ESP.ESP.'$tpdo = New TPDOConnectionObj();');
         $this->addLine(ESP.ESP.'}');
@@ -444,15 +449,8 @@ class TCreateDAO extends TCreateFileContent
         $this->addLine(ESP.'}');
         $this->addLine(ESP.'public function setTPDOConnection($tpdo)');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$this->validateObjType($tpdo);');
+        $this->addLine(ESP.ESP.'FormDinHelper::validateObjTypeTPDOConnectionObj($tpdo,__METHOD__,__LINE__);');
         $this->addLine(ESP.ESP.'$this->tpdo = $tpdo;');
-        $this->addLine(ESP.'}');
-        $this->addLine(ESP.'public function validateObjType($tpdo)');
-        $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$typeObjWrong = !($tpdo instanceof TPDOConnectionObj);');
-        $this->addLine(ESP.ESP.'if( !is_null($tpdo) && $typeObjWrong ){');
-        $this->addLine(ESP.ESP.ESP.'throw new InvalidArgumentException(\'class:\'.__METHOD__);');
-        $this->addLine(ESP.ESP.'}');
         $this->addLine(ESP.'}');        
     }
     //--------------------------------------------------------------------------------------

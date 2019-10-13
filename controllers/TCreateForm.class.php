@@ -420,7 +420,7 @@ class TCreateForm extends TCreateFileContent
         $this->addLine(ESP.ESP.ESP.ESP.'$frm->setVo( $vo );');
         $this->addLine(ESP.ESP.ESP.ESP.'$controller = new '.$this->tableRefClass.'();');
         $this->addLine(ESP.ESP.ESP.ESP.'$resultado = $controller->save( $vo );');
-        $this->addLine(ESP.ESP.ESP.ESP.'if($resultado==1) {');
+        $this->addLine(ESP.ESP.ESP.ESP.'if( is_int($resultado) && $resultado!=0 ) {');
         $this->addLine(ESP.ESP.ESP.ESP.ESP.'$frm->addMessage(Message::GENERIC_SAVE);');
         $this->addLine(ESP.ESP.ESP.ESP.ESP.'$frm->clearFields();');
         $this->addLine(ESP.ESP.ESP.ESP.'}else{');
