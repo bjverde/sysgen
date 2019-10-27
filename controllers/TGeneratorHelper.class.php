@@ -446,6 +446,7 @@ class TGeneratorHelper
     
     public static function removeFieldsDuplicateOnSelectedTables($listFieldsTable)
     {
+        ArrayHelper::validateIsArray($listFieldsTable, __METHOD__, __LINE__);
         return $listFieldsTable;
     }
 

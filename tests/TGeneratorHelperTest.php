@@ -13,6 +13,7 @@
 $pathBase =  __DIR__.'/../../base/';
 require_once $pathBase.'classes/constants.php';
 require_once $pathBase.'classes/helpers/autoload_formdin_helper.php';
+require_once $pathBase.'classes/webform/autoload_formdin.php';
 
 $path =  __DIR__.'/../';
 require_once $path.'includes/constantes.php';
@@ -63,7 +64,7 @@ class TGeneratorHelperTest extends TestCase
                                             ,$KEY_TYPE
                                             ,$REFERENCED_TABLE_NAME
                                             ,$REFERENCED_COLUMN_NAME
-        )
+                                            )
     {
         $listFieldSelectedTable['COLUMN_NAME'][]=$COLUMN_NAME;
         $listFieldSelectedTable['KEY_TYPE'][]=$KEY_TYPE;
@@ -72,15 +73,47 @@ class TGeneratorHelperTest extends TestCase
         return $listFieldSelectedTable;
     }
     
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testRemoveFieldsDuplicateOnSelectedTable_FailNull()
+    {
+        $listFieldsTable = null;        
+        $this->assertNull( TGeneratorHelper::removeFieldsDuplicateOnSelectedTables($listFieldsTable) );
+    }
+    
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testRemoveFieldsDuplicateOnSelectedTable_FailArrayNull()
+    {
+        $listFieldsTable = array();
+        $this->assertNull( TGeneratorHelper::removeFieldsDuplicateOnSelectedTables($listFieldsTable) );
+    }
+    
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testRemoveFieldsDuplicateOnSelectedTable_FailString()
+    {
+        $listFieldsTable = 'xxx';
+        $this->assertNull( TGeneratorHelper::removeFieldsDuplicateOnSelectedTables($listFieldsTable) );
+    }
+    
+    
     public function testRemoveFieldsDuplicateOnSelectedTable_OkNoDuplicate()
     {
         $listFieldsTable = array();
         $listFieldsTable = $this->addRowFieldSelectedTable($listFieldsTable,'idCarro','PK',null,null);
         $listFieldsTable = $this->addRowFieldSelectedTable($listFieldsTable,'idMarca','FK','marca','idMarca');
+        $listFieldsTable = $this->addRowFieldSelectedTable($listFieldsTable,'nmCarro',null,null,null);
+        $listFieldsTable = $this->addRowFieldSelectedTable($listFieldsTable,'anoCarro',null,null,null);
+        
         $expected = $listFieldsTable;
+        
         $result = TGeneratorHelper::removeFieldsDuplicateOnSelectedTables($listFieldsTable);
-        $sizeResult = CountHelper::count($result);
-        $this->assertEquals( 2, $sizeResult);
+        $sizeResult = CountHelper::count($result['COLUMN_NAME']);
+        $this->assertEquals( 4, $sizeResult);
         $this->assertEquals($expected, $result);
     }
     
@@ -90,12 +123,18 @@ class TGeneratorHelperTest extends TestCase
         $listFieldsTable = $this->addRowFieldSelectedTable($listFieldsTable,'idCarro','PK',null,null);
         $listFieldsTable = $this->addRowFieldSelectedTable($listFieldsTable,'idMarca','FK','marca','idMarca');
         $listFieldsTable = $this->addRowFieldSelectedTable($listFieldsTable,'idMarca','UNIQUE','marca','idMarca');
+        $listFieldsTable = $this->addRowFieldSelectedTable($listFieldsTable,'nmCarro',null,null,null);
+        $listFieldsTable = $this->addRowFieldSelectedTable($listFieldsTable,'anoCarro',null,null,null);
+        
         $expected = array();
         $expected[0] = $listFieldsTable[0];
         $expected[1] = $listFieldsTable[1];
+        $expected[2] = $listFieldsTable[3];
+        $expected[3] = $listFieldsTable[4];
+        
         $result = TGeneratorHelper::removeFieldsDuplicateOnSelectedTables($listFieldsTable);
-        $sizeResult = CountHelper::count($result);
-        $this->assertEquals( 2, $sizeResult);
+        $sizeResult = CountHelper::count($result['COLUMN_NAME']);
+        $this->assertEquals( 4, $sizeResult);
         $this->assertEquals($expected, $result);
     }
     
