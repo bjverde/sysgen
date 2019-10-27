@@ -25,9 +25,7 @@ class MockFieldsOnSelectedTableVO
     private $referenced_column_name = null;
     private $table_schema = null;
     private $table_name = null;
-    private $table_catalog = null;
-    
-    
+    private $table_catalog = null;        
     
     public function __construct( $column_name=null
                                 , $required = null
@@ -54,8 +52,15 @@ class MockFieldsOnSelectedTableVO
         $this->setNum_scale(  $num_scale );
         $this->setColumn_comment( $column_comment );
         $this->setKey_type( $key_type );
+        $this->setAutoincrement($autoincrement);
+        $this->setColumn_default($column_default);
+        $this->setReferenced_table_name($referenced_table_name);
+        $this->setReferenced_column_name($referenced_column_name);
+        $this->setTable_schema($table_schema);
+        $this->setTable_name($table_name);
+        $this->setTable_catalog($table_catalog);
     }
-    //--------------------------------------------------------------------------------
+
     public function getColumn_name()
     {
         return $this->column_name;
@@ -136,80 +141,59 @@ class MockFieldsOnSelectedTableVO
     {
         $this->autoincrement = $autoincrement;
     }
-    //--------------------------------------------------------------------------------
+    
     public function getColumn_default()
     {
         return $this->column_default;
     }
-    public function getReferenced_table_name()
-    {
-        return $this->referenced_table_name;
-    }
-    public function getReferenced_column_name()
-    {
-        return $this->referenced_column_name;
-    }
-    public function getTable_schema()
-    {
-        return $this->table_schema;
-    }
-    public function getTable_name()
-    {
-        return $this->table_name;
-    }
-    public function getTable_catalog()
-    {
-        return $this->table_catalog;
-    }
-
-
-    /**
-     * @param mixed $column_default
-     */
     public function setColumn_default($column_default)
     {
         $this->column_default = $column_default;
     }
-
-    /**
-     * @param mixed $referenced_table_name
-     */
+    
+    public function getReferenced_table_name()
+    {
+        return $this->referenced_table_name;
+    }
     public function setReferenced_table_name($referenced_table_name)
     {
         $this->referenced_table_name = $referenced_table_name;
     }
-
-    /**
-     * @param mixed $referenced_column_name
-     */
+    
+    public function getReferenced_column_name()
+    {
+        return $this->referenced_column_name;
+    }
     public function setReferenced_column_name($referenced_column_name)
     {
         $this->referenced_column_name = $referenced_column_name;
     }
-
-    /**
-     * @param mixed $table_schema
-     */
+    
+    public function getTable_schema()
+    {
+        return $this->table_schema;
+    }
     public function setTable_schema($table_schema)
     {
         $this->table_schema = $table_schema;
     }
-
-    /**
-     * @param mixed $table_name
-     */
+    
+    public function getTable_name()
+    {
+        return $this->table_name;
+    }
     public function setTable_name($table_name)
     {
         $this->table_name = $table_name;
     }
-
-    /**
-     * @param mixed $table_catalog
-     */
+    
+    public function getTable_catalog()
+    {
+        return $this->table_catalog;
+    }
     public function setTable_catalog($table_catalog)
     {
         $this->table_catalog = $table_catalog;
     }
-
 }
 ?>

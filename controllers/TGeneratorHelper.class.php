@@ -447,6 +447,15 @@ class TGeneratorHelper
     public static function removeFieldsDuplicateOnSelectedTables($listFieldsTable)
     {
         ArrayHelper::validateIsArray($listFieldsTable, __METHOD__, __LINE__);
+        $listColumnName = $listFieldsTable['COLUMN_NAME'];
+        foreach ($listColumnName as $name) {
+            $listKey = ArrayHelper::array_keys2($listColumnName,$name);
+            $sizeKeyQtd = CountHelper::count($listKey);
+            if($sizeKeyQtd>1){
+                echo 'mais de um registro';
+            }
+            
+        }
         return $listFieldsTable;
     }
 
