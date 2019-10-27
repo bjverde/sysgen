@@ -58,6 +58,47 @@ class TGeneratorHelperTest extends TestCase
         $this->assertEquals($expected, $result);
     }
     
+    public function addRowFieldSelectedTable($listFieldSelectedTable
+                                            ,$COLUMN_NAME
+                                            ,$KEY_TYPE
+                                            ,$REFERENCED_TABLE_NAME
+                                            ,$REFERENCED_COLUMN_NAME
+        )
+    {
+        $listFieldSelectedTable['COLUMN_NAME'][]=$COLUMN_NAME;
+        $listFieldSelectedTable['KEY_TYPE'][]=$KEY_TYPE;
+        $listFieldSelectedTable['REFERENCED_TABLE_NAME'][]=$REFERENCED_TABLE_NAME;
+        $listFieldSelectedTable['REFERENCED_COLUMN_NAME'][]=$REFERENCED_COLUMN_NAME;
+        return $listFieldSelectedTable;
+    }
+    
+    public function testRemoveFieldsDuplicateOnSelectedTable_OkNoDuplicate()
+    {
+        $listFieldsTable = array();
+        $listFieldsTable = $this->addRowFieldSelectedTable($listFieldsTable,'idCarro','PK',null,null);
+        $listFieldsTable = $this->addRowFieldSelectedTable($listFieldsTable,'idMarca','FK','marca','idMarca');
+        $expected = $listFieldsTable;
+        $result = TGeneratorHelper::removeFieldsDuplicateOnSelectedTables($listFieldsTable);
+        $sizeResult = CountHelper::count($result);
+        $this->assertEquals( 2, $sizeResult);
+        $this->assertEquals($expected, $result);
+    }
+    
+    public function testRemoveFieldsDuplicateOnSelectedTable_OkRemoveDuplicate()
+    {
+        $listFieldsTable = array();
+        $listFieldsTable = $this->addRowFieldSelectedTable($listFieldsTable,'idCarro','PK',null,null);
+        $listFieldsTable = $this->addRowFieldSelectedTable($listFieldsTable,'idMarca','FK','marca','idMarca');
+        $listFieldsTable = $this->addRowFieldSelectedTable($listFieldsTable,'idMarca','UNIQUE','marca','idMarca');
+        $expected = array();
+        $expected[0] = $listFieldsTable[0];
+        $expected[1] = $listFieldsTable[1];
+        $result = TGeneratorHelper::removeFieldsDuplicateOnSelectedTables($listFieldsTable);
+        $sizeResult = CountHelper::count($result);
+        $this->assertEquals( 2, $sizeResult);
+        $this->assertEquals($expected, $result);
+    }
+    
     /**
      * @expectedException InvalidArgumentException
      */

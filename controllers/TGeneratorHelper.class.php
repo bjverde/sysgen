@@ -444,6 +444,11 @@ class TGeneratorHelper
         return $listTablesSelected;
     }
     
+    public static function removeFieldsDuplicateOnSelectedTables($listFieldsTable)
+    {
+        return $listFieldsTable;
+    }
+
     public static function loadFieldsTablesSelected()
     {
         $_SESSION[APLICATIVO]['FieldsTableSelected'] = null;
