@@ -126,11 +126,8 @@ class TGeneratorHelperTest extends TestCase
         $listFieldsTable = $this->addRowFieldSelectedTable($listFieldsTable,'nmCarro',null,null,null);
         $listFieldsTable = $this->addRowFieldSelectedTable($listFieldsTable,'anoCarro',null,null,null);
         
-        $expected = array();
-        $expected[0] = $listFieldsTable[0];
-        $expected[1] = $listFieldsTable[1];
-        $expected[2] = $listFieldsTable[3];
-        $expected[3] = $listFieldsTable[4];
+        $expected = ArrayHelper::formDinDeleteRowByKeyIndex($listFieldsTable, 2);
+        $expected = $expected['formarray'];
         
         $result = TGeneratorHelper::removeFieldsDuplicateOnSelectedTables($listFieldsTable);
         $sizeResult = CountHelper::count($result['COLUMN_NAME']);
