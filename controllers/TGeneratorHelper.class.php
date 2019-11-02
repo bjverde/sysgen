@@ -447,16 +447,25 @@ class TGeneratorHelper
     public static function removeFieldsDuplicateOnSelectedTables($listFieldsTable)
     {
         ArrayHelper::validateIsArray($listFieldsTable, __METHOD__, __LINE__);
+        $listFieldsTablePDO = ArrayHelper::convertArrayFormDin2Pdo($listFieldsTable,false);
         $listColumnName = $listFieldsTable['COLUMN_NAME'];
+        $listFieldsTableResult = array();
         foreach ($listColumnName as $name) {
             $listKey = ArrayHelper::array_keys2($listColumnName,$name);
             $sizeKeyQtd = CountHelper::count($listKey);
-            if($sizeKeyQtd>1){
-                echo 'mais de um registro';
+            if($sizeKeyQtd==1){
+                $keyColumnName = $listKey[0];
+                $listFieldsTableResult[$keyColumnName]=$listFieldsTablePDO[$keyColumnName];
+            }else{
+                $listKeyTip = array();
+                foreach ($listKey as $key) {
+                    //$listKeyTip[$key]=$listFieldsTablePDO[$keyColumnName]['KEY_TYPE'];
+                    $keyTip=$listFieldsTablePDO[$keyColumnName]['KEY_TYPE'];
+                }
             }
-            
         }
-        return $listFieldsTable;
+        $listFieldsTableResult = ArrayHelper::convertArrayPdo2FormDin($listFieldsTableResult);
+        return $listFieldsTableResult;
     }
 
     public static function loadFieldsTablesSelected()

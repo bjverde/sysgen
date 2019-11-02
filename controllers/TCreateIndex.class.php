@@ -39,13 +39,15 @@ class TCreateIndex extends TCreateFileContent
         $this->addBlankLine();
         $this->addLine('$app = new TApplication(); //criar uma instancia do objeto aplicacao');        
         $this->addLine('$app->setAppRootDir(__DIR__); //Caminho completo no sistema operacional');
-        $this->addLine('$app->setFormDinMinimumVersion(FORMDIN_VERSION_MIN_VERSION);');
+        $this->addLine('$app->setFormDinMinimumVersion(FORMDIN_VERSION_MIN);');
+        $this->addLine('$app->setVersionSystem(SYSTEM_VERSION);');
+        $this->addLine('$app->setSigla(SYSTEM_ACRONYM);');        
         $this->addLine('//$app->setTitleTag(SYSTEM_NAME); //Title Header Page HTML');
         $this->addLine('$app->setTitle(SYSTEM_NAME);  //Title Header System');
         $this->addLine('//$app->setSUbTitle(SYSTEM_NAME_SUB);');
-        $this->addLine('$app->setSigla(SYSTEM_ACRONYM);');
-        $this->addLine('$app->setVersionSystem(SYSTEM_VERSION);');
-        
+        $this->addLine('//$app->setUnit(SYSTEM_UNIT);');
+        $this->addBlankLine();
+        $this->addBlankLine();
         $this->addLine('//Customização simples https://github.com/bjverde/formDin/wiki/Layout-e-CSS#customiza%C3%A7%C3%A3o-simples');
         $this->addLine('//$app->setLoginFile(\'includes/tela_login.php\'); //Tela de login');
         $this->addLine('//$app->setLoginInfo(\'Bem-vindo\'); //Info usuario logado');
