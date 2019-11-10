@@ -173,6 +173,16 @@ class EasyLabelTest extends TestCase
 	    $this->assertEquals($expected, $result);
 	}
 	
+	public function testConvertLabel_EndGao()
+	{
+	    $expected ='ORgão';
+	    $typeField = TCreateForm::FORMDIN_TYPE_TEXT;
+	    $stringLabel = 'ORGAO';
+	    $_SESSION[APLICATIVO]['EASYLABEL'] = 'Y';
+	    $result = EasyLabel::convertLabel($stringLabel, $typeField);
+	    $this->assertEquals($expected, $result);
+	}
+	
 	public function testConvertLabel_idPessoa()
 	{
 	    $expected ='id Pessoa';
@@ -218,6 +228,26 @@ class EasyLabelTest extends TestCase
 	    $expected ='Número Otrs';
 	    $typeField = TCreateForm::FORMDIN_TYPE_NUMBER;
 	    $stringLabel = 'NROTRS';
+	    $_SESSION[APLICATIVO]['EASYLABEL'] = 'Y';
+	    $result = EasyLabel::convertLabel($stringLabel, $typeField);
+	    $this->assertEquals($expected, $result);
+	}
+	
+	public function testRemoveUnderline_um()
+	{
+	    $expected ='id Ano';
+	    $typeField = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $stringLabel = 'ID_ANO';
+	    $_SESSION[APLICATIVO]['EASYLABEL'] = 'Y';
+	    $result = EasyLabel::convertLabel($stringLabel, $typeField);
+	    $this->assertEquals($expected, $result);
+	}
+	
+	public function testRemoveUnderline_varios()
+	{
+	    $expected ='DIAS DO ANO';
+	    $typeField = TCreateForm::FORMDIN_TYPE_NUMBER;
+	    $stringLabel = 'DIAS_DO_ANO';
 	    $_SESSION[APLICATIVO]['EASYLABEL'] = 'Y';
 	    $result = EasyLabel::convertLabel($stringLabel, $typeField);
 	    $this->assertEquals($expected, $result);

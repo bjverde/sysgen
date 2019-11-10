@@ -21,7 +21,7 @@ class EasyLabel
     {
         $result = $stringLabel;
         if($typeField == TCreateForm::FORMDIN_TYPE_DATE){
-            $result = preg_replace('/(^DT)(\w+)/', '$2', $stringLabel);
+            $result = preg_replace('/(^DT)(\s*)(\w+)/', '$3', $stringLabel);
             if($result != $stringLabel){
                 $result = 'Data '.ucfirst(strtolower($result));
             }            
@@ -33,7 +33,7 @@ class EasyLabel
     {
         $result = $stringLabel;
         if($typeField == TCreateForm::FORMDIN_TYPE_TEXT){
-            $result = preg_replace('/(^NM)(\w+)/', '$2', $stringLabel);
+            $result = preg_replace('/(^NM)(\s*)(\w+)/', '$3', $stringLabel);
             if($result != $stringLabel){
                 $result = 'Nome '.ucfirst(strtolower($result));
             } 
@@ -45,7 +45,7 @@ class EasyLabel
     {
         $result = $stringLabel;
         if($typeField == TCreateForm::FORMDIN_TYPE_TEXT){
-            $result = preg_replace('/(^DS)(\w+)/', '$2', $stringLabel);
+            $result = preg_replace('/(^DS)(\s*)(\w+)/', '$3', $stringLabel);
             if($result != $stringLabel){
                 $result = 'Descrição '.ucfirst(strtolower($result));
             }
@@ -57,7 +57,7 @@ class EasyLabel
     {
         $result = $stringLabel;
         if($typeField == TCreateForm::FORMDIN_TYPE_TEXT){
-            $result = preg_replace('/(^ST)(\w+)/', '$2', $stringLabel);
+            $result = preg_replace('/(^ST)(\s*)(\w+)/', '$3', $stringLabel);
             if($result != $stringLabel){
                 $result = 'Status '.ucfirst(strtolower($result));
             }
@@ -69,7 +69,7 @@ class EasyLabel
     {
         $result = $stringLabel;
         if($typeField == TCreateForm::FORMDIN_TYPE_NUMBER){
-            $result = preg_replace('/(^QT)(\w+)/', '$2', $stringLabel);
+            $result = preg_replace('/(^QT)(\s*)(\w+)/', '$3', $stringLabel);
             if($result != $stringLabel){
                 $result = 'Quantidade '.ucfirst(strtolower($result));
             }
@@ -81,7 +81,7 @@ class EasyLabel
     {
         $result = $stringLabel;
         if($typeField == TCreateForm::FORMDIN_TYPE_NUMBER){
-            $result = preg_replace('/(^ID)(\w+)/', '$2', $stringLabel);
+            $result = preg_replace('/(^ID)(\s*)(\w+)/', '$3', $stringLabel);
             if($result != $stringLabel){
                 $result = 'id '.ucfirst(strtolower($result));
             }
@@ -93,7 +93,7 @@ class EasyLabel
     {
         $result = $stringLabel;
         if($typeField == TCreateForm::FORMDIN_TYPE_NUMBER){
-            $result = preg_replace('/(^NR)(\w+)/', '$2', $stringLabel);
+            $result = preg_replace('/(^NR)(\s*)(\w+)/', '$3', $stringLabel);
             if($result != $stringLabel){
                 $result = 'Número '.ucfirst(strtolower($result));
             }
@@ -103,13 +103,25 @@ class EasyLabel
     //--------------------------------------------------------------------------------------
     public static function convert_sao($stringLabel)
     {
-        $result = preg_replace('/(\w)(sao)/', '$1são', $stringLabel);
+        $result = preg_replace('/(\w)(sao)/i', '$1são', $stringLabel);
         return $result;
     }
     //--------------------------------------------------------------------------------------
     public static function convert_cao($stringLabel)
     {
-        $result = preg_replace('/(\w)(cao)/', '$1ção', $stringLabel);
+        $result = preg_replace('/(\w)(cao)/i', '$1ção', $stringLabel);
+        return $result;
+    }
+    //--------------------------------------------------------------------------------------
+    public static function convert_gao($stringLabel)
+    {
+        $result = preg_replace('/(\w)(gao)/i', '$1gão', $stringLabel);
+        return $result;
+    }
+    //--------------------------------------------------------------------------------------
+    public static function remove_underline($stringLabel)
+    {
+        $result = preg_replace('/(_)/',' ', $stringLabel);
         return $result;
     }
     //--------------------------------------------------------------------------------------
@@ -117,6 +129,7 @@ class EasyLabel
     {
         $useEasyLabe = $_SESSION[APLICATIVO]['EASYLABEL'];
         if($useEasyLabe == 'Y'){
+            $stringLabel = self::remove_underline($stringLabel);
             switch ($typeField) {
                 case TCreateForm::FORMDIN_TYPE_DATE:
                     $stringLabel = self::convert_dt($stringLabel,$typeField);
@@ -134,6 +147,7 @@ class EasyLabel
             }
             $stringLabel = self::convert_sao($stringLabel);
             $stringLabel = self::convert_cao($stringLabel);
+            $stringLabel = self::convert_gao($stringLabel);
         }
         return $stringLabel;
     }
