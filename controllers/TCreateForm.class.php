@@ -324,7 +324,8 @@ class TCreateForm extends TCreateFileContent
         
         $this->addLine('$controller'.$REFERENCED_TABLE_NAME.' = new '.$REFERENCED_TABLE_NAME.'();');
         $this->addLine('$list'.$REFERENCED_TABLE_NAME.' = $controller'.$REFERENCED_TABLE_NAME.'->selectAll();');
-        $this->addLine('$frm->addSelectField(\''.$fieldName.'\', \''.$fieldName.'\','.$REQUIRED.',$list'.$REFERENCED_TABLE_NAME.',null,null,null,null,null,null,\' \',null);');
+        $fieldLabel = EasyLabel::convertLabel($fieldName, self::FORMDIN_TYPE_NUMBER);
+        $this->addLine('$frm->addSelectField(\''.$fieldName.'\', \''.$fieldLabel.'\','.$REQUIRED.',$list'.$REFERENCED_TABLE_NAME.',null,null,null,null,null,null,\' \',null);');
         $this->addFieldTypeToolTip($key, $fieldName);
     }
     //--------------------------------------------------------------------------------------
