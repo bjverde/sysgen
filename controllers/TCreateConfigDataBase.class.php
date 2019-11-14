@@ -33,7 +33,7 @@ class TCreateConfigDataBase extends TCreateFileContent
         $this->addLine('define(\'SCHEMA\'  , \''.$_SESSION[APLICATIVO]['DBMS']['SCHEMA'].'\');');
         $this->addLine('define(\'USUARIO\' , \''.$_SESSION[APLICATIVO]['DBMS']['USER'].'\');');
         $this->addLine('define(\'SENHA\'   , \''.$_SESSION[APLICATIVO]['DBMS']['PASSWORD'].'\');');
-        $this->addLine('define(\'UTF8_DECODE\'   , 0);');
+        $this->addLine('define(\'UTF8_DECODE\'   , 0); //Decode String APP (UTF-8) to Database ISO-8859-1');
         $this->addLine('?>');
         if ($print) {
             echo $this->getLinesString();
