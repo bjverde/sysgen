@@ -337,6 +337,10 @@ class TGeneratorHelper
                 $SCHEMA = true;
                 $TPGRID = self::getConfigGridSqlServer($DBMS);
             break;
+            case DBMS_POSTGRES:
+                $SCHEMA = true;
+                $TPGRID = GRID_SQL_PAGINATION;
+            break;            
             default:
                 $SCHEMA = false;
                 $TPGRID = GRID_SCREEN_PAGINATION;
