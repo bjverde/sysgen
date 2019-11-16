@@ -326,6 +326,17 @@ class TGeneratorHelper
         return $TPGRID;
     }
     
+    public static function getConfigGridPostgresql($DBMS)
+    {
+        $dbversion = $_SESSION[APLICATIVO]['DBMS']['VERSION'];
+        $TPGRID = GRID_SQL_PAGINATION;
+        $withVersion = TableInfo::getDbmsWithVersion($DBMS);        
+        if( ($dbversion == TableInfo::DBMS_VERSION_POSTGRES_95_LT) && $withVersion ){
+            $TPGRID = GRID_SCREEN_PAGINATION;
+        }
+        return $TPGRID;
+    }
+
     private static function getConfigByDBMS($DBMS)
     {
         switch ($DBMS) {
@@ -339,7 +350,7 @@ class TGeneratorHelper
             break;
             case DBMS_POSTGRES:
                 $SCHEMA = true;
-                $TPGRID = GRID_SQL_PAGINATION;
+                $TPGRID = self::getConfigGridPostgresql($DBMS);
             break;            
             default:
                 $SCHEMA = false;

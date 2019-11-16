@@ -60,9 +60,7 @@ if ($validoPDOAndDBMS) {
     $showAba = TGeneratorHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_SQLSERVER);
     $pc->addPage(DBMS_SQLSERVER, $showAba, $showAba, 'abass');
     $frm->addHiddenField('ssDbType', DBMS_SQLSERVER);
-    $listSsDbVersion = array(TableInfo::DBMS_VERSION_SQLSERVER_2012_GTE=>TableInfo::DBMS_VERSION_SQLSERVER_2012_GTE_LABEL
-                          ,TableInfo::DBMS_VERSION_SQLSERVER_2012_LT =>TableInfo::DBMS_VERSION_SQLSERVER_2012_LT_LABEL
-                        );
+    $listSsDbVersion = TableInfo::getListDbmsWithVersion(DBMS_SQLSERVER);
     $frm->addSelectField('ssDbVersion', 'Escolha a versão do DBMS:', true, $listSsDbVersion, null, null, null, null, null, null, ' ');
     $frm->addTextField('ssHost', 'Host:'    , 50, true, 50, '127.0.0.1', true, null, null, true);
     $frm->addTextField('ssDb'  , 'Database:', 20, true, 20, 'Northwind',false, null, null, true);
@@ -76,12 +74,16 @@ if ($validoPDOAndDBMS) {
     $showAba = TGeneratorHelper::showAbaDBMS($_SESSION[APLICATIVO]['DBMS']['TYPE'], DBMS_POSTGRES);
     $pc->addPage(DBMS_POSTGRES, $showAba, $showAba, 'abapg');
     $frm->addHiddenField('pgDbType', DBMS_POSTGRES);
+    $listSsDbVersion = TableInfo::getListDbmsWithVersion(DBMS_POSTGRES);
+    $frm->addSelectField('pgDbVersion', 'Escolha a versão do DBMS:', true, $listSsDbVersion, null, null, null, null, null, null, ' ');
     $frm->addTextField('pgHost', 'Host:', 20, true, 20, '127.0.0.1', true, null, null, true);
+    $frm->addTextField('pgPort', 'Porta:', 6, false, 6, '5432', false, null, null, true, false);
     $frm->addTextField('pgDb', 'Database:', 20, true, 20, 'test', true, null, null, true);
+    $frm->addTextField('pgSchema', 'Esquema:', 20, true, 20, 'public', false, null, null, true);
     $frm->addTextField('pgUser', 'User:', 40, true, 20, 'postgres', false, null, null, true);
     $frm->addTextField('pgPass', 'Password:', 40, true, 20, '123456', false, null, null, true);
-    $frm->addTextField('pgSchema', 'Esquema:', 20, true, 20, 'public', false, null, null, true);
-    $frm->addTextField('pgPort', 'Porta:', 6, false, 6, '5432', false, null, null, true, false);
+    
+    
     $frm->addButton(Message::BUTTON_LABEL_TEST_CONNECT, null, 'btnTestarPg', 'testarConexao("pg")', null, true, false);
     $frm->addHtmlField('pgGride', '');
 

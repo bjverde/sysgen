@@ -48,6 +48,12 @@ final class TableInfo
     const DBMS_VERSION_MYSQL_8_GTE_LABEL = 'MySQL 8 ou superior';
     const DBMS_VERSION_MYSQL_8_LT_LABEL  = 'MySQL anterior a versão 8';
 
+    const DBMS_VERSION_POSTGRES_96_GTE = 'DBMS_VERSION_POSTGRES_96_GTE';
+    const DBMS_VERSION_POSTGRES_95_LT  = 'DBMS_VERSION_POSTGRES_95_LT';
+
+    const DBMS_VERSION_POSTGRES_96_GTE_LABEL = 'PostgreSQL 9.6 ou superior';
+    const DBMS_VERSION_POSTGRES_95_LT_LABEL  = 'PostgreSQL até a versão 9.5';
+
     //-----------------------------------------------------------------------------------    
     public static function getPreDBMS($dbType){
         $return = null;
@@ -93,11 +99,30 @@ final class TableInfo
             break;
             //-------------------
             case DBMS_POSTGRES:
-                $return = false;
+                $return = true;
             break;
             //-------------------
             case DBMS_ORACLE:
                 $return = false;
+            break;
+        }
+        return $return;
+    }
+    //-----------------------------------------------------------------------------------    
+    public static function getListDbmsWithVersion($dbType){
+        $return = false;
+        switch ($dbType) {
+            //-------------------
+            case DBMS_SQLSERVER:
+                $return = array(TableInfo::DBMS_VERSION_SQLSERVER_2012_GTE=>TableInfo::DBMS_VERSION_SQLSERVER_2012_GTE_LABEL
+                               ,TableInfo::DBMS_VERSION_SQLSERVER_2012_LT =>TableInfo::DBMS_VERSION_SQLSERVER_2012_LT_LABEL
+                               );
+            break;
+            //-------------------
+            case DBMS_POSTGRES:
+                $return = array(TableInfo::DBMS_VERSION_POSTGRES_96_GTE=>TableInfo::DBMS_VERSION_POSTGRES_96_GTE_LABEL
+                               ,TableInfo::DBMS_VERSION_POSTGRES_95_LT  =>TableInfo::DBMS_VERSION_POSTGRES_95_LT_LABEL
+                               );
             break;
         }
         return $return;
