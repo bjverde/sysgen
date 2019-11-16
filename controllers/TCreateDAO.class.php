@@ -285,6 +285,9 @@ class TCreateDAO extends TCreateFileContent
         if ($this->getDatabaseManagementSystem() == DBMS_SQLSERVER) {
             $this->addLine(ESP.ESP.'.( \' OFFSET \'.$rowStart.\' ROWS FETCH NEXT \'.$rowsPerPage.\' ROWS ONLY \');');
         }
+        if($this->getDatabaseManagementSystem() == DBMS_POSTGRES){
+            $this->addLine(ESP.ESP.'.\' LIMIT \'.$rowsPerPage.\' OFFSET\'.$rowStart ;');
+        }
         $this->addBlankLine();
         $this->addExecuteSql();
         $this->addLine(ESP.'}');
