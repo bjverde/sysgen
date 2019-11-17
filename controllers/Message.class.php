@@ -23,7 +23,7 @@ final class Message
     const GEN01_GPX2_TITLE = 'Configurações de Banco';
     
     const GEN02_TITLE        = 'Etapa 02 de '.self::LAST_STEP;
-    const GEN02_NOT_READY    = 'Seu Mané teste as configurações de banco!!';
+    const GEN02_NOT_READY    = 'Verifique as configurações do banco de dados!!';
     const GEN02_GPX1_TITLE   = 'Ações executadas';
     const GEN02_MKDIR_SYSTEM = 'Criada pasta base ';
     const GEN02_COPY_SYSTEM_SKELETON    = 'Copiado estrutura básica de pastas.';
@@ -71,8 +71,8 @@ final class Message
     const INFO_CONNECT    = 'Informe os parâmetros de conexão no banco e click no botão: '.self::BUTTON_LABEL_TEST_CONNECT
     .'. Só depois poderá clicar em : '.self::BUTTON_LABEL_GEN_STRUCTURE;
 
-    const WARNING_NO_TABLE    = 'Seu Mané, selecione as tabelas para gerar!';
-    const WARNING_NO_DBMS_VER = 'Seu Mané, selecione a versão do banco!';    
+    const WARNING_NO_TABLE    = 'Selecione as tabelas para gerar!';
+    const WARNING_NO_DBMS_VER = 'Selecione a versão do banco!';    
 
     const ERRO_LIST_TABLE_EMPTY     = 'List of Tables Names is empty';
     const ERRO_LIST_TABLE_NOT_ARRAY = 'List of Tables Names not is array';
