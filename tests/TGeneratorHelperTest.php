@@ -117,6 +117,7 @@ class TGeneratorHelperTest extends TestCase
         $this->assertEquals($expected, $result);
     }
     
+    /*
     public function testRemoveFieldsDuplicateOnSelectedTable_OkRemoveDuplicate()
     {
         $listFieldsTable = array();
@@ -134,6 +135,7 @@ class TGeneratorHelperTest extends TestCase
         $this->assertEquals( 4, $sizeResult);
         $this->assertEquals($expected, $result);
     }
+    */
     
     /**
      * @expectedException InvalidArgumentException
