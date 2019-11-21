@@ -60,7 +60,7 @@ Veja o tutorial [Do Zero até Rodar, explicando o que precisa para funcionar](ht
 ## Ferramentas semelhantes
 * https://www.scriptcase.com.br/
 * https://phpgrid.com/php-crud/
-* http://phreeze.com/
+* https://www.phpgrid.org/demo-center/* http://phreeze.com/
 * http://www.hkvstore.com/phpmaker/
 * https://github.com/nette/php-generator
 * https://www.grocerycrud.com/
