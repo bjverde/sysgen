@@ -58,12 +58,14 @@ Veja o tutorial [Do Zero até Rodar, explicando o que precisa para funcionar](ht
 * PostGres
 
 ## Ferramentas semelhantes
-* https://www.scriptcase.com.br/
-* https://phpgrid.com/php-crud/
-* https://www.phpgrid.org/demo-center/* http://phreeze.com/
+* ScriptCase - https://www.scriptcase.com.br/
+* PHPGrid.com - https://phpgrid.com/php-crud/
+* https://www.phpgrid.org/demo-center/
+* http://phreeze.com/
 * http://www.hkvstore.com/phpmaker/
 * https://github.com/nette/php-generator
 * https://www.grocerycrud.com/
 * https://www.keycdn.com/blog/php-code-generator/
 * https://labs.sogeti.com/top-10-post-code-generation-can-simple-pragmatic/
 * http://www.telosys.org/index.html
+* PHPRunner - https://xlinesoft.com/phprunner
