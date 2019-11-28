@@ -59,8 +59,8 @@ Veja o tutorial [Do Zero até Rodar, explicando o que precisa para funcionar](ht
 
 ## Ferramentas semelhantes
 * ScriptCase - https://www.scriptcase.com.br/
-* PHPGrid.com - https://phpgrid.com/php-crud/
-* https://www.phpgrid.org/demo-center/
+* phpGrid - https://phpgrid.com/php-crud/
+* PHP Grid FrameWork - https://www.phpgrid.org/demo-center/
 * http://phreeze.com/
 * http://www.hkvstore.com/phpmaker/
 * https://github.com/nette/php-generator
