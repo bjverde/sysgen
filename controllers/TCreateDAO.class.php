@@ -538,11 +538,11 @@ class TCreateDAO extends TCreateFileContent
     {
         $len = strlen($txt);
         for ($i = $len-1; $i >= 0; $i--) {
-            if ($txt{$i} === '_') {
+            if ($txt[$i] === '_') {
                 $len--;
                 $txt = substr_replace($txt, '', $i, 1);
                 if ($i != $len) {
-                    $txt{$i} = strtoupper($txt{$i});
+                    $txt[$i] = strtoupper($txt[$i]);
                 }
             }
         }
