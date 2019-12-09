@@ -569,15 +569,15 @@ class TGeneratorHelper
                 
                 $FkFieldsTableSelected['ID_LINE'][]= $ID_LINE;
                 $ID_LINE = $ID_LINE + 1;
-                $FkFieldsTableSelected['TABLE_SCHEMA'][]= $FieldsTableSelected[$key]['TABLE_SCHEMA'][$keyFieldFkTable];
-                $FkFieldsTableSelected['TABLE_NAME'][]  = $FieldsTableSelected[$key]['TABLE_NAME'][$keyFieldFkTable];
+                $FkFieldsTableSelected[TableInfo::TABLE_SCHEMA][]= $FieldsTableSelected[$key][TableInfo::TABLE_SCHEMA][$keyFieldFkTable];
+                $FkFieldsTableSelected[TableInfo::TABLE_NAME][]  = $FieldsTableSelected[$key][TableInfo::TABLE_NAME][$keyFieldFkTable];
                 $FkFieldsTableSelected[TableInfo::COLUMN_NAME][] = $FieldsTableSelected[$key][TableInfo::COLUMN_NAME][$keyFieldFkTable];
-                $FkFieldsTableSelected['DATA_TYPE'][]   = $FieldsTableSelected[$key]['DATA_TYPE'][$keyFieldFkTable];
+                $FkFieldsTableSelected[TableInfo::DATA_TYPE][]   = $FieldsTableSelected[$key][TableInfo::DATA_TYPE][$keyFieldFkTable];
                 $FkFieldsTableSelected['REFERENCED_TABLE_NAME'][]  = $refTable;
                 $FkFieldsTableSelected['REFERENCED_COLUMN_NAME'][] = $refColumn;
                 //$FkFieldsTableSelected['FK_TYPE_SCREEN_REFERENCED'][] = self::getFKTypeScreenReferenced($refTable,$refColumn);
-                $FkFieldsTableSelected[TableInfo::ID_COLUMN_FK_SRSELECTED][] = $FieldsTableSelected[$key]['TABLE_SCHEMA'][$keyFieldFkTable]
-                                                                              .$FieldsTableSelected[$key]['TABLE_NAME'][$keyFieldFkTable]
+                $FkFieldsTableSelected[TableInfo::ID_COLUMN_FK_SRSELECTED][] = $FieldsTableSelected[$key][TableInfo::TABLE_SCHEMA][$keyFieldFkTable]
+                                                                              .$FieldsTableSelected[$key][TableInfo::TABLE_NAME][$keyFieldFkTable]
                                                                               .$FieldsTableSelected[$key][TableInfo::COLUMN_NAME][$keyFieldFkTable];
                 $FkFieldsTableSelected[TableInfo::FK_TYPE_SCREEN_REFERENCED][] = null;
             }
