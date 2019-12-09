@@ -26,6 +26,8 @@ final class TableInfo
     //-----------------------------------------------------------------------------------
     const TP_SYSTEM = 'TP_SYSTEM';
     
+    const TABLE_SCHEMA = 'TABLE_SCHEMA';
+    const TABLE_NAME = 'TABLE_NAME';
     const KEY_TYPE = 'KEY_TYPE';
     const KEY_TYPE_PK = 'PK';
     const KEY_TYPE_FK = 'FOREIGN KEY';
