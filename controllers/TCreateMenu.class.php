@@ -43,24 +43,49 @@ class TCreateMenu extends TCreateFileContent
                               .', null, \'Icon_35-512.png\');');
             }
         }
-    }    
+    }
+    //--------------------------------------------------------------------------------------
+    public function typeTableExist($tableType){
+        $listTableType = $this->listTableNames['TABLE_TYPE'];
+        $result = array_search($tableType, $listTableType);
+        if($result === false){
+            $result = false;
+        }else if($result === ''){
+            $result = false;
+        }else{
+            $result = true;
+        }
+        return $result;
+    }
     //--------------------------------------------------------------------------------------
     public function addBasicMenuCruds()
     {
-        $this->addLine('$menu->add(\'1\', null, \'Cruds\', null, null, \'menu-alt-512.png\');');
-        $this->addBasicMenuItems( '1', TableInfo::TB_TYPE_TABLE );
+        $tableType = TableInfo::TB_TYPE_TABLE;
+        $typeTableExist = $this->typeTableExist($tableType);
+        if($typeTableExist){
+            $this->addLine('$menu->add(\'1\', null, \'Cruds\', null, null, \'menu-alt-512.png\');');
+            $this->addBasicMenuItems( '1', $tableType );
+        }
     }
     //--------------------------------------------------------------------------------------
     public function addBasicMenuViews()
     {
-        $this->addLine('$menu->add(\'2\', null, \'Views\', null, null, \'menu-alt-512.png\');');
-        $this->addBasicMenuItems( '2', TableInfo::TB_TYPE_VIEW );
+        $tableType = TableInfo::TB_TYPE_VIEW;
+        $typeTableExist = $this->typeTableExist($tableType);
+        if($typeTableExist){
+            $this->addLine('$menu->add(\'2\', null, \'Views\', null, null, \'menu-alt-512.png\');');
+            $this->addBasicMenuItems( '2', $tableType );
+        }
     }
     //--------------------------------------------------------------------------------------
     public function addBasicMenuProcedure()
     {
-        $this->addLine('$menu->add(\'3\', null, \'Procedure\', null, null, \'menu-alt-512.png\');');
-        $this->addBasicMenuItems( '3', TableInfo::TB_TYPE_PROCEDURE );
+        $tableType = TableInfo::TB_TYPE_PROCEDURE;
+        $typeTableExist = $this->typeTableExist($tableType);
+        if($typeTableExist){
+            $this->addLine('$menu->add(\'3\', null, \'Procedure\', null, null, \'menu-alt-512.png\');');
+            $this->addBasicMenuItems( '3', $tableType );
+        }
     }
     //--------------------------------------------------------------------------------------
     public function show($print = false)

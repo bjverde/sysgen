@@ -61,6 +61,88 @@ class TCreateMenuTest extends TestCase
         parent::tearDown();
     }
     
+    public function testTypeTableExist_tablesTrue()
+    {
+        $expected = true;
+        $listTableNames   = $this->mockDatabase->generateTablesSelected3t5v2p();
+        $this->createMenu->setListTableNames($listTableNames);
+        $result = $this->createMenu->typeTableExist(TableInfo::TB_TYPE_TABLE);
+        $this->assertEquals($expected, $result);
+    }
+    
+    public function testTypeTableExist_tablesFalseOnlyViews()
+    {
+        $expected = false;
+        $listTableNames   = $this->mockDatabase->generateTablesSelected5v();
+        $this->createMenu->setListTableNames($listTableNames);
+        $result = $this->createMenu->typeTableExist(TableInfo::TB_TYPE_TABLE);
+        $this->assertEquals($expected, $result);
+    }
+    
+    public function testTypeTableExist_tablesFalseOnlyProcedure()
+    {
+        $expected = false;
+        $listTableNames   = $this->mockDatabase->generateTablesSelected2p();
+        $this->createMenu->setListTableNames($listTableNames);
+        $result = $this->createMenu->typeTableExist(TableInfo::TB_TYPE_TABLE);
+        $this->assertEquals($expected, $result);
+    }
+    
+    
+    public function testTypeTableExist_viewTrue()
+    {
+        $expected = true;
+        $listTableNames   = $this->mockDatabase->generateTablesSelected3t5v2p();
+        $this->createMenu->setListTableNames($listTableNames);
+        $result = $this->createMenu->typeTableExist(TableInfo::TB_TYPE_VIEW);
+        $this->assertEquals($expected, $result);
+    }
+    
+    public function testTypeTableExist_viewFalseOnlyTable()
+    {
+        $expected = false;
+        $listTableNames   = $this->mockDatabase->generateTablesSelected3t();
+        $this->createMenu->setListTableNames($listTableNames);
+        $result = $this->createMenu->typeTableExist(TableInfo::TB_TYPE_VIEW);
+        $this->assertEquals($expected, $result);
+    }
+    
+    public function testTypeTableExist_viewFalseOnlyProcedure()
+    {
+        $expected = false;
+        $listTableNames   = $this->mockDatabase->generateTablesSelected2p();
+        $this->createMenu->setListTableNames($listTableNames);
+        $result = $this->createMenu->typeTableExist(TableInfo::TB_TYPE_VIEW);
+        $this->assertEquals($expected, $result);
+    }
+    
+    public function testTypeTableExist_procedureTrue()
+    {
+        $expected = true;
+        $listTableNames   = $this->mockDatabase->generateTablesSelected3t5v2p();
+        $this->createMenu->setListTableNames($listTableNames);
+        $result = $this->createMenu->typeTableExist(TableInfo::TB_TYPE_PROCEDURE);
+        $this->assertEquals($expected, $result);
+    }
+    
+    public function testTypeTableExist_procedureFalseOnlyView()
+    {
+        $expected = false;
+        $listTableNames   = $this->mockDatabase->generateTablesSelected5v();
+        $this->createMenu->setListTableNames($listTableNames);
+        $result = $this->createMenu->typeTableExist(TableInfo::TB_TYPE_PROCEDURE);
+        $this->assertEquals($expected, $result);
+    }
+    
+    public function testTypeTableExist_procedureFalseOnlyTable()
+    {
+        $expected = false;
+        $listTableNames   = $this->mockDatabase->generateTablesSelected3t();
+        $this->createMenu->setListTableNames($listTableNames);
+        $result = $this->createMenu->typeTableExist(TableInfo::TB_TYPE_PROCEDURE);
+        $this->assertEquals($expected, $result);
+    }
+    
     public function testAddBasicMenuCruds_3tables()
     {
         $expected = 4; //3 Tables + 1 header line

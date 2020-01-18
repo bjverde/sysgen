@@ -37,6 +37,34 @@ class mockDatabase
         $tableSelected['TABLE_TYPE'][]   = $tableType;
         return $tableSelected;
     }
+
+    public function generateTablesSelected3t()
+    {
+        $tableSelected = array();
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'menu' ,null, TableInfo::TB_TYPE_TABLE);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'acess',null, TableInfo::TB_TYPE_TABLE);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'list' ,null, TableInfo::TB_TYPE_TABLE);
+        return $tableSelected;
+    }
+    
+    public function generateTablesSelected5v()
+    {
+        $tableSelected = array();
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'vitem',null, TableInfo::TB_TYPE_VIEW);        
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v2'   ,null, TableInfo::TB_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v3'   ,null, TableInfo::TB_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v4'   ,null, TableInfo::TB_TYPE_VIEW);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'v5'   ,null, TableInfo::TB_TYPE_VIEW);
+        return $tableSelected;
+    }
+    
+    public function generateTablesSelected2p()
+    {
+        $tableSelected = array();
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'sp1'   ,null, TableInfo::TB_TYPE_PROCEDURE);
+        $tableSelected = $this->includeTable($tableSelected, 'dbo', 'sp2'   ,null, TableInfo::TB_TYPE_PROCEDURE);
+        return $tableSelected;
+    } 
     
     public function generateTablesSelected3t5v()
     {
