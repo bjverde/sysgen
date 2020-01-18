@@ -351,7 +351,11 @@ class TGeneratorHelper
             case DBMS_POSTGRES:
                 $SCHEMA = true;
                 $TPGRID = self::getConfigGridPostgresql($DBMS);
-            break;            
+            break;
+            case DBMS_SQLITE;
+                $SCHEMA = false;
+                $TPGRID = GRID_SQL_PAGINATION;
+            break;             
             default:
                 $SCHEMA = false;
                 $TPGRID = GRID_SCREEN_PAGINATION;
