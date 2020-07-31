@@ -429,7 +429,7 @@ class TCreateDAO extends TCreateFileContent
                 }
             }
             $this->addBlankLine();
-            $this->addLine(ESP.ESP.'$sql = \'EXEC '.$this->hasSchema().$this->getTableName().'(\'.$parameters.\')\';');
+            $this->addLine(ESP.ESP.'$sql = \'EXEC '.$this->hasSchema().$this->getTableName().' \'.$parameters;');
         }
         $this->addExecuteSql(false);
         $this->addLine(ESP.'}');
