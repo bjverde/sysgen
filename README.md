@@ -21,10 +21,10 @@ See the tutorial [From Zero to Run, explaining what it needs to work](https://tr
 ![Esquema do SysGen](https://raw.githubusercontent.com/bjverde/sysgen/master/images/2-code-gen-database-first.png)
 
 ## Works Database
-* SQLlite
+* SqLite
 * MySQL
-* SQL Server
-* PostGres
+* Ms Sql Server
+* PostgreSQL
 
 # sysGen pt-bt
 
