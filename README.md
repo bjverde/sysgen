@@ -52,10 +52,10 @@ Veja o tutorial [Do Zero até Rodar, explicando o que precisa para funcionar](ht
 [![SysGen](http://img.youtube.com/vi/GdPEt5H6l_Q/0.jpg)](http://www.youtube.com/watch?v=GdPEt5H6l_Q "SysGen vídeo no Youtube")
 
 ## Funciona com o bancos
-* SQLlite
+* SqLite
 * MySQL
-* SQL Server
-* PostGres
+* Ms Sql Server
+* PostgreSQL
 
 ## Ferramentas semelhantes
 * ScriptCase - https://www.scriptcase.com.br/
