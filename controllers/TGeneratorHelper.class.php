@@ -53,7 +53,13 @@ class TGeneratorHelper
         return $result;
     }
     
-    public static function testar($extensao = null, $html)
+    /**
+     * Verifica se a extensao PHP informa está carregada. Gerando um HTML
+     * @param string $extensao nome da extensao do PHP
+     * @param object $html 
+     * @return boolean
+     */
+    public static function testar(string $extensao = null, object $html)
     {
         if (extension_loaded($extensao)) {
             $html->add('<b>'.$extensao.'</b>: <span class="success">Instalada.</span><br>');
