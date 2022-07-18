@@ -515,7 +515,9 @@ class TGeneratorHelper
         }else{
             $listFieldsTable = $dao->loadFieldsOneTableFromDatabase();
         }        
-        foreach ($listFieldsTable['DATA_TYPE'] as $key => $dataType) {
+        
+        $listFieldsDataType = ArrayHelper::get($listFieldsTable, 'DATA_TYPE');
+        foreach ($listFieldsDataType as $key => $dataType) {
             $formDinType = TCreateForm::convertDataType2FormDinType($dataType);
             $listFieldsTable[TCreateForm::FORMDIN_TYPE_COLUMN_NAME][$key] = $formDinType;
             
