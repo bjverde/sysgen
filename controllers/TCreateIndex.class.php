@@ -35,7 +35,8 @@ class TCreateIndex extends TCreateFileContent
         $this->addLine('require_once \'dao/autoload_'.$_SESSION[APLICATIVO]['GEN_SYSTEM_ACRONYM'].'_dao.php\';');
         $this->addBlankLine();
         $this->addBlankLine();
-        $this->addLine('define(\'ROOT_FOLDER\'     , basename(__DIR__)); //Folder root name');
+        $this->addLine('define(\'ROOT_PATH\'   , __DIR__);');
+        $this->addLine('define(\'ROOT_FOLDER\' , basename(__DIR__)); //Folder root name');
         $this->addBlankLine();
         $this->addLine('$app = new TApplication(); //criar uma instancia do objeto aplicacao');        
         $this->addLine('$app->setAppRootDir(__DIR__); //Caminho completo no sistema operacional');
