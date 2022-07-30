@@ -151,7 +151,7 @@ class CreateApiRoutesCall extends TCreateFileContent
         $this->addLine('$urlChamada = $urlChamada.\'api/\';');
         $this->addLine('// Define app routes');
         $this->addLine('$app->get($urlChamada, function (Request $request, Response $response, $args) use ($app) {');
-        $this->addLine(ESP.'$url = \ServerHelper::getCurrentUrl();');
+        $this->addLine(ESP.'$url = \ServerHelper::getFullServerName();');
         $this->addLine(ESP.'$routes = $app->getRouteCollector()->getRoutes();');
         $this->addLine(ESP.'$routesArray = array();');
         $this->addLine(ESP.'foreach ($routes as $route) {');
