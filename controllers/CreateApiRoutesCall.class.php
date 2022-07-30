@@ -144,16 +144,22 @@ class CreateApiRoutesCall extends TCreateFileContent
     public function addIndexRoutes()
     {
         $this->addBlankLine();
-        $this->addLine('$app->get("/", function ($request, $response, $args) use ($app) {');
+        $this->addBlankLine();
+        $this->addLine('$urlChamada = ServerHelper::getRequestUri(true);');
+        $this->addLine('$urlChamada = explode(\'api/\', $urlChamada);');
+        $this->addLine('$urlChamada = $urlChamada[0];');
+        $this->addLine('$urlChamada = $urlChamada.\'api/\';');
+        $this->addLine('// Define app routes');
+        $this->addLine('$app->get($urlChamada, function (Request $request, Response $response, $args) use ($app) {');
         $this->addLine(ESP.'$url = \ServerHelper::getCurrentUrl();');
-        $this->addLine(ESP.'$url = substr($url,0,strlen($url)-1);');
-        $this->addLine(ESP.'$routes = $app->getContainer()->router->getRoutes();');
+        $this->addLine(ESP.'$routes = $app->getRouteCollector()->getRoutes();');
         $this->addLine(ESP.'$routesArray = array();');
         $this->addLine(ESP.'foreach ($routes as $route) {');
         $this->addLine(ESP.ESP.'$routeArray = array();');
-        $this->addLine(ESP.ESP.'$met = $route->getMethods();');
-        $this->addLine(ESP.ESP.'$routeArray[\'methods\']  = $met[0];');
-        $this->addLine(ESP.ESP.'$routeArray[\'url\']  = $url.$route->getPattern();');
+        $this->addLine(ESP.ESP.'$routeArray[\'id\']  = $route->getIdentifier();');
+        $this->addLine(ESP.ESP.'$routeArray[\'name\']= $route->getName();');
+        $this->addLine(ESP.ESP.'$routeArray[\'methods\']= $route->getMethods()[0];');
+        $this->addLine(ESP.ESP.'$routeArray[\'url\'] = $url.$route->getPattern();');
         $this->addLine(ESP.ESP.'$routesArray[] = $routeArray;');
         $this->addLine(ESP.'}');
         $this->addBlankLine();
@@ -163,8 +169,10 @@ class CreateApiRoutesCall extends TCreateFileContent
         $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.ESP.')');
         $this->addLine(ESP.ESP.ESP.ESP.');');
         $this->addBlankLine();
-        $this->addLine(ESP.'$response = $response->withJson($msg);');
-        $this->addLine(ESP.'return $response;');
+        $this->addLine(ESP.'$msgJson = json_encode($msg);');
+        $this->addLine(ESP.'$response->getBody()->write( $msgJson );');
+        $this->addLine(ESP.'$result = $response->withHeader(\'Content-Type', 'application/json\');');
+        $this->addLine(ESP.'return $result;');
         $this->addLine('});');
         $this->addBlankLine();
         $this->addLine('$app->get(\'/sysinfo\', SysinfoAPI::class . \':getInfo\');');
