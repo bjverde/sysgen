@@ -35,18 +35,18 @@ class TGeneratorHelper
     public static function validadePhpMinimumVersion($html)
     {
         $texto = '<b>Versão do PHP</b>: ';
-        if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
+        if (version_compare(PHP_VERSION, '7.2.5') >= 0) {
             $texto =  $texto.'<span class="success">'.phpversion().'</span><br>';
             $html->add($texto);
             $result = true;
-        } elseif (version_compare(PHP_VERSION, '5.4.0') >= 0) {
+        } elseif (version_compare(PHP_VERSION, '7.0.0') >= 0) {
             $texto =  $texto.'<span class="failure">'.phpversion().' </span><br>';
             $texto =  $texto.'<span class="alert">Para um melhor desempenho atualize seu servidor para PHP 7.0.0 ou seperior </span><br>';
             $html->add($texto);
             $result = true;
         } else {
-            $texto =  $texto.'<span class="failure">'.phpversion().' atualize seu sistema para o PHP 5.4.0 ou seperior </span><br>';
-            $texto =  $texto.'<br><br><span class="alert">O FormDin precisa de uma versão mais atual do PHP</span><br>';
+            $texto =  $texto.'<span class="failure">'.phpversion().' Seu PHP é muito antigo ! o minimo é o PHP 5.6.0</span><br>';
+            $texto =  $texto.'<br><br><span class="alert">Para essa versão use FormDin 4.7.8 e SysGen 1.10.1</span><br>';
             $html->add($texto);
             $result = false;
         }
