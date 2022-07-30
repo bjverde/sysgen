@@ -18,7 +18,7 @@ define('APLICATIVO', SYSTEM_ACRONYM);
 define('ROOT_PATH', '../');
 define('CHAR_MAX_TEXT_FIELD', 101);
 
-define('FORMDIN_VERSION_MIN_VERSION', '4.8.1');
+define('FORMDIN_VERSION_MIN_VERSION', '4.15.0');
 
 
 if(!defined('DS')) { 
