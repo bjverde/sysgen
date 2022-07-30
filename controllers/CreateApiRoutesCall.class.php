@@ -76,7 +76,7 @@ class CreateApiRoutesCall extends TCreateFileContent
             $this->addBlankLine();
             $this->addCommentTableOrView($tableType,$tableName);
             $tableName = ucfirst(strtolower($tableName));
-            $this->addLine('$urlGrupo = $urlChamada.\'strtolower($tableName)\';');
+            $this->addLine('$urlGrupo = $urlChamada.\''.strtolower($tableName).'\';');
             $this->addLine('$app->group($urlGrupo, function(RouteCollectorProxy $group) use ($app,$urlGrupo) {');
             $this->addLine(ESP.'$app->get($urlGrupo.\'\', '.$tableName.'API::class . \':selectAll\');');
             $this->addLine(ESP.'$app->get($urlGrupo.\'/{id:[0-9]+}\', '.$tableName.'API::class . \':selectById\');');
