@@ -59,7 +59,7 @@ class TGeneratorHelper
      * @param object $html 
      * @return boolean
      */
-    public static function testar(string $extensao = null, object $html)
+    public static function testar(string $extensao, object $html)
     {
         if (extension_loaded($extensao)) {
             $html->add('<b>'.$extensao.'</b>: <span class="success">Instalada.</span><br>');
@@ -521,7 +521,9 @@ class TGeneratorHelper
         }else{
             $listFieldsTable = $dao->loadFieldsOneTableFromDatabase();
         }        
-        foreach ($listFieldsTable['DATA_TYPE'] as $key => $dataType) {
+        
+        $listFieldsDataType = ArrayHelper::get($listFieldsTable, 'DATA_TYPE');
+        foreach ($listFieldsDataType as $key => $dataType) {
             $formDinType = TCreateForm::convertDataType2FormDinType($dataType);
             $listFieldsTable[TCreateForm::FORMDIN_TYPE_COLUMN_NAME][$key] = $formDinType;
             
