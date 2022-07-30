@@ -171,7 +171,7 @@ class CreateApiRoutesCall extends TCreateFileContent
         $this->addBlankLine();
         $this->addLine(ESP.'$msgJson = json_encode($msg);');
         $this->addLine(ESP.'$response->getBody()->write( $msgJson );');
-        $this->addLine(ESP.'$result = $response->withHeader(\'Content-Type', 'application/json\');');
+        $this->addLine(ESP.'$result = $response->withHeader(\'Content-Type\', \'application/json\');');
         $this->addLine(ESP.'return $result;');
         $this->addLine('});');
         $this->addBlankLine();
