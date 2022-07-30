@@ -45,7 +45,7 @@ class CreateApiIndex extends TCreateFileContent
         $this->addBlankLine();
         $this->addLine();
         $this->addLine('require_once $current_dirApi.DS.\'env.php\';');
-        $this->addLine('require_once $current_dirApi.DS.\'slimConfiguration.php\';');
+        //$this->addLine('require_once $current_dirApi.DS.\'slimConfiguration.php\';');
         $this->addLine('require_once $current_dirApi.DS.\'routes.php\';');
 
         if ($print) {
