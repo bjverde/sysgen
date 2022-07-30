@@ -75,15 +75,16 @@ class CreateApiRoutesCall extends TCreateFileContent
             $this->addBlankLine();
             $this->addCommentTableOrView($tableType,$tableName);
             $tableName = ucfirst(strtolower($tableName));
-            $this->addLine('$app->group(\'/'.strtolower($tableName).'\', function() use ($app) {');
-            $this->addLine(ESP.'$app->get(\'\', '.$tableName.'API::class . \':selectAll\');');
-            $this->addLine(ESP.'$app->get(\'/{id:[0-9]+}\', '.$tableName.'API::class . \':selectById\');');
+            $this->addLine('$urlGrupo = $urlChamada.\'strtolower($tableName)\';');
+            $this->addLine('$app->group($urlGrupo, function(RouteCollectorProxy $group) use ($app,$urlGrupo) {');
+            $this->addLine(ESP.'$app->get($urlGrupo.\'\', '.$tableName.'API::class . \':selectAll\');');
+            $this->addLine(ESP.'$app->get($urlGrupo.\'/{id:[0-9]+}\', '.$tableName.'API::class . \':selectById\');');
             $this->addBlankLine();
             if( $tableType == TableInfo::TB_TYPE_TABLE ){
                 $this->addBlankLine();
-                $this->addLine(ESP.'$app->post(\'\', '.$tableName.'API::class . \':save\');');
-                $this->addLine(ESP.'$app->put(\'/{id:[0-9]+}\', '.$tableName.'API::class . \':save\');');
-                $this->addLine(ESP.'$app->delete(\'/{id:[0-9]+}\', '.$tableName.'API::class . \':delete\');');
+                $this->addLine(ESP.'$app->post($urlGrupo.\'\', '.$tableName.'API::class . \':save\');');
+                $this->addLine(ESP.'$app->put($urlGrupo.\'/{id:[0-9]+}\', '.$tableName.'API::class . \':save\');');
+                $this->addLine(ESP.'$app->delete($urlGrupo.\'/{id:[0-9]+}\', '.$tableName.'API::class . \':delete\');');
             }
             $this->addLine('});');
         }
