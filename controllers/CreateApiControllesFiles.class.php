@@ -83,6 +83,13 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
+    public function addBodyJsonResponse()
+    {
+        $this->addBlankLine();
+        $this->addLine(ESP.ESP.'$response = TGenericAPI::getBodyJson($msg,$response);');
+        $this->addLine(ESP.ESP.'return $response;');
+    }    
+    //--------------------------------------------------------------------------------------
     public function addSelectAll()
     {
         $this->addBlankLine();
@@ -95,8 +102,7 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.ESP.'$msg = array( \'qtd\'=> \CountHelper::count($result)');
         $this->addLine(ESP.ESP.ESP.ESP.ESP.', \'result\'=>$result');
         $this->addLine(ESP.ESP.');');
-        $this->addLine(ESP.ESP.'$response = $response->withJson($msg);');
-        $this->addLine(ESP.ESP.'return $response;');
+        $this->addBodyJsonResponse();
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
@@ -124,8 +130,7 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.ESP.'$msg = array( \'qtd\'=> \CountHelper::count($result)');
         $this->addLine(ESP.ESP.ESP.ESP.ESP.', \'result\'=>$result');
         $this->addLine(ESP.ESP.');');
-        $this->addLine(ESP.ESP.'$response = $response->withJson($msg);');
-        $this->addLine(ESP.ESP.'return $response;');
+        $this->addBodyJsonResponse();
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
@@ -165,8 +170,7 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.ESP.'$controller = new \\'.ucfirst( $this->getTableName() ).';');
         $this->addLine(ESP.ESP.'$controller->save($vo);');
         $this->addBlankLine();
-        $this->addLine(ESP.ESP.'$response = $response->withJson($msg);');
-        $this->addLine(ESP.ESP.'return $response;');
+        $this->addBodyJsonResponse();
         $this->addLine(ESP.'}');
     }    
     //--------------------------------------------------------------------------------------
@@ -179,8 +183,7 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.ESP.'$id = $args[\'id\'];');
         $this->addLine(ESP.ESP.'$controller = new \\'.ucfirst( $this->getTableName() ).';');
         $this->addLine(ESP.ESP.'$msg = $controller->delete($id);');
-        $this->addLine(ESP.ESP.'$response = $response->withJson($msg);');
-        $this->addLine(ESP.ESP.'return $response;');
+        $this->addBodyJsonResponse();
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
