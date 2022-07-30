@@ -92,6 +92,10 @@ class CreateApiRoutesCall extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     public function addNameSpaces($contract = false)
     {
+        $this->addLine('use Psr\Http\Message\ResponseInterface as Response;');
+        $this->addLine('use Psr\Http\Message\ServerRequestInterface as Request;');
+        $this->addLine('use Slim\Routing\RouteCollectorProxy as RouteCollectorProxy;');
+        $this->addLine('use Slim\Factory\AppFactory;');
         $this->addBlankLine();
         $this->addLine('use api_controllers\SysinfoAPI;');
         if($contract){
