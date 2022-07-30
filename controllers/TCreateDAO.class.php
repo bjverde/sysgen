@@ -194,7 +194,7 @@ class TCreateDAO extends TCreateFileContent
     {
         $formDinType = $this->getColumnPKeyPropertieFormDinType();
         if ($formDinType == TCreateForm::FORMDIN_TYPE_NUMBER) {
-            $this->addLine($qtdESP.'FormDinHelper::validateIdIsNumeric($id,__METHOD__,__LINE__);');
+            $this->addLine($qtdESP.'ValidateHelper::isNumeric($id,__METHOD__,__LINE__);');
         }
     }    
     //--------------------------------------------------------------------------------------
@@ -441,7 +441,7 @@ class TCreateDAO extends TCreateFileContent
         $this->addBlankLine();
         $this->addLine(ESP.'public function __construct($tpdo=null)');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'FormDinHelper::validateObjTypeTPDOConnectionObj($tpdo,__METHOD__,__LINE__);');
+        $this->addLine(ESP.ESP.'ValidateHelper::objTypeTPDOConnectionObj($tpdo,__METHOD__,__LINE__);');
         $this->addLine(ESP.ESP.'if( empty($tpdo) ){');
         $this->addLine(ESP.ESP.ESP.'$tpdo = New TPDOConnectionObj();');
         $this->addLine(ESP.ESP.'}');
@@ -453,7 +453,7 @@ class TCreateDAO extends TCreateFileContent
         $this->addLine(ESP.'}');
         $this->addLine(ESP.'public function setTPDOConnection($tpdo)');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'FormDinHelper::validateObjTypeTPDOConnectionObj($tpdo,__METHOD__,__LINE__);');
+        $this->addLine(ESP.ESP.'ValidateHelper::objTypeTPDOConnectionObj($tpdo,__METHOD__,__LINE__);');
         $this->addLine(ESP.ESP.'$this->tpdo = $tpdo;');
         $this->addLine(ESP.'}');        
     }
