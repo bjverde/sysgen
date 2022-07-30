@@ -68,6 +68,7 @@ class CreateApiRoutesCall extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     public function addRouterForTable()
     {
+        $this->addBlankLine();
         $listTableNames = $this->getListTableNames();
         foreach ($listTableNames['TABLE_NAME'] as $key => $tableName) { 
             $tableType = strtoupper($listTableNames['TABLE_TYPE'][$key]);
@@ -107,6 +108,39 @@ class CreateApiRoutesCall extends TCreateFileContent
         }
     }
     //--------------------------------------------------------------------------------------
+    public function addFactoryAndMiddleware()
+    {
+        $this->addBlankLine();
+        $this->addLine('/**');
+        $this->addLine(' * Instantiate App');
+        $this->addLine(' *');
+        $this->addLine(' * In order for the factory to work you need to ensure you have installed');
+        $this->addLine(' * a supported PSR-7 implementation of your choice e.g.: Slim PSR-7 and a supported');
+        $this->addLine(' * ServerRequest creator (included with Slim PSR-7)');
+        $this->addLine(' */');
+        $this->addLine('$app = AppFactory::create();');
+        $this->addBlankLine();
+        $this->addLine('/**');
+        $this->addLine(' * The routing middleware should be added earlier than the ErrorMiddleware');
+        $this->addLine(' * Otherwise exceptions thrown from it will not be handled by the middleware');
+        $this->addLine(' */');
+        $this->addLine('$app->addRoutingMiddleware();');
+        $this->addBlankLine();
+        $this->addLine('/**');
+        $this->addLine(' * Add Error Middleware');
+        $this->addLine(' *');
+        $this->addLine(' * @param bool                  $displayErrorDetails -> Should be set to false in production');
+        $this->addLine(' * @param bool                  $logErrors -> Parameter is passed to the default ErrorHandler');
+        $this->addLine(' * @param bool                  $logErrorDetails -> Display error details in error log');
+        $this->addLine(' * @param LoggerInterface|null  $logger -> Optional PSR-3 Logger  ');
+        $this->addLine(' *');
+        $this->addLine(' * Note: This middleware should be added last. It will not handle any exceptions/errors');
+        $this->addLine(' * for middleware added after it.');
+        $this->addLine(' */');
+        $this->addLine('$displayErrorDetails = getenv(\'DISPLAY_ERRORS_DETAILS\');');
+        $this->addLine('$errorMiddleware = $app->addErrorMiddleware($displayErrorDetails, true, true);');        
+    }    
+    //--------------------------------------------------------------------------------------
     public function addIndexRoutes()
     {
         $this->addBlankLine();
@@ -142,10 +176,8 @@ class CreateApiRoutesCall extends TCreateFileContent
         $this->addLine('<?php');
         $this->addSysGenHeaderNote();
         $this->addNameSpaces();
-        $this->addBlankLine();
-        $this->addLine('$app = new \Slim\App(slimConfiguration());');
-        $this->addIndexRoutes();        
-        $this->addBlankLine();
+        $this->addFactoryAndMiddleware();
+        $this->addIndexRoutes();
         $this->addRouterForTable();
         $this->addBlankLine();
         $this->addLine('$app->run();');
