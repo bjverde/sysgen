@@ -98,6 +98,8 @@ class CreateApiRoutesCall extends TCreateFileContent
         $this->addLine('use Slim\Routing\RouteCollectorProxy as RouteCollectorProxy;');
         $this->addLine('use Slim\Factory\AppFactory;');
         $this->addBlankLine();
+        $this->addLine('use api_controllers\Authentication;');
+        $this->addBlankLine();
         $this->addLine('use api_controllers\SysinfoAPI;');
         if($contract){
             $this->addLine('use api_controllers\{');        
@@ -139,6 +141,25 @@ class CreateApiRoutesCall extends TCreateFileContent
         $this->addLine(' */');
         $this->addLine('$displayErrorDetails = getenv(\'DISPLAY_ERRORS_DETAILS\');');
         $this->addLine('$errorMiddleware = $app->addErrorMiddleware($displayErrorDetails, true, true);');        
+    }
+    //--------------------------------------------------------------------------------------
+    public function addAuthenticationRouter()
+    {
+        $listTableNames = $this->getListTableNames();
+        $this->addBlankLine();
+        $this->addBlankLine();
+        $this->addBlankLine();
+        $this->addLine('//Entrar na classe Authentication para pegar usuário e senha');
+        $this->addLine('//Descomentar as linhas que precisam ser autenticadas');
+        $this->addLine('//$controllerAuthentication = new Authentication($urlChamada);');
+        foreach ($listTableNames['TABLE_NAME'] as $tableName) {
+            $this->addLine('//$controllerAuthentication->addPath(\''.$tableName.'\');');
+        }        
+        $this->addLine('//$app->add($controllerAuthentication->basicAuth());');
+        $this->addBlankLine();
+        $this->addBlankLine();
+        $this->addLine('$app->get($urlChamada.\'sysinfo\', SysinfoAPI::class . \':getInfo\');');
+        $this->addLine('$app->get($urlChamada.\'auth\', SysinfoAPI::class . \':getInfo\');');
     }    
     //--------------------------------------------------------------------------------------
     public function addIndexRoutes()
@@ -174,8 +195,6 @@ class CreateApiRoutesCall extends TCreateFileContent
         $this->addLine(ESP.'$result = $response->withHeader(\'Content-Type\', \'application/json\');');
         $this->addLine(ESP.'return $result;');
         $this->addLine('});');
-        $this->addBlankLine();
-        $this->addLine('$app->get(\'/sysinfo\', SysinfoAPI::class . \':getInfo\');');
     }    
     //--------------------------------------------------------------------------------------
     public function show($print = false)
@@ -187,6 +206,7 @@ class CreateApiRoutesCall extends TCreateFileContent
         $this->addFactoryAndMiddleware();
         $this->addIndexRoutes();
         $this->addRouterForTable();
+        $this->addAuthenticationRouter();
         $this->addBlankLine();
         $this->addLine('$app->run();');
         if ($print) {

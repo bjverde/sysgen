@@ -41,7 +41,7 @@ class Authentication
 
     public function addUsers(string $login, string $password){        
         $this->listUsers[$login] = $password;
-    }    
+    }
     public function getListUsers(){
         return $this->listUsers;
     }
