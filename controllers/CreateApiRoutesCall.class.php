@@ -153,7 +153,7 @@ class CreateApiRoutesCall extends TCreateFileContent
         $this->addLine('//Descomentar as linhas que precisam ser autenticadas');
         $this->addLine('//$controllerAuthentication = new Authentication($urlChamada);');
         foreach ($listTableNames['TABLE_NAME'] as $tableName) {
-            $this->addLine('//$controllerAuthentication->addPath(\''.$tableName.'\');');
+            $this->addLine('//$controllerAuthentication->addPath(\''.strtolower($tableName).'\');');
         }        
         $this->addLine('//$app->add($controllerAuthentication->basicAuth());');
         $this->addBlankLine();
@@ -205,8 +205,8 @@ class CreateApiRoutesCall extends TCreateFileContent
         $this->addNameSpaces();
         $this->addFactoryAndMiddleware();
         $this->addIndexRoutes();
-        $this->addRouterForTable();
         $this->addAuthenticationRouter();
+        $this->addRouterForTable();
         $this->addBlankLine();
         $this->addLine('$app->run();');
         if ($print) {
