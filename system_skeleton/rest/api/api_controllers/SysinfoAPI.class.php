@@ -5,10 +5,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class SysinfoAPI {
-    
-    
+        
     public function __construct(){
-    }        
+    }
     //--------------------------------------------------------------------------------
     public static function info()
     {
@@ -22,8 +21,8 @@ class SysinfoAPI {
     //--------------------------------------------------------------------------------
     public static function getInfo(Request $request, Response $response, array $args)
     {
-        $result = self::info();        
-        $response = $response->withJson($result);
+        $msg = self::info();
+        $response = TGenericAPI::getBodyJson($msg,$response);
         return $response;
     }
 }
