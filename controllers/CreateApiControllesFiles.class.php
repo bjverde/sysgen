@@ -96,8 +96,9 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine();
         $this->addLine(ESP.'public static function selectAll(Request $request, Response $response, array $args)');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$page = TGenericAPI::getSelectNumPage($args);');
-        $this->addLine(ESP.ESP.'$rowsPerPage = TGenericAPI::getSelectNumRowsPerPage($args);');
+        $this->addLine(ESP.ESP.'$param = $request->getQueryParams();');
+        $this->addLine(ESP.ESP.'$page = TGenericAPI::getSelectNumPage($param);');
+        $this->addLine(ESP.ESP.'$rowsPerPage = TGenericAPI::getSelectNumRowsPerPage($param);');
         $this->addLine(ESP.ESP.'$orderBy = null;');
         $this->addLine(ESP.ESP.'$where = array();');
         $this->addLine();
