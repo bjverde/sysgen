@@ -104,20 +104,22 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine();
         $this->addLine(ESP.'public static function selectAll(Request $request, Response $response, array $args)');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$param = $request->getQueryParams();');
-        $this->addLine(ESP.ESP.'$page = TGenericAPI::getSelectNumPage($param);');
-        $this->addLine(ESP.ESP.'$rowsPerPage = TGenericAPI::getSelectNumRowsPerPage($param);');
-        $this->addLine(ESP.ESP.'$orderBy = null;');
-        $this->addLine(ESP.ESP.'$where = array();');
+        $this->addLine(ESP.ESP.'try{');
+        $this->addLine(ESP.ESP.ESP.'$param = $request->getQueryParams();');
+        $this->addLine(ESP.ESP.ESP.'$page = TGenericAPI::getSelectNumPage($param);');
+        $this->addLine(ESP.ESP.ESP.'$rowsPerPage = TGenericAPI::getSelectNumRowsPerPage($param);');
+        $this->addLine(ESP.ESP.ESP.'$orderBy = null;');
+        $this->addLine(ESP.ESP.ESP.'$where = array();');
         $this->addLine();
-        $this->addLine(ESP.ESP.'$controller = new \\'.ucfirst( $this->getTableName() ).'();');
-        $this->addLine(ESP.ESP.'//$result = $controller->selectAll();');
-        $this->addLine(ESP.ESP.'$result = $controller->selectAllPagination( $orderBy, $where, $page,  $rowsPerPage);');
-        $this->addLine(ESP.ESP.'$result = \ArrayHelper::convertArrayFormDin2Pdo($result);');
-        $this->addLine(ESP.ESP.'$msg = array( \'qtd\'=> \CountHelper::count($result)');
-        $this->addLine(ESP.ESP.ESP.ESP.ESP.', \'result\'=>$result');
-        $this->addLine(ESP.ESP.');');
-        $this->addBodyJsonResponse();
+        $this->addLine(ESP.ESP.ESP.'$controller = new \\'.ucfirst( $this->getTableName() ).'();');
+        $this->addLine(ESP.ESP.ESP.'//$result = $controller->selectAll();');
+        $this->addLine(ESP.ESP.ESP.'$result = $controller->selectAllPagination( $orderBy, $where, $page,  $rowsPerPage);');
+        $this->addLine(ESP.ESP.ESP.'$result = \ArrayHelper::convertArrayFormDin2Pdo($result);');
+        $this->addLine(ESP.ESP.ESP.'$msg = array( \'qtd\'=> \CountHelper::count($result)');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.', \'result\'=>$result');
+        $this->addLine(ESP.ESP.ESP.');');
+        $this->addBodyJsonResponse(ESP.ESP.ESP,200);
+        $this->addCatchBodyJsonResponse(ESP.ESP,500);
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
