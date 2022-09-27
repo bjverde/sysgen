@@ -7,5 +7,7 @@ class Message {
     const GENERIC_DELETE = 'Registro excluído com sucesso!';
     const GENERIC_EXEC   = 'Ação executada com sucesso!';
 
+    const GENERIC_ID_NOT_EXIST   = 'Registro não existe';
+
     const TYPE_NOT_INT = 'Tipo não númerico! ';
 }
