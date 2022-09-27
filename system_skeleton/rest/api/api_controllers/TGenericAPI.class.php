@@ -9,12 +9,13 @@ class TGenericAPI
     public function __construct()
     {
     }
-
-    public static function getBodyJson($msg, Response $response)
+    public static function getBodyJson($msg, Response $response,$status=200)
     {
-        $msgJson = json_encode($msg);
+        $status = empty($status)?200:$status;
+        $msgJson = json_encode($msg, JSON_UNESCAPED_UNICODE);
+        $response->withHeader('Content-Type', 'application/json');        
         $response->getBody()->write( $msgJson );
-        return $response->withHeader('Content-Type', 'application/json');
+        return $response->withStatus( $status );
     }
     public static function getSelectNumPage($args)
     {
@@ -26,5 +27,5 @@ class TGenericAPI
         $rowsPerPage = \ArrayHelper::get($args,'rowsPerPage');
         $rowsPerPage = empty($page)?ROWS_PER_PAGE:$rowsPerPage;
         return $rowsPerPage;
-    }    
+    }
 }
