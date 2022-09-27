@@ -183,7 +183,7 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.ESP.ESP.ESP.'$result = self::selectByIdInside($args);');
         $this->addLine(ESP.ESP.ESP.ESP.'$bodyRequest = \ArrayHelper::get($result,0);');
         $this->addLine(ESP.ESP.ESP.ESP.'if( empty($bodyRequest) ){');
-        $this->addLine(ESP.ESP.ESP.ESP.ESP.'throw new \DomainException(Message::GENERIC_ID_NOT_EXIST);');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.'throw new \DomainException(\Message::GENERIC_ID_NOT_EXIST);');
         $this->addLine(ESP.ESP.ESP.ESP.'}');
         $this->addLine(ESP.ESP.ESP.ESP.'$vo = \FormDinHelper::setPropertyVo($bodyRequest,$vo);');
         $this->addLine(ESP.ESP.ESP.'}');
