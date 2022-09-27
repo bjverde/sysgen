@@ -22,7 +22,7 @@ class SysinfoAPI {
     public static function getInfo(Request $request, Response $response, array $args)
     {
         $msg = self::info();
-        $response = TGenericAPI::getBodyJson($msg,$response);
+        $response = TGenericAPI::getBodyJson($msg,$response,200);
         return $response;
     }
 }
