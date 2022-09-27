@@ -83,11 +83,11 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
-    public function addBodyJsonResponse()
+    public function addBodyJsonResponse($qtdEspacos,$status)
     {
         $this->addBlankLine();
-        $this->addLine(ESP.ESP.'$response = TGenericAPI::getBodyJson($msg,$response);');
-        $this->addLine(ESP.ESP.'return $response;');
+        $this->addLine($qtdEspacos.'$response = TGenericAPI::getBodyJson($msg,$response,'.$status.');');
+        $this->addLine($qtdEspacos.'return $response;');
     }    
     //--------------------------------------------------------------------------------------
     public function addSelectAll()
@@ -180,10 +180,19 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine();
         $this->addLine(ESP.'public static function delete(Request $request, Response $response, array $args)');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$id = $args[\'id\'];');
-        $this->addLine(ESP.ESP.'$controller = new \\'.ucfirst( $this->getTableName() ).';');
-        $this->addLine(ESP.ESP.'$msg = $controller->delete($id);');
-        $this->addBodyJsonResponse();
+        $this->addLine(ESP.ESP.'try{');
+        $this->addLine(ESP.ESP.ESP.'$id = $args[\'id\'];');
+        $this->addLine(ESP.ESP.ESP.'$controller = new \\'.ucfirst( $this->getTableName() ).';');
+        $this->addLine(ESP.ESP.ESP.'$msg = $controller->delete($id);');
+        $this->addLine(ESP.ESP.ESP.'if($msg==true){');
+        $this->addLine(ESP.ESP.ESP.ESP.'$msg = \Message::GENERIC_DELETE;');
+        $this->addLine(ESP.ESP.ESP.ESP.'$msg = $msg.\' id=\'.$id;');
+        $this->addLine(ESP.ESP.ESP.'}');
+        $this->addBodyJsonResponse(ESP.ESP.ESP,200);
+        $this->addLine(ESP.ESP.'} catch ( \Exception $e) {');
+        $this->addLine(ESP.ESP.ESP.'$msg = $e->getMessage();');
+        $this->addBodyJsonResponse(ESP.ESP.ESP,500);
+        $this->addLine(ESP.ESP.'}');
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
