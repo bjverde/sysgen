@@ -88,7 +88,15 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addBlankLine();
         $this->addLine($qtdEspacos.'$response = TGenericAPI::getBodyJson($msg,$response,'.$status.');');
         $this->addLine($qtdEspacos.'return $response;');
-    }    
+    }
+    //--------------------------------------------------------------------------------------
+    public function addCatchBodyJsonResponse($qtdEspacos,$status)
+    {    
+        $this->addLine($qtdEspacos.'} catch ( \Exception $e) {');
+        $this->addLine($qtdEspacos.ESP.'$msg = $e->getMessage();');
+        $this->addBodyJsonResponse($qtdEspacos.ESP,$status);
+        $this->addLine($qtdEspacos.'}');
+    }
     //--------------------------------------------------------------------------------------
     public function addSelectAll()
     {
@@ -156,21 +164,25 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine();
         $this->addLine(ESP.'public static function save(Request $request, Response $response, array $args)');
         $this->addLine(ESP.'{');
-        $this->addLine(ESP.ESP.'$vo = new \\'.ucfirst( $this->getTableName() ).'VO;');
-        $this->addLine(ESP.ESP.'$msg = \Message::GENERIC_INSERT;');
-        $this->addLine(ESP.ESP.'if($request->isPut()){');
-        $this->addLine(ESP.ESP.ESP.'$msg = \Message::GENERIC_UPDATE;');
-        $this->addLine(ESP.ESP.ESP.'$result = self::selectByIdInside($args);');
-        $this->addLine(ESP.ESP.ESP.'$bodyRequest = $result[0];');
+        $this->addLine(ESP.ESP.'try{');            
+        $this->addLine(ESP.ESP.ESP.'$vo = new \\'.ucfirst( $this->getTableName() ).'VO;');
+        $this->addLine(ESP.ESP.ESP.'$msg = \Message::GENERIC_INSERT;');
+        $this->addLine(ESP.ESP.ESP.'if($request->getMethod() == \'PUT\'){');
+        $this->addLine(ESP.ESP.ESP.ESP.'$msg = \Message::GENERIC_UPDATE;');
+        $this->addLine(ESP.ESP.ESP.ESP.'$result = self::selectByIdInside($args);');
+        $this->addLine(ESP.ESP.ESP.ESP.'$bodyRequest = $result[0];');
+        $this->addLine(ESP.ESP.ESP.ESP.'$vo = \FormDinHelper::setPropertyVo($bodyRequest,$vo);');
+        $this->addLine(ESP.ESP.ESP.'}');
+        $this->addLine(ESP.ESP.ESP.'$bodyRequest = json_decode($request->getBody(),true);');
+        $this->addLine(ESP.ESP.ESP.'if( empty($bodyRequest) ){');
+        $this->addLine(ESP.ESP.ESP.ESP.'$bodyRequest = $request->getParsedBody();');
+        $this->addLine(ESP.ESP.ESP.'}');
         $this->addLine(ESP.ESP.ESP.'$vo = \FormDinHelper::setPropertyVo($bodyRequest,$vo);');
-        $this->addLine(ESP.ESP.'}');
-        $this->addLine(ESP.ESP.'$bodyRequest = json_decode($request->getBody(),true);');
-        $this->addLine(ESP.ESP.'$vo = \FormDinHelper::setPropertyVo($bodyRequest,$vo);');
+        $this->addLine(ESP.ESP.ESP.'$controller = new \\'.ucfirst( $this->getTableName() ).';');
+        $this->addLine(ESP.ESP.ESP.'$controller->save($vo);');
         $this->addBlankLine();
-        $this->addLine(ESP.ESP.'$controller = new \\'.ucfirst( $this->getTableName() ).';');
-        $this->addLine(ESP.ESP.'$controller->save($vo);');
-        $this->addBlankLine();
-        $this->addBodyJsonResponse();
+        $this->addBodyJsonResponse(ESP.ESP.ESP,200);
+        $this->addCatchBodyJsonResponse(ESP.ESP,500);
         $this->addLine(ESP.'}');
     }    
     //--------------------------------------------------------------------------------------
@@ -189,10 +201,7 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.ESP.ESP.ESP.'$msg = $msg.\' id=\'.$id;');
         $this->addLine(ESP.ESP.ESP.'}');
         $this->addBodyJsonResponse(ESP.ESP.ESP,200);
-        $this->addLine(ESP.ESP.'} catch ( \Exception $e) {');
-        $this->addLine(ESP.ESP.ESP.'$msg = $e->getMessage();');
-        $this->addBodyJsonResponse(ESP.ESP.ESP,500);
-        $this->addLine(ESP.ESP.'}');
+        $this->addCatchBodyJsonResponse(ESP.ESP,500);
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
