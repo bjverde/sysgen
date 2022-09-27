@@ -109,7 +109,6 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.ESP.ESP.'$rowsPerPage = TGenericAPI::getSelectNumRowsPerPage($param);');
         $this->addLine(ESP.ESP.ESP.'$orderBy = null;');
         $this->addLine(ESP.ESP.ESP.'$where = array();');
-        $this->addLine();
         $this->addLine(ESP.ESP.ESP.'$controller = new \\'.ucfirst( $this->getTableName() ).'();');
         $this->addLine(ESP.ESP.ESP.'//$result = $controller->selectAll();');
         $this->addLine(ESP.ESP.ESP.'$result = $controller->selectAllPagination( $orderBy, $where, $page,  $rowsPerPage);');
