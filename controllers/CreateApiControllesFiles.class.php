@@ -85,7 +85,6 @@ class CreateApiControllesFiles extends TCreateFileContent
     //--------------------------------------------------------------------------------------
     public function addBodyJsonResponse($qtdEspacos,$status)
     {
-        $this->addBlankLine();
         $this->addLine($qtdEspacos.'$response = TGenericAPI::getBodyJson($msg,$response,'.$status.');');
         $this->addLine($qtdEspacos.'return $response;');
     }
