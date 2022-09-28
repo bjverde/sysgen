@@ -142,7 +142,7 @@ class CreateControllers extends TCreateFileContent
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$where=array(\''.$columunPK.'\'=>$id);');
         $this->addLine(ESP.ESP.'$qtd = $this->selectCount($where);');
-        $this->addLine(ESP.ESP.'if($qtd >= 1){');
+        $this->addLine(ESP.ESP.'if( empty($qtd) ){');
         $this->addLine(ESP.ESP.ESP.'throw new DomainException(Message::GENERIC_ID_NOT_EXIST);');
         $this->addLine(ESP.ESP.'}');
         $this->addLine(ESP.'}');
