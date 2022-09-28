@@ -116,7 +116,9 @@ class CreateApiControllesFiles extends TCreateFileContent
         $this->addLine(ESP.ESP.ESP.'$result = \ArrayHelper::convertArrayFormDin2Pdo($result);');
         $this->addLine(ESP.ESP.ESP.'$msg = array( \'qtd_total\'=> $qtd_total');
         $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.', \'qtd_result\'=> \CountHelper::count($result)');
-        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.', \'result\'=>$result');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.', \'page\'=>$page');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.', \'pages\'=>$page');
+        $this->addLine(ESP.ESP.ESP.ESP.ESP.ESP.', \'result\'=>round($qtd_total/$rowsPerPage)');
         $this->addLine(ESP.ESP.ESP.');');
         $this->addBodyJsonResponse(ESP.ESP.ESP,200);
         $this->addCatchBodyJsonResponse(ESP.ESP,500);
