@@ -156,7 +156,7 @@ class CreateControllers extends TCreateFileContent
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$result = null;');
         $this->addLine(ESP.ESP.'if( $objVo->get'.$columunPK.'() ) {');
-        $this->addLine(ESP.ESP.'$this->validatePkNotExist( $id );');
+        $this->addLine(ESP.ESP.ESP.'$this->validatePkNotExist( $objVo->get'.$columunPK.'() );');
         $this->addLine(ESP.ESP.ESP.'$result = $this->dao->update( $objVo );');
         $this->addLine(ESP.ESP.'} else {');
         $this->addLine(ESP.ESP.ESP.'$result = $this->dao->insert( $objVo );');
