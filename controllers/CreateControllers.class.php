@@ -134,14 +134,29 @@ class CreateControllers extends TCreateFileContent
         $this->addLine(ESP.'}');
     }
     //--------------------------------------------------------------------------------------
+    private function addValidatePkNotExist()
+    {
+        $columunPK = strtoupper($this->listColumnsName[0]);
+        $this->addLine();
+        $this->addLine(ESP.'private function validatePkNotExist( $id )');
+        $this->addLine(ESP.'{');
+        $this->addLine(ESP.ESP.'$where=array(\''.$columunPK.'\'=>$id);');
+        $this->addLine(ESP.ESP.'$qtd = $this->selectCount($where);');
+        $this->addLine(ESP.ESP.'if($qtd >= 1){');
+        $this->addLine(ESP.ESP.ESP.'throw new DomainException(Message::GENERIC_ID_NOT_EXIST);');
+        $this->addLine(ESP.ESP.'}');
+        $this->addLine(ESP.'}');
+    }
+    //--------------------------------------------------------------------------------------
     private function addSave()
     {
-        $this->addLine();
         $columunPK = ucfirst(strtolower($this->listColumnsName[0]));
+        $this->addLine();
         $this->addLine(ESP.'public function save( '.$this->tableRefVO.' $objVo )');
         $this->addLine(ESP.'{');
         $this->addLine(ESP.ESP.'$result = null;');
         $this->addLine(ESP.ESP.'if( $objVo->get'.$columunPK.'() ) {');
+        $this->addLine(ESP.ESP.'$this->validatePkNotExist( $id );');
         $this->addLine(ESP.ESP.ESP.'$result = $this->dao->update( $objVo );');
         $this->addLine(ESP.ESP.'} else {');
         $this->addLine(ESP.ESP.ESP.'$result = $this->dao->insert( $objVo );');
@@ -155,6 +170,7 @@ class CreateControllers extends TCreateFileContent
         $this->addLine();
         $this->addLine(ESP.'public function delete( $id )');
         $this->addLine(ESP.'{');
+        $this->addLine(ESP.ESP.'$this->validatePkNotExist( $id );');
         $this->addLine(ESP.ESP.'$result = $this->dao->delete( $id );');
         $this->addLine(ESP.ESP.'return $result;');
         $this->addLine(ESP.'}');
@@ -199,6 +215,7 @@ class CreateControllers extends TCreateFileContent
             $this->addSelectAll();
 
             if( $this->getTableType()==TableInfo::TB_TYPE_TABLE){
+                $this->addValidatePkNotExist();
                 $this->addSave();
                 $this->addDelete();
             }
