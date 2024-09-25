@@ -12,7 +12,7 @@
 
 class TCreateFileContent
 {
-    private $lines;
+    protected $lines;
     private $filePath;
     private $fileName;
 
