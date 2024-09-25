@@ -19,7 +19,6 @@ class TCreateForm extends TCreateFileContent
     private $tableRefDAO;
     private $tableRefVO;
     private $listColumnsName;
-    private $lines;
     private $gridType;
     private $listColumnsProperties;
     private $tableType = null;

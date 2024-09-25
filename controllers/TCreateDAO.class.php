@@ -14,7 +14,6 @@ class TCreateDAO extends TCreateFileContent
 {
     private $tableName;
     private $aColumns = array();
-    private $lines;
     private $keyColumnName;
     private $path;
     private $databaseManagementSystem;
